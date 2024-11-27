@@ -13,9 +13,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
-import org.eclipse.xtext.util.JavaRuntimeVersion;
 import org.eclipse.xtext.util.JavaVersion;
-import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -36,8 +34,7 @@ public class IncrementalStandaloneBuilderWithJava21Test extends AbstractIncremen
 	}
 
 	@Test
-	public void testCleanBuildAccessingJava21Record() {
-		Assume.assumeTrue("Active only on Java 21 and later", JavaRuntimeVersion.isJava21OrLater());
+	public void testCleanBuildAccessingJavaRecord() {
 		initBuilder(new ContentAssistFragmentTestLangConfiguration());
 		assertTrue(testBuilder.launch());
 		
