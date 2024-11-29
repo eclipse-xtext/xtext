@@ -1,7 +1,7 @@
 pipeline {
   agent {
     kubernetes {
-      inheritFrom 'centos-8-6gb'
+      inheritFrom 'ubuntu-2024'
     }
   }
 
