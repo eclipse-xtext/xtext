@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2010 itemis AG (http://www.itemis.eu) and others.
+ * Copyright (c) 2010, 2024 itemis AG (http://www.itemis.eu) and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -9,7 +9,7 @@
 package org.eclipse.xtext.mwe;
 
 import java.io.File;
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -24,16 +24,13 @@ import org.eclipse.xtext.resource.IResourceServiceProvider;
 import org.eclipse.xtext.resource.containers.DelegatingIAllContainerAdapter;
 import org.eclipse.xtext.resource.containers.IAllContainersState;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
-import com.google.common.collect.Sets;
 
 /**
  * <p>
- * A Reader used to read EMF resources from a set of pathes.
+ * A Reader used to read EMF resources from a set of paths.
  * A path can point to a folder or an archive (zips and jars are supported).
- * Those pathes are recursively scanned and all resources for which an {@link IResourceServiceProvider} is
+ * Those paths are recursively scanned and all resources for which an {@link IResourceServiceProvider} is
  * registered in the {@link org.eclipse.xtext.resource.IResourceServiceProvider.Registry} will be available.
  * </p>
  * 
@@ -44,7 +41,7 @@ import com.google.common.collect.Sets;
  * <p>
  * A {@link SlotEntry} is responsible for selecting certain EObjects from the loaded resources.
  * It supports selecting EObjects by their name (see {@link org.eclipse.xtext.resource.IEObjectDescription}) or by an EClass.
- * In many cases such selction returns multiple EObjects, if you're only interested in one element set the <code>firstOnly</code> flag to <code>true</code>.
+ * In many cases such section returns multiple EObjects, if you're only interested in one element set the <code>firstOnly</code> flag to <code>true</code>.
  * </p>
  * <p>
  * You might want to populate multiple workflow slots with model elements.
@@ -78,7 +75,7 @@ import com.google.common.collect.Sets;
 public class Reader extends AbstractReader {
 
 	protected final static Logger log = Logger.getLogger(Reader.class.getName());
-	protected List<String> pathes = Lists.newArrayList();
+	protected List<String> pathes = new ArrayList<>();
 
 	/**
 	 * <p>
@@ -179,16 +176,15 @@ public class Reader extends AbstractReader {
 	@Override
 	protected void invokeInternal(WorkflowContext ctx, ProgressMonitor monitor, Issues issues) {
 		ResourceSet resourceSet = getResourceSet();
-		Multimap<String, URI> uris = getPathTraverser().resolvePathes(pathes, new Predicate<URI>() {
-			@Override
-			public boolean apply(URI input) {
-				boolean result = true;
-				if (getUriFilter() != null)
-					result = getUriFilter().matches(input);
-				if (result)
-					result = getRegistry().getResourceServiceProvider(input) != null;
-				return result;
+		Multimap<String, URI> uris = getPathTraverser().resolvePathes(pathes, input -> {
+			boolean result = true;
+			if (getUriFilter() != null) {
+				result = getUriFilter().matches(input);
 			}
+			if (result) {
+				result = getRegistry().getResourceServiceProvider(input) != null;
+			}
+			return result;
 		});
 		IAllContainersState containersState = containersStateFactory.getContainersState(pathes, uris);
 		installAsAdapter(resourceSet, containersState);
@@ -202,10 +198,7 @@ public class Reader extends AbstractReader {
 	}
 
 	protected void populateResourceSet(ResourceSet set, Multimap<String, URI> uris) {
-		Collection<URI> values = Sets.newHashSet(uris.values());
-		for (URI uri : values) {
-			set.createResource(uri);
-		}
+		uris.values().stream().distinct().forEach(set::createResource);
 	}
 
 	protected void installAsAdapter(ResourceSet set, IAllContainersState containersState)
