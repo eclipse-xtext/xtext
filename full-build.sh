@@ -2,7 +2,6 @@
 
 MVN_ARGS=(\
   -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
-  -Dit-archetype-tests-skip=true \
 )
 
 # args parsing inspired by https://gist.github.com/jehiah/855086
@@ -54,6 +53,6 @@ echo ./mvnw -B -f org.eclipse.xtext.full.releng ${MVN_ARGS[@]} $@
 ./mvnw -B \
   -f org.eclipse.xtext.full.releng \
   clean deploy \
-  -DaltDeploymentRepository=local::default::file:./build/maven-repository \
+  -DaltDeploymentRepository=local::file:./build/maven-repository \
   ${MVN_ARGS[@]} \
   $@
