@@ -514,8 +514,6 @@ public class XbaseInformationControl extends AbstractInformationControl implemen
 	@Override
 	public void setVisible(boolean visible) {
 		Shell shell = getShell();
-		if (shell.isVisible() == visible)
-			return;
 
 		if (!visible) {
 			super.setVisible(false);
@@ -523,6 +521,9 @@ public class XbaseInformationControl extends AbstractInformationControl implemen
 			startDisposeTimeout(shell.getDisplay());
 			return;
 		}
+		
+		if (shell.isVisible() == visible)
+			return;
 
 		/*
 		 * The Browser widget flickers when made visible while it is not completely loaded.
