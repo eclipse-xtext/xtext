@@ -134,7 +134,7 @@ public class DirtyStateEditorSupportIntegrationTest extends AbstractEditorTest {
 
 		Display.getDefault().readAndDispatch();
 		
-		assertNotEquals(document.get(), "");
+		assertNotEquals("", document.get());
 		assertTrue(editor.getDocumentProvider() instanceof FileDocumentProvider);
 		
 		FileDocumentProvider fileDocumentProvider = (FileDocumentProvider)editor.getDocumentProvider();
@@ -152,7 +152,10 @@ public class DirtyStateEditorSupportIntegrationTest extends AbstractEditorTest {
 		Job.getJobManager().join(ResourcesPlugin.FAMILY_AUTO_REFRESH, null);
 		syncUtil.yieldToQueuedDisplayJobs(new NullProgressMonitor());
 		
-		assertEquals(document.get(), "");
+		// This was added to avoid flakyness for testing on mac os
+		syncUtil.waitForReconciler(editor);
+		
+		assertEquals("", document.get());
 	}
 
 	/**
