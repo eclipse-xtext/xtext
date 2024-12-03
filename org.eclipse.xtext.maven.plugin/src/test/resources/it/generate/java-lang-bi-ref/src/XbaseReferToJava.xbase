@@ -1,2 +1,4 @@
 val JavaClazz jc = null
+val JavaRecord jr = new JavaRecord("test")
+val name = jr.name()
 jc.useXbaseType(this)

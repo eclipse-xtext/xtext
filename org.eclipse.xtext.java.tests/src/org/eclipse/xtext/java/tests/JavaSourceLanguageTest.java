@@ -37,12 +37,10 @@ import org.eclipse.xtext.resource.impl.ResourceDescriptionsData;
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
 import org.eclipse.xtext.testing.util.InMemoryURIHandler;
-import org.eclipse.xtext.util.JavaRuntimeVersion;
 import org.eclipse.xtext.util.JavaVersion;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.junit.Assert;
-import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -186,8 +184,7 @@ public class JavaSourceLanguageTest {
 	}
 
 	@Test
-	public void testJava21Record() {
-		Assume.assumeTrue("Active only on Java 21 and later", JavaRuntimeVersion.isJava21OrLater());
+	public void testJavaRecord() {
 		ImmutableMap<String, String> files = ImmutableMap.<String, String>builder()
 				.put("example/MyRecord.java", 
 					"package example;\n"
