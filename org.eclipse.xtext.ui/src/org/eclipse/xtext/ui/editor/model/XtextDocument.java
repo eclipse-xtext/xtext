@@ -563,6 +563,11 @@ public class XtextDocument extends Document implements IXtextDocument {
 		 *       changing while they run. To achieve this, we run the {@link IXtextModelListener}s on the UI thread.
 		 */
 		private void notifyModelListenersOnUiThread() {
+			synchronized (modelListeners) {
+				if (modelListeners.isEmpty()) {
+					return;
+				}
+			}
 			Display display = PlatformUI.getWorkbench().getDisplay();
 			if (Thread.currentThread() == display.getThread()) {
 				// We are already running on the display thread.  Run the listeners immediately.
