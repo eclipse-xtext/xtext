@@ -8,6 +8,8 @@
  */
 package org.eclipse.xtext.ui.tests.editor;
 
+import static org.junit.Assume.*;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
@@ -130,6 +132,9 @@ public class DirtyStateEditorSupportIntegrationTest extends AbstractEditorTest {
 	 * @see https://github.com/eclipse-xtext/xtext/issues/2385
 	 */
 	@Test public void testModifyFileInExternEditor() throws Exception {
+		// This test is flaky on mac operating systems maven build.
+		assumeFalse(System.getProperty("os.name").startsWith("Mac"));
+
 		IXtextDocument document = editor.getDocument();
 
 		Display.getDefault().readAndDispatch();
