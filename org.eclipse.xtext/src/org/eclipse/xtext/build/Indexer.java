@@ -108,9 +108,12 @@ public class Indexer {
 	private OperationCanceledManager operationCanceledManager;
 
 	/**
-	 * Compute an updated index.
+	 * Compute an initial index. Explicit calls to {@link #computeAndIndexAffected(Collection, IndexResult, BuildRequest, BuildContext)}
+	 * are needed to complete indexing.
+	 * 
+	 * @since 2.33
 	 */
-	public Indexer.IndexResult computeAndIndexAffected(BuildRequest request, BuildContext context) {
+	public Indexer.IndexResult initialIndex(final BuildRequest request, final BuildContext context) {
 		ResourceDescriptionsData previousIndex = context.getOldState().getResourceDescriptions();
 		ResourceDescriptionsData newIndex = request.getState().getResourceDescriptions();
 		List<IResourceDescription.Delta> deltas = new ArrayList<>();
@@ -119,16 +122,30 @@ public class Indexer {
 		for (IResourceDescription.Delta delta : deltas) {
 			newIndex.register(delta);
 		}
+		return new Indexer.IndexResult(deltas, newIndex);
+	}
+
+	/**
+	 * Compute an updated index based on new deltas and a previously calculated {@link #initialIndex(BuildRequest, BuildContext)}.
+	 *  
+	 * @since 2.33
+	 */
+	public List<IResourceDescription.Delta> computeAndIndexAffected(
+			final Collection<IResourceDescription.Delta> newDeltas, final Indexer.IndexResult result,
+			final BuildRequest request, final BuildContext context) {
+		List<IResourceDescription.Delta> deltas = result.getResourceDeltas();
 		Set<IResourceDescription.Delta> allDeltas = new HashSet<>(deltas);
 		allDeltas.addAll(request.getExternalDeltas());
 		Set<URI> deltaSet = FluentIterable.from(deltas).transform(Delta::getUri).toSet();
+		ResourceDescriptionsData previousIndex = context.getOldState().getResourceDescriptions();
 		List<URI> allAffected = FluentIterable.from(previousIndex.getAllResourceDescriptions())
 				.transform(IResourceDescription::getURI).filter(it -> !deltaSet.contains(it)).filter(it -> {
 					IResourceServiceProvider resourceServiceProvider = context.getResourceServiceProvider(it);
 					if (resourceServiceProvider != null) {
 						IResourceDescription.Manager manager = resourceServiceProvider.getResourceDescriptionManager();
 						IResourceDescription resourceDescription = previousIndex.getResourceDescription(it);
-						return isAffected(resourceDescription, manager, allDeltas, allDeltas, newIndex);
+						return isAffected(resourceDescription, manager, newDeltas, allDeltas,
+								result.getNewIndex());
 					} else {
 						IResourceDescription.Delta delta = getDeltaForDeletedResource(it, previousIndex);
 						if (delta != null) {
@@ -137,8 +154,19 @@ public class Indexer {
 						return false;
 					}
 				}).toList();
-		deltas.addAll(getDeltasForChangedResources(allAffected, previousIndex, context));
-		return new Indexer.IndexResult(deltas, newIndex);
+		List<IResourceDescription.Delta> affectedDeltas = getDeltasForChangedResources(allAffected, previousIndex,
+				context);
+		deltas.addAll(affectedDeltas);
+		return affectedDeltas;
+	}
+
+	/**
+	 * Compute an updated index.
+	 */
+	public Indexer.IndexResult computeAndIndexAffected(BuildRequest request, BuildContext context) {
+	    Indexer.IndexResult result = initialIndex(request, context);
+	    computeAndIndexAffected(result.getResourceDeltas(), result, request, context);
+	    return result;
 	}
 
 	/**
@@ -152,7 +180,7 @@ public class Indexer {
 				IResourceServiceProvider resourceServiceProvider = context.getResourceServiceProvider(deleted);
 				if (resourceServiceProvider != null) {
 					operationCanceledManager.checkCanceled(context.getCancelIndicator());
-					IResourceDescription.Delta delta = getDeltaForDeletedResource(deleted, oldIndex);
+					IResourceDescription.Delta delta = getDeltaForDeletedResource(deleted, oldIndex, resourceServiceProvider.getResourceDescriptionManager());
 					if (delta != null) {
 						deltas.add(delta);
 					}
@@ -169,8 +197,21 @@ public class Indexer {
 	 *
 	 */
 	protected IResourceDescription.Delta getDeltaForDeletedResource(URI uri, ResourceDescriptionsData oldIndex) {
+		return getDeltaForDeletedResource(uri, oldIndex, null);
+	}
+	
+	/**
+	 * Gets a delta for a resource that shall be deleted using the resource description manager if provided.
+	 *
+	 * @since 2.33
+	 *
+	 */
+	protected IResourceDescription.Delta getDeltaForDeletedResource(URI uri, ResourceDescriptionsData oldIndex, IResourceDescription.Manager manager) {
 		IResourceDescription oldDescription = oldIndex.getResourceDescription(uri);
 		if (oldDescription != null) {
+			if (manager != null) {
+				return manager.createDelta(oldDescription, null);
+			}
 			return new DefaultResourceDescriptionDelta(oldDescription, null);
 		}
 		return null;
