@@ -503,7 +503,7 @@ public class LazyLinkingResource extends XtextResource {
 		return unresolveableProxies;
 	}
 	
-	private ArrayList<Triple<EObject, EReference, INode>> proxyInformation = newArrayList();
+	private ArrayList<Triple<EObject, EReference, INode>> proxyInformation;
 	
 	/**
 	 * Returns the list of installed lazy linking proxies encoded as a {@link Triple} of the owning object,
@@ -512,6 +512,9 @@ public class LazyLinkingResource extends XtextResource {
 	 * @since 2.23
 	 */
 	protected List<Triple<EObject, EReference, INode>> getLazyProxyInformation() {
+		if (proxyInformation == null) {
+			proxyInformation = newArrayList();
+		}
 		// Make the list available to sub-types in a modifiable way such that they can work with it more efficiently
 		return proxyInformation;
 	}
@@ -520,8 +523,9 @@ public class LazyLinkingResource extends XtextResource {
 	 * @since 2.7
 	 */
 	public int addLazyProxyInformation(EObject obj, EReference ref, INode node) {
-		int index = proxyInformation.size();
-		proxyInformation.add(getParseResultWrapper().toProxyInformation(internalGetParseResult(), obj, ref, node));
+		List<Triple<EObject, EReference, INode>> information = getLazyProxyInformation();
+		int index = information.size();
+		information.add(getParseResultWrapper().toProxyInformation(internalGetParseResult(), obj, ref, node));
 		return index;
 	}
 	
@@ -529,17 +533,18 @@ public class LazyLinkingResource extends XtextResource {
 	 * @since 2.7
 	 */
 	public boolean hasLazyProxyInformation(int idx) {
-		return proxyInformation.get(idx) != null;
+		return getLazyProxyInformation().get(idx) != null;
 	}
 	
 	/**
 	 * @since 2.7
 	 */
 	public Triple<EObject,EReference,INode> getLazyProxyInformation(int idx) {
-		if (!hasLazyProxyInformation(idx)) {
+		Triple<EObject, EReference, INode> information = getLazyProxyInformation().get(idx);
+		if (information == null) {
 			throw new IllegalArgumentException("No proxy information for index '"+idx+"' available.");
 		}
-		return proxyInformation.get(idx);
+		return information;
 	}
 	
 	/**
@@ -553,7 +558,9 @@ public class LazyLinkingResource extends XtextResource {
 	 * @since 2.7
 	 */
 	public void clearLazyProxyInformation() {
-		proxyInformation = newArrayListWithCapacity(proxyInformation.size());
+		if (proxyInformation != null) {
+			proxyInformation.clear();
+		}
 	}
 	
 }
