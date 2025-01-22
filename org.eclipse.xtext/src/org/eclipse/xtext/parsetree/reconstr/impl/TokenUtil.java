@@ -76,8 +76,8 @@ public class TokenUtil {
 
 	public boolean isCommentNode(INode node) {
 		if (node instanceof ILeafNode && ((ILeafNode) node).isHidden()
-				&& node.getGrammarElement() instanceof AbstractRule)
-			return hiddenTokenHelper.isComment((AbstractRule) node.getGrammarElement());
+				&& node.getGrammarElement() instanceof AbstractRule rule)
+			return hiddenTokenHelper.isComment(rule);
 		return false;
 	}
 
@@ -85,13 +85,14 @@ public class TokenUtil {
 		if (node instanceof ILeafNode)
 			return !((ILeafNode) node).isHidden();
 		AbstractRule rule;
-		if (node.getGrammarElement() instanceof AbstractRule)
-			rule = (AbstractRule) node.getGrammarElement();
-		else if (node.getGrammarElement() instanceof RuleCall)
-			rule = ((RuleCall) node.getGrammarElement()).getRule();
-		else if (node.getGrammarElement() instanceof CrossReference
-				&& ((CrossReference) node.getGrammarElement()).getTerminal() instanceof RuleCall)
-			rule = ((RuleCall) ((CrossReference) node.getGrammarElement()).getTerminal()).getRule();
+		EObject grammarElement = node.getGrammarElement();
+		if (grammarElement instanceof AbstractRule)
+			rule = (AbstractRule) grammarElement;
+		else if (grammarElement instanceof RuleCall)
+			rule = ((RuleCall) grammarElement).getRule();
+		else if (grammarElement instanceof CrossReference
+				&& ((CrossReference) grammarElement).getTerminal() instanceof RuleCall)
+			rule = ((RuleCall) ((CrossReference) grammarElement).getTerminal()).getRule();
 		else
 			rule = null;
 		if (rule instanceof ParserRule)
@@ -103,8 +104,8 @@ public class TokenUtil {
 
 	public boolean isWhitespaceNode(INode node) {
 		if (node instanceof ILeafNode && ((ILeafNode) node).isHidden()
-				&& node.getGrammarElement() instanceof AbstractRule)
-			return hiddenTokenHelper.isWhitespace((AbstractRule) node.getGrammarElement());
+				&& node.getGrammarElement() instanceof AbstractRule rule)
+			return hiddenTokenHelper.isWhitespace(rule);
 		return false;
 	}
 	
