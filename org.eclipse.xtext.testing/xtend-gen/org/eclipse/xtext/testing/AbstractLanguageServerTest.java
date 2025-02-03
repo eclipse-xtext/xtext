@@ -1555,64 +1555,64 @@ public abstract class AbstractLanguageServerTest implements Endpoint {
   }
 
   @XbaseGenerated
-  protected String toExpectation(final Object it) {
-    if (it instanceof Integer) {
-      return _toExpectation((Integer)it);
-    } else if (it instanceof List) {
-      return _toExpectation((List<?>)it);
-    } else if (it instanceof DocumentHighlightKind) {
-      return _toExpectation((DocumentHighlightKind)it);
-    } else if (it instanceof String) {
-      return _toExpectation((String)it);
-    } else if (it instanceof VersionedTextDocumentIdentifier) {
-      return _toExpectation((VersionedTextDocumentIdentifier)it);
-    } else if (it == null) {
+  protected String toExpectation(final Object elements) {
+    if (elements instanceof List) {
+      return _toExpectation((List<?>)elements);
+    } else if (elements instanceof Integer) {
+      return _toExpectation((Integer)elements);
+    } else if (elements instanceof DocumentHighlightKind) {
+      return _toExpectation((DocumentHighlightKind)elements);
+    } else if (elements instanceof String) {
+      return _toExpectation((String)elements);
+    } else if (elements instanceof VersionedTextDocumentIdentifier) {
+      return _toExpectation((VersionedTextDocumentIdentifier)elements);
+    } else if (elements == null) {
       return _toExpectation((Void)null);
-    } else if (it instanceof Map) {
-      return _toExpectation((Map<Object, Object>)it);
-    } else if (it instanceof CodeAction) {
-      return _toExpectation((CodeAction)it);
-    } else if (it instanceof CodeLens) {
-      return _toExpectation((CodeLens)it);
-    } else if (it instanceof Command) {
-      return _toExpectation((Command)it);
-    } else if (it instanceof CompletionItem) {
-      return _toExpectation((CompletionItem)it);
-    } else if (it instanceof DocumentHighlight) {
-      return _toExpectation((DocumentHighlight)it);
-    } else if (it instanceof DocumentSymbol) {
-      return _toExpectation((DocumentSymbol)it);
-    } else if (it instanceof FoldingRange) {
-      return _toExpectation((FoldingRange)it);
-    } else if (it instanceof Hover) {
-      return _toExpectation((Hover)it);
-    } else if (it instanceof Location) {
-      return _toExpectation((Location)it);
-    } else if (it instanceof MarkupContent) {
-      return _toExpectation((MarkupContent)it);
-    } else if (it instanceof Position) {
-      return _toExpectation((Position)it);
-    } else if (it instanceof Range) {
-      return _toExpectation((Range)it);
-    } else if (it instanceof ResourceOperation) {
-      return _toExpectation((ResourceOperation)it);
-    } else if (it instanceof SignatureHelp) {
-      return _toExpectation((SignatureHelp)it);
-    } else if (it instanceof SymbolInformation) {
-      return _toExpectation((SymbolInformation)it);
-    } else if (it instanceof TextDocumentEdit) {
-      return _toExpectation((TextDocumentEdit)it);
-    } else if (it instanceof TextEdit) {
-      return _toExpectation((TextEdit)it);
-    } else if (it instanceof WorkspaceEdit) {
-      return _toExpectation((WorkspaceEdit)it);
-    } else if (it instanceof WorkspaceSymbol) {
-      return _toExpectation((WorkspaceSymbol)it);
-    } else if (it instanceof Either) {
-      return _toExpectation((Either<?, ?>)it);
+    } else if (elements instanceof Map) {
+      return _toExpectation((Map<Object, Object>)elements);
+    } else if (elements instanceof CodeAction) {
+      return _toExpectation((CodeAction)elements);
+    } else if (elements instanceof CodeLens) {
+      return _toExpectation((CodeLens)elements);
+    } else if (elements instanceof Command) {
+      return _toExpectation((Command)elements);
+    } else if (elements instanceof CompletionItem) {
+      return _toExpectation((CompletionItem)elements);
+    } else if (elements instanceof DocumentHighlight) {
+      return _toExpectation((DocumentHighlight)elements);
+    } else if (elements instanceof DocumentSymbol) {
+      return _toExpectation((DocumentSymbol)elements);
+    } else if (elements instanceof FoldingRange) {
+      return _toExpectation((FoldingRange)elements);
+    } else if (elements instanceof Hover) {
+      return _toExpectation((Hover)elements);
+    } else if (elements instanceof Location) {
+      return _toExpectation((Location)elements);
+    } else if (elements instanceof MarkupContent) {
+      return _toExpectation((MarkupContent)elements);
+    } else if (elements instanceof Position) {
+      return _toExpectation((Position)elements);
+    } else if (elements instanceof Range) {
+      return _toExpectation((Range)elements);
+    } else if (elements instanceof ResourceOperation) {
+      return _toExpectation((ResourceOperation)elements);
+    } else if (elements instanceof SignatureHelp) {
+      return _toExpectation((SignatureHelp)elements);
+    } else if (elements instanceof SymbolInformation) {
+      return _toExpectation((SymbolInformation)elements);
+    } else if (elements instanceof TextDocumentEdit) {
+      return _toExpectation((TextDocumentEdit)elements);
+    } else if (elements instanceof TextEdit) {
+      return _toExpectation((TextEdit)elements);
+    } else if (elements instanceof WorkspaceEdit) {
+      return _toExpectation((WorkspaceEdit)elements);
+    } else if (elements instanceof WorkspaceSymbol) {
+      return _toExpectation((WorkspaceSymbol)elements);
+    } else if (elements instanceof Either) {
+      return _toExpectation((Either<?, ?>)elements);
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
-        Arrays.<Object>asList(it).toString());
+        Arrays.<Object>asList(elements).toString());
     }
   }
 
