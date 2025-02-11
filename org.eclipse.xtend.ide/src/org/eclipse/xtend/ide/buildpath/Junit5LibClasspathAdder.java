@@ -44,10 +44,7 @@ public class Junit5LibClasspathAdder extends AbstractLibClasspathAdder {
 			"org.junit.jupiter.api.function;version=\"[5.1.0,6.0.0)\"",
 			"org.junit.jupiter.api.io;version=\"[5.1.0,6.0.0)\"",
 			"org.junit.jupiter.api.parallel;version=\"[5.1.0,6.0.0)\"",
-			"org.junit.platform.commons.support;version=\"[1.0.0,2.0.0)\";resolution:=optional",
-			"org.junit.platform.engine;version=\"[1.0.0,2.0.0)\"",
-			"org.junit.platform.runner;version=\"[1.0.0,2.0.0)\"",
-			"org.junit.platform.suite.api;version=\"[1.0.0,2.0.0)\""
+			"org.junit.platform.commons.support;version=\"[1.0.0,2.0.0)\";resolution:=optional"
 		};
 	}
 
