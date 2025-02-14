@@ -47,7 +47,6 @@ import org.eclipse.xtext.util.OnChangeEvictingCache;
 import org.eclipse.xtext.util.SimpleCache;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 
-import com.google.common.base.Function;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
@@ -63,13 +62,7 @@ public class LazyLinker extends AbstractCleaningLinker {
 
 	private static final Logger log = Logger.getLogger(LazyLinker.class);
 	
-	private SimpleCache<EClass, EClass> instantiableSubTypes = new SimpleCache<EClass, EClass>(
-			new Function<EClass, EClass>() {
-				@Override
-				public EClass apply(EClass from) {
-					return findInstantiableCompatible(from);
-				}
-			});
+	private SimpleCache<EClass, EClass> instantiableSubTypes;
 
 	@Inject
 	private LazyURIEncoder encoder;
@@ -208,11 +201,17 @@ public class LazyLinker extends AbstractCleaningLinker {
 		return proxy;
 	}
 
+	private void ensureCacheInitialized() {
+		if (instantiableSubTypes == null) {
+			 instantiableSubTypes = new SimpleCache<EClass, EClass>(this::findInstantiableCompatible);
+		} 
+	}
 	/**
 	 * @since 2.7
 	 */
 	protected EClass getProxyType(EObject obj, EReference eRef) {
 		EClass referenceType = ecoreGenericsUtil.getReferenceType(eRef, obj.eClass());
+		ensureCacheInitialized();
 		EClass instantiableType = instantiableSubTypes.get(referenceType);
 		return instantiableType;
 	}
