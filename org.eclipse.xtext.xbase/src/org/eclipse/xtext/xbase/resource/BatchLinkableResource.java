@@ -220,7 +220,7 @@ public class BatchLinkableResource extends DerivedStateAwareResource implements 
 		LinkedHashSet<Triple<EObject, EReference, INode>> before = resolving;
 		try {
 			eSetDeliver(false);
-			if (!before.isEmpty()) {
+			if (before != null && !before.isEmpty()) {
 				resolving = new LinkedHashSet<Triple<EObject, EReference, INode>>();
 			}
 			if (isInitializingJvmMembers) {
@@ -237,7 +237,7 @@ public class BatchLinkableResource extends DerivedStateAwareResource implements 
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 		} finally {
-			if (!before.isEmpty()) {
+			if (before != null && !before.isEmpty()) {
 				resolving = before;
 			}
 			eSetDeliver(wasDeliver);
