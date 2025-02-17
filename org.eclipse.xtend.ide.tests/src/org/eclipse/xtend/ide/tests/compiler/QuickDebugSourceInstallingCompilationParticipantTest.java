@@ -29,7 +29,6 @@ import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.Opcodes;
 
-import com.google.common.io.ByteStreams;
 import com.google.inject.Inject;
 
 /**
@@ -66,12 +65,11 @@ public class QuickDebugSourceInstallingCompilationParticipantTest extends Abstra
 		final AtomicBoolean debugInfoFound = new AtomicBoolean(false);
 		Path classFile = clazz.getLocation().toPath();
 		try (var in = Files.newInputStream(classFile)) {
-			final byte[] bytes = ByteStreams.toByteArray(in);
-			final ClassReader r = new ClassReader(bytes);
+			final ClassReader r = new ClassReader(in);
 			r.accept(new ClassVisitor(Opcodes.ASM9) {
 				@Override
 				public void visitSource(final String source, final String debug) {
-					if ("Outer.java".equals(source)) {
+					if ("Outer.java".equals(source) && debug != null) {
 						assertEquals("""
 							SMAP
 							Outer.java
