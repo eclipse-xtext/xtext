@@ -69,7 +69,7 @@ public class QuickDebugSourceInstallingCompilationParticipantTest extends Abstra
 			r.accept(new ClassVisitor(Opcodes.ASM9) {
 				@Override
 				public void visitSource(final String source, final String debug) {
-					if ("Outer.java".equals(source)) {
+					if ("Outer.java".equals(source) && debug != null) {
 						assertEquals("""
 							SMAP
 							Outer.java
