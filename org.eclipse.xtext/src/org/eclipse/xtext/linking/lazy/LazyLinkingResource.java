@@ -124,7 +124,7 @@ public class LazyLinkingResource extends XtextResource {
 	/**
 	 * @since 2.4
 	 */
-	protected LinkedHashSet<Triple<EObject, EReference, INode>> resolving = Sets.newLinkedHashSet();
+	protected LinkedHashSet<Triple<EObject, EReference, INode>> resolving;
 
 	/**
 	 * resolves any lazy cross references in this resource, adding Issues for unresolvable elements to this resource.
@@ -250,6 +250,9 @@ public class LazyLinkingResource extends XtextResource {
 	protected EObject getEObject(String uriFragment, Triple<EObject, EReference, INode> triple) throws AssertionError {
 		cyclicLinkingDetectionCounter++;
 		if (cyclicLinkingDetectionCounter > cyclicLinkingDectectionCounterLimit) {
+			if (resolving == null) {
+				resolving = Sets.newLinkedHashSet();
+			}
 			if (!resolving.add(triple)) {
 				return handleCyclicResolution(triple);
 			}
