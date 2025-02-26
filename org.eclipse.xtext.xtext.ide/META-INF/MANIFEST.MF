@@ -2,14 +2,14 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Xtext Language IDE Support
 Bundle-SymbolicName: org.eclipse.xtext.xtext.ide;singleton:=true
-Bundle-Version: 2.38.0.qualifier
+Bundle-Version: 2.39.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: Eclipse Xtext
-Require-Bundle: org.eclipse.xtext.ide;bundle-version="2.38.0"
+Require-Bundle: org.eclipse.xtext.ide;bundle-version="2.39.0"
 Import-Package: org.apache.log4j;version="1.2.26"
-Export-Package: org.eclipse.xtext.xtext.ide;version="2.38.0";x-friends:="org.eclipse.xtext.xtext.ui",
- org.eclipse.xtext.xtext.ide.contentassist.antlr;version="2.38.0";x-friends:="org.eclipse.xtext.xtext.ui",
- org.eclipse.xtext.xtext.ide.contentassist.antlr.internal;version="2.38.0";x-friends:="org.eclipse.xtext.xtext.ui"
+Export-Package: org.eclipse.xtext.xtext.ide;version="2.39.0";x-friends:="org.eclipse.xtext.xtext.ui",
+ org.eclipse.xtext.xtext.ide.contentassist.antlr;version="2.39.0";x-friends:="org.eclipse.xtext.xtext.ui",
+ org.eclipse.xtext.xtext.ide.contentassist.antlr.internal;version="2.39.0";x-friends:="org.eclipse.xtext.xtext.ui"
 Automatic-Module-Name: org.eclipse.xtext.xtext.ide
 Eclipse-SourceReferences: eclipseSourceReferences

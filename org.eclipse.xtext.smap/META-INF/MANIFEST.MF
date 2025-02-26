@@ -2,11 +2,11 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Xtext JSR-45 SMAP installer
 Bundle-SymbolicName: org.eclipse.xtext.smap
-Bundle-Version: 2.38.0.qualifier
+Bundle-Version: 2.39.0.qualifier
 Bundle-Vendor: Eclipse Xtext
 Bundle-RequiredExecutionEnvironment: JavaSE-17
-Export-Package: org.eclipse.xtext.smap;version="2.38.0";x-friends:="org.eclipse.xtext.builder"
-Require-Bundle: org.eclipse.xtext;bundle-version="2.38.0"
+Export-Package: org.eclipse.xtext.smap;version="2.39.0";x-friends:="org.eclipse.xtext.builder"
+Require-Bundle: org.eclipse.xtext;bundle-version="2.39.0"
 Import-Package: org.apache.log4j;version="1.2.26"
 Automatic-Module-Name: org.eclipse.xtext.smap
 Eclipse-SourceReferences: eclipseSourceReferences

@@ -2,28 +2,28 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Xtend Benchmarks
 Bundle-SymbolicName: org.eclipse.xtend.performance.tests
-Bundle-Version: 2.38.0.qualifier
+Bundle-Version: 2.39.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-Vendor: Eclipse Xtext
 Bundle-ClassPath: .
 Require-Bundle: org.eclipse.emf.ecore;bundle-version="2.36.0",
  org.eclipse.emf.mwe2.lib;bundle-version="2.21.0",
  org.eclipse.emf.mwe2.runtime;bundle-version="2.21.0",
- org.eclipse.xtend.lib;bundle-version="2.38.0",
+ org.eclipse.xtend.lib;bundle-version="2.39.0",
  org.eclipse.jdt.core;bundle-version="3.37.0",
  org.eclipse.core.resources;bundle-version="3.20.100",
  org.eclipse.core.runtime;bundle-version="3.31.0",
- org.eclipse.xtend.ide.tests;bundle-version="2.38.0",
+ org.eclipse.xtend.ide.tests;bundle-version="2.39.0",
  org.junit,
  org.eclipse.emf.mwe.utils;bundle-version="1.15.0",
  org.eclipse.ui.editors;bundle-version="3.17.200",
- org.eclipse.xtext.builder;bundle-version="2.38.0",
+ org.eclipse.xtext.builder;bundle-version="2.39.0",
  org.eclipse.emf.mwe2.launch;bundle-version="2.21.0";resolution:=optional,
- org.eclipse.xtext.ui;bundle-version="2.38.0",
- org.eclipse.xtext.ui.testing;bundle-version="2.38.0",
- org.eclipse.xtend.core.tests;bundle-version="2.38.0",
- org.eclipse.xtend.core;bundle-version="2.38.0",
- org.eclipse.xtext.testing;bundle-version="2.38.0",
- org.eclipse.xtext.java;bundle-version="2.38.0",
+ org.eclipse.xtext.ui;bundle-version="2.39.0",
+ org.eclipse.xtext.ui.testing;bundle-version="2.39.0",
+ org.eclipse.xtend.core.tests;bundle-version="2.39.0",
+ org.eclipse.xtend.core;bundle-version="2.39.0",
+ org.eclipse.xtext.testing;bundle-version="2.39.0",
+ org.eclipse.xtext.java;bundle-version="2.39.0",
  org.eclipse.ui.ide;bundle-version="3.22.100"
 Automatic-Module-Name: org.eclipse.xtend.performance.tests

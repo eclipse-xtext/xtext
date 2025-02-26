@@ -2,9 +2,9 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %Bundle-Name
 Bundle-SymbolicName: org.eclipse.xtext.xbase.lib.gwt
-Bundle-Version: 2.38.0.qualifier
-Export-Package: org.eclipse.xtend2.lib;version="2.38.0",
- org.eclipse.xtext.xbase.lib;version="2.38.0"
+Bundle-Version: 2.39.0.qualifier
+Export-Package: org.eclipse.xtend2.lib;version="2.39.0",
+ org.eclipse.xtext.xbase.lib;version="2.39.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Require-Bundle: com.google.guava;bundle-version="[33.4.0,34.0.0)"
 Bundle-Vendor: %Vendor-Name

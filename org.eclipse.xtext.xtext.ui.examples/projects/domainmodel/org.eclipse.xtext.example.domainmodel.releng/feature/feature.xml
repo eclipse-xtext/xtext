@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.xtext.example.domainmodel.feature"
       label="Xtext Domainmodel Example"
-      version="2.38.0.qualifier"
+      version="2.39.0.qualifier"
       provider-name="Eclipse Xtext">
 
    <plugin

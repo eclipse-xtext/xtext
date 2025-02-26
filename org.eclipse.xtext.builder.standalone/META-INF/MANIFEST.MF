@@ -2,22 +2,22 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Xtext Standalone Builder
 Bundle-SymbolicName: org.eclipse.xtext.builder.standalone
-Bundle-Version: 2.38.0.qualifier
+Bundle-Version: 2.39.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: Eclipse Xtext
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-ActivationPolicy: lazy
 Import-Package: org.apache.log4j;version="1.2.26"
-Require-Bundle: org.eclipse.xtext.xbase.lib;bundle-version="2.38.0",
- org.eclipse.xtext;bundle-version="2.38.0",
- org.eclipse.xtext.common.types;bundle-version="2.38.0",
- org.eclipse.xtend.lib;bundle-version="2.38.0",
+Require-Bundle: org.eclipse.xtext.xbase.lib;bundle-version="2.39.0",
+ org.eclipse.xtext;bundle-version="2.39.0",
+ org.eclipse.xtext.common.types;bundle-version="2.39.0",
+ org.eclipse.xtend.lib;bundle-version="2.39.0",
  org.eclipse.jdt.core;bundle-version="3.37.0";resolution:=optional,
  org.eclipse.emf.ecore;bundle-version="2.36.0",
  org.eclipse.core.runtime;bundle-version="3.31.0",
  org.eclipse.equinox.common;bundle-version="3.19.0"
-Export-Package: org.eclipse.xtext.builder.standalone;version="2.38.0";x-friends:="org.eclipse.xtext.builder.standalone.tests,org.eclipse.xtext.builder.tests",
- org.eclipse.xtext.builder.standalone.compiler;version="2.38.0";x-friends:="org.eclipse.xtext.builder.standalone.tests,org.eclipse.xtext.builder.tests",
- org.eclipse.xtext.builder.standalone.incremental;version="2.38.0";x-friends:="org.eclipse.xtext.builder.tests,org.eclipse.xtext.builder.standalone.tests"
+Export-Package: org.eclipse.xtext.builder.standalone;version="2.39.0";x-friends:="org.eclipse.xtext.builder.standalone.tests,org.eclipse.xtext.builder.tests",
+ org.eclipse.xtext.builder.standalone.compiler;version="2.39.0";x-friends:="org.eclipse.xtext.builder.standalone.tests,org.eclipse.xtext.builder.tests",
+ org.eclipse.xtext.builder.standalone.incremental;version="2.39.0";x-friends:="org.eclipse.xtext.builder.tests,org.eclipse.xtext.builder.standalone.tests"
 Automatic-Module-Name: org.eclipse.xtext.builder.standalone
 Eclipse-SourceReferences: eclipseSourceReferences

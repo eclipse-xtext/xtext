@@ -5,8 +5,8 @@ Bundle-SymbolicName: org.eclipse.xtend.standalone
 Bundle-Name: Xtend Standalone Bundle
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-Vendor: Eclipse Xtext
-Bundle-Version: 2.38.0.qualifier
-Require-Bundle: org.eclipse.xtend.core;bundle-version="2.38.0";visibility:=reexport,
+Bundle-Version: 2.39.0.qualifier
+Require-Bundle: org.eclipse.xtend.core;bundle-version="2.39.0";visibility:=reexport,
  com.google.inject;bundle-version="7.0.0";visibility:=reexport,
  org.eclipse.jdt.core;bundle-version="3.37.0";visibility:=reexport,
  org.eclipse.emf.codegen;bundle-version="2.23.0";visibility:=reexport

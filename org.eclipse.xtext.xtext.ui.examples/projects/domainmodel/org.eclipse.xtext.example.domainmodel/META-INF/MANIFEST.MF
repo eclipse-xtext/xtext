@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Xtext Domainmodel Example - Runtime
 Bundle-Vendor: Eclipse Xtext
-Bundle-Version: 2.38.0.qualifier
+Bundle-Version: 2.39.0.qualifier
 Bundle-SymbolicName: org.eclipse.xtext.example.domainmodel; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.antlr.runtime;bundle-version="[3.2.0,3.2.1)",

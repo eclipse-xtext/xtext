@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Localization: plugin
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.xtext.doc;singleton:=true
-Bundle-Version: 2.38.0.qualifier
+Bundle-Version: 2.39.0.qualifier
 Bundle-Vendor: %providerName
 Require-Bundle: org.eclipse.help;bundle-version="3.10.300"
 Bundle-ActivationPolicy: lazy

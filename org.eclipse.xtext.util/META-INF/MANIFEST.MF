@@ -2,10 +2,10 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Xtext Utility
 Bundle-SymbolicName: org.eclipse.xtext.util
-Bundle-Version: 2.38.0.qualifier
+Bundle-Version: 2.39.0.qualifier
 Bundle-Vendor: Eclipse Xtext
 Bundle-RequiredExecutionEnvironment: JavaSE-17
-Export-Package: org.eclipse.xtext.util;version="2.38.0";
+Export-Package: org.eclipse.xtext.util;version="2.39.0";
   uses:="org.eclipse.emf.ecore.resource,
    org.apache.log4j,
    org.eclipse.emf.common.util,
@@ -15,15 +15,15 @@ Export-Package: org.eclipse.xtext.util;version="2.38.0";
    org.eclipse.emf.ecore.util,
    org.eclipse.emf.ecore,
    com.google.inject",
- org.eclipse.xtext.util.concurrent;version="2.38.0";uses:="org.eclipse.xtext.util",
- org.eclipse.xtext.util.formallang;version="2.38.0";
+ org.eclipse.xtext.util.concurrent;version="2.39.0";uses:="org.eclipse.xtext.util",
+ org.eclipse.xtext.util.formallang;version="2.39.0";
   x-friends:="org.eclipse.xtext.ide,
    org.eclipse.xtext.xtext.generator,
    org.eclipse.xtext,
    org.eclipse.xtext.tests,
    org.eclipse.xtext.purexbase.tests,
    org.eclipse.xtext.xbase.tests",
- org.eclipse.xtext.util.internal;version="2.38.0";
+ org.eclipse.xtext.util.internal;version="2.39.0";
   x-friends:="org.eclipse.xtext.xtext.generator,
    org.eclipse.xtend.core,
    org.eclipse.xtend.core.tests,
@@ -50,7 +50,7 @@ Require-Bundle: org.eclipse.emf.ecore;bundle-version="2.36.0",
  com.google.inject;bundle-version="7.0.0";visibility:=reexport,
  com.google.guava.failureaccess;bundle-version="[1.0.2,2.0.0)";visibility:=reexport,
  jakarta.inject.jakarta.inject-api;bundle-version="2.0.1";resolution:=optional;visibility:=reexport;x-installation:=greedy,
- org.eclipse.xtend.lib;bundle-version="2.38.0"
+ org.eclipse.xtend.lib;bundle-version="2.39.0"
 Import-Package: org.apache.log4j;version="1.2.26"
 Automatic-Module-Name: org.eclipse.xtext.util
 Eclipse-SourceReferences: eclipseSourceReferences

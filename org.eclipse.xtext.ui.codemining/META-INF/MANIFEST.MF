@@ -2,13 +2,13 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Xtext UI Codemining Support
 Bundle-SymbolicName: org.eclipse.xtext.ui.codemining;singleton:=true
-Bundle-Version: 2.38.0.qualifier
+Bundle-Version: 2.39.0.qualifier
 Bundle-Vendor: Eclipse Xtext
 Automatic-Module-Name: org.eclipse.xtext.ui.codemining
 Bundle-RequiredExecutionEnvironment: JavaSE-17
-Export-Package: org.eclipse.xtext.ui.codemining;version="2.38.0";x-internal:=true
+Export-Package: org.eclipse.xtext.ui.codemining;version="2.39.0";x-internal:=true
 Require-Bundle: org.eclipse.equinox.common;bundle-version="3.19.0",
- org.eclipse.xtext;bundle-version="2.38.0",
- org.eclipse.xtext.ui;bundle-version="2.38.0"
+ org.eclipse.xtext;bundle-version="2.39.0",
+ org.eclipse.xtext.ui;bundle-version="2.39.0"
 Import-Package: org.eclipse.jface.text,
  org.eclipse.jface.text.codemining;resolution:=optional

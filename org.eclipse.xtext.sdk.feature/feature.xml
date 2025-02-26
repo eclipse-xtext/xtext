@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.xtext.sdk"
       label="%featureName"
-      version="2.38.0.qualifier"
+      version="2.39.0.qualifier"
       provider-name="%providerName"
       plugin="org.eclipse.xtext"
       license-feature="org.eclipse.license"

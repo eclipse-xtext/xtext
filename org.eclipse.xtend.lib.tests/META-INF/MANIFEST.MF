@@ -3,10 +3,10 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Xtend Library Tests
 Bundle-SymbolicName: org.eclipse.xtend.lib.tests;singleton:=true
 Bundle-Vendor: Eclipse Xtext
-Bundle-Version: 2.38.0.qualifier
+Bundle-Version: 2.39.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Automatic-Module-Name: org.eclipse.xtend.lib.tests
-Export-Package: org.eclipse.xtend.lib.annotations;version="2.38.0"
+Export-Package: org.eclipse.xtend.lib.annotations;version="2.39.0"
 Require-Bundle: org.junit;bundle-version="4.13.2",
- org.eclipse.xtext.xbase.lib;bundle-version="2.38.0",
- org.eclipse.xtend.lib;bundle-version="2.38.0"
+ org.eclipse.xtext.xbase.lib;bundle-version="2.39.0",
+ org.eclipse.xtend.lib;bundle-version="2.39.0"

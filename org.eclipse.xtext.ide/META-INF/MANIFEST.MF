@@ -2,66 +2,66 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Xtext IDE Core
 Bundle-SymbolicName: org.eclipse.xtext.ide;singleton:=true
-Bundle-Version: 2.38.0.qualifier
+Bundle-Version: 2.39.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-ActivationPolicy: lazy
 Bundle-Localization: plugin
 Bundle-Vendor: Eclipse Xtext
-Require-Bundle: org.eclipse.xtext;bundle-version="2.38.0";visibility:=reexport,
- org.eclipse.xtend.lib;bundle-version="2.38.0",
+Require-Bundle: org.eclipse.xtext;bundle-version="2.39.0";visibility:=reexport,
+ org.eclipse.xtend.lib;bundle-version="2.39.0",
  org.eclipse.core.runtime;bundle-version="3.31.0";resolution:=optional;x-installation:=greedy,
  org.eclipse.equinox.common;bundle-version="3.19.0",
  org.eclipse.lsp4j;bundle-version="[0.24.0,0.25.0)";resolution:=optional,
  org.eclipse.lsp4j.jsonrpc;bundle-version="[0.24.0,0.25.0)";resolution:=optional,
  org.eclipse.emf.ecore.change;bundle-version="2.16.0"
 Import-Package: org.apache.log4j;version="1.2.26"
-Export-Package: org.eclipse.xtext.ide;version="2.38.0";
+Export-Package: org.eclipse.xtext.ide;version="2.39.0";
   x-friends:="org.eclipse.xtend.ide,
    org.eclipse.xtext.ui,
    org.eclipse.xtext.ui.codetemplates.ui,
    org.eclipse.xtext.ui.shared,
    org.eclipse.xtext.xbase.ide",
- org.eclipse.xtext.ide.editor.bracketmatching;version="2.38.0";x-friends:="org.eclipse.xtend.ide.common,org.eclipse.xtend.ide,org.eclipse.xtext.ui",
- org.eclipse.xtext.ide.editor.contentassist;version="2.38.0",
- org.eclipse.xtext.ide.editor.contentassist.antlr;version="2.38.0",
- org.eclipse.xtext.ide.editor.contentassist.antlr.internal;version="2.38.0",
- org.eclipse.xtext.ide.editor.folding;version="2.38.0",
- org.eclipse.xtext.ide.editor.hierarchy;version="2.38.0";
+ org.eclipse.xtext.ide.editor.bracketmatching;version="2.39.0";x-friends:="org.eclipse.xtend.ide.common,org.eclipse.xtend.ide,org.eclipse.xtext.ui",
+ org.eclipse.xtext.ide.editor.contentassist;version="2.39.0",
+ org.eclipse.xtext.ide.editor.contentassist.antlr;version="2.39.0",
+ org.eclipse.xtext.ide.editor.contentassist.antlr.internal;version="2.39.0",
+ org.eclipse.xtext.ide.editor.folding;version="2.39.0",
+ org.eclipse.xtext.ide.editor.hierarchy;version="2.39.0";
   x-friends:="org.eclipse.xtext.ui.testing,
    org.eclipse.xtext.xtext.ui,
    org.eclipse.xtext.xtext.ui.tests,
    org.eclipse.xtext.example.arithmetics.ui,
    org.eclipse.xtext.ui",
- org.eclipse.xtext.ide.editor.model;version="2.38.0",
- org.eclipse.xtext.ide.editor.navigation;version="2.38.0",
- org.eclipse.xtext.ide.editor.partialEditing;version="2.38.0",
- org.eclipse.xtext.ide.editor.quickfix;version="2.38.0",
- org.eclipse.xtext.ide.editor.syntaxcoloring;version="2.38.0",
- org.eclipse.xtext.ide.labels;version="2.38.0";x-friends:="org.eclipse.xtext.web,org.eclipse.xtext.xbase.ide",
- org.eclipse.xtext.ide.refactoring;version="2.38.0";x-friends:="org.eclipse.xtext.testlanguages.ide,org.eclipse.xtext.ui",
- org.eclipse.xtext.ide.serializer;version="2.38.0";x-friends:="org.eclipse.xtext.ide.tests,org.eclipse.xtext.ui",
- org.eclipse.xtext.ide.serializer.debug;version="2.38.0";x-friends:="org.eclipse.xtext.ide.tests,org.eclipse.xtext.testing",
- org.eclipse.xtext.ide.serializer.hooks;version="2.38.0";x-friends:="org.eclipse.xtext.ide.tests,org.eclipse.xtext.testing,org.eclipse.xtext.testlanguages.ide",
- org.eclipse.xtext.ide.serializer.impl;version="2.38.0";
+ org.eclipse.xtext.ide.editor.model;version="2.39.0",
+ org.eclipse.xtext.ide.editor.navigation;version="2.39.0",
+ org.eclipse.xtext.ide.editor.partialEditing;version="2.39.0",
+ org.eclipse.xtext.ide.editor.quickfix;version="2.39.0",
+ org.eclipse.xtext.ide.editor.syntaxcoloring;version="2.39.0",
+ org.eclipse.xtext.ide.labels;version="2.39.0";x-friends:="org.eclipse.xtext.web,org.eclipse.xtext.xbase.ide",
+ org.eclipse.xtext.ide.refactoring;version="2.39.0";x-friends:="org.eclipse.xtext.testlanguages.ide,org.eclipse.xtext.ui",
+ org.eclipse.xtext.ide.serializer;version="2.39.0";x-friends:="org.eclipse.xtext.ide.tests,org.eclipse.xtext.ui",
+ org.eclipse.xtext.ide.serializer.debug;version="2.39.0";x-friends:="org.eclipse.xtext.ide.tests,org.eclipse.xtext.testing",
+ org.eclipse.xtext.ide.serializer.hooks;version="2.39.0";x-friends:="org.eclipse.xtext.ide.tests,org.eclipse.xtext.testing,org.eclipse.xtext.testlanguages.ide",
+ org.eclipse.xtext.ide.serializer.impl;version="2.39.0";
   x-friends:="org.eclipse.xtext.ide.tests,
    org.eclipse.xtext.testing,
    org.eclipse.xtext.testlanguages.ide,
    org.eclipse.xtext.ui",
- org.eclipse.xtext.ide.server;version="2.38.0",
- org.eclipse.xtext.ide.server.codeActions;version="2.38.0";x-friends:="org.eclipse.xtext.ide.tests",
- org.eclipse.xtext.ide.server.codelens;version="2.38.0";x-friends:="org.eclipse.xtext.ide.tests",
- org.eclipse.xtext.ide.server.commands;version="2.38.0",
- org.eclipse.xtext.ide.server.concurrent;version="2.38.0",
- org.eclipse.xtext.ide.server.contentassist;version="2.38.0",
- org.eclipse.xtext.ide.server.findReferences;version="2.38.0",
- org.eclipse.xtext.ide.server.folding;version="2.38.0",
- org.eclipse.xtext.ide.server.formatting;version="2.38.0",
- org.eclipse.xtext.ide.server.hover;version="2.38.0",
- org.eclipse.xtext.ide.server.occurrences;version="2.38.0",
- org.eclipse.xtext.ide.server.rename;version="2.38.0";x-internal:=true,
- org.eclipse.xtext.ide.server.semantictokens;version="2.38.0",
- org.eclipse.xtext.ide.server.signatureHelp;version="2.38.0",
- org.eclipse.xtext.ide.server.symbol;version="2.38.0",
- org.eclipse.xtext.ide.util;version="2.38.0"
+ org.eclipse.xtext.ide.server;version="2.39.0",
+ org.eclipse.xtext.ide.server.codeActions;version="2.39.0";x-friends:="org.eclipse.xtext.ide.tests",
+ org.eclipse.xtext.ide.server.codelens;version="2.39.0";x-friends:="org.eclipse.xtext.ide.tests",
+ org.eclipse.xtext.ide.server.commands;version="2.39.0",
+ org.eclipse.xtext.ide.server.concurrent;version="2.39.0",
+ org.eclipse.xtext.ide.server.contentassist;version="2.39.0",
+ org.eclipse.xtext.ide.server.findReferences;version="2.39.0",
+ org.eclipse.xtext.ide.server.folding;version="2.39.0",
+ org.eclipse.xtext.ide.server.formatting;version="2.39.0",
+ org.eclipse.xtext.ide.server.hover;version="2.39.0",
+ org.eclipse.xtext.ide.server.occurrences;version="2.39.0",
+ org.eclipse.xtext.ide.server.rename;version="2.39.0";x-internal:=true,
+ org.eclipse.xtext.ide.server.semantictokens;version="2.39.0",
+ org.eclipse.xtext.ide.server.signatureHelp;version="2.39.0",
+ org.eclipse.xtext.ide.server.symbol;version="2.39.0",
+ org.eclipse.xtext.ide.util;version="2.39.0"
 Automatic-Module-Name: org.eclipse.xtext.ide
 Eclipse-SourceReferences: eclipseSourceReferences

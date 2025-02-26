@@ -2,33 +2,33 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-Vendor: %providerName
-Bundle-Version: 2.38.0.qualifier
+Bundle-Version: 2.39.0.qualifier
 Bundle-SymbolicName: org.eclipse.xtext.ui.codetemplates;singleton:=true
 Bundle-ActivationPolicy: lazy
 Bundle-Localization: plugin
-Require-Bundle: org.eclipse.xtext;bundle-version="2.38.0",
+Require-Bundle: org.eclipse.xtext;bundle-version="2.39.0",
  org.eclipse.emf.ecore;bundle-version="2.36.0",
  org.eclipse.emf.common;bundle-version="2.30.0",
  org.antlr.runtime;bundle-version="[3.2.0,3.2.1)",
- org.eclipse.xtext.xbase.lib;bundle-version="2.38.0",
- org.eclipse.xtend.lib;bundle-version="2.38.0"
+ org.eclipse.xtext.xbase.lib;bundle-version="2.39.0",
+ org.eclipse.xtend.lib;bundle-version="2.39.0"
 Import-Package: org.apache.commons.logging,
  org.apache.log4j;version="1.2.26"
 Bundle-RequiredExecutionEnvironment: JavaSE-17
-Export-Package: org.eclipse.xtext.ui.codetemplates;version="2.38.0";x-friends:="org.eclipse.xtext.ui.codetemplates.ide,org.eclipse.xtext.ui.codetemplates.ui",
- org.eclipse.xtext.ui.codetemplates.conversion;version="2.38.0";x-internal:=true,
- org.eclipse.xtext.ui.codetemplates.formatting;version="2.38.0";x-internal:=true,
- org.eclipse.xtext.ui.codetemplates.lexer;version="2.38.0";x-friends:="org.eclipse.xtext.ui.codetemplates.ui",
- org.eclipse.xtext.ui.codetemplates.serializer;version="2.38.0";x-internal:=true,
- org.eclipse.xtext.ui.codetemplates.parser;version="2.38.0";x-internal:=true,
- org.eclipse.xtext.ui.codetemplates.parser.antlr;version="2.38.0";x-internal:=true,
- org.eclipse.xtext.ui.codetemplates.parser.antlr.internal;version="2.38.0";x-internal:=true,
- org.eclipse.xtext.ui.codetemplates.parser.antlr.lexer;version="2.38.0";x-internal:=true,
- org.eclipse.xtext.ui.codetemplates.scoping;version="2.38.0";x-friends:="org.eclipse.xtext.ui.codetemplates.ui",
- org.eclipse.xtext.ui.codetemplates.services;version="2.38.0";x-friends:="org.eclipse.xtext.ui.codetemplates.ide,org.eclipse.xtext.ui.codetemplates.ui",
- org.eclipse.xtext.ui.codetemplates.templates;version="2.38.0";x-friends:="org.eclipse.xtext.ui.codetemplates.ui,org.eclipse.xtext.xbase.ui",
- org.eclipse.xtext.ui.codetemplates.templates.impl;version="2.38.0";x-internal:=true,
- org.eclipse.xtext.ui.codetemplates.templates.util;version="2.38.0";x-internal:=true,
- org.eclipse.xtext.ui.codetemplates.validation;version="2.38.0";x-friends:="org.eclipse.xtext.ui.codetemplates.ui",
- org.eclipse.xtext.ui.codetemplates.serializer;version="2.38.0"
+Export-Package: org.eclipse.xtext.ui.codetemplates;version="2.39.0";x-friends:="org.eclipse.xtext.ui.codetemplates.ide,org.eclipse.xtext.ui.codetemplates.ui",
+ org.eclipse.xtext.ui.codetemplates.conversion;version="2.39.0";x-internal:=true,
+ org.eclipse.xtext.ui.codetemplates.formatting;version="2.39.0";x-internal:=true,
+ org.eclipse.xtext.ui.codetemplates.lexer;version="2.39.0";x-friends:="org.eclipse.xtext.ui.codetemplates.ui",
+ org.eclipse.xtext.ui.codetemplates.serializer;version="2.39.0";x-internal:=true,
+ org.eclipse.xtext.ui.codetemplates.parser;version="2.39.0";x-internal:=true,
+ org.eclipse.xtext.ui.codetemplates.parser.antlr;version="2.39.0";x-internal:=true,
+ org.eclipse.xtext.ui.codetemplates.parser.antlr.internal;version="2.39.0";x-internal:=true,
+ org.eclipse.xtext.ui.codetemplates.parser.antlr.lexer;version="2.39.0";x-internal:=true,
+ org.eclipse.xtext.ui.codetemplates.scoping;version="2.39.0";x-friends:="org.eclipse.xtext.ui.codetemplates.ui",
+ org.eclipse.xtext.ui.codetemplates.services;version="2.39.0";x-friends:="org.eclipse.xtext.ui.codetemplates.ide,org.eclipse.xtext.ui.codetemplates.ui",
+ org.eclipse.xtext.ui.codetemplates.templates;version="2.39.0";x-friends:="org.eclipse.xtext.ui.codetemplates.ui,org.eclipse.xtext.xbase.ui",
+ org.eclipse.xtext.ui.codetemplates.templates.impl;version="2.39.0";x-internal:=true,
+ org.eclipse.xtext.ui.codetemplates.templates.util;version="2.39.0";x-internal:=true,
+ org.eclipse.xtext.ui.codetemplates.validation;version="2.39.0";x-friends:="org.eclipse.xtext.ui.codetemplates.ui",
+ org.eclipse.xtext.ui.codetemplates.serializer;version="2.39.0"
 Automatic-Module-Name: org.eclipse.xtext.ui.codetemplates

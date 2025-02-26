@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Xtext Domainmodel Example - Eclipse UI
 Bundle-Vendor: Eclipse Xtext
-Bundle-Version: 2.38.0.qualifier
+Bundle-Version: 2.39.0.qualifier
 Bundle-SymbolicName: org.eclipse.xtext.example.domainmodel.ui; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.compare;bundle-version="3.8.300",

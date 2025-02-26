@@ -4,11 +4,11 @@ Bundle-Name: %pluginName
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-SymbolicName: org.eclipse.xtext.common.types.edit;singleton:=true
-Bundle-Version: 2.38.0.qualifier
+Bundle-Version: 2.39.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-17
-Export-Package: org.eclipse.xtext.common.types.provider;version="2.38.0"
+Export-Package: org.eclipse.xtext.common.types.provider;version="2.39.0"
 Bundle-Activator: org.eclipse.xtext.common.types.provider.TypesEditPlugin$Implementation
-Require-Bundle: org.eclipse.xtext.common.types;bundle-version="2.38.0",
+Require-Bundle: org.eclipse.xtext.common.types;bundle-version="2.39.0",
  org.eclipse.emf.edit;bundle-version="2.21.0",
  org.eclipse.core.runtime;bundle-version="3.31.0"
 Automatic-Module-Name: org.eclipse.xtext.common.types.edit

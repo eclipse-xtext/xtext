@@ -2,22 +2,22 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Pure Xbase Plugin Tests
 Bundle-Vendor: Eclipse Xtext
-Bundle-Version: 2.38.0.qualifier
+Bundle-Version: 2.39.0.qualifier
 Bundle-SymbolicName: org.eclipse.xtext.purexbase.eclipse.tests;singleton:=true
 Bundle-ActivationPolicy: lazy
-Require-Bundle: org.eclipse.xtext.purexbase;bundle-version="2.38.0",
- org.eclipse.xtext.purexbase.ui;bundle-version="2.38.0",
+Require-Bundle: org.eclipse.xtext.purexbase;bundle-version="2.39.0",
+ org.eclipse.xtext.purexbase.ui;bundle-version="2.39.0",
  org.eclipse.core.runtime;bundle-version="3.31.0",
- org.eclipse.xtext;bundle-version="2.38.0",
+ org.eclipse.xtext;bundle-version="2.39.0",
  org.eclipse.ui.workbench;bundle-version="3.131.100";resolution:=optional;x-installation:=greedy,
- org.eclipse.xtext.builder;bundle-version="2.38.0",
+ org.eclipse.xtext.builder;bundle-version="2.39.0",
  org.eclipse.jdt.core;bundle-version="3.37.0",
  org.objectweb.asm;bundle-version="[9.7.1,9.8.0)";resolution:=optional,
- org.eclipse.xtext.xbase.lib;bundle-version="2.38.0",
- org.eclipse.xtext.testing;bundle-version="2.38.0",
- org.eclipse.xtext.xbase.testing;bundle-version="2.38.0",
- org.eclipse.xtext.ui.testing;bundle-version="2.38.0",
- org.eclipse.xtext.xbase.ui.testing;bundle-version="2.38.0"
+ org.eclipse.xtext.xbase.lib;bundle-version="2.39.0",
+ org.eclipse.xtext.testing;bundle-version="2.39.0",
+ org.eclipse.xtext.xbase.testing;bundle-version="2.39.0",
+ org.eclipse.xtext.ui.testing;bundle-version="2.39.0",
+ org.eclipse.xtext.xbase.ui.testing;bundle-version="2.39.0"
 Import-Package: org.apache.commons.logging,
  org.apache.log4j;version="1.2.26",
  org.hamcrest.core;version="1.1.0",
@@ -28,6 +28,6 @@ Import-Package: org.apache.commons.logging,
  org.junit.runners;version="4.13.2",
  org.junit.runners.model;version="4.13.2"
 Bundle-RequiredExecutionEnvironment: JavaSE-17
-Export-Package: org.eclipse.xtext.purexbase.test;version="2.38.0";x-internal:=true,
- org.eclipse.xtext.purexbase.ui.tests;version="2.38.0";x-internal=true
+Export-Package: org.eclipse.xtext.purexbase.test;version="2.39.0";x-internal:=true,
+ org.eclipse.xtext.purexbase.ui.tests;version="2.39.0";x-internal=true
 Automatic-Module-Name: org.eclipse.xtext.purexbase.eclipse.tests

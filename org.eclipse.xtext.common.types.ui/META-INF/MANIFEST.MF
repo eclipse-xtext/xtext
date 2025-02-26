@@ -2,40 +2,40 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-Vendor: %providerName
-Bundle-Version: 2.38.0.qualifier
+Bundle-Version: 2.39.0.qualifier
 Bundle-SymbolicName: org.eclipse.xtext.common.types.ui
-Require-Bundle: org.eclipse.xtext.common.types;bundle-version="2.38.0";visibility:=reexport,
+Require-Bundle: org.eclipse.xtext.common.types;bundle-version="2.39.0";visibility:=reexport,
  org.eclipse.ui;bundle-version="3.205.100",
  org.eclipse.emf.ecore;bundle-version="2.36.0",
  org.eclipse.jdt.core;bundle-version="3.37.0",
- org.eclipse.xtext;bundle-version="2.38.0",
+ org.eclipse.xtext;bundle-version="2.39.0",
  org.eclipse.core.runtime;bundle-version="3.31.0",
  org.eclipse.core.resources;bundle-version="3.20.100",
- org.eclipse.xtext.ui;bundle-version="2.38.0",
+ org.eclipse.xtext.ui;bundle-version="2.39.0",
  org.eclipse.jdt.ui;bundle-version="3.32.0",
  org.eclipse.search;bundle-version="3.16.100",
  org.eclipse.ltk.ui.refactoring;bundle-version="3.13.300",
  org.eclipse.jdt.core.manipulation;bundle-version="1.21.0",
- org.eclipse.xtext.smap;bundle-version="2.38.0";resolution:=optional;x-installation:=greedy,
- org.eclipse.xtext.common.types.edit;bundle-version="2.38.0";resolution:=optional;visibility:=reexport;x-installation:=greedy,
+ org.eclipse.xtext.smap;bundle-version="2.39.0";resolution:=optional;x-installation:=greedy,
+ org.eclipse.xtext.common.types.edit;bundle-version="2.39.0";resolution:=optional;visibility:=reexport;x-installation:=greedy,
  org.eclipse.ui.ide;bundle-version="3.22.100";resolution:=optional
 Import-Package: org.apache.log4j;version="1.2.26"
 Bundle-RequiredExecutionEnvironment: JavaSE-17
-Export-Package: org.eclipse.xtext.common.types.access.jdt;version="2.38.0",
- org.eclipse.xtext.common.types.ui;version="2.38.0",
- org.eclipse.xtext.common.types.ui.editor;version="2.38.0";x-internal:=true,
- org.eclipse.xtext.common.types.ui.navigation;version="2.38.0";x-friends:="org.eclipse.xtext.xbase.ui",
- org.eclipse.xtext.common.types.ui.notification;version="2.38.0",
- org.eclipse.xtext.common.types.ui.query;version="2.38.0",
- org.eclipse.xtext.common.types.ui.refactoring;version="2.38.0";x-friends:="org.eclipse.xtext.xbase.ui,org.eclipse.xtend.ide",
- org.eclipse.xtext.common.types.ui.refactoring.participant;version="2.38.0";x-friends:="org.eclipse.xtext.xbase.ui,
+Export-Package: org.eclipse.xtext.common.types.access.jdt;version="2.39.0",
+ org.eclipse.xtext.common.types.ui;version="2.39.0",
+ org.eclipse.xtext.common.types.ui.editor;version="2.39.0";x-internal:=true,
+ org.eclipse.xtext.common.types.ui.navigation;version="2.39.0";x-friends:="org.eclipse.xtext.xbase.ui",
+ org.eclipse.xtext.common.types.ui.notification;version="2.39.0",
+ org.eclipse.xtext.common.types.ui.query;version="2.39.0",
+ org.eclipse.xtext.common.types.ui.refactoring;version="2.39.0";x-friends:="org.eclipse.xtext.xbase.ui,org.eclipse.xtend.ide",
+ org.eclipse.xtext.common.types.ui.refactoring.participant;version="2.39.0";x-friends:="org.eclipse.xtext.xbase.ui,
    org.eclipse.xtext.common.types.eclipse.tests,
    org.eclipse.xtend.ide,
    org.eclipse.xtend.ide.tests",
- org.eclipse.xtext.common.types.ui.trace;version="2.38.0";x-friends:="org.eclipse.xtext.builder,
+ org.eclipse.xtext.common.types.ui.trace;version="2.39.0";x-friends:="org.eclipse.xtext.builder,
    org.eclipse.xtext.xbase.ui,
    org.eclipse.xtext.ui.shared",
- org.eclipse.xtext.common.types.util.jdt;version="2.38.0",
- org.eclipse.xtext.common.types.xtext.ui;version="2.38.0"
+ org.eclipse.xtext.common.types.util.jdt;version="2.39.0",
+ org.eclipse.xtext.common.types.xtext.ui;version="2.39.0"
 Bundle-Localization: plugin
 Automatic-Module-Name: org.eclipse.xtext.common.types.ui

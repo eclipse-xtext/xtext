@@ -2,110 +2,110 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.xtend.core;singleton:=true
-Bundle-Version: 2.38.0.qualifier
+Bundle-Version: 2.39.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-17
-Export-Package: org.eclipse.xtend.core;version="2.38.0";
+Export-Package: org.eclipse.xtend.core;version="2.39.0";
   x-friends:="org.eclipse.xtend.ide.common,
    org.eclipse.xtend.ide.tests,
    org.eclipse.xtend.core.tests",
- org.eclipse.xtend.core.compiler;version="2.38.0";
+ org.eclipse.xtend.core.compiler;version="2.39.0";
   x-friends:="org.eclipse.xtend.m2e,
    org.eclipse.xtend.ide.tests,
    org.eclipse.xtend.core.tests",
- org.eclipse.xtend.core.compiler.batch;version="2.38.0",
- org.eclipse.xtend.core.compiler.output;version="2.38.0";x-internal:=true,
- org.eclipse.xtend.core.conversion;version="2.38.0";
+ org.eclipse.xtend.core.compiler.batch;version="2.39.0",
+ org.eclipse.xtend.core.compiler.output;version="2.39.0";x-internal:=true,
+ org.eclipse.xtend.core.conversion;version="2.39.0";
   x-friends:="org.eclipse.xtend.ide,
    org.eclipse.xtend.ide.common,
    org.eclipse.xtend.core.tests",
- org.eclipse.xtend.core.documentation;version="2.38.0";x-internal:=true,
- org.eclipse.xtend.core.findReferences;version="2.38.0";x-internal:=true,
- org.eclipse.xtend.core.formatting2;version="2.38.0";
+ org.eclipse.xtend.core.documentation;version="2.39.0";x-internal:=true,
+ org.eclipse.xtend.core.findReferences;version="2.39.0";x-internal:=true,
+ org.eclipse.xtend.core.formatting2;version="2.39.0";
   x-friends:="org.eclipse.xtend.ide,
    org.eclipse.xtend.ide.common,
    org.eclipse.xtend.core.tests",
- org.eclipse.xtend.core.imports;version="2.38.0";x-internal:=true,
- org.eclipse.xtend.core.jvmmodel;version="2.38.0";
+ org.eclipse.xtend.core.imports;version="2.39.0";x-internal:=true,
+ org.eclipse.xtend.core.jvmmodel;version="2.39.0";
   x-friends:="org.eclipse.xtend.ide,
    org.eclipse.xtend.ide.tests,
    org.eclipse.xtend.ide.common,
    org.eclipse.xtend.core.tests",
- org.eclipse.xtend.core.linking;version="2.38.0";
+ org.eclipse.xtend.core.linking;version="2.39.0";
   x-friends:="org.eclipse.xtend.core.tests,
    org.eclipse.xtend.ide,
    org.eclipse.xtend.ide.common",
- org.eclipse.xtend.core.macro;version="2.38.0";
+ org.eclipse.xtend.core.macro;version="2.39.0";
   x-friends:="org.eclipse.xtend.core.tests,
    org.eclipse.xtend.ide,
    org.eclipse.xtend.ide.tests,
    org.eclipse.xtend.ide.common",
- org.eclipse.xtend.core.macro.declaration;version="2.38.0";
+ org.eclipse.xtend.core.macro.declaration;version="2.39.0";
   x-friends:="org.eclipse.xtend.core.tests,
    org.eclipse.xtend.ide,
    org.eclipse.xtend.ide.common,
    org.eclipse.xtend.ide.tests",
- org.eclipse.xtend.core.naming;version="2.38.0";x-internal:=true,
- org.eclipse.xtend.core.parser;version="2.38.0";
+ org.eclipse.xtend.core.naming;version="2.39.0";x-internal:=true,
+ org.eclipse.xtend.core.parser;version="2.39.0";
   x-friends:="org.eclipse.xtend.core.tests,
    org.eclipse.xtend.ide,
    org.eclipse.xtend.ide.common,
    org.eclipse.xtend.ide.tests",
- org.eclipse.xtend.core.parser.antlr;version="2.38.0";
+ org.eclipse.xtend.core.parser.antlr;version="2.39.0";
   x-friends:="org.eclipse.xtend.ide.tests",
- org.eclipse.xtend.core.parser.antlr.internal;version="2.38.0";
+ org.eclipse.xtend.core.parser.antlr.internal;version="2.39.0";
   x-friends:="org.eclipse.xtend.core.tests,
    org.eclipse.xtend.ide,
    org.eclipse.xtend.ide.common,
    org.eclipse.xtend.ide.tests",
- org.eclipse.xtend.core.resource;version="2.38.0";
+ org.eclipse.xtend.core.resource;version="2.39.0";
   x-friends:="org.eclipse.xtend.ide,
    org.eclipse.xtend.ide.common",
- org.eclipse.xtend.core.richstring;version="2.38.0";
+ org.eclipse.xtend.core.richstring;version="2.39.0";
   x-friends:="org.eclipse.xtend.ide,
    org.eclipse.xtend.ide.common,
    org.eclipse.xtend.core.tests",
- org.eclipse.xtend.core.richstring.impl;version="2.38.0";x-internal:=true,
- org.eclipse.xtend.core.richstring.util;version="2.38.0";x-internal:=true,
- org.eclipse.xtend.core.scoping;version="2.38.0";
+ org.eclipse.xtend.core.richstring.impl;version="2.39.0";x-internal:=true,
+ org.eclipse.xtend.core.richstring.util;version="2.39.0";x-internal:=true,
+ org.eclipse.xtend.core.scoping;version="2.39.0";
   x-friends:="org.eclipse.xtend.ide,
    org.eclipse.xtend.ide.common",
- org.eclipse.xtend.core.serializer;version="2.38.0";x-internal:=true,
- org.eclipse.xtend.core.services;version="2.38.0";
+ org.eclipse.xtend.core.serializer;version="2.39.0";x-internal:=true,
+ org.eclipse.xtend.core.services;version="2.39.0";
   x-friends:="org.eclipse.xtend.ide,
    org.eclipse.xtend.ide.common",
- org.eclipse.xtend.core.tasks;version="2.38.0";x-internal:=true,
- org.eclipse.xtend.core.typesystem;version="2.38.0";
+ org.eclipse.xtend.core.tasks;version="2.39.0";x-internal:=true,
+ org.eclipse.xtend.core.typesystem;version="2.39.0";
   x-friends:="org.eclipse.xtend.core.tests",
- org.eclipse.xtend.core.typing;version="2.38.0";
+ org.eclipse.xtend.core.typing;version="2.39.0";
   x-friends:="org.eclipse.xtend.ide",
- org.eclipse.xtend.core.validation;version="2.38.0";
+ org.eclipse.xtend.core.validation;version="2.39.0";
   x-friends:="org.eclipse.xtend.ide,
    org.eclipse.xtend.ide.common,
    org.eclipse.xtend.ide.tests,
    org.eclipse.xtend.core.tests",
- org.eclipse.xtend.core.xtend;version="2.38.0";
+ org.eclipse.xtend.core.xtend;version="2.39.0";
   x-friends:="org.eclipse.xtend.ide,
    org.eclipse.xtend.ide.common,
    org.eclipse.xtend.ide.tests,
    org.eclipse.xtend.core.tests",
- org.eclipse.xtend.core.xtend.impl;version="2.38.0";x-internal:=true,
- org.eclipse.xtend.core.xtend.util;version="2.38.0";x-internal:=true
+ org.eclipse.xtend.core.xtend.impl;version="2.39.0";x-internal:=true,
+ org.eclipse.xtend.core.xtend.util;version="2.39.0";x-internal:=true
 Require-Bundle: org.eclipse.core.runtime;bundle-version="3.31.0",
  org.eclipse.emf.ecore;bundle-version="2.36.0";visibility:=reexport,
- org.eclipse.xtext.common.types;bundle-version="2.38.0";visibility:=reexport,
- org.eclipse.xtext.xbase;bundle-version="2.38.0";visibility:=reexport,
- org.eclipse.xtext;bundle-version="2.38.0",
+ org.eclipse.xtext.common.types;bundle-version="2.39.0";visibility:=reexport,
+ org.eclipse.xtext.xbase;bundle-version="2.39.0";visibility:=reexport,
+ org.eclipse.xtext;bundle-version="2.39.0",
  org.antlr.runtime;bundle-version="[3.2.0,3.2.1)",
  org.eclipse.jdt.core;bundle-version="3.37.0";resolution:=optional;x-installation:=greedy,
- org.eclipse.xtext.xbase.lib;bundle-version="2.38.0",
- org.eclipse.xtend.lib;bundle-version="2.38.0",
- org.eclipse.xtext.smap;bundle-version="2.38.0",
+ org.eclipse.xtext.xbase.lib;bundle-version="2.39.0",
+ org.eclipse.xtend.lib;bundle-version="2.39.0",
+ org.eclipse.xtext.smap;bundle-version="2.39.0",
  org.apache.ant;bundle-version="1.10.14";resolution:=optional;x-installation:=greedy,
  org.objectweb.asm;bundle-version="[9.7.1,9.8.0)";resolution:=optional,
- org.eclipse.xtext.xbase.testing;bundle-version="2.38.0";resolution:=optional
+ org.eclipse.xtext.xbase.testing;bundle-version="2.39.0";resolution:=optional
 Bundle-ActivationPolicy: lazy
 Import-Package: org.apache.log4j;version="1.2.26"
 Automatic-Module-Name: org.eclipse.xtend.core

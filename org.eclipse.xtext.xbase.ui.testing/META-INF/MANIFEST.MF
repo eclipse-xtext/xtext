@@ -1,18 +1,18 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-SymbolicName: org.eclipse.xtext.xbase.ui.testing
-Bundle-Version: 2.38.0.qualifier
+Bundle-Version: 2.39.0.qualifier
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-17
-Require-Bundle: org.eclipse.xtext.xbase.lib;bundle-version="2.38.0";visibility:=reexport,
+Require-Bundle: org.eclipse.xtext.xbase.lib;bundle-version="2.39.0";visibility:=reexport,
  org.eclipse.core.resources;bundle-version="3.20.100";resolution:=optional;visibility:=reexport;x-installation:=greedy,
- org.eclipse.xtext.ui;bundle-version="2.38.0";resolution:=optional;visibility:=reexport;x-installation:=greedy,
- org.eclipse.xtext.xbase.ui;bundle-version="2.38.0";resolution:=optional;visibility:=reexport;x-installation:=greedy,
+ org.eclipse.xtext.ui;bundle-version="2.39.0";resolution:=optional;visibility:=reexport;x-installation:=greedy,
+ org.eclipse.xtext.xbase.ui;bundle-version="2.39.0";resolution:=optional;visibility:=reexport;x-installation:=greedy,
  org.eclipse.core.runtime;bundle-version="3.31.0";resolution:=optional;visibility:=reexport;x-installation:=greedy,
  org.eclipse.jdt.core;bundle-version="3.37.0";resolution:=optional;x-installation:=greedy,
- org.eclipse.xtext.common.types.ui;bundle-version="2.38.0";resolution:=optional;x-installation:=greedy,
- org.eclipse.xtext.ui.testing;bundle-version="2.38.0"
-Export-Package: org.eclipse.xtext.xbase.ui.testing;version="2.38.0";x-friends:="org.eclipse.xtext.xbase.ui.tests"
+ org.eclipse.xtext.common.types.ui;bundle-version="2.39.0";resolution:=optional;x-installation:=greedy,
+ org.eclipse.xtext.ui.testing;bundle-version="2.39.0"
+Export-Package: org.eclipse.xtext.xbase.ui.testing;version="2.39.0";x-friends:="org.eclipse.xtext.xbase.ui.tests"
 Bundle-Name: %pluginName
 Bundle-Vendor: %providerName
 Import-Package: org.apache.log4j;version="1.2.26",

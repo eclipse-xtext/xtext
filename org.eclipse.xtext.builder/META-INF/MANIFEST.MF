@@ -2,23 +2,23 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.xtext.builder;singleton:=true
-Bundle-Version: 2.38.0.qualifier
+Bundle-Version: 2.39.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-17
-Export-Package: org.eclipse.xtext.builder;version="2.38.0",
- org.eclipse.xtext.builder.builderState;version="2.38.0";
+Export-Package: org.eclipse.xtext.builder;version="2.39.0",
+ org.eclipse.xtext.builder.builderState;version="2.39.0";
   x-friends:="org.eclipse.xtext.builder.tests,
    org.eclipse.xtext.common.types.eclipse.tests,
    org.eclipse.xtext.ui.shared,
    org.eclipse.xtext.ui.tests,
    org.eclipse.xtext.ui.testing",
- org.eclipse.xtext.builder.builderState.impl;version="2.38.0";x-friends:="org.eclipse.xtext.builder.tests,org.eclipse.xtext.ui.tests",
- org.eclipse.xtext.builder.builderState.util;version="2.38.0";x-friends:="org.eclipse.xtext.builder.tests",
- org.eclipse.xtext.builder.clustering;version="2.38.0";x-friends:="org.eclipse.xtend.ide,org.eclipse.xtext.builder.tests,org.eclipse.xtext.ui.shared",
- org.eclipse.xtext.builder.debug;version="2.38.0";x-friends:="org.eclipse.xtend.ide.tests",
- org.eclipse.xtext.builder.impl;version="2.38.0";
+ org.eclipse.xtext.builder.builderState.impl;version="2.39.0";x-friends:="org.eclipse.xtext.builder.tests,org.eclipse.xtext.ui.tests",
+ org.eclipse.xtext.builder.builderState.util;version="2.39.0";x-friends:="org.eclipse.xtext.builder.tests",
+ org.eclipse.xtext.builder.clustering;version="2.39.0";x-friends:="org.eclipse.xtend.ide,org.eclipse.xtext.builder.tests,org.eclipse.xtext.ui.shared",
+ org.eclipse.xtext.builder.debug;version="2.39.0";x-friends:="org.eclipse.xtend.ide.tests",
+ org.eclipse.xtext.builder.impl;version="2.39.0";
   x-friends:="org.eclipse.xtend.ide,
    org.eclipse.xtend.ide.tests,
    org.eclipse.xtext.builder.tests,
@@ -26,44 +26,44 @@ Export-Package: org.eclipse.xtext.builder;version="2.38.0",
    org.eclipse.xtext.ui.testing,
    org.eclipse.xtext.m2e,
    org.eclipse.xtext.buildship",
- org.eclipse.xtext.builder.impl.javasupport;version="2.38.0";x-friends:="org.eclipse.xtext.ui.shared,org.eclipse.xtend.ide.tests",
- org.eclipse.xtext.builder.internal;version="2.38.0";x-friends:="org.eclipse.xtext.builder.tests",
- org.eclipse.xtext.builder.nature;version="2.38.0";
+ org.eclipse.xtext.builder.impl.javasupport;version="2.39.0";x-friends:="org.eclipse.xtext.ui.shared,org.eclipse.xtend.ide.tests",
+ org.eclipse.xtext.builder.internal;version="2.39.0";x-friends:="org.eclipse.xtext.builder.tests",
+ org.eclipse.xtext.builder.nature;version="2.39.0";
   x-friends:="org.eclipse.xtend.ide,
    org.eclipse.xtend.performance.tests,
    org.eclipse.xtend.ide.tests,
    org.eclipse.xtext.builder.tests,
    org.eclipse.xtext.ui.tests",
- org.eclipse.xtext.builder.preferences;version="2.38.0";
+ org.eclipse.xtext.builder.preferences;version="2.39.0";
   x-friends:="org.eclipse.xtend.m2e,
    org.eclipse.xtext.m2e,
    org.eclipse.xtext.xbase.ui,
    org.eclipse.xtend.ide,
    org.eclipse.xtext.builder.tests",
- org.eclipse.xtext.builder.resourceloader;version="2.38.0";x-friends:="org.eclipse.xtext.ui.shared",
- org.eclipse.xtext.builder.smap;version="2.38.0";x-friends:="org.eclipse.xtext.xbase.ui",
- org.eclipse.xtext.builder.trace;version="2.38.0";x-friends:="org.eclipse.xtext.xbase.ui,org.eclipse.xtend.ide",
- org.eclipse.xtext.builder.trace.impl;version="2.38.0";x-internal:=true,
- org.eclipse.xtext.builder.trace.util;version="2.38.0";x-internal:=true
-Require-Bundle: org.eclipse.xtext;bundle-version="2.38.0",
+ org.eclipse.xtext.builder.resourceloader;version="2.39.0";x-friends:="org.eclipse.xtext.ui.shared",
+ org.eclipse.xtext.builder.smap;version="2.39.0";x-friends:="org.eclipse.xtext.xbase.ui",
+ org.eclipse.xtext.builder.trace;version="2.39.0";x-friends:="org.eclipse.xtext.xbase.ui,org.eclipse.xtend.ide",
+ org.eclipse.xtext.builder.trace.impl;version="2.39.0";x-internal:=true,
+ org.eclipse.xtext.builder.trace.util;version="2.39.0";x-internal:=true
+Require-Bundle: org.eclipse.xtext;bundle-version="2.39.0",
  org.eclipse.emf.ecore;bundle-version="2.36.0";visibility:=reexport,
  org.eclipse.core.resources;bundle-version="3.20.100";resolution:=optional;x-installation:=greedy,
  org.eclipse.jdt.core;bundle-version="3.37.0";resolution:=optional;x-installation:=greedy,
  org.eclipse.core.runtime;bundle-version="3.31.0";resolution:=optional;x-installation:=greedy,
  org.eclipse.jface;bundle-version="3.33.0";resolution:=optional;x-installation:=greedy,
  org.eclipse.ui;bundle-version="3.205.100";resolution:=optional;x-installation:=greedy,
- org.eclipse.xtext.ui;bundle-version="2.38.0",
+ org.eclipse.xtext.ui;bundle-version="2.39.0",
  org.eclipse.ui.ide;bundle-version="3.22.100";resolution:=optional;x-installation:=greedy,
- org.eclipse.xtext.common.types.ui;bundle-version="2.38.0";resolution:=optional;x-installation:=greedy,
+ org.eclipse.xtext.common.types.ui;bundle-version="2.39.0";resolution:=optional;x-installation:=greedy,
  org.eclipse.jdt.launching;bundle-version="3.21.100";resolution:=optional;x-installation:=greedy,
  org.eclipse.ui.forms;bundle-version="3.13.200";resolution:=optional;x-installation:=greedy,
- org.eclipse.xtext.xbase.lib;bundle-version="2.38.0";visibility:=reexport,
+ org.eclipse.xtext.xbase.lib;bundle-version="2.39.0";visibility:=reexport,
  org.eclipse.emf.ecore.editor;bundle-version="2.18.0";resolution:=optional;x-installation:=greedy,
  org.eclipse.debug.core;bundle-version="3.21.300";resolution:=optional;x-installation:=greedy,
  org.eclipse.debug.ui;bundle-version="3.18.300";resolution:=optional;visibility:=reexport;x-installation:=greedy,
  org.eclipse.jdt.debug;bundle-version="3.21.300";resolution:=optional;x-installation:=greedy,
  org.eclipse.ui.console;bundle-version="3.14.0",
- org.eclipse.xtext.smap;bundle-version="2.38.0"
+ org.eclipse.xtext.smap;bundle-version="2.39.0"
 Bundle-ActivationPolicy: lazy
 Import-Package: org.apache.log4j;version="1.2.26"
 Bundle-Activator: org.eclipse.xtext.builder.internal.Activator
