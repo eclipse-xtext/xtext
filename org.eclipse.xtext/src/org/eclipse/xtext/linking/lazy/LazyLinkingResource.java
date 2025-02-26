@@ -120,11 +120,26 @@ public class LazyLinkingResource extends XtextResource {
 		if (isEagerLinking())
 			EcoreUtil.resolveAll(this);
 	}
-
+	
+	/**
+	 * The method can be overridden to avoid creation of a Set object for resources loaded from storage 
+	 * or when no cyclic resolution takes place.
+	 * 
+	 * @since 2.39
+	 * 
+	 */
+	protected LinkedHashSet<Triple<EObject, EReference, INode>> getResolvingSet(boolean initial) {
+		if (initial) {
+			return Sets.newLinkedHashSet();
+		} else {
+			return resolving;
+		}
+	}
+	
 	/**
 	 * @since 2.4
 	 */
-	protected LinkedHashSet<Triple<EObject, EReference, INode>> resolving = Sets.newLinkedHashSet();
+	protected LinkedHashSet<Triple<EObject, EReference, INode>> resolving = getResolvingSet(true);
 
 	/**
 	 * resolves any lazy cross references in this resource, adding Issues for unresolvable elements to this resource.
@@ -250,7 +265,7 @@ public class LazyLinkingResource extends XtextResource {
 	protected EObject getEObject(String uriFragment, Triple<EObject, EReference, INode> triple) throws AssertionError {
 		cyclicLinkingDetectionCounter++;
 		if (cyclicLinkingDetectionCounter > cyclicLinkingDectectionCounterLimit) {
-			if (!resolving.add(triple)) {
+			if (!getResolvingSet(false).add(triple)) {
 				return handleCyclicResolution(triple);
 			}
 		}
@@ -304,7 +319,7 @@ public class LazyLinkingResource extends XtextResource {
 			return null;
 		} finally {
 			if (cyclicLinkingDetectionCounter > cyclicLinkingDectectionCounterLimit) {
-				resolving.remove(triple);
+				getResolvingSet(false).remove(triple);
 			}
 			cyclicLinkingDetectionCounter--;
 		}
@@ -318,7 +333,7 @@ public class LazyLinkingResource extends XtextResource {
 	}
 
 	protected EObject handleCyclicResolution(Triple<EObject, EReference, INode> triple) throws AssertionError {
-		throw new CyclicLinkingException("Cyclic resolution of lazy links : " + getReferences(triple, resolving) + " in resource '"+getURI()+"'.", triple);
+		throw new CyclicLinkingException("Cyclic resolution of lazy links : " + getReferences(triple, getResolvingSet(false)) + " in resource '"+getURI()+"'.", triple);
 	}
 
 	protected String getReferences(Triple<EObject, EReference, INode> triple,
