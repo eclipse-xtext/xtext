@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pde version="3.8"?>
+<target name="xtext-r202412" sequenceNumber="37">
+	<targetJRE path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-21"/>
+	<locations>
+		<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+			<repository location="https://download.eclipse.org/modeling/emf/emf/builds/release/2.41.0"/>
+			<unit id="org.eclipse.emf.sdk.feature.group" version="0.0.0"/>
+		</location>
+		<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+			<repository location="https://download.eclipse.org/modeling/emft/mwe/updates/releases/2.21.0/"/>
+			<unit id="org.eclipse.emf.mwe2.launch" version="0.0.0"/>
+			<unit id="org.eclipse.emf.mwe2.launch.ui" version="0.0.0"/>
+			<unit id="org.eclipse.emf.mwe2.language.ui" version="0.0.0"/>
+			<unit id="org.eclipse.emf.mwe2.lib" version="0.0.0"/>
+			<unit id="org.eclipse.emf.mwe2.runtime" version="0.0.0"/>
+		</location>
+		<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+			<repository location="https://download.eclipse.org/releases/2025-03/"/>
+			<unit id="org.eclipse.equinox.executable.feature.group" version="0.0.0"/>
+			<unit id="org.eclipse.sdk" version="0.0.0"/>
+			<unit id="org.eclipse.platform.feature.group" version="0.0.0"/>
+			<unit id="org.eclipse.jdt.feature.group" version="0.0.0"/>
+			<unit id="org.eclipse.pde.feature.group" version="0.0.0"/>
+			<unit id="org.eclipse.draw2d.feature.group" version="0.0.0" />
+			<unit id="org.eclipse.m2e.feature.feature.group" version="0.0.0" />
+			<unit id="org.eclipse.buildship.feature.group" version="0.0.0" />
+		</location>
+		<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+			<repository location="https://download.eclipse.org/lsp4j/updates/releases/0.24.0"/>
+			<unit id="org.eclipse.lsp4j.sdk.feature.group" version="0.0.0"/>
+		</location>
+		<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+			<repository location="https://download.itemis.com/updates/releases/2.1.1"/>
+			<unit id="de.itemis.xtext.antlr.feature.feature.group" version="0.0.0"/>
+		</location>
+		<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+			<unit id="org.eclipse.swtbot.eclipse.feature.group" version="0.0.0"/>
+			<unit id="org.eclipse.swtbot.eclipse.test.junit.feature.group" version="0.0.0"/>
+			<repository location="https://download.eclipse.org/technology/swtbot/releases/4.1.0/"/>
+		</location>
+		<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+			<repository location="https://download.eclipse.org/tools/orbit/simrel/orbit-aggregation/2025-03"/>
+			<unit id="org.apache.log4j" version="1.2.26"/>
+			<unit id="org.kohsuke.args4j" version="0.0.0"/>
+			<unit id="com.google.gson" version="2.12.1"/>
+			<unit id="com.google.guava" version="0.0.0"/>
+			<unit id="com.google.guava.failureaccess" version="1.0.2"/>
+			<unit id="com.google.inject" version="7.0.0"/>
+			<unit id="jakarta.inject.jakarta.inject-api" version="2.0.1"/>
+			<unit id="org.antlr.runtime" version="3.2.0.v20230929-1400"/>
+			<unit id="org.aopalliance" version="1.0.0.v20230720-0728"/>
+			<unit id="org.opentest4j" version="0.0.0"/>
+			<unit id="org.apiguardian.api" version="0.0.0"/>
+			<unit id="org.objectweb.asm" version="9.7.1"/>
+			<unit id="io.github.classgraph.classgraph" version="0.0.0"/>
+			<unit id="slf4j.api" version="0.0.0"/>
+			<unit id="slf4j.simple" version="0.0.0"/>
+			<unit id="org.junit" version="0.0.0"/>
+			<unit id="org.hamcrest" version="2.2.0"/>
+			<unit id="org.hamcrest.core" version="2.2.0.v20230809-1000"/>
+			<unit id="org.apache.commons.commons-logging" version="0.0.0"/>
+			<unit id="junit-jupiter-api" version="0.0.0"/>
+			<unit id="junit-jupiter-engine" version="0.0.0"/>
+			<unit id="junit-jupiter-migrationsupport" version="0.0.0"/>
+			<unit id="junit-jupiter-params" version="0.0.0"/>
+			<unit id="junit-platform-commons" version="0.0.0"/>
+			<unit id="junit-platform-engine" version="0.0.0"/>
+			<unit id="junit-platform-launcher" version="0.0.0"/>
+			<unit id="junit-platform-runner" version="0.0.0"/>
+			<unit id="junit-platform-suite-api" version="0.0.0"/>
+			<unit id="junit-platform-suite-commons" version="0.0.0"/>
+			<unit id="junit-vintage-engine" version="0.0.0"/>
+		</location>
+		<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+			<unit id="org.eclipse.license.feature.group" version="2.0.2.v20181016-2210"/>
+			<repository location="https://download.eclipse.org/cbi/updates/license/"/>
+		</location>
+	</locations>
+</target>
