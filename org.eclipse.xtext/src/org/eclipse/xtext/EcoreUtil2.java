@@ -580,7 +580,7 @@ public class EcoreUtil2 extends EcoreUtil {
 		if (ref == null) {
 			return null;
 		}
-		String result = exernalFormCache.get(ref);
+		String result = externalFormCache.get(ref);
 		if (result == null) {
 			EClass class1 = ref.getEContainingClass();
 			if (class1 == null) { // some references may be contained in an EAnnotation
@@ -591,12 +591,12 @@ public class EcoreUtil2 extends EcoreUtil {
 				buff.append(DELIM).append(class1.getFeatureID(ref));
 				result = buff.toString();
 			}
-			exernalFormCache.put(ref, result);
+			externalFormCache.put(ref, result);
 		}
 		return result;
 	}
 
-	private static Map<EReference, String> exernalFormCache = new MapMaker().weakKeys().makeMap();
+	private static Map<EReference, String> externalFormCache = new MapMaker().weakKeys().makeMap();
 
 	/**
 	 * looks up the EReference in the passed registry, given the external form. if registry == null this
