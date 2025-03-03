@@ -363,14 +363,14 @@ public class EcoreUtil2 extends EcoreUtil {
 		return result;
 	}
 
-	private static boolean isLooslyCompatibleWith(EClass classA, EClass classB) {
+	private static boolean isLooselyCompatibleWith(EClass classA, EClass classB) {
 		return classA.equals(classB) || classA.getEAllSuperTypes().contains(classB)
 				|| classB.getEAllSuperTypes().contains(classA);
 	}
 
 	private static boolean isCommonCompatibleType(EClass candidate, List<EClass> candidates) {
 		for (EClass otherCandidate : candidates) {
-			if (!isLooslyCompatibleWith(candidate, otherCandidate)) {
+			if (!isLooselyCompatibleWith(candidate, otherCandidate)) {
 				return false;
 			}
 		}
