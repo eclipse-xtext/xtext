@@ -203,7 +203,7 @@ public class EcoreUtil2 extends EcoreUtil {
 	}
 
 	public static <T> List<T> collect(Collection<? extends EObject> instances, int featureId, Class<T> type) {
-		final List<T> result = new ArrayList<T>(instances.size());
+		final List<T> result = new ArrayList<>(instances.size());
 		for (EObject obj : instances) {
 			if (obj == null) {
 				throw new NullPointerException("obj may not be null");
@@ -225,7 +225,7 @@ public class EcoreUtil2 extends EcoreUtil {
 	}
 
 	public static TreeIterator<EObject> eAll(final EObject obj) {
-		return new TreeIterator<EObject>() {
+		return new TreeIterator<>() {
 			private TreeIterator<EObject> it = null;
 			private int index = 0;
 
@@ -406,7 +406,7 @@ public class EcoreUtil2 extends EcoreUtil {
 	}
 
 	public static List<EClass> getCompatibleTypesOf(EClass eClass) {
-		List<EClass> ca = new ArrayList<EClass>(eClass.getEAllSuperTypes());
+		List<EClass> ca = new ArrayList<>(eClass.getEAllSuperTypes());
 		ca.add(eClass);
 		return ca;
 	}
@@ -424,7 +424,7 @@ public class EcoreUtil2 extends EcoreUtil {
 	 * implementation can deal with cycles in type hierarchy
 	 */
 	public static Collection<EClass> getAllSuperTypes(EClass eClass) {
-		Set<EClass> allSuperTypes = new HashSet<EClass>();
+		Set<EClass> allSuperTypes = new HashSet<>();
 		collectAllSuperTypes(allSuperTypes, eClass);
 		return Collections.unmodifiableSet(allSuperTypes);
 	}
@@ -756,7 +756,7 @@ public class EcoreUtil2 extends EcoreUtil {
 		 * shall not be called here. Long story short, this iterator filters
 		 * derived containment features.
 		 */
-		return new AbstractTreeIterator<EObject>(root, includeRoot) {
+		return new AbstractTreeIterator<>(root, includeRoot) {
 			private static final long serialVersionUID = 1L;
 
 			@Override
@@ -788,7 +788,7 @@ public class EcoreUtil2 extends EcoreUtil {
 				: new EContentsEList<EObject>(eObject, eStructuralFeatures) {
 					@Override
 					protected ListIterator<EObject> newResolvingListIterator() {
-						return new ResolvingFeatureIteratorImpl<EObject>(eObject, eStructuralFeatures) {
+						return new ResolvingFeatureIteratorImpl<>(eObject, eStructuralFeatures) {
 							@Override
 							protected boolean isIncluded(EStructuralFeature eStructuralFeature) {
 								return !eStructuralFeature.isDerived();
@@ -806,10 +806,10 @@ public class EcoreUtil2 extends EcoreUtil {
 	 * @since 2.9
 	 */
 	public static Iterable<EObject> getAllContainers(final EObject obj) {
-		return new Iterable<EObject>() {
+		return new Iterable<>() {
 			@Override
 			public Iterator<EObject> iterator() {
-				return new AbstractIterator<EObject>() {
+				return new AbstractIterator<>() {
 
 					private EObject current = obj;
 
