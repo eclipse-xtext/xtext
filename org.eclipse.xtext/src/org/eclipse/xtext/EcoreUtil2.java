@@ -626,9 +626,9 @@ public class EcoreUtil2 extends EcoreUtil {
 	
 	public static URI getNormalizedURI(EObject eObject) {
 		URI rawURI = EcoreUtil.getURI(eObject);
-		Resource resource = eObject.eResource();
-		if (resource != null && resource.getResourceSet() != null) {
-			return resource.getResourceSet().getURIConverter().normalize(rawURI);
+		ResourceSet resourceSet = getResourceSet(eObject);
+		if (resourceSet != null) {
+			return resourceSet.getURIConverter().normalize(rawURI);
 		} else {
 			return URIConverter.INSTANCE.normalize(rawURI);
 		}
@@ -651,9 +651,9 @@ public class EcoreUtil2 extends EcoreUtil {
 		if (rawURI.isPlatformResource()) {
 			return rawURI;
 		}
-		Resource resource = eObject.eResource();
-		if (resource != null && resource.getResourceSet() != null) {
-			return resource.getResourceSet().getURIConverter().normalize(rawURI);
+		ResourceSet resourceSet = getResourceSet(eObject);
+		if (resourceSet != null) {
+			return resourceSet.getURIConverter().normalize(rawURI);
 		} else {
 			return URIConverter.INSTANCE.normalize(rawURI);
 		}
