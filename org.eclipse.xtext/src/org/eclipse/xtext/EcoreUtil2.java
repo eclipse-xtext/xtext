@@ -14,8 +14,6 @@
  *******************************************************************************/
 package org.eclipse.xtext;
 
-import static java.util.Collections.*;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -133,7 +131,7 @@ public class EcoreUtil2 extends EcoreUtil {
 			siblings.remove(ele);
 			return siblings;
 		}
-		return emptyList();
+		return Collections.emptyList();
 	}
 
 	/**
