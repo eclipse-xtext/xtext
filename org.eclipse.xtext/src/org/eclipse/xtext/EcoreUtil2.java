@@ -177,9 +177,10 @@ public class EcoreUtil2 extends EcoreUtil {
 			Resource targetResource = target.createResource(resource.getURI());
 			targetResource.getContents().addAll(copier.copyAll(resource.getContents()));
 			// mark all resources as fully initialized
-			if (resource instanceof DerivedStateAwareResource && targetResource instanceof DerivedStateAwareResource) {
-				((DerivedStateAwareResource) targetResource).setFullyInitialized(((DerivedStateAwareResource) resource)
-						.isFullyInitialized());
+			if (resource instanceof DerivedStateAwareResource derivedStateAwareResource &&
+					targetResource instanceof DerivedStateAwareResource targetDerivedStateAwareResource) {
+				targetDerivedStateAwareResource.setFullyInitialized(
+						derivedStateAwareResource.isFullyInitialized());
 			}
 		}
 		copier.copyReferences();
@@ -299,8 +300,7 @@ public class EcoreUtil2 extends EcoreUtil {
 		Resource resource = new ResourceSetImpl().getResource(uri, true);
 		for (TreeIterator<EObject> allContents = resource.getAllContents(); allContents.hasNext();) {
 			EObject next = allContents.next();
-			if (next instanceof EPackage) {
-				EPackage ePackage = (EPackage) next;
+			if (next instanceof EPackage ePackage) {
 				// if (ePackage.getNsURI() != null &&
 				// ePackage.getNsURI().equals(uriAsString)) {
 				return ePackage;
@@ -349,11 +349,11 @@ public class EcoreUtil2 extends EcoreUtil {
 		}
 		
 		// no common type for simple datatypes available
-		if (!(typeA instanceof EClass && typeB instanceof EClass)) {
+		if (!(typeA instanceof EClass eClassA && typeB instanceof EClass eClassB)) {
 			return null;
 		}
 
-		List<EClass> sortedCandidates = getSortedCommonCompatibleTypeCandidates((EClass) typeA, (EClass) typeB);
+		List<EClass> sortedCandidates = getSortedCommonCompatibleTypeCandidates(eClassA, eClassB);
 		for (EClass candidate : sortedCandidates) {
 			if (isCommonCompatibleType(candidate, sortedCandidates)) {
 				return candidate;
@@ -497,15 +497,15 @@ public class EcoreUtil2 extends EcoreUtil {
 	}
 
 	public static ResourceSet getResourceSet(Notifier ctx) {
-		if (ctx instanceof EObject) {
-			Resource eResource = ((EObject) ctx).eResource();
+		if (ctx instanceof EObject eObject) {
+			Resource eResource = eObject.eResource();
 			if (eResource != null) {
 				return eResource.getResourceSet();
 			}
-		} else if (ctx instanceof Resource) {
-			return ((Resource) ctx).getResourceSet();
-		} else if (ctx instanceof ResourceSet) {
-			return (ResourceSet) ctx;
+		} else if (ctx instanceof Resource resource) {
+			return resource.getResourceSet();
+		} else if (ctx instanceof ResourceSet resourceSet) {
+			return resourceSet;
 		}
 		return null;
 	}
@@ -526,8 +526,8 @@ public class EcoreUtil2 extends EcoreUtil {
 	 * {@link EcoreUtil2#resolveAll(Resource, CancelIndicator)}.
 	 */
 	public static void resolveLazyCrossReferences(Resource resource, CancelIndicator monitor) {
-		if (resource instanceof LazyLinkingResource) {
-			((LazyLinkingResource) resource).resolveLazyCrossReferences(monitor);
+		if (resource instanceof LazyLinkingResource lazyLinkingResource) {
+			lazyLinkingResource.resolveLazyCrossReferences(monitor);
 		} else {
 			resolveAll(resource, monitor);
 		}
