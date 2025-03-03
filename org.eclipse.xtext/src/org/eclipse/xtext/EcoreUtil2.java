@@ -498,10 +498,7 @@ public class EcoreUtil2 extends EcoreUtil {
 
 	public static ResourceSet getResourceSet(Notifier ctx) {
 		if (ctx instanceof EObject eObject) {
-			Resource eResource = eObject.eResource();
-			if (eResource != null) {
-				return eResource.getResourceSet();
-			}
+			return getResourceSet(eObject.eResource());
 		} else if (ctx instanceof Resource resource) {
 			return resource.getResourceSet();
 		} else if (ctx instanceof ResourceSet resourceSet) {
