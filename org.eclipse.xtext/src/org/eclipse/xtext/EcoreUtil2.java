@@ -17,7 +17,6 @@ package org.eclipse.xtext;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -280,12 +279,7 @@ public class EcoreUtil2 extends EcoreUtil {
 	}
 	
 	public static Iterable<EObject> eAllContents(final EObject n) {
-		return new Iterable<EObject>() {
-			@Override
-			public Iterator<EObject> iterator() {
-				return eAll(n);
-			}
-		};
+		return () -> eAll(n);
 	}
 
 	public static List<EObject> eAllContentsAsList(EObject ele) {
@@ -369,18 +363,6 @@ public class EcoreUtil2 extends EcoreUtil {
 		return result;
 	}
 
-	private static class EClassTypeHierarchyComparator implements Comparator<EClass> {
-
-		@Override
-		public int compare(EClass classA, EClass classB) {
-			if (classA.getEAllSuperTypes().contains(classB))
-				return -1;
-			if (classB.getEAllSuperTypes().contains(classA))
-				return 1;
-			return 0;
-		}
-	}
-
 	private static boolean isLooslyCompatibleWith(EClass classA, EClass classB) {
 		return classA.equals(classB) || classA.getEAllSuperTypes().contains(classB)
 				|| classB.getEAllSuperTypes().contains(classA);
@@ -400,7 +382,15 @@ public class EcoreUtil2 extends EcoreUtil {
 		List<EClass> compatibleTypesOfB = getCompatibleTypesOf(classB);
 		result.retainAll(compatibleTypesOfB);
 
-		Collections.sort(result, new EClassTypeHierarchyComparator());
+		result.sort((class1, class2) -> {
+			if (class1.getEAllSuperTypes().contains(class2)) {
+				return -1;
+			}
+			if (class2.getEAllSuperTypes().contains(class1)) {
+				return 1;
+			}
+			return 0;
+		});
 
 		return result;
 	}
@@ -806,22 +796,16 @@ public class EcoreUtil2 extends EcoreUtil {
 	 * @since 2.9
 	 */
 	public static Iterable<EObject> getAllContainers(final EObject obj) {
-		return new Iterable<>() {
+		return () -> new AbstractIterator<>() {
+			private EObject current = obj;
+
 			@Override
-			public Iterator<EObject> iterator() {
-				return new AbstractIterator<>() {
-
-					private EObject current = obj;
-
-					@Override
-					protected EObject computeNext() {
-						current = current.eContainer();
-						if (current == null) {
-							return endOfData();
-						}
-						return current;
-					}
-				};
+			protected EObject computeNext() {
+				current = current.eContainer();
+				if (current == null) {
+					return endOfData();
+				}
+				return current;
 			}
 		};
 	}
