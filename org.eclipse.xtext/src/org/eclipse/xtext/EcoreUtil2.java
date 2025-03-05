@@ -369,12 +369,7 @@ public class EcoreUtil2 extends EcoreUtil {
 	}
 
 	private static boolean isCommonCompatibleType(EClass candidate, List<EClass> candidates) {
-		for (EClass otherCandidate : candidates) {
-			if (!isLooselyCompatibleWith(candidate, otherCandidate)) {
-				return false;
-			}
-		}
-		return true;
+		return candidates.stream().allMatch(otherCandidate -> isLooselyCompatibleWith(candidate, otherCandidate));
 	}
 
 	private static List<EClass> getSortedCommonCompatibleTypeCandidates(EClass classA, EClass classB) {
