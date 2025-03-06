@@ -35,18 +35,16 @@ All committers should feel responsible to read incoming issues. When you read a 
 ## Set up your Eclipse Workspace
 Before starting the setup process, make sure that you have both an [Eclipse](https://accounts.eclipse.org/user/register) and a [GitHub](https://github.com/join) account.
 
-The easiest way to set up a Xtext development environment is to use the following automated Oomph setup configuration link:
+Click on the following badge:
 
-[![Create Eclipse Development Environment for Xtext](https://download.eclipse.org/oomph/www/setups/svg/Xtext.svg)](https://www.eclipse.org/setups/installer/?url=https://raw.githubusercontent.com/eclipse-xtext/xtext/main/releng/org.eclipse.xtext.contributor/XtextConfiguration.setup&show=true "Click to open Eclipse-Installer Auto Launch or drag onto your running installer's title area")
+[![Create Eclipse Development Environment for Xtext](https://download.eclipse.org/oomph/www/setups/svg/Xtext.svg)](https://www.eclipse.org/setups/installer/?url=https://raw.githubusercontent.com/eclipse-xtext/xtext/main/releng/org.eclipse.xtext.contributor/XtextConfiguration.setup&show=true)
 
-Alternatively you can do those steps manually as follows:
+If you have already downloaded and registered the Eclipse Installer to use Auto Launch, follow the instructions in the *Install Using Auto Launch* section. Otherwise, download and start the [Eclipse Installer](https://www.eclipse.org/downloads/packages/installer), then follow the instructions in the *Install Using Drag and Drop* section of the previous web page.
 
-1. Download and start the [Eclipse Installer](https://wiki.eclipse.org/Eclipse_Oomph_Installer).
-1. On the initial page, click on the *Switch to Advanced Mode* button in the top right.
-1. On the *Product* page, select *Eclipse IDE for Eclipse Committers*.
-1. On the *Projects* page, select the *Xtext* node.
-1. Choose your preferred installation settings on the *Variables* page. Enter credentials for your Eclipse and GitHub accounts. If you don't have an SSH key registered with GitHub then make sure that you select `HTTPS (read-only, anonymous)` or `HTTPS (read-write)` for the GitHub repository entries.
-1. Finish the wizard, drink a cup of coffee, and watch how your Xtext development environment is assembled.
+In either case, afterwards:
+1. When prompted by the Eclipse Installer, switch to the advanced mode.
+2. In the *Variables* page, choose your preferred installation settings. Choose your preferred Eclipse git authentication style (if you have an SSH key associated to your account, SSH is recommended).
+3. Finish the wizard, drink a cup of coffee, and watch how your Xtext development environment is assembled.
 
 ## Contribute via a Fork
 You need a [GitHub](https://github.com/join) and an [Eclipse](https://accounts.eclipse.org/user/register) account for which you signed the [Eclipse Contributor Agreement](https://accounts.eclipse.org/user/login?destination=user/eca).
