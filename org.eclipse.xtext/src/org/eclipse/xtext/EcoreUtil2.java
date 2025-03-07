@@ -384,7 +384,11 @@ public class EcoreUtil2 extends EcoreUtil {
 			if (class2.getEAllSuperTypes().contains(class1)) {
 				return 1;
 			}
-			return 0;
+			int nameComparisonResult = class1.getName().compareTo(class2.getName());
+			if (nameComparisonResult != 0) {
+				return nameComparisonResult;
+			}
+			return class1.getEPackage().getNsURI().compareTo(class2.getEPackage().getNsURI());
 		});
 
 		return result;
