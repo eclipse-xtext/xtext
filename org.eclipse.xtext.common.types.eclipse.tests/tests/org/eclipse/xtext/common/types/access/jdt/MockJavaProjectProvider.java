@@ -74,18 +74,20 @@ public class MockJavaProjectProvider implements IJavaProjectProvider {
 						"org.eclipse.pde.PluginNature"
 				}
 		);
+		IResourcesSetupUtil.waitForBuild();
 		String path = "/org/eclipse/xtext/common/types/testSetups";
 		String jarFileName = "/testData.jar";
 		IFile jarFile = PluginUtil.copyFileToWorkspace(TestsActivator.getInstance(), path + jarFileName, javaProject.getProject(), 
 				jarFileName);
 		JavaProjectSetupUtil.addJarToClasspath(javaProject, jarFile);
-		
+		IResourcesSetupUtil.waitForBuild();
 		javaProjectWithSources = createJavaProject("projectWithSources",
 				new String[] {
 						JavaCore.NATURE_ID,
 						"org.eclipse.pde.PluginNature"
 				}
 		);
+		IResourcesSetupUtil.waitForBuild();
 		IFolder sourceFolder = JavaProjectSetupUtil.addSourceFolder(javaProjectWithSources, "src");
 		
 		List<String> filesToCopy = readResource(path + "/files.list");
