@@ -4,5 +4,6 @@
   <source path="">
     <include name="TestEntryPoint.java" />
   </source>
+  <super-source path="src-super"/>
   <entry-point class="org.eclipse.xtend.lib.test.TestEntryPoint" />
 </module>
