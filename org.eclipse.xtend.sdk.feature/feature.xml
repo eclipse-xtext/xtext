@@ -33,7 +33,7 @@ SPDX-License-Identifier: EPL-2.0
    <requires>
       <import feature="org.eclipse.xtext.ui" version="2.39.0" match="equivalent"/>
       <import feature="org.eclipse.xtext.xbase.lib" version="2.39.0" match="equivalent"/>
-      <import plugin="com.google.guava" version="33.4.0" match="compatible"/>
+      <import plugin="com.google.guava" version="33.4.6" match="compatible"/>
       <import plugin="org.apache.log4j" version="1.2.24" match="equivalent"/>
    </requires>
 

@@ -45,14 +45,14 @@
 			<unit id="org.kohsuke.args4j" version="0.0.0"/>
 			<unit id="com.google.gson" version="2.12.1"/>
 			<unit id="com.google.guava" version="0.0.0"/>
-			<unit id="com.google.guava.failureaccess" version="1.0.2"/>
+			<unit id="com.google.guava.failureaccess" version="1.0.3"/>
 			<unit id="com.google.inject" version="7.0.0"/>
 			<unit id="jakarta.inject.jakarta.inject-api" version="2.0.1"/>
 			<unit id="org.antlr.runtime" version="3.2.0.v20230929-1400"/>
 			<unit id="org.aopalliance" version="1.0.0.v20230720-0728"/>
 			<unit id="org.opentest4j" version="0.0.0"/>
 			<unit id="org.apiguardian.api" version="0.0.0"/>
-			<unit id="org.objectweb.asm" version="9.7.1"/>
+			<unit id="org.objectweb.asm" version="9.8.0"/>
 			<unit id="io.github.classgraph.classgraph" version="0.0.0"/>
 			<unit id="slf4j.api" version="0.0.0"/>
 			<unit id="slf4j.simple" version="0.0.0"/>

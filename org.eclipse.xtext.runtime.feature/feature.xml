@@ -24,10 +24,10 @@ SPDX-License-Identifier: EPL-2.0
       %license
    </license>
    <requires>
-      <import plugin="com.google.guava" version="33.4.0" match="compatible"/>
+      <import plugin="com.google.guava" version="33.4.6" match="compatible"/>
       <import plugin="com.google.inject" version="7.0.0" match="compatible"/>
       <import plugin="org.apache.log4j" version="1.2.24" match="equivalent"/>
-      <import plugin="org.objectweb.asm" version="9.7.1" match="compatible"/>
+      <import plugin="org.objectweb.asm" version="9.8.0" match="compatible"/>
    </requires>
 
    <plugin
