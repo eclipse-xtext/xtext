@@ -2,22 +2,22 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Xtext IDE Tests
 Bundle-SymbolicName: org.eclipse.xtext.ide.tests;singleton:=true
-Bundle-Version: 2.39.0.qualifier
+Bundle-Version: 2.40.0.qualifier
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: Eclipse Xtext
-Require-Bundle: org.eclipse.xtext;bundle-version="2.39.0";visibility:=reexport,
- org.eclipse.xtext.testing;bundle-version="2.39.0",
- org.eclipse.xtext.xtext.generator;bundle-version="2.39.0",
- org.eclipse.xtend.lib;bundle-version="2.39.0",
+Require-Bundle: org.eclipse.xtext;bundle-version="2.40.0";visibility:=reexport,
+ org.eclipse.xtext.testing;bundle-version="2.40.0",
+ org.eclipse.xtext.xtext.generator;bundle-version="2.40.0",
+ org.eclipse.xtend.lib;bundle-version="2.40.0",
  org.eclipse.core.runtime;bundle-version="3.31.0",
- org.eclipse.xtext.ide;bundle-version="2.39.0",
+ org.eclipse.xtext.ide;bundle-version="2.40.0",
  org.junit;bundle-version="4.13.2",
  org.eclipse.lsp4j;bundle-version="[0.24.0,0.25.0)";resolution:=optional,
  org.eclipse.lsp4j.jsonrpc;bundle-version="[0.24.0,0.25.0)";resolution:=optional,
- org.eclipse.xtext.testlanguages;bundle-version="2.39.0",
- org.eclipse.xtext.testlanguages.ide;bundle-version="2.39.0",
+ org.eclipse.xtext.testlanguages;bundle-version="2.40.0",
+ org.eclipse.xtext.testlanguages.ide;bundle-version="2.40.0",
  org.eclipse.emf.mwe2.lib;bundle-version="2.21.0",
  org.aopalliance;bundle-version="1.0.0",
  com.google.gson;bundle-version="2.10.1"

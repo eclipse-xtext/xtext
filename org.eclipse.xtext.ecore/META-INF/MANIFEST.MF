@@ -2,13 +2,13 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Xtext Ecore Support
 Bundle-SymbolicName: org.eclipse.xtext.ecore;singleton:=true
-Bundle-Version: 2.39.0.qualifier
+Bundle-Version: 2.40.0.qualifier
 Bundle-Vendor: Eclipse Xtext
 Require-Bundle: org.eclipse.core.runtime;bundle-version="3.31.0",
- org.eclipse.xtext;bundle-version="2.39.0";visibility:=reexport
+ org.eclipse.xtext;bundle-version="2.40.0";visibility:=reexport
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-ActivationPolicy: lazy
-Export-Package: org.eclipse.xtext.ecore;version="2.39.0";
+Export-Package: org.eclipse.xtext.ecore;version="2.40.0";
   uses:="org.eclipse.emf.ecore,
    com.google.inject,
    org.eclipse.xtext.resource.generic,

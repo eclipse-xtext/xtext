@@ -2,20 +2,20 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Xtext Releng Utility
 Bundle-SymbolicName: org.eclipse.xtext.relengutil
-Bundle-Version: 2.39.0.qualifier
+Bundle-Version: 2.40.0.qualifier
 Bundle-Vendor: Eclipse Xtext
 Bundle-RequiredExecutionEnvironment: JavaSE-17
-Require-Bundle: org.eclipse.xtext.util;bundle-version="2.39.0",
+Require-Bundle: org.eclipse.xtext.util;bundle-version="2.40.0",
  org.eclipse.m2e.maven.runtime;bundle-version="3.9.600",
- org.eclipse.xtext.xtext.generator.dependencies;bundle-version="2.39.0",
- org.eclipse.xtext.purexbase;bundle-version="2.39.0",
- org.eclipse.xtext.xtext.bootstrap;bundle-version="2.39.0",
- org.eclipse.xtext.ui.codetemplates;bundle-version="2.39.0",
- org.eclipse.xtend.core;bundle-version="2.39.0",
- org.eclipse.xtext.example.arithmetics;bundle-version="2.39.0";resolution:=optional,
- org.eclipse.xtext.example.domainmodel;bundle-version="2.39.0";resolution:=optional,
- org.eclipse.xtext.example.fowlerdsl;bundle-version="2.39.0";resolution:=optional,
- org.eclipse.xtext.example.homeautomation;bundle-version="2.39.0";resolution:=optional
+ org.eclipse.xtext.xtext.generator.dependencies;bundle-version="2.40.0",
+ org.eclipse.xtext.purexbase;bundle-version="2.40.0",
+ org.eclipse.xtext.xtext.bootstrap;bundle-version="2.40.0",
+ org.eclipse.xtext.ui.codetemplates;bundle-version="2.40.0",
+ org.eclipse.xtend.core;bundle-version="2.40.0",
+ org.eclipse.xtext.example.arithmetics;bundle-version="2.40.0";resolution:=optional,
+ org.eclipse.xtext.example.domainmodel;bundle-version="2.40.0";resolution:=optional,
+ org.eclipse.xtext.example.fowlerdsl;bundle-version="2.40.0";resolution:=optional,
+ org.eclipse.xtext.example.homeautomation;bundle-version="2.40.0";resolution:=optional
 Automatic-Module-Name: org.eclipse.xtext.relengutil
 Eclipse-SourceReferences: eclipseSourceReferences
 Import-Package: org.apache.log4j;version="1.2.26",

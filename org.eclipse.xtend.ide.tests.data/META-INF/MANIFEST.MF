@@ -2,14 +2,14 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Plug-in for testing restricted access
 Bundle-SymbolicName: org.eclipse.xtend.ide.tests.data
-Bundle-Version: 2.39.0.qualifier
+Bundle-Version: 2.40.0.qualifier
 Bundle-Vendor: Eclipse Xtext
 Bundle-RequiredExecutionEnvironment: JavaSE-17
-Export-Package: org.eclipse.xtend.core.tests.internal;version="2.39.0";x-internal:=true,
- org.eclipse.xtend.ide.tests.data;version="2.39.0",
- org.eclipse.xtend.ide.tests.data.bug348446;version="2.39.0",
- org.eclipse.xtend.ide.tests.data.contentassist;version="2.39.0",
- org.eclipse.xtend.ide.tests.data.highlighting;version="2.39.0",
- org.eclipse.xtend.ide.tests.data.quickfix;version="2.39.0"
+Export-Package: org.eclipse.xtend.core.tests.internal;version="2.40.0";x-internal:=true,
+ org.eclipse.xtend.ide.tests.data;version="2.40.0",
+ org.eclipse.xtend.ide.tests.data.bug348446;version="2.40.0",
+ org.eclipse.xtend.ide.tests.data.contentassist;version="2.40.0",
+ org.eclipse.xtend.ide.tests.data.highlighting;version="2.40.0",
+ org.eclipse.xtend.ide.tests.data.quickfix;version="2.40.0"
 Import-Package: org.junit;version="4.13.2"
 Automatic-Module-Name: org.eclipse.xtend.ide.tests.data

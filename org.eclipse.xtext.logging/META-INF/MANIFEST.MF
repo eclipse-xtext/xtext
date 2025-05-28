@@ -5,9 +5,9 @@ Bundle-Name: %pluginName
 Fragment-Host: org.apache.log4j;bundle-version="[1.2.24,1.3.0)"
 Bundle-SymbolicName: org.eclipse.xtext.logging;singleton:=true
 Bundle-Vendor: %providerName
-Bundle-Version: 2.39.0.qualifier
+Bundle-Version: 2.40.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Import-Package: org.eclipse.core.runtime;bundle-version="3.31.0",
  org.osgi.framework;version="1.5.0"
-Export-Package: org.eclipse.xtext.logging;version="2.39.0";x-internal:=true
+Export-Package: org.eclipse.xtext.logging;version="2.40.0";x-internal:=true
 Automatic-Module-Name: org.eclipse.xtext.logging

@@ -2,23 +2,23 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Xbase Testing Infrastructure
 Bundle-SymbolicName: org.eclipse.xtext.xbase.testing;singleton:=true
-Bundle-Version: 2.39.0.qualifier
+Bundle-Version: 2.40.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: Eclipse Xtext
 Bundle-RequiredExecutionEnvironment: JavaSE-17
-Require-Bundle: org.eclipse.xtext;bundle-version="2.39.0",
- org.eclipse.xtext.xbase;bundle-version="2.39.0";visibility:=reexport,
+Require-Bundle: org.eclipse.xtext;bundle-version="2.40.0",
+ org.eclipse.xtext.xbase;bundle-version="2.40.0";visibility:=reexport,
  org.eclipse.jdt.core;bundle-version="3.37.0";visibility:=reexport,
  org.junit;bundle-version="4.13.2",
- org.eclipse.xtext.testing;bundle-version="2.39.0";visibility:=reexport,
+ org.eclipse.xtext.testing;bundle-version="2.40.0";visibility:=reexport,
  org.eclipse.core.runtime;bundle-version="3.31.0"
 Bundle-ActivationPolicy: lazy
-Export-Package: org.eclipse.xtext.xbase.testing;version="2.39.0",
- org.eclipse.xtext.xbase.testing.evaluation;version="2.39.0";x-friends:="org.eclipse.xtext.xbase.tests,org.eclipse.xtext.purexbase.tests,org.eclipse.xtend.core.tests",
- org.eclipse.xtext.xbase.testing.typesystem;version="2.39.0";x-internal:=true,
- testdata;version="2.39.0";x-friends:="org.eclipse.xtext.xbase.tests,org.eclipse.xtend.core.tests",
- testdata.a;version="2.39.0";x-internal:=true,
- testdata.b;version="2.39.0";x-internal:=true
+Export-Package: org.eclipse.xtext.xbase.testing;version="2.40.0",
+ org.eclipse.xtext.xbase.testing.evaluation;version="2.40.0";x-friends:="org.eclipse.xtext.xbase.tests,org.eclipse.xtext.purexbase.tests,org.eclipse.xtend.core.tests",
+ org.eclipse.xtext.xbase.testing.typesystem;version="2.40.0";x-internal:=true,
+ testdata;version="2.40.0";x-friends:="org.eclipse.xtext.xbase.tests,org.eclipse.xtend.core.tests",
+ testdata.a;version="2.40.0";x-internal:=true,
+ testdata.b;version="2.40.0";x-internal:=true
 Import-Package: org.apache.log4j;version="1.2.26"
 Automatic-Module-Name: org.eclipse.xtext.xbase.testing
 Eclipse-SourceReferences: eclipseSourceReferences

@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Xtext Fowler DSL Example - Runtime Tests
 Bundle-Vendor: Eclipse Xtext
-Bundle-Version: 2.39.0.qualifier
+Bundle-Version: 2.40.0.qualifier
 Bundle-SymbolicName: org.eclipse.xtext.example.fowlerdsl.tests;singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.xtext.example.fowlerdsl,

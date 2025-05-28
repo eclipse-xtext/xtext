@@ -2,38 +2,38 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Xbase Model
 Bundle-Vendor: Eclipse Xtext
-Bundle-Version: 2.39.0.qualifier
+Bundle-Version: 2.40.0.qualifier
 Bundle-SymbolicName: org.eclipse.xtext.xbase;singleton:=true
 Bundle-ActivationPolicy: lazy
-Require-Bundle: org.eclipse.xtext;bundle-version="2.39.0",
- org.eclipse.xtext.common.types;bundle-version="2.39.0";visibility:=reexport,
+Require-Bundle: org.eclipse.xtext;bundle-version="2.40.0",
+ org.eclipse.xtext.common.types;bundle-version="2.40.0";visibility:=reexport,
  org.eclipse.emf.ecore;bundle-version="2.36.0",
  org.eclipse.emf.common;bundle-version="2.30.0",
  org.antlr.runtime;bundle-version="[3.2.0,3.2.1)",
- org.eclipse.xtext.xbase.lib;bundle-version="2.39.0",
- org.eclipse.xtend.lib;bundle-version="2.39.0";visibility:=reexport,
+ org.eclipse.xtext.xbase.lib;bundle-version="2.40.0",
+ org.eclipse.xtend.lib;bundle-version="2.40.0";visibility:=reexport,
  org.objectweb.asm;bundle-version="[9.8.0,9.9.0)";resolution:=optional
 Bundle-RequiredExecutionEnvironment: JavaSE-17
-Export-Package: org.eclipse.xtext.xbase;version="2.39.0",
- org.eclipse.xtext.xbase.annotations;version="2.39.0";x-friends:="org.eclipse.xtext.xbase.ide,org.eclipse.xtext.xbase.tests",
- org.eclipse.xtext.xbase.annotations.formatting;version="2.39.0";x-internal:=true,
- org.eclipse.xtext.xbase.annotations.formatting2;version="2.39.0";x-friends:="org.eclipse.xtend.core,org.eclipse.xtend.core.tests",
- org.eclipse.xtext.xbase.annotations.parser.antlr;version="2.39.0";x-internal:=true,
- org.eclipse.xtext.xbase.annotations.parser.antlr.internal;version="2.39.0";x-internal:=true,
- org.eclipse.xtext.xbase.annotations.serializer;version="2.39.0";x-internal:=true,
- org.eclipse.xtext.xbase.annotations.services;version="2.39.0";x-friends:="org.eclipse.xtext.xbase.ide",
- org.eclipse.xtext.xbase.annotations.typesystem;version="2.39.0";x-friends:="org.eclipse.xtend.core",
- org.eclipse.xtext.xbase.annotations.typing;version="2.39.0";x-friends:="org.eclipse.xtend.core",
- org.eclipse.xtext.xbase.annotations.validation;version="2.39.0";
+Export-Package: org.eclipse.xtext.xbase;version="2.40.0",
+ org.eclipse.xtext.xbase.annotations;version="2.40.0";x-friends:="org.eclipse.xtext.xbase.ide,org.eclipse.xtext.xbase.tests",
+ org.eclipse.xtext.xbase.annotations.formatting;version="2.40.0";x-internal:=true,
+ org.eclipse.xtext.xbase.annotations.formatting2;version="2.40.0";x-friends:="org.eclipse.xtend.core,org.eclipse.xtend.core.tests",
+ org.eclipse.xtext.xbase.annotations.parser.antlr;version="2.40.0";x-internal:=true,
+ org.eclipse.xtext.xbase.annotations.parser.antlr.internal;version="2.40.0";x-internal:=true,
+ org.eclipse.xtext.xbase.annotations.serializer;version="2.40.0";x-internal:=true,
+ org.eclipse.xtext.xbase.annotations.services;version="2.40.0";x-friends:="org.eclipse.xtext.xbase.ide",
+ org.eclipse.xtext.xbase.annotations.typesystem;version="2.40.0";x-friends:="org.eclipse.xtend.core",
+ org.eclipse.xtext.xbase.annotations.typing;version="2.40.0";x-friends:="org.eclipse.xtend.core",
+ org.eclipse.xtext.xbase.annotations.validation;version="2.40.0";
   x-friends:="org.eclipse.xtext.xbase.ui,
    org.eclipse.xtend.core,
    org.eclipse.xtend.ide.tests,
    org.eclipse.xtext.xbase.tests,
    org.eclipse.xtend.core.tests",
- org.eclipse.xtext.xbase.annotations.xAnnotations;version="2.39.0",
- org.eclipse.xtext.xbase.annotations.xAnnotations.impl;version="2.39.0";x-internal:=true,
- org.eclipse.xtext.xbase.annotations.xAnnotations.util;version="2.39.0";x-internal:=true,
- org.eclipse.xtext.xbase.compiler;version="2.39.0";
+ org.eclipse.xtext.xbase.annotations.xAnnotations;version="2.40.0",
+ org.eclipse.xtext.xbase.annotations.xAnnotations.impl;version="2.40.0";x-internal:=true,
+ org.eclipse.xtext.xbase.annotations.xAnnotations.util;version="2.40.0";x-internal:=true,
+ org.eclipse.xtext.xbase.compiler;version="2.40.0";
   x-friends:="org.eclipse.xtext.xbase.tests,
    org.eclipse.xtext.xbase.ui,
    org.eclipse.xtend.core,
@@ -43,30 +43,30 @@ Export-Package: org.eclipse.xtext.xbase;version="2.39.0",
    org.eclipse.xtend.ide.tests,
    org.eclipse.xtext.xbase.testing,
    org.eclipse.xtext.xbase.ide",
- org.eclipse.xtext.xbase.compiler.output;version="2.39.0";
+ org.eclipse.xtext.xbase.compiler.output;version="2.40.0";
   x-friends:="org.eclipse.xtext.xbase.ui,
    org.eclipse.xtend.core,
    org.eclipse.xtend.core.tests,
    org.eclipse.xtend.ide,
    org.eclipse.xtend.ide.common,
    org.eclipse.xtext.xbase.tests",
- org.eclipse.xtext.xbase.controlflow;version="2.39.0";x-internal:=true,
- org.eclipse.xtext.xbase.conversion;version="2.39.0";
+ org.eclipse.xtext.xbase.controlflow;version="2.40.0";x-internal:=true,
+ org.eclipse.xtext.xbase.conversion;version="2.40.0";
   x-friends:="org.eclipse.xtext.xbase.ui,
    org.eclipse.xtend.core,
    org.eclipse.xtend.core.tests,
    org.eclipse.xtend.ide,
    org.eclipse.xtend.ide.common",
- org.eclipse.xtext.xbase.debug;version="2.39.0";x-internal:=true,
- org.eclipse.xtext.xbase.featurecalls;version="2.39.0";x-internal:=true,
- org.eclipse.xtext.xbase.formatting;version="2.39.0";x-friends:="org.eclipse.xtend.ide,org.eclipse.xtend.ide.common",
- org.eclipse.xtext.xbase.formatting2;version="2.39.0";
+ org.eclipse.xtext.xbase.debug;version="2.40.0";x-internal:=true,
+ org.eclipse.xtext.xbase.featurecalls;version="2.40.0";x-internal:=true,
+ org.eclipse.xtext.xbase.formatting;version="2.40.0";x-friends:="org.eclipse.xtend.ide,org.eclipse.xtend.ide.common",
+ org.eclipse.xtext.xbase.formatting2;version="2.40.0";
   x-friends:="org.eclipse.xtext.purexbase,
    org.eclipse.xtend.core,
    org.eclipse.xtend.core.tests,
    org.eclipse.xtext.xbase.tests",
- org.eclipse.xtext.xbase.impl;version="2.39.0";x-internal:=true,
- org.eclipse.xtext.xbase.imports;version="2.39.0";
+ org.eclipse.xtext.xbase.impl;version="2.40.0";x-internal:=true,
+ org.eclipse.xtext.xbase.imports;version="2.40.0";
   x-friends:="org.eclipse.xtext.xbase.ide,
    org.eclipse.xtext.xbase.ui,
    org.eclipse.xtend.core,
@@ -76,19 +76,19 @@ Export-Package: org.eclipse.xtext.xbase;version="2.39.0",
    org.eclipse.xtend.ide.tests,
    org.eclipse.xtext.xbase.tests,
    org.eclipse.xtext.purexbase.tests",
- org.eclipse.xtext.xbase.interpreter;version="2.39.0";
+ org.eclipse.xtext.xbase.interpreter;version="2.40.0";
   x-friends:="org.eclipse.xtext.purexbase.ui,
    org.eclipse.xtext.xbase.tests,
    org.eclipse.xtend.core,
    org.eclipse.xtend.core.tests,
    org.eclipse.xtext.purexbase.tests",
- org.eclipse.xtext.xbase.interpreter.impl;version="2.39.0";x-friends:="org.eclipse.xtext.purexbase.ui,org.eclipse.xtext.xbase.tests",
- org.eclipse.xtext.xbase.jvmmodel;version="2.39.0",
- org.eclipse.xtext.xbase.linking;version="2.39.0";x-friends:="org.eclipse.xtend.core",
- org.eclipse.xtext.xbase.parser;version="2.39.0";x-friends:="org.eclipse.xtend.core",
- org.eclipse.xtext.xbase.parser.antlr;version="2.39.0";x-internal:=true,
- org.eclipse.xtext.xbase.parser.antlr.internal;version="2.39.0";x-internal:=true,
- org.eclipse.xtext.xbase.resource;version="2.39.0";
+ org.eclipse.xtext.xbase.interpreter.impl;version="2.40.0";x-friends:="org.eclipse.xtext.purexbase.ui,org.eclipse.xtext.xbase.tests",
+ org.eclipse.xtext.xbase.jvmmodel;version="2.40.0",
+ org.eclipse.xtext.xbase.linking;version="2.40.0";x-friends:="org.eclipse.xtend.core",
+ org.eclipse.xtext.xbase.parser;version="2.40.0";x-friends:="org.eclipse.xtend.core",
+ org.eclipse.xtext.xbase.parser.antlr;version="2.40.0";x-internal:=true,
+ org.eclipse.xtext.xbase.parser.antlr.internal;version="2.40.0";x-internal:=true,
+ org.eclipse.xtext.xbase.resource;version="2.40.0";
   x-friends:="org.eclipse.xtext.xbase.ui,
    org.eclipse.xtext.xbase.ui.tests,
    org.eclipse.xtend.core,
@@ -97,7 +97,7 @@ Export-Package: org.eclipse.xtext.xbase;version="2.39.0",
    org.eclipse.xtend.ide.common,
    org.eclipse.xtend.ide.tests,
    org.eclipse.xtext.xbase.tests",
- org.eclipse.xtext.xbase.scoping;version="2.39.0";
+ org.eclipse.xtext.xbase.scoping;version="2.40.0";
   x-friends:="org.eclipse.xtext.xbase.tests,
    org.eclipse.xtext.xbase.ide,
    org.eclipse.xtext.xbase.ui,
@@ -105,7 +105,7 @@ Export-Package: org.eclipse.xtext.xbase;version="2.39.0",
    org.eclipse.xtend.ide,
    org.eclipse.xtend.ide.common,
    org.eclipse.xtext.xbase.testlanguages",
- org.eclipse.xtext.xbase.scoping.batch;version="2.39.0";
+ org.eclipse.xtext.xbase.scoping.batch;version="2.40.0";
   x-friends:="org.eclipse.xtext.xbase.ide,
    org.eclipse.xtext.xbase.ui,
    org.eclipse.xtend.core,
@@ -114,7 +114,7 @@ Export-Package: org.eclipse.xtext.xbase;version="2.39.0",
    org.eclipse.xtend.ide.common,
    org.eclipse.xtext.xbase.tests,
    org.eclipse.xtext.xbase.testing",
- org.eclipse.xtext.xbase.scoping.featurecalls;version="2.39.0";
+ org.eclipse.xtext.xbase.scoping.featurecalls;version="2.40.0";
   x-friends:="org.eclipse.xtext.xbase.tests,
    org.eclipse.xtext.xbase.ide,
    org.eclipse.xtext.xbase.ui,
@@ -122,15 +122,15 @@ Export-Package: org.eclipse.xtext.xbase;version="2.39.0",
    org.eclipse.xtend.ide,
    org.eclipse.xtend.ide.common,
    org.eclipse.xtend.core.tests",
- org.eclipse.xtext.xbase.serializer;version="2.39.0";x-friends:="org.eclipse.xtend.core",
- org.eclipse.xtext.xbase.services;version="2.39.0";
+ org.eclipse.xtext.xbase.serializer;version="2.40.0";x-friends:="org.eclipse.xtend.core",
+ org.eclipse.xtext.xbase.services;version="2.40.0";
   x-friends:="org.eclipse.xtext.xbase.ide,
    org.eclipse.xtext.xbase.ui,
    org.eclipse.xtend.core,
    org.eclipse.xtend.ide,
    org.eclipse.xtend.ide.common,
    org.eclipse.xtext.xbase.tests",
- org.eclipse.xtext.xbase.typesystem;version="2.39.0";
+ org.eclipse.xtext.xbase.typesystem;version="2.40.0";
   x-friends:="org.eclipse.xtext.xbase.ide,
    org.eclipse.xtext.xbase.testing,
    org.eclipse.xtext.xbase.ui,
@@ -140,16 +140,16 @@ Export-Package: org.eclipse.xtext.xbase;version="2.39.0",
    org.eclipse.xtend.ide.common,
    org.eclipse.xtext.xbase.tests,
    org.eclipse.xtend.core.tests",
- org.eclipse.xtext.xbase.typesystem.arguments;version="2.39.0";x-friends:="org.eclipse.xtend.core.tests,org.eclipse.xtext.xbase.tests",
- org.eclipse.xtext.xbase.typesystem.computation;version="2.39.0";
+ org.eclipse.xtext.xbase.typesystem.arguments;version="2.40.0";x-friends:="org.eclipse.xtend.core.tests,org.eclipse.xtext.xbase.tests",
+ org.eclipse.xtext.xbase.typesystem.computation;version="2.40.0";
   x-friends:="org.eclipse.xtend.core,
    org.eclipse.xtend.ide,
    org.eclipse.xtend.ide.common,
    org.eclipse.xtext.xbase.testing,
    org.eclipse.xtext.xbase.tests,
    org.eclipse.xtend.core.tests",
- org.eclipse.xtext.xbase.typesystem.conformance;version="2.39.0";x-friends:="org.eclipse.xtend.core,org.eclipse.xtend.core.tests,org.eclipse.xtext.xbase.tests",
- org.eclipse.xtext.xbase.typesystem.internal;version="2.39.0";
+ org.eclipse.xtext.xbase.typesystem.conformance;version="2.40.0";x-friends:="org.eclipse.xtend.core,org.eclipse.xtend.core.tests,org.eclipse.xtext.xbase.tests",
+ org.eclipse.xtext.xbase.typesystem.internal;version="2.40.0";
   x-friends:="org.eclipse.xtext.xbase.ide,
    org.eclipse.xtext.xbase.testing,
    org.eclipse.xtext.xbase.ui,
@@ -158,9 +158,9 @@ Export-Package: org.eclipse.xtext.xbase;version="2.39.0",
    org.eclipse.xtend.core.tests,
    org.eclipse.xtend.ide.tests,
    org.eclipse.xtext.xbase.tests",
- org.eclipse.xtext.xbase.typesystem.internal.util;version="2.39.0";x-internal:=true,
- org.eclipse.xtext.xbase.typesystem.legacy;version="2.39.0";x-internal:=true,
- org.eclipse.xtext.xbase.typesystem.override;version="2.39.0";
+ org.eclipse.xtext.xbase.typesystem.internal.util;version="2.40.0";x-internal:=true,
+ org.eclipse.xtext.xbase.typesystem.legacy;version="2.40.0";x-internal:=true,
+ org.eclipse.xtext.xbase.typesystem.override;version="2.40.0";
   x-friends:="org.eclipse.xtext.xbase.ui,
    org.eclipse.xtend.core,
    org.eclipse.xtend.core.tests,
@@ -169,7 +169,7 @@ Export-Package: org.eclipse.xtext.xbase;version="2.39.0",
    org.eclipse.xtend.ide.tests,
    org.eclipse.xtext.xbase.ide,
    org.eclipse.xtext.xbase.tests",
- org.eclipse.xtext.xbase.typesystem.references;version="2.39.0";
+ org.eclipse.xtext.xbase.typesystem.references;version="2.40.0";
   x-friends:="org.eclipse.xtext.xbase.ide,
    org.eclipse.xtext.xbase.testing,
    org.eclipse.xtext.xbase.ui,
@@ -180,7 +180,7 @@ Export-Package: org.eclipse.xtext.xbase;version="2.39.0",
    org.eclipse.xtend.ide.tests,
    org.eclipse.xtext.xbase.tests,
    org.eclipse.xtend.core.tests",
- org.eclipse.xtext.xbase.typesystem.util;version="2.39.0";
+ org.eclipse.xtext.xbase.typesystem.util;version="2.40.0";
   x-friends:="org.eclipse.xtext.xbase.ide,
    org.eclipse.xtext.xbase.ui,
    org.eclipse.xtend.core,
@@ -189,14 +189,14 @@ Export-Package: org.eclipse.xtext.xbase;version="2.39.0",
    org.eclipse.xtend.ide.common,
    org.eclipse.xtend.ide.tests,
    org.eclipse.xtext.xbase.tests",
- org.eclipse.xtext.xbase.typing;version="2.39.0",
- org.eclipse.xtext.xbase.util;version="2.39.0";
+ org.eclipse.xtext.xbase.typing;version="2.40.0",
+ org.eclipse.xtext.xbase.util;version="2.40.0";
   x-friends:="org.eclipse.xtext.xbase.ui,
    org.eclipse.xtend.core,
    org.eclipse.xtend.ide,
    org.eclipse.xtend.ide.common,
    org.eclipse.xtext.xbase.tests",
- org.eclipse.xtext.xbase.validation;version="2.39.0";
+ org.eclipse.xtext.xbase.validation;version="2.40.0";
   x-friends:="org.eclipse.xtext.xbase.tests,
    org.eclipse.xtext.xbase.ui,
    org.eclipse.xtext.xbase.ui.tests,
@@ -207,9 +207,9 @@ Export-Package: org.eclipse.xtext.xbase;version="2.39.0",
    org.eclipse.xtend.core.tests,
    org.eclipse.xtext.xbase.ide,
    org.eclipse.xtext.xbase.testlanguages",
- org.eclipse.xtext.xtype;version="2.39.0",
- org.eclipse.xtext.xtype.impl;version="2.39.0";x-friends:="org.eclipse.xtend.core",
- org.eclipse.xtext.xtype.util;version="2.39.0";x-friends:="org.eclipse.xtend.core,org.eclipse.xtext.xbase.tests"
+ org.eclipse.xtext.xtype;version="2.40.0",
+ org.eclipse.xtext.xtype.impl;version="2.40.0";x-friends:="org.eclipse.xtend.core",
+ org.eclipse.xtext.xtype.util;version="2.40.0";x-friends:="org.eclipse.xtend.core,org.eclipse.xtext.xbase.tests"
 Import-Package: org.apache.log4j;version="1.2.26"
 Automatic-Module-Name: org.eclipse.xtext.xbase
 Eclipse-SourceReferences: eclipseSourceReferences

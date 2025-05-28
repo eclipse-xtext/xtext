@@ -2,28 +2,28 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Xbase Xtext Testlanguages for UI and Runtime - UI
 Bundle-Vendor: Eclipse Xtext
-Bundle-Version: 2.39.0.qualifier
+Bundle-Version: 2.40.0.qualifier
 Bundle-SymbolicName: org.eclipse.xtext.xbase.testlanguages.ui; singleton:=true
 Bundle-ActivationPolicy: lazy
-Require-Bundle: org.eclipse.xtext.xbase.testlanguages;bundle-version="2.39.0";visibility:=reexport,
- org.eclipse.xtext.xbase.testlanguages.ide;bundle-version="2.39.0",
+Require-Bundle: org.eclipse.xtext.xbase.testlanguages;bundle-version="2.40.0";visibility:=reexport,
+ org.eclipse.xtext.xbase.testlanguages.ide;bundle-version="2.40.0",
  org.eclipse.jdt.debug.ui;bundle-version="3.13.300",
- org.eclipse.xtext.ui;bundle-version="2.39.0",
+ org.eclipse.xtext.ui;bundle-version="2.40.0",
  org.eclipse.ui.editors;bundle-version="3.17.200",
  org.eclipse.ui.ide;bundle-version="3.22.100",
- org.eclipse.xtext.ui.shared;bundle-version="2.39.0",
- org.eclipse.xtext.xbase.ui;bundle-version="2.39.0",
+ org.eclipse.xtext.ui.shared;bundle-version="2.40.0",
+ org.eclipse.xtext.xbase.ui;bundle-version="2.40.0",
  org.eclipse.ui;bundle-version="3.205.100",
- org.eclipse.xtext.builder;bundle-version="2.39.0",
+ org.eclipse.xtext.builder;bundle-version="2.40.0",
  org.antlr.runtime;bundle-version="[3.2.0,3.2.1)",
- org.eclipse.xtext.common.types.ui;bundle-version="2.39.0",
- org.eclipse.xtext.ui.codetemplates.ui;bundle-version="2.39.0",
+ org.eclipse.xtext.common.types.ui;bundle-version="2.40.0",
+ org.eclipse.xtext.ui.codetemplates.ui;bundle-version="2.40.0",
  org.eclipse.compare;bundle-version="3.10.0",
  org.eclipse.core.runtime;bundle-version="3.31.0",
  org.eclipse.ui.workbench;bundle-version="3.131.100";resolution:=optional,
  org.objectweb.asm;bundle-version="[9.8.0,9.9.0)";resolution:=optional,
- org.eclipse.xtext.xbase.lib;bundle-version="2.39.0",
- org.eclipse.xtend.lib;bundle-version="2.39.0";resolution:=optional
+ org.eclipse.xtext.xbase.lib;bundle-version="2.40.0",
+ org.eclipse.xtend.lib;bundle-version="2.40.0";resolution:=optional
 Import-Package: org.apache.log4j,
  org.junit.runner;version="4.13.2",
  org.junit.runner.manipulation;version="4.13.2",
@@ -32,12 +32,12 @@ Import-Package: org.apache.log4j,
  org.junit.runners.model;version="4.13.2",
  org.hamcrest.core
 Bundle-RequiredExecutionEnvironment: JavaSE-17
-Export-Package: org.eclipse.xtext.xbase.testlanguages.bug462047.ui;version="2.39.0";x-internal:=true,
- org.eclipse.xtext.xbase.testlanguages.bug462047.ui.contentassist;version="2.39.0",
- org.eclipse.xtext.xbase.testlanguages.ui;version="2.39.0",
- org.eclipse.xtext.xbase.testlanguages.ui.contentassist;version="2.39.0",
- org.eclipse.xtext.xbase.testlanguages.ui.internal;version="2.39.0",
- org.eclipse.xtext.xbase.testlanguages.bug462047.ui.editor;version="2.39.0",
- org.eclipse.xtext.xbase.testlanguages.ui.editor;version="2.39.0"
+Export-Package: org.eclipse.xtext.xbase.testlanguages.bug462047.ui;version="2.40.0";x-internal:=true,
+ org.eclipse.xtext.xbase.testlanguages.bug462047.ui.contentassist;version="2.40.0",
+ org.eclipse.xtext.xbase.testlanguages.ui;version="2.40.0",
+ org.eclipse.xtext.xbase.testlanguages.ui.contentassist;version="2.40.0",
+ org.eclipse.xtext.xbase.testlanguages.ui.internal;version="2.40.0",
+ org.eclipse.xtext.xbase.testlanguages.bug462047.ui.editor;version="2.40.0",
+ org.eclipse.xtext.xbase.testlanguages.ui.editor;version="2.40.0"
 Bundle-Activator: org.eclipse.xtext.xbase.testlanguages.ui.internal.TestlanguagesActivator
 Automatic-Module-Name: org.eclipse.xtext.xbase.testlanguages.ui

@@ -2,14 +2,14 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.xtext.buildship;singleton:=true
-Bundle-Version: 2.39.0.qualifier
+Bundle-Version: 2.40.0.qualifier
 Bundle-Localization: plugin
 Bundle-Vendor: %providerName
 Bundle-RequiredExecutionEnvironment: JavaSE-17
-Export-Package: org.eclipse.xtext.buildship;version="2.39.0";x-internal:=true
+Export-Package: org.eclipse.xtext.buildship;version="2.40.0";x-internal:=true
 Automatic-Module-Name: org.eclipse.xtext.buildship
-Require-Bundle: org.eclipse.xtext.ui;bundle-version="2.39.0",
- org.eclipse.xtext.builder;bundle-version="2.39.0",
+Require-Bundle: org.eclipse.xtext.ui;bundle-version="2.40.0",
+ org.eclipse.xtext.builder;bundle-version="2.40.0",
  org.eclipse.buildship.core;bundle-version="3.1.9";resolution:=optional,
- org.eclipse.xtext.ui.shared;bundle-version="2.39.0"
+ org.eclipse.xtext.ui.shared;bundle-version="2.40.0"
 Import-Package: org.apache.log4j;version="1.2.26"

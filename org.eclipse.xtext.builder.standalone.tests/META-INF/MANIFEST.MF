@@ -2,30 +2,30 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Xtext Builder Standalone Tests
 Bundle-SymbolicName: org.eclipse.xtext.builder.standalone.tests;singleton:=true
-Bundle-Version: 2.39.0.qualifier
+Bundle-Version: 2.40.0.qualifier
 Bundle-Vendor: Eclipse Xtext
 Bundle-RequiredExecutionEnvironment: JavaSE-17
-Require-Bundle: org.eclipse.xtext;bundle-version="2.39.0",
- org.eclipse.xtext.builder.standalone;bundle-version="2.39.0",
- org.eclipse.xtext.testing;bundle-version="2.39.0",
+Require-Bundle: org.eclipse.xtext;bundle-version="2.40.0",
+ org.eclipse.xtext.builder.standalone;bundle-version="2.40.0",
+ org.eclipse.xtext.testing;bundle-version="2.40.0",
  org.eclipse.emf.ecore;bundle-version="2.36.0",
  org.eclipse.emf.common;bundle-version="2.30.0",
  org.antlr.runtime;bundle-version="[3.2.0,3.2.1)",
- org.eclipse.xtext.xbase.lib;bundle-version="2.39.0",
- org.eclipse.xtext.xbase.testlanguages;bundle-version="2.39.0",
- org.eclipse.xtext.xtext.generator;bundle-version="2.39.0",
+ org.eclipse.xtext.xbase.lib;bundle-version="2.40.0",
+ org.eclipse.xtext.xbase.testlanguages;bundle-version="2.40.0",
+ org.eclipse.xtext.xtext.generator;bundle-version="2.40.0",
  org.aopalliance;bundle-version="1.0.0"
-Export-Package: org.eclipse.xtext.builder.standalone;version="2.39.0",
- org.eclipse.xtext.builder.standalone.incremental;version="2.39.0";x-internal:=true,
- org.eclipse.xtext.builder.tests;version="2.39.0",
- org.eclipse.xtext.builder.tests.builderTestLanguage;version="2.39.0",
- org.eclipse.xtext.builder.tests.builderTestLanguage.impl;version="2.39.0",
- org.eclipse.xtext.builder.tests.builderTestLanguage.util;version="2.39.0",
- org.eclipse.xtext.builder.tests.parser.antlr;version="2.39.0",
- org.eclipse.xtext.builder.tests.parser.antlr.internal;version="2.39.0",
- org.eclipse.xtext.builder.tests.serializer;version="2.39.0",
- org.eclipse.xtext.builder.tests.services;version="2.39.0",
- org.eclipse.xtext.builder.tests.validation;version="2.39.0"
+Export-Package: org.eclipse.xtext.builder.standalone;version="2.40.0",
+ org.eclipse.xtext.builder.standalone.incremental;version="2.40.0";x-internal:=true,
+ org.eclipse.xtext.builder.tests;version="2.40.0",
+ org.eclipse.xtext.builder.tests.builderTestLanguage;version="2.40.0",
+ org.eclipse.xtext.builder.tests.builderTestLanguage.impl;version="2.40.0",
+ org.eclipse.xtext.builder.tests.builderTestLanguage.util;version="2.40.0",
+ org.eclipse.xtext.builder.tests.parser.antlr;version="2.40.0",
+ org.eclipse.xtext.builder.tests.parser.antlr.internal;version="2.40.0",
+ org.eclipse.xtext.builder.tests.serializer;version="2.40.0",
+ org.eclipse.xtext.builder.tests.services;version="2.40.0",
+ org.eclipse.xtext.builder.tests.validation;version="2.40.0"
 Import-Package: org.apache.log4j,
  org.junit;version="4.13.2",
  org.junit.runner;version="4.13.2",

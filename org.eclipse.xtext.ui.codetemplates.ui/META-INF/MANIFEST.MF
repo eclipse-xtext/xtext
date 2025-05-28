@@ -2,42 +2,42 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-Vendor: %providerName
-Bundle-Version: 2.39.0.qualifier
+Bundle-Version: 2.40.0.qualifier
 Bundle-SymbolicName: org.eclipse.xtext.ui.codetemplates.ui;singleton:=true
 Bundle-ActivationPolicy: lazy
 Bundle-Localization: plugin
-Require-Bundle: org.eclipse.xtext.ui.codetemplates;bundle-version="2.39.0";visibility:=reexport,
- org.eclipse.xtext.ui.codetemplates.ide;bundle-version="2.39.0";visibility:=reexport,
- org.eclipse.xtext.ui;bundle-version="2.39.0",
+Require-Bundle: org.eclipse.xtext.ui.codetemplates;bundle-version="2.40.0";visibility:=reexport,
+ org.eclipse.xtext.ui.codetemplates.ide;bundle-version="2.40.0";visibility:=reexport,
+ org.eclipse.xtext.ui;bundle-version="2.40.0",
  org.eclipse.ui.editors;bundle-version="3.17.200",
  org.eclipse.ui.ide;bundle-version="3.22.100",
- org.eclipse.xtext.ui.shared;bundle-version="2.39.0",
+ org.eclipse.xtext.ui.shared;bundle-version="2.40.0",
  org.eclipse.ui;bundle-version="3.205.100",
- org.eclipse.xtext.builder;bundle-version="2.39.0",
+ org.eclipse.xtext.builder;bundle-version="2.40.0",
  org.eclipse.ui.workbench.texteditor;bundle-version="3.17.300",
  org.eclipse.core.expressions;bundle-version="3.9.300",
  org.eclipse.ui.navigator;bundle-version="3.12.300",
  org.antlr.runtime;bundle-version="[3.2.0,3.2.1)",
- org.eclipse.xtext.ide;bundle-version="2.39.0",
+ org.eclipse.xtext.ide;bundle-version="2.40.0",
  org.eclipse.compare;bundle-version="3.10.0",
- org.eclipse.xtend.lib;bundle-version="2.39.0";resolution:=optional,
- org.eclipse.xtext.xbase.lib;bundle-version="2.39.0"
+ org.eclipse.xtend.lib;bundle-version="2.40.0";resolution:=optional,
+ org.eclipse.xtext.xbase.lib;bundle-version="2.40.0"
 Import-Package: org.apache.log4j;version="1.2.26"
 Bundle-RequiredExecutionEnvironment: JavaSE-17
-Export-Package: org.eclipse.xtext.ui.codetemplates.ui;version="2.39.0";x-friends:="org.eclipse.xtext.xtext.ui.tests",
- org.eclipse.xtext.ui.codetemplates.ui.contentassist;version="2.39.0";x-friends:="org.eclipse.xtext.xtext.ui.tests",
- org.eclipse.xtext.ui.codetemplates.ui.evaluator;version="2.39.0";x-friends:="org.eclipse.xtext.xtext.ui.tests",
- org.eclipse.xtext.ui.codetemplates.ui.highlighting;version="2.39.0";x-friends:="org.eclipse.xtext.xtext.ui.tests,org.eclipse.xtext.ui.codetemplates.tests,org.eclipse.xtend.ide",
- org.eclipse.xtext.ui.codetemplates.ui.internal;version="2.39.0";x-friends:="org.eclipse.xtext.xtext.ui.tests,org.eclipse.xtext.ui.codetemplates.tests",
- org.eclipse.xtext.ui.codetemplates.ui.labeling;version="2.39.0";x-friends:="org.eclipse.xtext.xtext.ui.tests",
- org.eclipse.xtext.ui.codetemplates.ui.outline;version="2.39.0";x-friends:="org.eclipse.xtext.xtext.ui.tests",
- org.eclipse.xtext.ui.codetemplates.ui.partialEditing;version="2.39.0";x-friends:="org.eclipse.xtend.ide,org.eclipse.xtext.xtext.ui",
- org.eclipse.xtext.ui.codetemplates.ui.preferences;version="2.39.0";x-friends:="org.eclipse.xtext.xtext.ui.tests,org.eclipse.xtext.ui.codetemplates.tests",
- org.eclipse.xtext.ui.codetemplates.ui.projectedEditing;version="2.39.0";x-friends:="org.eclipse.xtext.xtext.ui.tests",
- org.eclipse.xtext.ui.codetemplates.ui.quickfix;version="2.39.0";x-friends:="org.eclipse.xtext.xtext.ui.tests",
- org.eclipse.xtext.ui.codetemplates.ui.registry;version="2.39.0";x-friends:="org.eclipse.xtext.xtext.ui.tests",
- org.eclipse.xtext.ui.codetemplates.ui.resolvers;version="2.39.0";x-friends:="org.eclipse.xtext.xtext.ui.tests,org.eclipse.xtext.xbase.ui",
- org.eclipse.xtext.ui.codetemplates.ui.scoping;version="2.39.0";x-friends:="org.eclipse.xtext.xtext.ui.tests",
- org.eclipse.xtext.ui.codetemplates.ui.validation;version="2.39.0";x-friends:="org.eclipse.xtext.xtext.ui.tests"
+Export-Package: org.eclipse.xtext.ui.codetemplates.ui;version="2.40.0";x-friends:="org.eclipse.xtext.xtext.ui.tests",
+ org.eclipse.xtext.ui.codetemplates.ui.contentassist;version="2.40.0";x-friends:="org.eclipse.xtext.xtext.ui.tests",
+ org.eclipse.xtext.ui.codetemplates.ui.evaluator;version="2.40.0";x-friends:="org.eclipse.xtext.xtext.ui.tests",
+ org.eclipse.xtext.ui.codetemplates.ui.highlighting;version="2.40.0";x-friends:="org.eclipse.xtext.xtext.ui.tests,org.eclipse.xtext.ui.codetemplates.tests,org.eclipse.xtend.ide",
+ org.eclipse.xtext.ui.codetemplates.ui.internal;version="2.40.0";x-friends:="org.eclipse.xtext.xtext.ui.tests,org.eclipse.xtext.ui.codetemplates.tests",
+ org.eclipse.xtext.ui.codetemplates.ui.labeling;version="2.40.0";x-friends:="org.eclipse.xtext.xtext.ui.tests",
+ org.eclipse.xtext.ui.codetemplates.ui.outline;version="2.40.0";x-friends:="org.eclipse.xtext.xtext.ui.tests",
+ org.eclipse.xtext.ui.codetemplates.ui.partialEditing;version="2.40.0";x-friends:="org.eclipse.xtend.ide,org.eclipse.xtext.xtext.ui",
+ org.eclipse.xtext.ui.codetemplates.ui.preferences;version="2.40.0";x-friends:="org.eclipse.xtext.xtext.ui.tests,org.eclipse.xtext.ui.codetemplates.tests",
+ org.eclipse.xtext.ui.codetemplates.ui.projectedEditing;version="2.40.0";x-friends:="org.eclipse.xtext.xtext.ui.tests",
+ org.eclipse.xtext.ui.codetemplates.ui.quickfix;version="2.40.0";x-friends:="org.eclipse.xtext.xtext.ui.tests",
+ org.eclipse.xtext.ui.codetemplates.ui.registry;version="2.40.0";x-friends:="org.eclipse.xtext.xtext.ui.tests",
+ org.eclipse.xtext.ui.codetemplates.ui.resolvers;version="2.40.0";x-friends:="org.eclipse.xtext.xtext.ui.tests,org.eclipse.xtext.xbase.ui",
+ org.eclipse.xtext.ui.codetemplates.ui.scoping;version="2.40.0";x-friends:="org.eclipse.xtext.xtext.ui.tests",
+ org.eclipse.xtext.ui.codetemplates.ui.validation;version="2.40.0";x-friends:="org.eclipse.xtext.xtext.ui.tests"
 Bundle-Activator: org.eclipse.xtext.ui.codetemplates.ui.AccessibleCodetemplatesActivator
 Automatic-Module-Name: org.eclipse.xtext.ui.codetemplates.ui

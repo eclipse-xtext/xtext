@@ -3,13 +3,13 @@ Bundle-ManifestVersion: 2
 Bundle-SymbolicName: org.eclipse.xtend.lib.macro
 Bundle-Name: Xtend Macro Interfaces
 Bundle-Vendor: Eclipse Xtext
-Bundle-Version: 2.39.0.qualifier
+Bundle-Version: 2.40.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-17
-Export-Package: org.eclipse.xtend.lib.macro;version="2.39.0";uses:="org.eclipse.xtend.lib.macro.file,org.eclipse.xtend.lib.macro.services,org.eclipse.xtend.lib.macro.declaration",
- org.eclipse.xtend.lib.macro.declaration;version="2.39.0";uses:="org.eclipse.xtend.lib.macro.file,  org.eclipse.xtend2.lib,  org.eclipse.xtend.lib.macro.expression,  org.eclipse.xtext.xbase.lib",
- org.eclipse.xtend.lib.macro.expression;version="2.39.0";uses:="org.eclipse.xtend.lib.macro.declaration",
- org.eclipse.xtend.lib.macro.file;version="2.39.0",
- org.eclipse.xtend.lib.macro.services;version="2.39.0";uses:="org.eclipse.xtend.lib.macro.declaration,org.eclipse.xtext.xbase.lib"
-Require-Bundle: org.eclipse.xtext.xbase.lib;bundle-version="2.39.0";visibility:=reexport
+Export-Package: org.eclipse.xtend.lib.macro;version="2.40.0";uses:="org.eclipse.xtend.lib.macro.file,org.eclipse.xtend.lib.macro.services,org.eclipse.xtend.lib.macro.declaration",
+ org.eclipse.xtend.lib.macro.declaration;version="2.40.0";uses:="org.eclipse.xtend.lib.macro.file,  org.eclipse.xtend2.lib,  org.eclipse.xtend.lib.macro.expression,  org.eclipse.xtext.xbase.lib",
+ org.eclipse.xtend.lib.macro.expression;version="2.40.0";uses:="org.eclipse.xtend.lib.macro.declaration",
+ org.eclipse.xtend.lib.macro.file;version="2.40.0",
+ org.eclipse.xtend.lib.macro.services;version="2.40.0";uses:="org.eclipse.xtend.lib.macro.declaration,org.eclipse.xtext.xbase.lib"
+Require-Bundle: org.eclipse.xtext.xbase.lib;bundle-version="2.40.0";visibility:=reexport
 Automatic-Module-Name: org.eclipse.xtend.lib.macro
 Eclipse-SourceReferences: eclipseSourceReferences

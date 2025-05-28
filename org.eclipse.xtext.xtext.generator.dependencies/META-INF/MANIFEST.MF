@@ -1,15 +1,15 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-SymbolicName: org.eclipse.xtext.xtext.generator.dependencies;singleton:=true
-Bundle-Version: 2.39.0.qualifier
+Bundle-Version: 2.40.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-Name: Xtext Generator Dependencies
 Bundle-Vendor: Eclipse Xtext
 Bundle-ActivationPolicy: lazy
 Require-Bundle: de.itemis.xtext.antlr;bundle-version="2.0.0";resolution:=optional;visibility:=reexport,
- org.eclipse.xtext.xbase;bundle-version="2.39.0";visibility:=reexport,
- org.eclipse.xtext.common.types;bundle-version="2.39.0";visibility:=reexport,
- org.eclipse.xtext.xtext.generator;bundle-version="2.39.0";visibility:=reexport,
+ org.eclipse.xtext.xbase;bundle-version="2.40.0";visibility:=reexport,
+ org.eclipse.xtext.common.types;bundle-version="2.40.0";visibility:=reexport,
+ org.eclipse.xtext.xtext.generator;bundle-version="2.40.0";visibility:=reexport,
  org.eclipse.emf.codegen.ecore;bundle-version="2.37.0";visibility:=reexport,
  org.eclipse.emf.mwe.utils;bundle-version="1.15.0";visibility:=reexport,
  org.eclipse.emf.mwe2.launch;bundle-version="2.21.0";visibility:=reexport,

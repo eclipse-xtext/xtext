@@ -2,18 +2,18 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Xbase Xtext Testlanguages for UI and Runtime - Generic Ide
 Bundle-Vendor: Eclipse Xtext
-Bundle-Version: 2.39.0.qualifier
+Bundle-Version: 2.40.0.qualifier
 Bundle-SymbolicName: org.eclipse.xtext.xbase.testlanguages.ide; singleton:=true
 Bundle-ActivationPolicy: lazy
-Require-Bundle: org.eclipse.xtext.xbase.testlanguages;bundle-version="2.39.0",
- org.eclipse.xtext.ide;bundle-version="2.39.0",
- org.eclipse.xtext.xbase.ide;bundle-version="2.39.0",
+Require-Bundle: org.eclipse.xtext.xbase.testlanguages;bundle-version="2.40.0",
+ org.eclipse.xtext.ide;bundle-version="2.40.0",
+ org.eclipse.xtext.xbase.ide;bundle-version="2.40.0",
  org.antlr.runtime;bundle-version="[3.2.0,3.2.1)"
 Bundle-RequiredExecutionEnvironment: JavaSE-17
-Export-Package: org.eclipse.xtext.xbase.testlanguages.bug462047.ide;version="2.39.0",
- org.eclipse.xtext.xbase.testlanguages.bug462047.ide.contentassist.antlr;version="2.39.0",
- org.eclipse.xtext.xbase.testlanguages.bug462047.ide.contentassist.antlr.internal;version="2.39.0",
- org.eclipse.xtext.xbase.testlanguages.ide;version="2.39.0",
- org.eclipse.xtext.xbase.testlanguages.ide.contentassist.antlr;version="2.39.0",
- org.eclipse.xtext.xbase.testlanguages.ide.contentassist.antlr.internal;version="2.39.0"
+Export-Package: org.eclipse.xtext.xbase.testlanguages.bug462047.ide;version="2.40.0",
+ org.eclipse.xtext.xbase.testlanguages.bug462047.ide.contentassist.antlr;version="2.40.0",
+ org.eclipse.xtext.xbase.testlanguages.bug462047.ide.contentassist.antlr.internal;version="2.40.0",
+ org.eclipse.xtext.xbase.testlanguages.ide;version="2.40.0",
+ org.eclipse.xtext.xbase.testlanguages.ide.contentassist.antlr;version="2.40.0",
+ org.eclipse.xtext.xbase.testlanguages.ide.contentassist.antlr.internal;version="2.40.0"
 Automatic-Module-Name: org.eclipse.xtext.xbase.testlanguages.ide

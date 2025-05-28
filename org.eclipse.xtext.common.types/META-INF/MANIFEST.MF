@@ -2,20 +2,20 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Xtext Common Types
 Bundle-Vendor: Eclipse Xtext
-Bundle-Version: 2.39.0.qualifier
+Bundle-Version: 2.40.0.qualifier
 Bundle-SymbolicName: org.eclipse.xtext.common.types;singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.emf.ecore;bundle-version="2.36.0",
  org.eclipse.emf.common;bundle-version="2.30.0",
- org.eclipse.xtext;bundle-version="2.39.0",
+ org.eclipse.xtext;bundle-version="2.40.0",
  org.objectweb.asm;bundle-version="[9.8.0,9.9.0)",
- org.eclipse.xtend.lib;bundle-version="2.39.0"
+ org.eclipse.xtend.lib;bundle-version="2.40.0"
 Import-Package: io.github.classgraph;version="[4.8.176,4.9.0)",
  org.apache.commons.logging;version="1.0.4";resolution:=optional,
  org.apache.log4j;version="1.2.26"
 Bundle-RequiredExecutionEnvironment: JavaSE-17
-Export-Package: org.eclipse.xtext.common.types;version="2.39.0",
- org.eclipse.xtext.common.types.access;version="2.39.0";
+Export-Package: org.eclipse.xtext.common.types;version="2.40.0",
+ org.eclipse.xtext.common.types.access;version="2.40.0";
   x-friends:="org.eclipse.xtext.common.types.tests,
    org.eclipse.xtext.common.types.eclipse.tests,
    org.eclipse.xtext.common.types.ui,
@@ -31,9 +31,9 @@ Export-Package: org.eclipse.xtext.common.types;version="2.39.0",
    org.eclipse.xtext.xbase.ui.testing,
    org.eclipse.xtext.xbase.tests,
    org.eclipse.xtext.xbase.ide",
- org.eclipse.xtext.common.types.access.binary;version="2.39.0";x-friends:="org.eclipse.xtext.common.types.tests,org.eclipse.xtext.java,org.eclipse.xtext.xbase.ide",
- org.eclipse.xtext.common.types.access.binary.asm;version="2.39.0";x-friends:="org.eclipse.xtext.common.types.tests,org.eclipse.xtext.common.types.ui,org.eclipse.xtext.java",
- org.eclipse.xtext.common.types.access.impl;version="2.39.0";
+ org.eclipse.xtext.common.types.access.binary;version="2.40.0";x-friends:="org.eclipse.xtext.common.types.tests,org.eclipse.xtext.java,org.eclipse.xtext.xbase.ide",
+ org.eclipse.xtext.common.types.access.binary.asm;version="2.40.0";x-friends:="org.eclipse.xtext.common.types.tests,org.eclipse.xtext.common.types.ui,org.eclipse.xtext.java",
+ org.eclipse.xtext.common.types.access.impl;version="2.40.0";
   x-friends:="org.eclipse.xtext.common.types.tests,
    org.eclipse.xtext.common.types.eclipse.tests,
    org.eclipse.xtext.common.types.ui,
@@ -48,8 +48,8 @@ Export-Package: org.eclipse.xtext.common.types;version="2.39.0",
    org.eclipse.xtend.ide.tests,
    org.eclipse.xtext.xbase.tests,
    org.eclipse.xtext.xbase.ide",
- org.eclipse.xtext.common.types.access.reflect;version="2.39.0";x-friends:="org.eclipse.xtext.common.types.tests",
- org.eclipse.xtext.common.types.descriptions;version="2.39.0";
+ org.eclipse.xtext.common.types.access.reflect;version="2.40.0";x-friends:="org.eclipse.xtext.common.types.tests",
+ org.eclipse.xtext.common.types.descriptions;version="2.40.0";
   x-friends:="org.eclipse.xtext.builder.standalone,
    org.eclipse.xtext.common.types.eclipse.tests,
    org.eclipse.xtext.common.types.ui,
@@ -59,12 +59,12 @@ Export-Package: org.eclipse.xtext.common.types;version="2.39.0",
    org.eclipse.xtend.core.tests,
    org.eclipse.xtext.xbase.ide,
    org.eclipse.xtext.xbase.tests",
- org.eclipse.xtext.common.types.impl;version="2.39.0";
+ org.eclipse.xtext.common.types.impl;version="2.40.0";
   x-friends:="org.eclipse.xtext.common.types.tests,
    org.eclipse.xtext.common.types.ui,
    org.eclipse.xtext.xbase,
    org.eclipse.xtend.core",
- org.eclipse.xtext.common.types.util;version="2.39.0";
+ org.eclipse.xtext.common.types.util;version="2.40.0";
   x-friends:="org.eclipse.xtext.common.types.edit,
    org.eclipse.xtext.common.types.tests,
    org.eclipse.xtext.xbase.ui,
@@ -80,7 +80,7 @@ Export-Package: org.eclipse.xtext.common.types;version="2.39.0",
    org.eclipse.emf.mwe2.language.ui,
    org.eclipse.xtext.xbase.tests,
    org.eclipse.xtext.xbase.testlanguages",
- org.eclipse.xtext.common.types.xtext;version="2.39.0";
+ org.eclipse.xtext.common.types.xtext;version="2.40.0";
   x-friends:="org.eclipse.xtext.common.types.tests,
    org.eclipse.xtext.common.types.eclipse.tests,
    org.eclipse.xtext.common.types.ui,

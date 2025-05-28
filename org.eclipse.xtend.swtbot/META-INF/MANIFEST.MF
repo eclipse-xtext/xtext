@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Xtend Fragment for SWTBot
 Bundle-SymbolicName: org.eclipse.xtend.swtbot
-Bundle-Version: 2.39.0.qualifier
+Bundle-Version: 2.40.0.qualifier
 Bundle-Vendor: Eclipse Xtext
 Fragment-Host: org.eclipse.swtbot.swt.finder;bundle-version="2.1.1"
 Bundle-RequiredExecutionEnvironment: JavaSE-17
