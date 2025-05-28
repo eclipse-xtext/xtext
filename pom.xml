@@ -147,7 +147,7 @@
 		This is the version of the currently released latest version of the xtend-maven-plugin that we
 		use during the Maven builds for processing Xtend files.
 		-->
-		<xtend-maven-plugin-version>2.39.0.M3</xtend-maven-plugin-version>
+		<xtend-maven-plugin-version>2.39.0</xtend-maven-plugin-version>
 
 		<root-dir>${basedir}/..</root-dir>
 
