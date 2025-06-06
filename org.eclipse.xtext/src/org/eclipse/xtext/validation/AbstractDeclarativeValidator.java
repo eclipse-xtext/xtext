@@ -316,6 +316,48 @@ public abstract class AbstractDeclarativeValidator extends AbstractInjectableVal
 	@Override
 	protected final boolean internalValidate(EClass class1, EObject object, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
+		initializeCheckMethods();
+		
+		CheckMode checkMode = CheckMode.getCheckMode(context);
+
+		State state = new State();
+		state.chain = diagnostics;
+		state.currentObject = object;
+		state.checkMode = checkMode;
+		state.context = context;
+
+		for (MethodWrapper method : getMethodsForType(object.getClass())) {
+			method.invoke(state);
+		}
+
+		return !state.hasErrors;
+	}
+
+	/**
+	 * This method can be called to initialize the cache. The initialization of the cache will 
+	 * improve the validation performance, for the cases where the validation is executed in many threads.
+	 * The caching of non initialized types are blocking all other reading threads. After initialization
+	 * the readWriteLock won't block any accessing threads.
+	 * 
+	 * To initialize the cache, this method has to be called with every Class (and its subtypes) which is handled
+	 * by this validator.
+	 * 
+	 * If its called internally it doesn't have to be overriden/exposed. 
+	 * If its wanted to be called outside of the Validator it can be overriden and exposed.
+	 * 
+	 * @since 2.37
+	 */
+	protected List<MethodWrapper> getMethodsForType(Class<?> object) {
+		return methodsForType.get(object);
+	}
+
+	/**
+	 * This has to be called if the methodsForType is called to initialize the cache. 
+	 * For the normal use case it will be called internally as before. 
+	 *  
+	 * @since 2.37
+	 */
+	protected void initializeCheckMethods() {
 		if (checkMethods == null) {
 			synchronized (this) {
 				if (checkMethods == null) {
@@ -325,19 +367,6 @@ public abstract class AbstractDeclarativeValidator extends AbstractInjectableVal
 				}
 			}
 		}
-		CheckMode checkMode = CheckMode.getCheckMode(context);
-
-		State state = new State();
-		state.chain = diagnostics;
-		state.currentObject = object;
-		state.checkMode = checkMode;
-		state.context = context;
-
-		for (MethodWrapper method : methodsForType.get(object.getClass())) {
-			method.invoke(state);
-		}
-
-		return !state.hasErrors;
 	}
 
 	////////////////////////////
