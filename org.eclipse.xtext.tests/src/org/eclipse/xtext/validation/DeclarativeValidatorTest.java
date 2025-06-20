@@ -10,6 +10,7 @@ package org.eclipse.xtext.validation;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.BasicDiagnostic;
@@ -22,6 +23,7 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.xtext.util.Exceptions;
+import org.eclipse.xtext.validation.AbstractDeclarativeValidator.MethodWrapper;
 import org.eclipse.xtext.validation.ValidationTestHelper.TestChain;
 import org.junit.After;
 import org.junit.Assert;
@@ -34,6 +36,24 @@ import org.junit.Test;
  */
 public class DeclarativeValidatorTest extends Assert {
 
+	class MethodsForTypeTestValidator extends AbstractDeclarativeValidator {
+
+		@Check
+		public void foo(Object x) { }
+		
+		// Exposed this method
+		@Override
+		public List<MethodWrapper> getMethodsForType(EObject object) {
+			return super.getMethodsForType(object);
+		}
+		
+		// Exposed this method
+		@Override
+		public void initializeCheckMethods() {
+			super.initializeCheckMethods();
+		}
+	}
+	
 	private ValidationTestHelper helper;
 
 	@Before
@@ -383,5 +403,13 @@ public class DeclarativeValidatorTest extends Assert {
 		} catch (NullPointerException expected) {
 			; // this is expected
 		}
+	}
+	
+	// Tests the ability of cache initialization #3438
+	@Test public void testValidationCache() {
+		MethodsForTypeTestValidator test = new MethodsForTypeTestValidator();
+		test.initializeCheckMethods();
+		List<MethodWrapper> methodsForType = test.getMethodsForType(EcoreFactory.eINSTANCE.createEAttribute());
+		assertEquals(1, methodsForType.size());
 	}
 }
