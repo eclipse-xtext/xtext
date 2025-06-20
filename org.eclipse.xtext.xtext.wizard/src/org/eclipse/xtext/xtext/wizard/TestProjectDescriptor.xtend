@@ -103,7 +103,7 @@ abstract class TestProjectDescriptor extends ProjectDescriptor {
 					«ENDIF»
 					<plugins>
 						<plugin>
-							<groupId>org.eclipse.xtend</groupId>
+							<groupId>org.eclipse.xtext</groupId>
 							<artifactId>xtend-maven-plugin</artifactId>
 						</plugin>
 						«IF isEclipsePluginProject && needsUiHarness»

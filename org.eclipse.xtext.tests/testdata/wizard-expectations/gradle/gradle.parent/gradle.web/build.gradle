@@ -6,7 +6,7 @@ dependencies {
 	api project(':gradle.ide')
 	api "org.eclipse.xtext:org.eclipse.xtext.xbase.web:${xtextVersion}"
 	api "org.eclipse.xtext:org.eclipse.xtext.web.servlet:${xtextVersion}"
-	api "org.eclipse.xtend:org.eclipse.xtend.lib:${xtextVersion}"
+	api "org.eclipse.xtext:org.eclipse.xtend.lib:${xtextVersion}"
 	api "org.webjars:requirejs:2.3.7"
 	api "org.webjars:jquery:3.6.0"
 	api "org.webjars:ace:1.3.3"

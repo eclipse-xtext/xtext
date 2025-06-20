@@ -67,7 +67,7 @@ public class WebProjectDescriptor extends ProjectDescriptor {
     deps.add(_createXtextDependency);
     ExternalDependency _createXtextDependency_1 = ExternalDependency.createXtextDependency("org.eclipse.xtext.web.servlet");
     deps.add(_createXtextDependency_1);
-    ExternalDependency _createMavenDependency = ExternalDependency.createMavenDependency("org.eclipse.xtend:org.eclipse.xtend.lib:${xtextVersion}");
+    ExternalDependency _createMavenDependency = ExternalDependency.createMavenDependency("org.eclipse.xtext:org.eclipse.xtend.lib:${xtextVersion}");
     deps.add(_createMavenDependency);
     ExternalDependency _createMavenDependency_1 = ExternalDependency.createMavenDependency(("org.webjars:requirejs:" + WebProjectDescriptor.REQUIREJS_VERSION));
     deps.add(_createMavenDependency_1);
@@ -200,7 +200,7 @@ public class WebProjectDescriptor extends ProjectDescriptor {
       _builder.append("<plugin>");
       _builder.newLine();
       _builder.append("\t\t\t");
-      _builder.append("<groupId>org.eclipse.xtend</groupId>");
+      _builder.append("<groupId>org.eclipse.xtext</groupId>");
       _builder.newLine();
       _builder.append("\t\t\t");
       _builder.append("<artifactId>xtend-maven-plugin</artifactId>");

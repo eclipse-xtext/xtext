@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>simple</artifactId>
 	<parent>
-		<groupId>org.eclipse.xtend</groupId>
+		<groupId>org.eclipse.xtext</groupId>
 		<artifactId>it-tests-parent</artifactId>
 		<version>IT-SNAPSHOT</version>
 		<relativePath>../../pom.xml</relativePath>
@@ -12,7 +12,7 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.eclipse.xtend</groupId>
+				<groupId>org.eclipse.xtext</groupId>
 				<artifactId>xtend-maven-plugin</artifactId>
 				<configuration>
 					<xtendAsPrimaryDebugSource>true</xtendAsPrimaryDebugSource>

@@ -7,7 +7,6 @@
 		<version>2.40.0-SNAPSHOT</version>
 		<relativePath>../org.eclipse.xtext.nodeploy.parent</relativePath>
 	</parent>
-	<groupId>org.eclipse.xtend</groupId>
 	<artifactId>org.eclipse.xtend.tycho.tests.parent</artifactId>
 	<packaging>pom</packaging>
 

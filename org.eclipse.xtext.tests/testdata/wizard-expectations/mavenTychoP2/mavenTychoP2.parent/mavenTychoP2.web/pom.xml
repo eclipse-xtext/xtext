@@ -22,7 +22,7 @@
 		</resources>
 		<plugins>
 			<plugin>
-				<groupId>org.eclipse.xtend</groupId>
+				<groupId>org.eclipse.xtext</groupId>
 				<artifactId>xtend-maven-plugin</artifactId>
 			</plugin>
 			<plugin>
@@ -95,7 +95,7 @@
 			<version>${xtextVersion}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.eclipse.xtend</groupId>
+			<groupId>org.eclipse.xtext</groupId>
 			<artifactId>org.eclipse.xtend.lib</artifactId>
 			<version>${xtextVersion}</version>
 		</dependency>

@@ -142,7 +142,7 @@ public class UiProjectDescriptor extends TestedProjectDescriptor {
       _builder.append("<plugin>");
       _builder.newLine();
       _builder.append("\t\t\t");
-      _builder.append("<groupId>org.eclipse.xtend</groupId>");
+      _builder.append("<groupId>org.eclipse.xtext</groupId>");
       _builder.newLine();
       _builder.append("\t\t\t");
       _builder.append("<artifactId>xtend-maven-plugin</artifactId>");

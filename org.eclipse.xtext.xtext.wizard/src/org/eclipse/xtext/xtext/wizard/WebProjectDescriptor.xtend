@@ -47,7 +47,7 @@ class WebProjectDescriptor extends ProjectDescriptor {
 		deps += super.externalDependencies
 		deps += createXtextDependency("org.eclipse.xtext.xbase.web")
 		deps += createXtextDependency("org.eclipse.xtext.web.servlet")
-		deps += createMavenDependency("org.eclipse.xtend:org.eclipse.xtend.lib:${xtextVersion}")
+		deps += createMavenDependency("org.eclipse.xtext:org.eclipse.xtend.lib:${xtextVersion}")
 		deps += createMavenDependency("org.webjars:requirejs:" + REQUIREJS_VERSION)
 		// RequireJS-Text is only needed for Orion
 //		deps += createMavenDependency("org.webjars:requirejs-text:" + REQUIREJS_TEXT_VERSION)
@@ -97,7 +97,7 @@ class WebProjectDescriptor extends ProjectDescriptor {
 					«ENDIF»
 					<plugins>
 						<plugin>
-							<groupId>org.eclipse.xtend</groupId>
+							<groupId>org.eclipse.xtext</groupId>
 							<artifactId>xtend-maven-plugin</artifactId>
 						</plugin>
 						<plugin>

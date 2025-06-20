@@ -9,7 +9,6 @@
 		<version>2.40.0-SNAPSHOT</version>
 	</parent>
 
-	<groupId>org.eclipse.xtend</groupId>
 	<artifactId>org.eclipse.xtend.maven.parent</artifactId>
 	<packaging>pom</packaging>
 

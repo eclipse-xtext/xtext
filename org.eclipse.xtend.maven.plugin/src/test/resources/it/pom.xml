@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.eclipse.xtend</groupId>
+	<groupId>org.eclipse.xtext</groupId>
 	<artifactId>it-tests-parent</artifactId>
 	<version>IT-SNAPSHOT</version>
 	<packaging>pom</packaging>
@@ -21,7 +21,7 @@
 				<scope>import</scope>
 			</dependency>
 			<dependency>
-				<groupId>org.eclipse.xtend</groupId>
+				<groupId>org.eclipse.xtext</groupId>
 				<artifactId>org.eclipse.xtend.lib</artifactId>
 				<version>${xtextVersion}</version>
 			</dependency>
@@ -29,7 +29,7 @@
 	</dependencyManagement>
 	<dependencies>
 		<dependency>
-			<groupId>org.eclipse.xtend</groupId>
+			<groupId>org.eclipse.xtext</groupId>
 			<artifactId>org.eclipse.xtend.lib</artifactId>
 		</dependency>
 	</dependencies>
@@ -131,7 +131,7 @@
 		<pluginManagement>
 			<plugins>
 				<plugin>
-					<groupId>org.eclipse.xtend</groupId>
+					<groupId>org.eclipse.xtext</groupId>
 					<artifactId>xtend-maven-plugin</artifactId>
 					<version>${xtextVersion}</version>
 					<executions>

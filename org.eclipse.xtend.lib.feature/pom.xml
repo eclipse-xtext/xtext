@@ -7,7 +7,7 @@
 		<version>2.40.0-SNAPSHOT</version>
 		<relativePath>../org.eclipse.xtext.nodeploy.parent</relativePath>
 	</parent>
-	<groupId>org.eclipse.xtend.feature</groupId>
+	<groupId>org.eclipse.xtext.feature</groupId>
 	<artifactId>org.eclipse.xtend.lib</artifactId>
 	<packaging>eclipse-feature</packaging>
 

@@ -344,7 +344,7 @@ class ParentProjectDescriptor extends ProjectDescriptor {
 					<pluginManagement>
 						<plugins>
 							<plugin>
-								<groupId>org.eclipse.xtend</groupId>
+								<groupId>org.eclipse.xtext</groupId>
 								<artifactId>xtend-maven-plugin</artifactId>
 								<version>${xtextVersion}</version>
 								<executions>
