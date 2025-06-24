@@ -30,7 +30,7 @@ import com.google.inject.Singleton;
  * @since 2.11
  */
 @Singleton
-public class RequestManager {
+public class RequestManager implements IRequestManager {
 
 	private final ExecutorService parallel;
 
@@ -75,16 +75,12 @@ public class RequestManager {
 		return parallel;
 	}
 	
-	/**
-	 * Run the given cancellable logic as a read request.
-	 */
+	@Override
 	public synchronized <V> CompletableFuture<V> runRead(Function1<? super CancelIndicator, ? extends V> cancellable) {
 		return submit(new ReadRequest<>(this, cancellable, parallel));
 	}
 
-	/**
-	 * Perform the given write and run the cancellable logic afterwards.
-	 */
+	@Override
 	public synchronized <U, V> CompletableFuture<V> runWrite(
 			Function0<? extends U> nonCancellable,
 			Function2<? super CancelIndicator, ? super U, ? extends V> cancellable) {
@@ -125,10 +121,8 @@ public class RequestManager {
 		return CompletableFuture.allOf(cfs);
 	}
 
-	/**
-	 * Check if the given throwable is an indicator for a cancellation.
-	 */
-	protected boolean isCancelException(Throwable t) {
+	@Override
+	public boolean isCancelException(Throwable t) {
 		if (t == null) {
 			return false;
 		}

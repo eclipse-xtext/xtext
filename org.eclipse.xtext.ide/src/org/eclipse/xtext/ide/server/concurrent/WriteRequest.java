@@ -28,7 +28,7 @@ public class WriteRequest<U, V> extends AbstractRequest<V> {
 
 	private final CompletableFuture<Void> allPreviousRequests;
 
-	public WriteRequest(RequestManager requestManager, Function0<? extends U> nonCancellable,
+	public WriteRequest(IRequestManager requestManager, Function0<? extends U> nonCancellable,
 			Function2<? super CancelIndicator, ? super U, ? extends V> cancellable,
 			CompletableFuture<Void> allPreviousRequests) {
 		super(requestManager);

@@ -31,7 +31,7 @@ public class ReadRequest<V> extends AbstractRequest<V> {
 
 	private final ExecutorService executor;
 
-	public ReadRequest(RequestManager requestManager, Function1<? super CancelIndicator, ? extends V> readOperation,
+	public ReadRequest(IRequestManager requestManager, Function1<? super CancelIndicator, ? extends V> readOperation,
 			ExecutorService executor) {
 		super(requestManager);
 		this.readOperation = readOperation;
