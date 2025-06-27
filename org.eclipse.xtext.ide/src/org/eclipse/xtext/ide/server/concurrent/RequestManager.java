@@ -11,7 +11,6 @@ package org.eclipse.xtext.ide.server.concurrent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -30,16 +29,15 @@ import com.google.inject.Singleton;
  * @since 2.11
  */
 @Singleton
-public class RequestManager implements IRequestManager {
+public class RequestManager extends AbstractRequestManager {
 
 	private final ExecutorService parallel;
 
-	private final OperationCanceledManager operationCanceledManager;
 
 	@Inject
 	public RequestManager(ExecutorService parallel, OperationCanceledManager operationCanceledManager) {
+		super(operationCanceledManager);
 		this.parallel = parallel;
-		this.operationCanceledManager = operationCanceledManager;
 	}
 	
 	private final ExecutorService queue = Executors.newSingleThreadExecutor(
@@ -66,11 +64,7 @@ public class RequestManager implements IRequestManager {
 		parallel.shutdown();
 		cancel();
 	}
-	
-	protected final OperationCanceledManager getOperationCanceledManager() {
-		return operationCanceledManager;
-	}
-	
+
 	protected final ExecutorService getParallelExecutorService() {
 		return parallel;
 	}
@@ -121,15 +115,4 @@ public class RequestManager implements IRequestManager {
 		return CompletableFuture.allOf(cfs);
 	}
 
-	@Override
-	public boolean isCancelException(Throwable t) {
-		if (t == null) {
-			return false;
-		}
-		Throwable cause = t;
-		if (t instanceof CompletionException) {
-			cause = t.getCause();
-		}
-		return operationCanceledManager.isOperationCanceledException(cause);
-	}
 }

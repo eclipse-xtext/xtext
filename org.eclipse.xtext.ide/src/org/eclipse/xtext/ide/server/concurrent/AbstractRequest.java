@@ -45,9 +45,9 @@ public abstract class AbstractRequest<V> implements Runnable, Cancellable {
 	/**
 	 * The request manager that is handling this request.
 	 */
-	protected final IRequestManager requestManager;
+	protected final AbstractRequestManager requestManager;
 
-	protected AbstractRequest(IRequestManager requestManager) {
+	protected AbstractRequest(AbstractRequestManager requestManager) {
 		this.requestManager = requestManager;
 		this.result = new ResultFuture();
 		this.cancelIndicator = new RequestCancelIndicator(this);

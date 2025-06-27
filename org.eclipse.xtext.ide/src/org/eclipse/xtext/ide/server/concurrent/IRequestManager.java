@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2016, 2019 TypeFox GmbH (http://www.typefox.io) and others.
+ * Copyright (c) 2025 Avaloq Group AG and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -16,7 +16,8 @@ import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.Functions.Function2;
 
 /**
- * @author pcr - Initial contribution and API
+ * @author Rubén Porras Campo - Initial Contribution and API
+ * 
  * @since 2.40
  */
 public interface IRequestManager {
@@ -32,8 +33,4 @@ public interface IRequestManager {
 	<U, V> CompletableFuture<V> runWrite(Function0<? extends U> nonCancellable,
 			Function2<? super CancelIndicator, ? super U, ? extends V> cancellable);
 
-	/**
-	 * Check if the given throwable is an indicator for a cancellation.
-	 */
-	boolean isCancelException(Throwable t);
 }
