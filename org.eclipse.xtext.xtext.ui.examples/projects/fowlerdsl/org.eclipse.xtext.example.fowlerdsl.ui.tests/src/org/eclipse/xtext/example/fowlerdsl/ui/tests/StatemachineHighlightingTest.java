@@ -1,29 +1,30 @@
 /*******************************************************************************
- * Copyright (c) 2018, 2019 itemis AG (http://www.itemis.eu) and others.
+ * Copyright (c) 2018, 2025 itemis AG (http://www.itemis.eu) and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
  *
  * SPDX-License-Identifier: EPL-2.0
  *******************************************************************************/
-package org.eclipse.xtext.example.fowlerdsl.ui.tests
+package org.eclipse.xtext.example.fowlerdsl.ui.tests;
 
-import org.eclipse.swt.SWT
-import org.eclipse.xtext.testing.InjectWith
-import org.eclipse.xtext.testing.XtextRunner
-import org.eclipse.xtext.ui.testing.AbstractHighlightingTest
-import org.junit.Test
-import org.junit.runner.RunWith
+import org.eclipse.swt.SWT;
+import org.eclipse.xtext.testing.InjectWith;
+import org.eclipse.xtext.testing.XtextRunner;
+import org.eclipse.xtext.ui.testing.AbstractHighlightingTest;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
  * @author miklossy - Initial contribution and API
  */
-@RunWith(XtextRunner)
-@InjectWith(StatemachineUiInjectorProvider)
-class StatemachineHighlightingTest extends AbstractHighlightingTest {
+@RunWith(XtextRunner.class)
+@InjectWith(StatemachineUiInjectorProvider.class)
+public class StatemachineHighlightingTest extends AbstractHighlightingTest {
 
-	@Test def events_keyword() {
-		'''
+	@Test
+	public void events_keyword() {
+		testHighlighting("""
 			events
 				doorClosed   D1CL
 				drawerOpened D2OP
@@ -31,11 +32,12 @@ class StatemachineHighlightingTest extends AbstractHighlightingTest {
 				doorOpened   D1OP
 				panelClosed  PNCL
 			end
-		'''.testHighlighting("events", SWT.BOLD, 127, 0, 85)
+		""", "events", SWT.BOLD, 127, 0, 85);
 	}
 
-	@Test def end_keyword() {
-		'''
+	@Test
+	public void end_keyword() {
+		testHighlighting("""
 			events
 				doorClosed   D1CL
 				drawerOpened D2OP
@@ -43,11 +45,12 @@ class StatemachineHighlightingTest extends AbstractHighlightingTest {
 				doorOpened   D1OP
 				panelClosed  PNCL
 			end
-		'''.testHighlighting("end", SWT.BOLD, 127, 0, 85)
+		""", "end", SWT.BOLD, 127, 0, 85);
 	}
 
-	@Test def resetEvents_keyword() {
-		'''
+	@Test
+	public void resetEvents_keyword() {
+		testHighlighting("""
 			events
 				doorClosed   D1CL
 				drawerOpened D2OP
@@ -59,22 +62,24 @@ class StatemachineHighlightingTest extends AbstractHighlightingTest {
 			resetEvents
 				doorOpened doorClosed
 			end
-		'''.testHighlighting("resetEvents", SWT.BOLD, 127, 0, 85)
+		""", "resetEvents", SWT.BOLD, 127, 0, 85);
 	}
 
-	@Test def commands_keyword() {
-		'''
+	@Test
+	public void commands_keyword() {
+		testHighlighting("""
 			commands
 				unlockPanel PNUL
 				lockPanel   NLK
 				lockDoor    D1LK
 				unlockDoor  D1UL
 			end
-		'''.testHighlighting("commands", SWT.BOLD, 127, 0, 85)
+		""", "commands", SWT.BOLD, 127, 0, 85);
 	}
 
-	@Test def state_keyword() {
-		'''
+	@Test
+	public void state_keyword() {
+		testHighlighting("""
 			events
 				doorClosed   D1CL
 				drawerOpened D2OP
@@ -117,11 +122,12 @@ class StatemachineHighlightingTest extends AbstractHighlightingTest {
 				actions {unlockPanel lockDoor}
 				panelClosed => idle
 			end
-		'''.testHighlighting("state", SWT.BOLD, 127, 0, 85)
+		""", "state", SWT.BOLD, 127, 0, 85);
 	}
 
-	@Test def actions_keyword() {
-		'''
+	@Test
+	public void actions_keyword() {
+		testHighlighting("""
 			events
 				doorClosed   D1CL
 				drawerOpened D2OP
@@ -164,48 +170,53 @@ class StatemachineHighlightingTest extends AbstractHighlightingTest {
 				actions {unlockPanel lockDoor}
 				panelClosed => idle
 			end
-		'''.testHighlighting("actions", SWT.BOLD, 127, 0, 85)
+		""", "actions", SWT.BOLD, 127, 0, 85);
 	}
 
-	@Test def single_line_comment() {
-		'''
+	@Test
+	public void single_line_comment() {
+		testHighlighting("""
 			// An implementation of Martin Fowler's secret compartment state machine
-		'''.testHighlighting("An implementation of Martin Fowler's secret compartment state machine",
+		""", "An implementation of Martin Fowler's secret compartment state machine",
 				SWT.NORMAL, 63, 127, 95
-		)
+		);
 	}
 
-	@Test def multi_line_comment() {
-		'''
+	@Test
+	public void multi_line_comment() {
+		testHighlighting("""
 			/*
 			 * An implementation of Martin Fowler's secret compartment state machine
 			 * 
 			 * http://martinfowler.com/dslwip/Intro.html
 			 */
-		'''.testHighlighting('''
+		""", """
 			/*
 			 * An implementation of Martin Fowler's secret compartment state machine
 			 * 
 			 * http://martinfowler.com/dslwip/Intro.html
 			 */
-		''', SWT.NORMAL, 63, 127, 95)
+		""", SWT.NORMAL, 63, 127, 95);
 	}
 
-	@Test def fixme_task_in_comment() {
-		'''
+	@Test
+	public void fixme_task_in_comment() {
+		testHighlighting("""
 			// FIXME
-		'''.testHighlighting('FIXME', SWT.BOLD, 127, 159, 191)
+		""", "FIXME", SWT.BOLD, 127, 159, 191);
 	}
 
-	@Test def todo_task_in_comment() {
-		'''
+	@Test
+	public void todo_task_in_comment() {
+		testHighlighting("""
 			// TODO
-		'''.testHighlighting('TODO', SWT.BOLD, 127, 159, 191)
+		""", "TODO", SWT.BOLD, 127, 159, 191);
 	}
 
-	@Test def xxx_task_in_comment() {
-		'''
+	@Test
+	public void xxx_task_in_comment() {
+		testHighlighting("""
 			// XXX
-		'''.testHighlighting('XXX', SWT.BOLD, 127, 159, 191)
+		""", "XXX", SWT.BOLD, 127, 159, 191);
 	}
 }
