@@ -19,7 +19,7 @@ import org.apache.log4j.Logger;
  * @since 2.11
  */
 public abstract class AbstractRequest<V> implements Runnable, Cancellable {
-	
+
 	private class ResultFuture extends CompletableFuture<V> {
 		@Override
 		public boolean cancel(boolean mayInterruptIfRunning) {
@@ -31,7 +31,7 @@ public abstract class AbstractRequest<V> implements Runnable, Cancellable {
 			super.cancel(mayInterruptIfRunning);
 		}
 	}
-	
+
 	/**
 	 * The underlying future.
 	 */
@@ -45,9 +45,9 @@ public abstract class AbstractRequest<V> implements Runnable, Cancellable {
 	/**
 	 * The request manager that is handling this request.
 	 */
-	protected final RequestManager requestManager;
+	protected final AbstractRequestManager requestManager;
 
-	protected AbstractRequest(RequestManager requestManager) {
+	protected AbstractRequest(AbstractRequestManager requestManager) {
 		this.requestManager = requestManager;
 		this.result = new ResultFuture();
 		this.cancelIndicator = new RequestCancelIndicator(this);
@@ -64,7 +64,7 @@ public abstract class AbstractRequest<V> implements Runnable, Cancellable {
 	protected void complete(V value) {
 		result.complete(value);
 	}
-	
+
 	protected abstract Logger getLogger();
 
 	protected void logAndCompleteExceptionally(Throwable t) {
@@ -79,7 +79,7 @@ public abstract class AbstractRequest<V> implements Runnable, Cancellable {
 	protected void cancel(boolean mayInterruptIfRunning) {
 		cancelIndicator.doCancel();
 	}
-	
+
 	@Override
 	public final void cancel() {
 		cancel(true);
