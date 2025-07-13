@@ -74,9 +74,6 @@
 						<goals>
 							<goal>install</goal>
 						</goals>
-						<configuration>
-							<scope>test</scope>
-						</configuration>
 					</execution>
 				</executions>
 			</plugin>
@@ -105,7 +102,6 @@
 			<groupId>org.eclipse.xtext</groupId>
 			<artifactId>xtend-maven-plugin</artifactId>
 			<version>${project.version}</version>
-			<scope>test</scope>
 		</dependency>
 	</dependencies>
 	<profiles>
