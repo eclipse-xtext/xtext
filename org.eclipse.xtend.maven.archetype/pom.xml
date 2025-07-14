@@ -66,6 +66,7 @@
 						<extraArtifact>org.eclipse.xtext:xtext-dev-bom:${project.version}:pom</extraArtifact>
 					</extraArtifacts>
 					<localRepositoryPath>${localMavenRepositoryPath}</localRepositoryPath>
+					<scope>provided</scope>
 				</configuration>
 				<executions>
 					<execution>
@@ -102,6 +103,7 @@
 			<groupId>org.eclipse.xtext</groupId>
 			<artifactId>xtend-maven-plugin</artifactId>
 			<version>${project.version}</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 	<profiles>
