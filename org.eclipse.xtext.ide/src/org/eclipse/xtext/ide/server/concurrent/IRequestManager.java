@@ -33,4 +33,8 @@ public interface IRequestManager {
 	<U, V> CompletableFuture<V> runWrite(Function0<? extends U> nonCancellable,
 			Function2<? super CancelIndicator, ? super U, ? extends V> cancellable);
 
+	/**
+	 * An orderly shutdown of this request manager.
+	 */
+	public void shutdown();
 }

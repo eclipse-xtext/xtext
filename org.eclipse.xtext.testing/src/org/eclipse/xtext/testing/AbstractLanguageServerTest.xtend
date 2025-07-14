@@ -78,7 +78,8 @@ import org.eclipse.xtext.ide.server.Document
 import org.eclipse.xtext.ide.server.LanguageServerImpl
 import org.eclipse.xtext.ide.server.ServerModule
 import org.eclipse.xtext.ide.server.UriExtensions
-import org.eclipse.xtext.ide.server.concurrent.RequestManager
+import org.eclipse.xtext.ide.server.concurrent.AbstractRequestManager
+import org.eclipse.xtext.ide.server.concurrent.IRequestManager
 import org.eclipse.xtext.resource.IResourceServiceProvider
 import org.eclipse.xtext.service.OperationCanceledManager
 import org.eclipse.xtext.util.CancelIndicator
@@ -147,11 +148,11 @@ abstract class AbstractLanguageServerTest implements Endpoint {
 	 * A request manager that will run the given read and write actions in the same thread immediately, sequentially.
 	 */
 	@Singleton
-	static class DirectRequestManager extends RequestManager {
+	static class DirectRequestManager extends AbstractRequestManager {
 	
 		@Inject
 		new(OperationCanceledManager operationCanceledManager) {
-			super(null, operationCanceledManager)
+			super(operationCanceledManager)
 		}
 		
 		override synchronized <V> runRead((CancelIndicator)=>V request) {
@@ -182,11 +183,15 @@ abstract class AbstractLanguageServerTest implements Endpoint {
 			return result
 		}
 		
+		override shutdown() {
+			// no shutdown
+		}
+		
 	}
 
 	protected def Module getServerModule() {
 		return Modules2.mixin(new ServerModule) [
-			bind(RequestManager).to(DirectRequestManager)
+			bind(IRequestManager).to(DirectRequestManager)
 		]
 	}
 

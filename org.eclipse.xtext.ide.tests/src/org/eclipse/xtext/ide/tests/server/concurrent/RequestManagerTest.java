@@ -23,6 +23,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import org.apache.log4j.Level;
 import org.eclipse.xtext.ide.server.ServerModule;
 import org.eclipse.xtext.ide.server.concurrent.AbstractRequest;
+import org.eclipse.xtext.ide.server.concurrent.IRequestManager;
 import org.eclipse.xtext.ide.server.concurrent.ReadRequest;
 import org.eclipse.xtext.ide.server.concurrent.RequestManager;
 import org.eclipse.xtext.ide.server.concurrent.WriteRequest;
@@ -50,7 +51,7 @@ public class RequestManagerTest {
 	public RepeatedTest.Rule rule = new RepeatedTest.Rule(false);
 
 	@Inject
-	private RequestManager requestManager;
+	private IRequestManager requestManager;
 
 	@Inject
 	private Provider<ExecutorService> executorServiceProvider;

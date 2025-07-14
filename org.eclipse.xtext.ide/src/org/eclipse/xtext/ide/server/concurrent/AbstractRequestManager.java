@@ -32,7 +32,7 @@ public abstract class AbstractRequestManager implements IRequestManager {
 	/**
 	 * Check if the given throwable is an indicator for a cancellation.
 	 */
-	public boolean isCancelException(Throwable t) {
+	protected boolean isCancelException(Throwable t) {
 		if (t == null) {
 			return false;
 		}

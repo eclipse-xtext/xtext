@@ -56,9 +56,7 @@ public class RequestManager extends AbstractRequestManager {
 		return "RequestManager-Queue-%d";
 	}
 
-	/**
-	 * An orderly shutdown of this request manager.
-	 */
+	@Override
 	public void shutdown() {
 		queue.shutdown();
 		parallel.shutdown();
