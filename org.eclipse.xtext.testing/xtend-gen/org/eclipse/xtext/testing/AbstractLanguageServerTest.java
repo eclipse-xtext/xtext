@@ -100,7 +100,8 @@ import org.eclipse.xtext.ide.server.Document;
 import org.eclipse.xtext.ide.server.LanguageServerImpl;
 import org.eclipse.xtext.ide.server.ServerModule;
 import org.eclipse.xtext.ide.server.UriExtensions;
-import org.eclipse.xtext.ide.server.concurrent.RequestManager;
+import org.eclipse.xtext.ide.server.concurrent.AbstractRequestManager;
+import org.eclipse.xtext.ide.server.concurrent.IRequestManager;
 import org.eclipse.xtext.resource.IResourceServiceProvider;
 import org.eclipse.xtext.service.OperationCanceledManager;
 import org.eclipse.xtext.util.CancelIndicator;
@@ -139,10 +140,10 @@ public abstract class AbstractLanguageServerTest implements Endpoint {
    * A request manager that will run the given read and write actions in the same thread immediately, sequentially.
    */
   @Singleton
-  public static class DirectRequestManager extends RequestManager {
+  public static class DirectRequestManager extends AbstractRequestManager {
     @Inject
     public DirectRequestManager(final OperationCanceledManager operationCanceledManager) {
-      super(null, operationCanceledManager);
+      super(operationCanceledManager);
     }
 
     @Override
@@ -188,6 +189,10 @@ public abstract class AbstractLanguageServerTest implements Endpoint {
         }
       }
       return result;
+    }
+
+    @Override
+    public void shutdown() {
     }
   }
 
@@ -285,7 +290,7 @@ public abstract class AbstractLanguageServerTest implements Endpoint {
   protected com.google.inject.Module getServerModule() {
     ServerModule _serverModule = new ServerModule();
     final com.google.inject.Module _function = (Binder it) -> {
-      it.<RequestManager>bind(RequestManager.class).to(AbstractLanguageServerTest.DirectRequestManager.class);
+      it.<IRequestManager>bind(IRequestManager.class).to(AbstractLanguageServerTest.DirectRequestManager.class);
     };
     return Modules2.mixin(_serverModule, _function);
   }
