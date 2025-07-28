@@ -76,7 +76,7 @@ public abstract class AbstractDeclarativeFormatter extends BaseFormatter {
 		if(context != null && context.eResource() != null && context.eResource().getURI() != null) {
 			contextResourceURI = EcoreUtil2.getPlatformResourceOrNormalizedURI(context).trimFragment();
 		} else if (context != null && context.eResource() == null) {
-			log.error("Model has no XtextResource. This is likely to cause follow-up errors");
+			log.warn("Model has no XtextResource. This is likely to cause follow-up errors");
 		}
 		return new FormattingConfigBasedStream(out, indent, getConfig(), createMatcher(), hiddenTokenHelper,
 				preserveWhitespaces);

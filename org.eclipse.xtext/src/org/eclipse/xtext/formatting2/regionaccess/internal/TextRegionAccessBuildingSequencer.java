@@ -228,7 +228,7 @@ public class TextRegionAccessBuildingSequencer implements ISequenceAcceptor {
 
 	public TextRegionAccessBuildingSequencer withRoot(ISerializationContext ctx, EObject root) {
 		if (root.eResource() == null) {
-			log.error("Root has no XtextResource. This is likely to cause follow-up errors");
+			log.warn("Root has no XtextResource. This is likely to cause follow-up errors");
 		}
 		this.regionAccess = new StringBasedRegionAccess((XtextResource) root.eResource());
 		this.last = createHiddenRegion();
