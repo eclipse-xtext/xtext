@@ -153,7 +153,7 @@ public class DefaultResourceDescriptionManager implements IResourceDescription.M
 							descriptionIsContained = containers.get(i).hasResourceDescription(uri);
 						}
 						if (!descriptionIsContained) {
-							return isAffectedByExtensions(deltas, candidate, context);
+							continue;
 						}
 					}
 					if (isAffected(importedNames, delta.getNew()) || isAffected(importedNames, delta.getOld())) {

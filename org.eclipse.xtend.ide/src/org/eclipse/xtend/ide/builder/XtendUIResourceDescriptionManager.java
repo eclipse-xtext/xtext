@@ -70,7 +70,7 @@ public class XtendUIResourceDescriptionManager extends XtendResourceDescriptionM
 						descriptionIsContained = containers.get(i).hasResourceDescription(uri);
 					}
 					if (!descriptionIsContained && !isProjectDependency(uri, candidate.getURI(), checkedProjects)) {
-						return false;
+						continue;
 					}
 				}
 				if (isAffected(importedNames, delta.getNew()) || isAffected(importedNames, delta.getOld())) {
