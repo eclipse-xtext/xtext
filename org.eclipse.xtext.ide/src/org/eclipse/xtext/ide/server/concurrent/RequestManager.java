@@ -43,9 +43,20 @@ public class RequestManager {
 	}
 	
 	private final ExecutorService queue = Executors.newSingleThreadExecutor(
-			new ThreadFactoryBuilder().setDaemon(true).setNameFormat("RequestManager-Queue-%d").build());
+			new ThreadFactoryBuilder().setDaemon(true).setNameFormat(getThreadQueueName()+"-%d").build());
 
 	private List<AbstractRequest<?>> requests = new ArrayList<>();
+
+	/**
+	 * Override with a different name for the queue thread if desired. 
+	 * 
+	 * It must not refer to fields of the class, as it will be called during class instantiation.
+	 * 
+	 * @since 2.40
+	 */
+	protected String getThreadQueueName() {
+		return "RequestManager-Queue";
+	}
 
 	/**
 	 * An orderly shutdown of this request manager.
@@ -123,7 +134,7 @@ public class RequestManager {
 		}
 		Throwable cause = t;
 		if (t instanceof CompletionException) {
-			cause = ((CompletionException) t).getCause();
+			cause = t.getCause();
 		}
 		return operationCanceledManager.isOperationCanceledException(cause);
 	}
