@@ -188,9 +188,9 @@ public class LanguageServerImpl implements LanguageServer, WorkspaceService, Tex
 	
 	private WorkspaceManager workspaceManager;
 
-	private InitializeParams initializeParams;
+	protected InitializeParams initializeParams;
 
-	private InitializeResult initializeResult;
+	protected InitializeResult initializeResult;
 
 	private WorkspaceResourceAccess resourceAccess;
 
@@ -229,10 +229,13 @@ public class LanguageServerImpl implements LanguageServer, WorkspaceService, Tex
 		initializeParams = params;
 
 		InitializeResult result = new InitializeResult();
-
 		result.setCapabilities(createServerCapabilities(params));
 		access.addBuildListener(this);
-		return requestManager.runWrite(() -> {
+        
+        initializeResult = result;
+
+        // Schedule a background build of the project
+		requestManager.runWrite(() -> {
 			if (clientSupportsWorkspaceFolders() && workspaceManager.isSupportsWorkspaceFolders()) {
 				List<WorkspaceFolder> workspaceFolders = params.getWorkspaceFolders();
 				if (workspaceFolders == null)
@@ -242,8 +245,10 @@ public class LanguageServerImpl implements LanguageServer, WorkspaceService, Tex
 				URI baseDir = getBaseDir(params);
 				workspaceManager.initialize(baseDir, this::publishDiagnostics, CancelIndicator.NullImpl);
 			}
-			return result;
-		}, (cancelIndicator, it) -> it).thenApply(it -> initializeResult = it);
+			return null;
+		}, (cancelIndicator, it) -> it);
+        
+        return CompletableFuture.completedFuture(result);
 	}
 
 	protected boolean clientSupportsWorkspaceFolders() {
@@ -508,7 +513,7 @@ public class LanguageServerImpl implements LanguageServer, WorkspaceService, Tex
 		}, (a, b) -> null);
 	}
 
-	private void publishDiagnostics(URI uri, Iterable<? extends Issue> issues) {
+	protected void publishDiagnostics(URI uri, Iterable<? extends Issue> issues) {
 		initialized.thenAccept((initParams) -> {
 			PublishDiagnosticsParams publishDiagnosticsParams = new PublishDiagnosticsParams();
 			publishDiagnosticsParams.setUri(uriExtensions.toUriString(uri));
