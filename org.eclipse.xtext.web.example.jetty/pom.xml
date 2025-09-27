@@ -141,7 +141,7 @@
 							<goal>download-single</goal>
 						</goals>
 						<configuration>
-							<url><![CDATA[https://www.eclipse.org/downloads/download.php?file=/orion/drops/R-17.0-201801111044/built-codeEdit.zip&mirror_id=1]]></url>
+							<url><![CDATA[https://download.eclipse.org/orion/drops/R-17.0-201801111044/built-codeEdit.zip&mirror_id=1]]></url>
 							<toFile>${project.build.directory}/built-codeEdit.zip</toFile>
 							<skipIfExists>true</skipIfExists>
 						</configuration>
