@@ -12,7 +12,7 @@ Require-Bundle: org.eclipse.xtext;bundle-version="2.41.0",
  org.antlr.runtime;bundle-version="[3.2.0,3.2.1)",
  org.eclipse.xtext.xbase.lib;bundle-version="2.41.0",
  org.eclipse.xtend.lib;bundle-version="2.41.0";visibility:=reexport,
- org.objectweb.asm;bundle-version="[9.8.0,9.9.0)";resolution:=optional
+ org.objectweb.asm;bundle-version="[9.9.0,10.0.0)";resolution:=optional
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Export-Package: org.eclipse.xtext.xbase;version="2.41.0",
  org.eclipse.xtext.xbase.annotations;version="2.41.0";x-friends:="org.eclipse.xtext.xbase.ide,org.eclipse.xtext.xbase.tests",

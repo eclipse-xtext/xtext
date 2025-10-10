@@ -10,7 +10,7 @@ Require-Bundle: org.eclipse.xtext.example.homeautomation,
  org.eclipse.xtext.xbase.lib;bundle-version="2.14.0",
  org.eclipse.xtext.xbase.testing,
  org.junit;bundle-version="4.13.2",
- org.objectweb.asm;bundle-version="[9.8.0,9.9.0)";resolution:=optional
+ org.objectweb.asm;bundle-version="[9.9.0,10.0.0)";resolution:=optional
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Export-Package: org.eclipse.xtext.example.homeautomation.tests;x-internal=true
 Import-Package: org.hamcrest.core,

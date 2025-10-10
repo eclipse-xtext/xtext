@@ -55,7 +55,7 @@
 			<unit id="org.aopalliance" version="1.0.0.v20230720-0728"/>
 			<unit id="org.opentest4j" version="0.0.0"/>
 			<unit id="org.apiguardian.api" version="0.0.0"/>
-			<unit id="org.objectweb.asm" version="9.8.0"/>
+			<unit id="org.objectweb.asm" version="9.9.0"/>
 			<unit id="io.github.classgraph.classgraph" version="0.0.0"/>
 			<unit id="slf4j.api" version="0.0.0"/>
 			<unit id="slf4j.simple" version="0.0.0"/>

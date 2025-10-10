@@ -14,7 +14,7 @@ Require-Bundle: de.itemis.xtext.antlr;bundle-version="2.0.0";resolution:=optiona
  org.eclipse.emf.mwe.utils;bundle-version="1.15.0";visibility:=reexport,
  org.eclipse.emf.mwe2.launch;bundle-version="2.21.0";visibility:=reexport,
  org.eclipse.emf.mwe2.lib;bundle-version="2.21.0";visibility:=reexport,
- org.objectweb.asm;bundle-version="[9.8.0,9.9.0)";visibility:=reexport,
+ org.objectweb.asm;bundle-version="[9.9.0,10.0.0)";visibility:=reexport,
  org.apache.commons.commons-logging;bundle-version="1.3.4";visibility:=reexport,
  org.apache.log4j;bundle-version="1.2.26";visibility:=reexport,
  org.aopalliance;bundle-version="1.0.0"

@@ -32,8 +32,8 @@
    <bundle id="org.hamcrest.core.source" version="2.2.0.qualifier"/>
    <bundle id="org.kohsuke.args4j" version="0.0.0"/>
    <bundle id="org.kohsuke.args4j.source" version="0.0.0"/>
-   <bundle id="org.objectweb.asm" version="9.8.0.qualifier"/>
-   <bundle id="org.objectweb.asm.source" version="9.8.0.qualifier"/>
+   <bundle id="org.objectweb.asm" version="9.9.0.qualifier"/>
+   <bundle id="org.objectweb.asm.source" version="9.9.0.qualifier"/>
    <bundle id="io.github.classgraph.classgraph" version="0.0.0"/>
    <bundle id="io.github.classgraph.classgraph.source" version="0.0.0"/>
    <category-def name="Xtext" label="Xtext" />

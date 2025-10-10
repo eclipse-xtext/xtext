@@ -8,7 +8,7 @@ Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.emf.ecore;bundle-version="2.36.0",
  org.eclipse.emf.common;bundle-version="2.30.0",
  org.eclipse.xtext;bundle-version="2.41.0",
- org.objectweb.asm;bundle-version="[9.8.0,9.9.0)",
+ org.objectweb.asm;bundle-version="[9.9.0,10.0.0)",
  org.eclipse.xtend.lib;bundle-version="2.41.0"
 Import-Package: io.github.classgraph;version="[4.8.180,4.9.0)",
  org.apache.commons.logging;version="1.0.4";resolution:=optional,

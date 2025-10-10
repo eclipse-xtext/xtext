@@ -206,7 +206,7 @@ Require-Bundle: org.eclipse.emf.ecore.xmi;bundle-version="2.37.0";visibility:=re
  org.eclipse.emf.ecore;bundle-version="2.36.0";visibility:=reexport,
  org.eclipse.emf.common;bundle-version="2.30.0",
  org.antlr.runtime;bundle-version="[3.2.0,3.2.1)";visibility:=reexport,
- org.objectweb.asm;bundle-version="[9.8.0,9.9.0)";resolution:=optional,
+ org.objectweb.asm;bundle-version="[9.9.0,10.0.0)";resolution:=optional,
  org.eclipse.emf.mwe.core;bundle-version="1.15.0";resolution:=optional;visibility:=reexport,
  org.eclipse.emf.mwe.utils;bundle-version="1.15.0";resolution:=optional;visibility:=reexport,
  org.eclipse.xtext.util;bundle-version="2.41.0";visibility:=reexport,
