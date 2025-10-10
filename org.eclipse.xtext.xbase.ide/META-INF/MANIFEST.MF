@@ -9,7 +9,7 @@ Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.xtext.ide;bundle-version="2.41.0",
  org.eclipse.xtext.xbase;bundle-version="2.41.0";visibility:=reexport,
  org.eclipse.xtext.xbase.lib;bundle-version="2.41.0",
- org.objectweb.asm;bundle-version="[9.8.0,9.9.0)",
+ org.objectweb.asm;bundle-version="[9.9.0,10.0.0)",
  org.antlr.runtime;bundle-version="[3.2.0,3.2.1)",
  org.eclipse.lsp4j;bundle-version="[0.24.0,0.25.0)";resolution:=optional
 Export-Package: org.eclipse.xtext.xbase.annotations.ide.contentassist.antlr;version="2.41.0";x-friends:="org.eclipse.xtext.xbase.ui",

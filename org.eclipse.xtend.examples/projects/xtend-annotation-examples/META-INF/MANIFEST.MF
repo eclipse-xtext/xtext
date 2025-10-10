@@ -13,7 +13,7 @@ Require-Bundle: org.eclipse.xtend.lib,
  org.eclipse.xtext.xbase.testing,
  org.eclipse.jdt.core,
  org.eclipse.emf.codegen;bundle-version="2.23.0",
- org.objectweb.asm;bundle-version="[9.8.0,9.9.0)";resolution:=optional,
+ org.objectweb.asm;bundle-version="[9.9.0,10.0.0)";resolution:=optional,
  org.eclipse.equinox.common
 Export-Package: extract,
  i18n,
