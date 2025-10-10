@@ -9,7 +9,7 @@ Require-Bundle: org.eclipse.xtext.example.fowlerdsl,
  org.eclipse.xtext.testing,
  org.eclipse.xtext.xbase.lib;bundle-version="2.14.0",
  org.junit,
- org.objectweb.asm;bundle-version="[9.8.0,9.9.0)";resolution:=optional
+ org.objectweb.asm;bundle-version="[9.9.0,10.0.0)";resolution:=optional
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Export-Package: org.eclipse.xtext.example.fowlerdsl.tests;x-internal=true
 Import-Package: org.hamcrest.core,
