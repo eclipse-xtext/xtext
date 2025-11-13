@@ -186,16 +186,16 @@ public abstract class AbstractTraceForURIProvider<SomeFile, Trace extends Abstra
 	@Override
 	public Trace getTraceToSource(AbsoluteURI absoluteDerivedResource, IProjectConfig project) {
 		final SomeFile generatedFile = asFile(absoluteDerivedResource, project);
-		return getTraceToSource(generatedFile);
+		return doGetTraceToSource(generatedFile);
 	}
 	
 	@Override
 	public Trace getTraceToSource(SourceRelativeURI srcRelativeDerivedResource, IProjectConfig project) {
 		final SomeFile generatedFile = asFile(srcRelativeDerivedResource, project);
-		return getTraceToSource(generatedFile);
+		return doGetTraceToSource(generatedFile);
 	}
 	
-	public Trace getTraceToSource(final SomeFile generatedFile) {
+	protected Trace doGetTraceToSource(final SomeFile generatedFile) {
 		final PersistedTrace persistedTrace = findPersistedTrace(generatedFile);
 		if (persistedTrace == null || !persistedTrace.exists()) {
 			return null;

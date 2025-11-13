@@ -173,11 +173,11 @@ public class TraceForStorageProvider extends AbstractTraceForURIProvider<IFile, 
 	@Override
 	public IEclipseTrace getTraceToSource(IStorage derivedResource) {
 		if (derivedResource instanceof IFile) {
-			return getTraceToSource((IFile) derivedResource);
+			return doGetTraceToSource((IFile) derivedResource);
 		}
 		return null;
 	}
-
+	
 	/**
 	 * @since 2.3
 	 */
