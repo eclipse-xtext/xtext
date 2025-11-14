@@ -38,7 +38,8 @@ import com.google.inject.Injector;
  * It takes care about JUnit5 {@link Nested nested} test classes. They are inner classes that might
  * be annotated as well and must be handled for injection.
  * </p>
- *
+ * 
+ * @noextend This class is not intended to be subclassed by clients.
  * @author Karsten Thoms - Initial contribution and API
  * @since 2.14
  */
@@ -54,6 +55,7 @@ public class InjectionExtension implements BeforeEachCallback, AfterEachCallback
 	private static ClassToInstanceMap<IInjectorProvider> injectorProviderClassCache = MutableClassToInstanceMap.create();
 
 	/**
+	 * @noextend This class is not intended to be subclassed by clients.
 	 * @since 2.24
 	 */
 	protected static class RegistryReset implements AutoCloseable {
