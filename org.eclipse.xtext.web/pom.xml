@@ -126,8 +126,8 @@
 						</goals>
 						<configuration>
 							<!-- See https://nodejs.org/en/download/ for latest node and npm (lts) versions -->
-							<nodeVersion>v20.16.0</nodeVersion>
-							<npmVersion>10.8.1</npmVersion>
+							<nodeVersion>v22.21.1</nodeVersion>
+							<npmVersion>10.9.4</npmVersion>
 						</configuration>
 					</execution>
 					<execution>
