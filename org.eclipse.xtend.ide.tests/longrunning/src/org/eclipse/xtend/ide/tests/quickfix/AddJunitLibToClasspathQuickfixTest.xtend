@@ -93,7 +93,7 @@ class AddJunitLibToClasspathQuickfixTest extends AbstractJunitLibClasspathAdderT
             .assertIssueCodes(Diagnostic.LINKING_DIAGNOSTIC)
             .assertResolutionLabels('Add JUnit 5 lib to classpath')
             .assertModelAfterQuickfix(content.replace('|', ''))
-       assertImportPackages(#["org.junit.jupiter.api;version=\"[5.1.0,6.0.0)\""]) // just test 1
+       assertImportPackages(#["org.junit.jupiter.api;version=\"[6.0.0,7.0.0)\""]) // just test 1
     }
     
     

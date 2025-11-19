@@ -101,13 +101,13 @@ public abstract class TestProjectDescriptor extends ProjectDescriptor {
         ExternalDependency.P2Coordinates _p2 = it.getP2();
         LinkedHashSet<String> _newLinkedHashSet = Sets.<String>newLinkedHashSet();
         final Procedure1<LinkedHashSet<String>> _function_2 = (LinkedHashSet<String> it_1) -> {
-          it_1.add("org.junit.jupiter.api;version=\"[5.1.0,6.0.0)\"");
-          it_1.add("org.junit.jupiter.api.extension;version=\"[5.1.0,6.0.0)\"");
+          it_1.add("org.junit.jupiter.api;version=\"[6.0.0,7.0.0)\"");
+          it_1.add("org.junit.jupiter.api.extension;version=\"[6.0.0,7.0.0)\"");
         };
         LinkedHashSet<String> _doubleArrow_1 = ObjectExtensions.<LinkedHashSet<String>>operator_doubleArrow(_newLinkedHashSet, _function_2);
         _p2.setPackages(_doubleArrow_1);
         ExternalDependency.P2Coordinates _p2_1 = it.getP2();
-        _p2_1.setVersion("[5.1.0,6.0.0)");
+        _p2_1.setVersion("[6.0.0,7.0.0)");
         ExternalDependency.MavenCoordinates _maven = it.getMaven();
         _maven.setGroupId("org.junit.jupiter");
         ExternalDependency.MavenCoordinates _maven_1 = it.getMaven();

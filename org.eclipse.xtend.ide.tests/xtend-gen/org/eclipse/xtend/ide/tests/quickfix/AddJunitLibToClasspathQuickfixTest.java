@@ -109,7 +109,7 @@ public class AddJunitLibToClasspathQuickfixTest extends AbstractJunitLibClasspat
     _builder.newLine();
     final String content = _builder.toString();
     this.builder.create("FooTest2.xtend", content).assertIssueCodes(Diagnostic.LINKING_DIAGNOSTIC).assertResolutionLabels("Add JUnit 5 lib to classpath").assertModelAfterQuickfix(content.replace("|", ""));
-    this.assertImportPackages(new String[] { "org.junit.jupiter.api;version=\"[5.1.0,6.0.0)\"" });
+    this.assertImportPackages(new String[] { "org.junit.jupiter.api;version=\"[6.0.0,7.0.0)\"" });
   }
 
   @Test
