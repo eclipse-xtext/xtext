@@ -38,13 +38,13 @@ public class Junit5LibClasspathAdder extends AbstractLibClasspathAdder {
 	@Override
 	protected String[] getImportedPackages() {
 		return new String[] {
-			"org.junit.jupiter.api;version=\"[5.1.0,6.0.0)\"",
-			"org.junit.jupiter.api.condition;version=\"[5.1.0,6.0.0)\"",
-			"org.junit.jupiter.api.extension;version=\"[5.1.0,6.0.0)\"",
-			"org.junit.jupiter.api.function;version=\"[5.1.0,6.0.0)\"",
-			"org.junit.jupiter.api.io;version=\"[5.1.0,6.0.0)\"",
-			"org.junit.jupiter.api.parallel;version=\"[5.1.0,6.0.0)\"",
-			"org.junit.platform.commons.support;version=\"[1.0.0,2.0.0)\";resolution:=optional"
+			"org.junit.jupiter.api;version=\"[6.0.0,7.0.0)\"",
+			"org.junit.jupiter.api.condition;version=\"[6.0.0,7.0.0)\"",
+			"org.junit.jupiter.api.extension;version=\"[6.0.0,7.0.0)\"",
+			"org.junit.jupiter.api.function;version=\"[6.0.0,7.0.0)\"",
+			"org.junit.jupiter.api.io;version=\"[6.0.0,7.0.0)\"",
+			"org.junit.jupiter.api.parallel;version=\"[6.0.0,7.0.0)\"",
+			"org.junit.platform.commons.support;version=\"[6.0.0,7.0.0)\";resolution:=optional"
 		};
 	}
 

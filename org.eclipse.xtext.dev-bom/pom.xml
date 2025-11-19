@@ -125,8 +125,8 @@
 		<url>git@github.com:eclipse-xtext/xtext.git</url>
 	</scm>
 	<properties>
-		<junit-platform-version>1.14.0</junit-platform-version>
-		<junit-jupiter-version>5.14.0</junit-jupiter-version>
+		<junit-platform-version>6.0.1</junit-platform-version>
+		<junit-jupiter-version>6.0.1</junit-jupiter-version>
 		<org.eclipse.emf.mwe2-version>2.24.0.M1</org.eclipse.emf.mwe2-version>
 		<org.eclipse.emf.mwe-version>1.18.0.M1</org.eclipse.emf.mwe-version>
 		<org.eclipse.lsp4j-version>0.24.0</org.eclipse.lsp4j-version>
@@ -438,11 +438,6 @@
 			<dependency>
 				<groupId>org.junit.platform</groupId>
 				<artifactId>junit-platform-launcher</artifactId>
-				<version>${junit-platform-version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.junit.platform</groupId>
-				<artifactId>junit-platform-runner</artifactId>
 				<version>${junit-platform-version}</version>
 			</dependency>
 			<dependency>
