@@ -158,7 +158,7 @@ public class BumpVersions {
 		bundleToVersion.put("org.eclipse.ltk.core.refactoring", "3.14.300");
 		bundleToVersion.put("org.eclipse.ltk.ui.refactoring", "3.13.300");
 		bundleToVersion.put("org.eclipse.m2e.core", "2.6.0");
-		bundleToVersion.put("org.eclipse.m2e.maven.runtime", "3.9.600");
+		bundleToVersion.put("org.eclipse.m2e.maven.runtime", "3.9.900");
 		bundleToVersion.put("org.eclipse.pde.core", "3.18.0");
 		bundleToVersion.put("org.eclipse.pde.ui", "3.15.100");
 		bundleToVersion.put("org.eclipse.search", "3.16.100");

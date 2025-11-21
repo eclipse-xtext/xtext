@@ -6,7 +6,7 @@ Bundle-Version: 2.41.0.qualifier
 Bundle-Vendor: Eclipse Xtext
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Require-Bundle: org.eclipse.xtext.util;bundle-version="2.41.0",
- org.eclipse.m2e.maven.runtime;bundle-version="3.9.600",
+ org.eclipse.m2e.maven.runtime;bundle-version="3.9.900",
  org.eclipse.xtext.xtext.generator.dependencies;bundle-version="2.41.0",
  org.eclipse.xtext.purexbase;bundle-version="2.41.0",
  org.eclipse.xtext.xtext.bootstrap;bundle-version="2.41.0",

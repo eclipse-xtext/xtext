@@ -8,7 +8,7 @@ Bundle-ActivationPolicy: lazy
 Require-Bundle: mavenTychoJUnit5,
  org.eclipse.xtext.testing,
  org.eclipse.xtext.xbase.testing
-Import-Package: org.junit.jupiter.api;version="[5.1.0,6.0.0)",
- org.junit.jupiter.api.extension;version="[5.1.0,6.0.0)"
+Import-Package: org.junit.jupiter.api;version="[6.0.0,7.0.0)",
+ org.junit.jupiter.api.extension;version="[6.0.0,7.0.0)"
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Automatic-Module-Name: mavenTychoJUnit5.tests
