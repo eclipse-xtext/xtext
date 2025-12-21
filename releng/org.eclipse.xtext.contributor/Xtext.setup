@@ -66,11 +66,14 @@
   <setupTask
       xsi:type="setup:VariableTask"
       name="eclipse.target.platform"
-      defaultValue="2025-12"
+      defaultValue="2026-03"
       storageURI="scope://Workspace"
       label="Target Platform">
     <annotation
         source="http://www.eclipse.org/oomph/setup/GlobalVariable"/>
+    <choice
+        value="2026-03"
+        label="Eclipse 2026-03 - 4.39"/>
     <choice
         value="2025-12"
         label="Eclipse 2025-12 - 4.38"/>
@@ -532,8 +535,13 @@
     </setupTask>
     <setupTask
         xsi:type="setup.targlets:TargletTask"
-        filter="(eclipse.target.platform=2025-12)">
+        filter="(eclipse.target.platform=2026-03)">
       <composedTarget>xtext-latest</composedTarget>
+    </setupTask>
+    <setupTask
+        xsi:type="setup.targlets:TargletTask"
+        filter="(eclipse.target.platform=2025-12)">
+      <composedTarget>xtext-r202512</composedTarget>
     </setupTask>
     <setupTask
         xsi:type="setup.targlets:TargletTask"
