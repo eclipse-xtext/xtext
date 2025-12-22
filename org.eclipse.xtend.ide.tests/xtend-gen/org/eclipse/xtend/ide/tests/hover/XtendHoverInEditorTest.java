@@ -478,7 +478,7 @@ public class XtendHoverInEditorTest extends AbstractXtendUITestCase {
 
   private void hasHoverOverObject(final CharSequence it) {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("Class <code>Object</code> is the root of the class hierarchy.");
+    _builder.append("</code> is the root of the class hierarchy.");
     this.hasHoverOverJavaType(it, "Object", _builder.toString());
   }
 

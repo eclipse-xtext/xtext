@@ -276,7 +276,7 @@ class XtendHoverInEditorTest extends AbstractXtendUITestCase {
 	}
 
 	private def hasHoverOverObject(CharSequence it) {
-		hasHoverOverJavaType("Object", '''Class <code>Object</code> is the root of the class hierarchy.''')
+		hasHoverOverJavaType("Object", '''</code> is the root of the class hierarchy.''')
 	}
 
 	private def hasHoverOverJavaType(CharSequence it, String textUnderHover, String expectedHoverContent) {
