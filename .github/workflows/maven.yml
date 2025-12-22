@@ -36,7 +36,7 @@ jobs:
           distribution: 'temurin'
 
       - name: 'Cache Maven packages'
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ matrix.java }}${{ matrix.additional-label }}-${{ hashFiles('**/pom.xml', '**/*.target') }}
@@ -86,7 +86,7 @@ jobs:
           distribution: 'temurin'
 
       - name: 'Cache Maven packages'
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.m2
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml', '**/*.target') }}
