@@ -72,6 +72,7 @@ public class BumpVersions {
 						mergable.getMainAttributes().put(MergeableManifest2.BUNDLE_VERSION, newVersion + ".qualifier");
 						updateRequiredXtextBundles(mergable, newVersion);
 						updateImportedXtextPackages(mergable, newVersion);
+						updateImportedJunitPackages(mergable, "[6.0.0, 7.0.0)");
 						updateExportedXtextPackages(mergable, newVersion);
 						updateRequiredBundle(mergable, versionsFromDevBom);
 						
@@ -253,6 +254,23 @@ public class BumpVersions {
 		}
 		mergable.addImportedPackages(updatedPackages.toArray(new String[0]), true);
 	}
+	
+	private static void updateImportedJunitPackages(MergeableManifest2 mergable, String newVersion) {
+		String oldPackages = mergable.getMainAttributes().get(MergeableManifest2.IMPORT_PACKAGE);
+		if (oldPackages == null)
+			return;
+		BundleOrPackageList importedPackages = BundleOrPackageList.fromInput(oldPackages, mergable.getLineDelimiter(),
+				"version");
+		List<String> updatedPackages = new ArrayList<>();
+		for (BundleOrPackage importedPackage : importedPackages.list()) {
+			String packageName = importedPackage.getName();
+			if (packageName.startsWith("org.junit.jupiter")) {
+				updatedPackages.add(packageName + ";version=\"" + newVersion + "\"");
+			}
+		}
+		mergable.addImportedPackages(updatedPackages.toArray(new String[0]), true);
+	}
+
 
 	private static void updateExportedXtextPackages(MergeableManifest2 mergable, String newVersion) {
 		String oldPackages = mergable.getMainAttributes().get(MergeableManifest2.EXPORT_PACKAGE);
