@@ -118,7 +118,7 @@ public class SaveOptions {
 	}
 	
 	/**
-	 * This is equal to <code>builder().getOptions()</code>.
+	 * This is equal to <code>newBuilder().getOptions()</code>.
 	 */
 	public static SaveOptions defaultOptions() {
 		return newBuilder().getOptions();
@@ -127,7 +127,7 @@ public class SaveOptions {
 	/**
 	 * Allows to create new {@link SaveOptions} in a readable manner.
 	 * Instead of <code>new SaveOptions(true, false)</code> the code 
-	 * looks like <code>SaveOptions.builder().format().noValidation().getOptions()</code>.
+	 * looks like <code>SaveOptions.newBuilder().format().noValidation().getOptions()</code>.
 	 * @author Sebastian Zarnekow - Initial contribution and API
 	 */
 	public static class Builder {
