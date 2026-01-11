@@ -266,7 +266,7 @@ public class TargetPlatformProject extends ProjectDescriptor {
       }
     }
     _builder.append("\t\t\t");
-    _builder.append("<unit id=\"org.objectweb.asm\" version=\"9.9.0\"/>");
+    _builder.append("<unit id=\"org.objectweb.asm\" version=\"9.9.1\"/>");
     _builder.newLine();
     _builder.append("\t\t\t");
     _builder.append("<unit id=\"io.github.classgraph.classgraph\" version=\"0.0.0\"/>");
