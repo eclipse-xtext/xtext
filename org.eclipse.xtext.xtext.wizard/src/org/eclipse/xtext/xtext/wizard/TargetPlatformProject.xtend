@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2015, 2025 itemis AG (http://www.itemis.eu) and others.
+ * Copyright (c) 2015, 2026 itemis AG (http://www.itemis.eu) and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -114,9 +114,9 @@ class TargetPlatformProject extends ProjectDescriptor {
 						<unit id="junit-vintage-engine" version="[5.0.0,6.0.0)"/>
 						<unit id="org.opentest4j" version="0.0.0"/>
 					«ENDIF»
-					<unit id="org.objectweb.asm" version="9.9.0"/>
+					<unit id="org.objectweb.asm" version="9.9.1"/>
 					<unit id="io.github.classgraph.classgraph" version="0.0.0"/>
-					<repository location="https://download.eclipse.org/tools/orbit/simrel/orbit-aggregation/2025-12"/>
+					<repository location="https://download.eclipse.org/tools/orbit/simrel/orbit-aggregation/2026-03"/>
 				</location>
 			</locations>
 		</target>

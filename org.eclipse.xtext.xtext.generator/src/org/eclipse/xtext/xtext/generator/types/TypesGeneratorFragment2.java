@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2015, 2020 itemis AG (http://www.itemis.eu) and others.
+ * Copyright (c) 2015, 2026 itemis AG (http://www.itemis.eu) and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -53,11 +53,11 @@ public class TypesGeneratorFragment2 extends AbstractXtextGeneratorFragment {
 		if (getProjectConfig().getRuntime().getManifest() != null) {
 			Set<String> requiredBundles = getProjectConfig().getRuntime().getManifest().getRequiredBundles();
 			requiredBundles.add("org.eclipse.xtext.common.types");
-			requiredBundles.add("org.objectweb.asm;bundle-version=\"[9.9.0,10.0.0)\";resolution:=optional");
+			requiredBundles.add("org.objectweb.asm;bundle-version=\"[9.9.1,10.0.0)\";resolution:=optional");
 		}
 		if (getProjectConfig().getRuntimeTest().getManifest() != null) {
 			Set<String> requiredBundles = getProjectConfig().getRuntimeTest().getManifest().getRequiredBundles();
-			requiredBundles.add("org.objectweb.asm;bundle-version=\"[9.9.0,10.0.0)\";resolution:=optional");
+			requiredBundles.add("org.objectweb.asm;bundle-version=\"[9.9.1,10.0.0)\";resolution:=optional");
 		}
 		if (getProjectConfig().getEclipsePlugin().getManifest() != null) {
 			Set<String> requiredBundles = getProjectConfig().getEclipsePlugin().getManifest().getRequiredBundles();
