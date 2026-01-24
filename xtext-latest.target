@@ -63,17 +63,17 @@
 			<unit id="org.hamcrest" version="2.2.0"/>
 			<unit id="org.hamcrest.core" version="2.2.0.v20230809-1000"/>
 			<unit id="org.apache.commons.commons-logging" version="0.0.0"/>
-			<unit id="junit-jupiter-api" version="[5.0.0,6.0.0)"/>
-			<unit id="junit-jupiter-engine" version="[5.0.0,6.0.0)"/>
-			<unit id="junit-jupiter-migrationsupport" version="[5.0.0,6.0.0)"/>
-			<unit id="junit-jupiter-params" version="[5.0.0,6.0.0)"/>
+			<unit id="junit-jupiter-api" version="[6.0.0,7.0.0)"/>
+			<unit id="junit-jupiter-engine" version="[6.0.0,7.0.0)"/>
+			<unit id="junit-jupiter-migrationsupport" version="[6.0.0,7.0.0)"/>
+			<unit id="junit-jupiter-params" version="[6.0.0,7.0.0)"/>
 			<unit id="junit-platform-commons" version="[1.0.0,2.0.0)"/>
 			<unit id="junit-platform-engine" version="[1.0.0,2.0.0)"/>
 			<unit id="junit-platform-launcher" version="[1.0.0,2.0.0)"/>
 			<unit id="junit-platform-runner" version="[1.0.0,2.0.0)"/>
 			<unit id="junit-platform-suite-api" version="[1.0.0,2.0.0)"/>
 			<unit id="junit-platform-suite-commons" version="[1.0.0,2.0.0)"/>
-			<unit id="junit-vintage-engine" version="[5.0.0,6.0.0)"/>
+			<unit id="junit-vintage-engine" version="[6.0.0,7.0.0)"/>
 		</location>
 		<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 			<unit id="org.eclipse.license.feature.group" version="2.0.2.v20181016-2210"/>

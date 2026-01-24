@@ -125,7 +125,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
-		<tycho-version>4.0.13</tycho-version>
+		<tycho-version>5.0.1</tycho-version>
 
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
@@ -133,7 +133,7 @@
 		<maven.javadoc.failOnError>false</maven.javadoc.failOnError>
 
 		<build-helper-maven-plugin-version>3.3.0</build-helper-maven-plugin-version>
-		<maven-surefire-version>3.0.0</maven-surefire-version>
+		<maven-surefire-version>3.5.4</maven-surefire-version>
 
 		<!--
 		This assumes that the child project has the same version as the parent.

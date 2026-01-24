@@ -26,12 +26,12 @@ Require-Bundle: org.eclipse.xtext;bundle-version="2.42.0";visibility:=reexport,
  org.eclipse.xtend.lib;bundle-version="2.42.0"
 Import-Package: org.apache.log4j;version="1.2.26",
  org.apache.log4j.spi;version="1.2.26",
- org.junit.jupiter.api;version="[5.1.0,6.0.0)",
- org.junit.jupiter.api.extension;version="[5.1.0,6.0.0)",
- org.junit.jupiter.api.function;version="[5.1.0,6.0.0)",
- org.junit.jupiter.api.io;version="[5.1.0,6.0.0)",
- org.junit.jupiter.params;version="[5.1.0,6.0.0)",
- org.junit.jupiter.params.provider;version="[5.1.0,6.0.0)",
+ org.junit.jupiter.api;version="[6.0.0, 7.0.0)",
+ org.junit.jupiter.api.extension;version="[6.0.0, 7.0.0)",
+ org.junit.jupiter.api.function;version="[6.0.0, 7.0.0)",
+ org.junit.jupiter.api.io;version="[6.0.0, 7.0.0)",
+ org.junit.jupiter.params;version="[6.0.0, 7.0.0)",
+ org.junit.jupiter.params.provider;version="[6.0.0, 7.0.0)",
  org.junit.platform.commons.support;version="[1.0.0,2.0.0)";resolution:=optional
 Bundle-ActivationPolicy: lazy
 Automatic-Module-Name: org.eclipse.xtext.testing
