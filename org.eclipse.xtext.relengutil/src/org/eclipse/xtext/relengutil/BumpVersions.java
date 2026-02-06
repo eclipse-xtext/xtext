@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2024, 2025 itemis AG (http://www.itemis.eu) and others.
+ * Copyright (c) 2024, 2026 itemis AG (http://www.itemis.eu) and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -89,7 +89,7 @@ public class BumpVersions {
 		}
 	}
 	
-	private static final String LSP4J_VERSION = "[0.24.0,0.25.0)";
+	private static final String LSP4J_VERSION = "[1.0.0,1.1.0)";
 	
 	private static void addMissingVersions(Map<String, String> bundleToVersion) {
 		bundleToVersion.put("org.hamcrest.core", "2.2.0");
