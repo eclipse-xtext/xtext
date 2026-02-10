@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016, 2020 TypeFox GmbH (http://www.typefox.io) and others.
+ * Copyright (c) 2016, 2025 TypeFox GmbH (http://www.typefox.io) and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -35,18 +35,18 @@ public class OpenDocumentTest extends AbstractTestLangLanguageServerTest {
 		String firstFile = writeFile("MyType1.testlang", model);
 		initialize();
 		assertEquals("Couldn't resolve reference to TypeDeclaration 'NonExisting'.",
-				Iterables.getFirst(getDiagnostics().get(firstFile), null).getMessage());
+				Iterables.getFirst(getDiagnostics().get(firstFile), null).getMessage().getLeft());
 		String path = writeFile("MyType2.testlang", "\n            type Foo {\n            }\n        ");
 		languageServer.getWorkspaceService().didChangeWatchedFiles(new DidChangeWatchedFilesParams(
 				Lists.newArrayList(new FileEvent(path, FileChangeType.Created))));
 		assertEquals("Couldn't resolve reference to TypeDeclaration 'NonExisting'.",
-				Iterables.getFirst(getDiagnostics().get(firstFile), null).getMessage());
+				Iterables.getFirst(getDiagnostics().get(firstFile), null).getMessage().getLeft());
 		String model2 = "type NonExisting {}";
 		open(path, model2);
 		Assert.assertNull(Iterables.getFirst(getDiagnostics().get(firstFile), null));
 		close(path);
 		assertEquals("Couldn't resolve reference to TypeDeclaration 'NonExisting'.",
-				Iterables.getFirst(getDiagnostics().get(firstFile), null).getMessage());
+				Iterables.getFirst(getDiagnostics().get(firstFile), null).getMessage().getLeft());
 	}
 
 	@Test
@@ -59,10 +59,10 @@ public class OpenDocumentTest extends AbstractTestLangLanguageServerTest {
 				model);
 		initialize();
 		assertEquals("Couldn't resolve reference to TypeDeclaration 'NonExisting'.",
-				Iterables.getFirst(getDiagnostics().get(firstFile), null).getMessage());
+				Iterables.getFirst(getDiagnostics().get(firstFile), null).getMessage().getLeft());
 		open(firstFile, model);
 		assertEquals("Couldn't resolve reference to TypeDeclaration 'NonExisting'.",
-				Iterables.getFirst(getDiagnostics().get(firstFile), null).getMessage());
+				Iterables.getFirst(getDiagnostics().get(firstFile), null).getMessage().getLeft());
 		DidChangeTextDocumentParams didChangeTextDocumentParams = new DidChangeTextDocumentParams();
 		didChangeTextDocumentParams.setTextDocument(new VersionedTextDocumentIdentifier(firstFile, 2));
 		TextDocumentContentChangeEvent textDocumentContentChangeEvent = new TextDocumentContentChangeEvent("Test");

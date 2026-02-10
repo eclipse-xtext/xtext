@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2022 itemis AG (http://www.itemis.eu) and others.
+ * Copyright (c) 2022, 2026 itemis AG (http://www.itemis.eu) and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -16,9 +16,11 @@ package org.eclipse.xtext.ide.server;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.eclipse.lsp4j.ClientCapabilities;
 import org.eclipse.lsp4j.InitializeParams;
+import org.eclipse.lsp4j.SnippetTextEdit;
 import org.eclipse.lsp4j.TextDocumentEdit;
 import org.eclipse.lsp4j.TextEdit;
 import org.eclipse.lsp4j.VersionedTextDocumentIdentifier;
@@ -65,7 +67,8 @@ public class TextEditAcceptor {
 			versionedTextDocumentIdentifier.setUri(theUri);
 			versionedTextDocumentIdentifier.setVersion(document.getVersion());
 			textDocumentEdit.setTextDocument(versionedTextDocumentIdentifier);
-			textDocumentEdit.setEdits(textEdits);
+			textDocumentEdit.setEdits(
+					textEdits.stream().map(Either::<TextEdit, SnippetTextEdit>forLeft).collect(Collectors.toList()));
 			edit.getDocumentChanges().add(Either.forLeft(textDocumentEdit));
 		} else {
 			edit.getChanges().put(theUri, textEdits);
