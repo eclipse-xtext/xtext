@@ -12,8 +12,8 @@ Require-Bundle: org.eclipse.xtext;bundle-version="2.42.0";visibility:=reexport,
  org.eclipse.xtext.util;bundle-version="2.42.0",
  org.eclipse.core.runtime;bundle-version="3.31.0";resolution:=optional;x-installation:=greedy,
  org.eclipse.equinox.common;bundle-version="3.19.0",
- org.eclipse.lsp4j;bundle-version="[0.24.0,0.25.0)";resolution:=optional,
- org.eclipse.lsp4j.jsonrpc;bundle-version="[0.24.0,0.25.0)";resolution:=optional,
+ org.eclipse.lsp4j;bundle-version="[1.0.0,1.1.0)";resolution:=optional,
+ org.eclipse.lsp4j.jsonrpc;bundle-version="[1.0.0,1.1.0)";resolution:=optional,
  org.eclipse.emf.ecore.change;bundle-version="2.16.0"
 Import-Package: org.apache.log4j;version="1.2.26"
 Export-Package: org.eclipse.xtext.ide;version="2.42.0";

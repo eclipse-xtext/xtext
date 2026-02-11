@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016, 2022 TypeFox GmbH (http://www.typefox.io) and others.
+ * Copyright (c) 2016, 2026 TypeFox GmbH (http://www.typefox.io) and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -51,7 +51,7 @@ public class ServerTest extends AbstractTestLangLanguageServerTest {
 		writeFile("MyType1.testlang", model);
 		initialize();
 		Diagnostic firstDiagnostic = getFirstDiagnostic();
-		assertEquals("Couldn't resolve reference to TypeDeclaration 'NonExisting'.", firstDiagnostic.getMessage());
+		assertEquals("Couldn't resolve reference to TypeDeclaration 'NonExisting'.", firstDiagnostic.getMessage().getLeft());
 		Assert.assertEquals(1, firstDiagnostic.getRange().getStart().getLine());
 		Assert.assertEquals(4, firstDiagnostic.getRange().getStart().getCharacter());
 		Assert.assertEquals(1, firstDiagnostic.getRange().getEnd().getLine());
@@ -81,7 +81,7 @@ public class ServerTest extends AbstractTestLangLanguageServerTest {
 				"}\n";
 		writeFile("MyType1.testlang", model);
 		initialize();
-		assertEquals("Couldn't resolve reference to TypeDeclaration 'NonExisting'.", getFirstDiagnostic().getMessage());
+		assertEquals("Couldn't resolve reference to TypeDeclaration 'NonExisting'.", getFirstDiagnostic().getMessage().getLeft());
 		String model2 = 
 				"type NonExisting {\n" +
 				"}\n";
@@ -102,7 +102,7 @@ public class ServerTest extends AbstractTestLangLanguageServerTest {
 				"}\n";
 		String path = writeFile("MyType1.testlang", model);
 		initialize();
-		assertEquals("Couldn't resolve reference to TypeDeclaration 'NonExisting'.", getFirstDiagnostic().getMessage());
+		assertEquals("Couldn't resolve reference to TypeDeclaration 'NonExisting'.", getFirstDiagnostic().getMessage().getLeft());
 		deleteFile("MyType1.testlang");
 		languageServer.getWorkspaceService().didChangeWatchedFiles(
 				new DidChangeWatchedFilesParams(Lists.newArrayList(new FileEvent(path, FileChangeType.Deleted))));
