@@ -8,7 +8,7 @@ pipeline {
   parameters {
     choice(name: 'TARGET_PLATFORM', choices: ['r202403', 'r202406', 'r202409', 'r202412', 'r202503', 'r202506', 'r202509', 'r202512', 'latest'], description: 'Which Target Platform should be used?')
     // see https://wiki.eclipse.org/Jenkins#JDK
-    choice(name: 'JDK_VERSION', choices: [ '17', '21' ], description: 'Which JDK version should be used?')
+    choice(name: 'JDK_VERSION', choices: [ '17', '21', '25' ], description: 'Which JDK version should be used?')
   }
 
   triggers {
@@ -61,6 +61,7 @@ pipeline {
         // Set all Java version that can be discovered/selected by maven-toolchains-plugin
         JAVA_17_HOME = tool(type:'jdk', name:'temurin-jdk17-latest')
         JAVA_21_HOME = tool(type:'jdk', name:'temurin-jdk21-latest')
+        JAVA_25_HOME = tool(type:'jdk', name:'temurin-jdk25-latest')
       }
       steps {
         xvnc(useXauthority: true) {
@@ -171,7 +172,10 @@ def selectedTargetPlatform() {
     def isUpstream = isTriggeredByUpstream()
     def javaVersion = javaVersion()
 
-    if (isTriggeredByUpstream() && javaVersion>=21) {
+    if (isTriggeredByUpstream() && javaVersion>=25) {
+        println("Choosing 'latest' target since this build was triggered by upstream with Java ${javaVersion}")
+        return 'latest'
+    } else if (isTriggeredByUpstream() && javaVersion>=21) {
         println("Choosing 'latest' target since this build was triggered by upstream with Java ${javaVersion}")
         return 'latest'
     } else if (isTriggeredByUpstream() && javaVersion>=17) {
