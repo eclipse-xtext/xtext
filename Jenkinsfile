@@ -58,16 +58,15 @@ pipeline {
     stage('Maven/Tycho Build & Test') {
       environment {
         MAVEN_OPTS = "-Xmx1500m"
-        // set all Java versions needed by our toolchains.xml
-        JAVA_HOME_17_X64 = tool(type:'jdk', name:'temurin-jdk17-latest')
-        JAVA_HOME_21_X64 = tool(type:'jdk', name:'temurin-jdk21-latest')
+        // Set all Java version that can be discovered/selected by maven-toolchains-plugin
+        JAVA_17_HOME = tool(type:'jdk', name:'temurin-jdk17-latest')
+        JAVA_21_HOME = tool(type:'jdk', name:'temurin-jdk21-latest')
       }
       steps {
         xvnc(useXauthority: true) {
           sh """
             ./full-build.sh --tp=${selectedTargetPlatform()} \
-              ${javaVersion() == 17 ? '--toolchains releng/toolchains.xml -Pstrict-jdk-17' : ''} \
-              ${javaVersion() == 21 ? '-Pstrict-jdk-21' : ''}
+              -Pstrict-jdk-${javaVersion()} -Dtoolchain.jdk.env=JAVA_${javaVersion()}_HOME
           """
         }
       }// END steps
