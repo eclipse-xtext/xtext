@@ -10,8 +10,7 @@
 	<properties>
 		<xtend.version>${project.version}</xtend.version>
 		<project.build.sourceEncoding>${sourceEncoding}</project.build.sourceEncoding>
-		<maven.compiler.source>${javaVersion}</maven.compiler.source>
-		<maven.compiler.target>${javaVersion}</maven.compiler.target>
+		<maven.compiler.release>${javaVersion}</maven.compiler.release>
 	</properties>
 	<dependencyManagement>
 		<dependencies>

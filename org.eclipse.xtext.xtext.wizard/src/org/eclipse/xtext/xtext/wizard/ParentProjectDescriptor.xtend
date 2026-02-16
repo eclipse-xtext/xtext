@@ -219,8 +219,7 @@ class ParentProjectDescriptor extends ProjectDescriptor {
 					<mwe2Version>«config.xtextVersion.mweVersion»</mwe2Version>
 					«ENDIF»
 					<project.build.sourceEncoding>«config.encoding»</project.build.sourceEncoding>
-					<maven.compiler.source>«javaVersion»</maven.compiler.source>
-					<maven.compiler.target>«javaVersion»</maven.compiler.target>
+					<maven.compiler.release>«javaVersion»</maven.compiler.release>
 					«IF config.needsTychoBuild»
 						<!-- Tycho settings -->
 						<tycho-version>«tychoVersion»</tycho-version>

@@ -351,8 +351,7 @@ public class WizardConfigurationTest {
 	@Test
 	public void allBuildSystemsUseJava17() {
 		String parentPom = config.getParentProject().pom().getContent();
-		assertTrue(parentPom.contains("<maven.compiler.source>17</maven.compiler.source>"));
-		assertTrue(parentPom.contains("<maven.compiler.target>17</maven.compiler.target>"));
+		assertTrue(parentPom.contains("<maven.compiler.release>17</maven.compiler.release>"));
 		String parentGradle = config.getParentProject().buildGradle().getContent();
 		assertTrue(parentGradle.contains("sourceCompatibility = JavaVersion.VERSION_17"));
 		assertTrue(parentGradle.contains("targetCompatibility = JavaVersion.VERSION_17"));
