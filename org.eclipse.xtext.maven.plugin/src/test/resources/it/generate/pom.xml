@@ -10,8 +10,7 @@
 	<properties>
 		<JENKINS_URL>https://ci.eclipse.org/xtext</JENKINS_URL>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.source>17</maven.compiler.source>
-		<maven.compiler.target>17</maven.compiler.target>
+		<maven.compiler.release>17</maven.compiler.release>
 		<!-- The @...@ will be replaced during resource filtering with
 			the current version of our project -->
 		<xtext-version>@project.version@</xtext-version>

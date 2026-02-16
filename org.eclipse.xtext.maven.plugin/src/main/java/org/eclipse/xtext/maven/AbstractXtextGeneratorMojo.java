@@ -26,7 +26,6 @@ import org.eclipse.xtext.builder.standalone.LanguageAccess;
 import org.eclipse.xtext.builder.standalone.LanguageAccessFactory;
 import org.eclipse.xtext.builder.standalone.StandaloneBuilder;
 import org.eclipse.xtext.builder.standalone.compiler.CompilerConfiguration;
-import org.eclipse.xtext.builder.standalone.compiler.IJavaCompiler;
 import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.resource.persistence.IResourceStorageFacade;
 import org.eclipse.xtext.resource.persistence.StorageAwareResource;
@@ -101,6 +100,21 @@ public abstract class AbstractXtextGeneratorMojo extends AbstractXtextMojo {
 
 	@Parameter(property = "maven.compiler.target", defaultValue = "11")
 	private String compilerTargetLevel;
+	/**
+	 * Create Java Source Code that is compatible to this Java release.
+	 * <p>
+	 * If set, this implies a {@link #compilerSourceLevel} and
+	 * {@link #compilerTargetLevel} of the same value and any value explicitly
+	 * configured for the latter is ignored. Nevertheless specifying this parameter
+	 * does not enforce strict Java API checks like the {@code release} option for a
+	 * Java compiler does. Still it is possible to enforce strict Java API checks by
+	 * specifying the {@code release} option for the compiler-plugin.
+	 * </p>
+	 * 
+	 * Supported values: 11, 17, 21 and so forth
+	 */
+	@Parameter(property = "maven.compiler.release")
+	private String compilerReleaseLevel;
 
 	@Parameter(defaultValue = "false")
 	private boolean compilerSkipAnnotationProcessing;
@@ -224,8 +238,9 @@ public abstract class AbstractXtextGeneratorMojo extends AbstractXtextMojo {
 		if (clusteringConfig != null) {
 			builder.setClusteringConfig(clusteringConfig.convertToStandaloneConfig());
 		}
-		configureCompiler(builder.getCompiler());
-		logState();
+		CompilerConfiguration compilerConfiguration = builder.getCompiler().getConfiguration();
+		configureCompiler(compilerConfiguration);
+		logState(compilerConfiguration);
 		boolean errorDetected = !builder.launch();
 		if (errorDetected && failOnValidationError) {
 			throw new MojoExecutionException("Execution failed due to a severe validation error.");
@@ -236,20 +251,20 @@ public abstract class AbstractXtextGeneratorMojo extends AbstractXtextMojo {
 	
 	protected abstract List<String> getSourceRoots();
 
-	private void configureCompiler(IJavaCompiler compiler) {
-		CompilerConfiguration conf = compiler.getConfiguration();
-		conf.setSourceLevel(compilerSourceLevel);
-		conf.setTargetLevel(compilerTargetLevel);
+	private void configureCompiler(CompilerConfiguration conf) {
+		boolean isReleaseSet = compilerReleaseLevel != null && !compilerReleaseLevel.isBlank();
+		conf.setSourceLevel(isReleaseSet ? compilerReleaseLevel : compilerSourceLevel);
+		conf.setTargetLevel(isReleaseSet ? compilerReleaseLevel : compilerTargetLevel);
 		conf.setVerbose(getLog().isDebugEnabled());
 		conf.setSkipAnnotationProcessing(compilerSkipAnnotationProcessing);
 		conf.setPreserveInformationAboutFormalParameters(compilerPreserveInformationAboutFormalParameters);
 	}
 
-	private void logState() {
+	private void logState(CompilerConfiguration compilerConfiguration) {
 		getLog().info(
 				"Encoding: " + (getEncoding() == null ? "not set. Encoding provider will be used." : getEncoding()));
-		getLog().info("Compiler source level: " + compilerSourceLevel);
-		getLog().info("Compiler target level: " + compilerTargetLevel);
+		getLog().info("Compiler source level: " + compilerConfiguration.getSourceLevel());
+		getLog().info("Compiler target level: " + compilerConfiguration.getTargetLevel());
 		if (getLog().isDebugEnabled()) {
 			getLog().debug("Source dirs: " + IterableExtensions.join(getSourceRoots(), ", "));
 			getLog().debug("Java source dirs: " + IterableExtensions.join(javaSourceRoots, ", "));
