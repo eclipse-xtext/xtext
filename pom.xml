@@ -128,9 +128,6 @@
 		<tycho-version>5.0.2</tycho-version>
 
 		<maven.compiler.release>21</maven.compiler.release>
-		<maven.compiler.source>${maven.compiler.release}</maven.compiler.source>
-		<maven.compiler.target>${maven.compiler.release}</maven.compiler.target>
-
 		<maven.javadoc.failOnError>false</maven.javadoc.failOnError>
 
 		<build-helper-maven-plugin-version>3.3.0</build-helper-maven-plugin-version>

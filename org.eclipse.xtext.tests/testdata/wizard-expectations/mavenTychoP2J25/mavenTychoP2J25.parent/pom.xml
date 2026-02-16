@@ -10,8 +10,7 @@
 		<xtextVersion>unspecified</xtextVersion>
 		<mwe2Version>2.25.0</mwe2Version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.source>25</maven.compiler.source>
-		<maven.compiler.target>25</maven.compiler.target>
+		<maven.compiler.release>25</maven.compiler.release>
 		<!-- Tycho settings -->
 		<tycho-version>5.0.2</tycho-version>
 		<!-- Define overridable properties for tycho-surefire-plugin -->

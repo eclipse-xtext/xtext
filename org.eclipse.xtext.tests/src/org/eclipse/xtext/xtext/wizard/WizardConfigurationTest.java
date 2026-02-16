@@ -75,7 +75,7 @@ public class WizardConfigurationTest {
 		assertTrue(config.getP2Project().pom().getContent().contains("eclipse-repository"));
 		assertTrue(config.getParentProject().pom().getContent().contains("tycho"));
 	}
-	
+
 	@Test
 	public void p2ProjectsEnablesSourceGenerationWithTychoWhenMavenBuiltIsEnabled() {
 		config.getUiProject().setEnabled(true);
@@ -351,8 +351,7 @@ public class WizardConfigurationTest {
 	@Test
 	public void allBuildSystemsUseJava21() {
 		String parentPom = config.getParentProject().pom().getContent();
-		assertTrue(parentPom.contains("<maven.compiler.source>21</maven.compiler.source>"));
-		assertTrue(parentPom.contains("<maven.compiler.target>21</maven.compiler.target>"));
+		assertTrue(parentPom.contains("<maven.compiler.release>21</maven.compiler.release>"));
 		String parentGradle = config.getParentProject().buildGradle().getContent();
 		assertTrue(parentGradle.contains("sourceCompatibility = JavaVersion.VERSION_21"));
 		assertTrue(parentGradle.contains("targetCompatibility = JavaVersion.VERSION_21"));

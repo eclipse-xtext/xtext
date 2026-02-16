@@ -559,16 +559,10 @@ public class ParentProjectDescriptor extends ProjectDescriptor {
       _builder.append("</project.build.sourceEncoding>");
       _builder.newLineIfNotEmpty();
       _builder.append("\t");
-      _builder.append("<maven.compiler.source>");
+      _builder.append("<maven.compiler.release>");
       String _javaVersion = this.getJavaVersion();
       _builder.append(_javaVersion, "\t");
-      _builder.append("</maven.compiler.source>");
-      _builder.newLineIfNotEmpty();
-      _builder.append("\t");
-      _builder.append("<maven.compiler.target>");
-      String _javaVersion_1 = this.getJavaVersion();
-      _builder.append(_javaVersion_1, "\t");
-      _builder.append("</maven.compiler.target>");
+      _builder.append("</maven.compiler.release>");
       _builder.newLineIfNotEmpty();
       {
         boolean _needsTychoBuild_1 = this.getConfig().needsTychoBuild();
