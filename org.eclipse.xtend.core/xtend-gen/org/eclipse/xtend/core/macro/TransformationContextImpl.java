@@ -106,8 +106,8 @@ public class TransformationContextImpl implements TransformationContext {
     return this.getProblemSupport().getProblems(element);
   }
 
-  public void validateLater(final Procedure0 arg0) {
-    this.getProblemSupport().validateLater(arg0);
+  public void validateLater(final Procedure0 validationCallback) {
+    this.getProblemSupport().validateLater(validationCallback);
   }
 
   public MutableAnnotationTypeDeclaration findAnnotationType(final String qualifiedName) {
@@ -226,32 +226,32 @@ public class TransformationContextImpl implements TransformationContext {
     return this.getAnnotationReferenceProvider().newAnnotationReference(annotationReference);
   }
 
-  public AnnotationReference newAnnotationReference(final AnnotationReference arg0, final Procedure1<AnnotationReferenceBuildContext> arg1) {
-    return this.getAnnotationReferenceProvider().newAnnotationReference(arg0, arg1);
+  public AnnotationReference newAnnotationReference(final AnnotationReference annotationReference, final Procedure1<AnnotationReferenceBuildContext> initializer) {
+    return this.getAnnotationReferenceProvider().newAnnotationReference(annotationReference, initializer);
   }
 
   public AnnotationReference newAnnotationReference(final Class<?> annotationClass) {
     return this.getAnnotationReferenceProvider().newAnnotationReference(annotationClass);
   }
 
-  public AnnotationReference newAnnotationReference(final Class<?> arg0, final Procedure1<AnnotationReferenceBuildContext> arg1) {
-    return this.getAnnotationReferenceProvider().newAnnotationReference(arg0, arg1);
+  public AnnotationReference newAnnotationReference(final Class<?> annotationClass, final Procedure1<AnnotationReferenceBuildContext> initializer) {
+    return this.getAnnotationReferenceProvider().newAnnotationReference(annotationClass, initializer);
   }
 
   public AnnotationReference newAnnotationReference(final String annotationTypeName) {
     return this.getAnnotationReferenceProvider().newAnnotationReference(annotationTypeName);
   }
 
-  public AnnotationReference newAnnotationReference(final String arg0, final Procedure1<AnnotationReferenceBuildContext> arg1) {
-    return this.getAnnotationReferenceProvider().newAnnotationReference(arg0, arg1);
+  public AnnotationReference newAnnotationReference(final String annotationTypeName, final Procedure1<AnnotationReferenceBuildContext> initializer) {
+    return this.getAnnotationReferenceProvider().newAnnotationReference(annotationTypeName, initializer);
   }
 
   public AnnotationReference newAnnotationReference(final Type annotationTypeDelcaration) {
     return this.getAnnotationReferenceProvider().newAnnotationReference(annotationTypeDelcaration);
   }
 
-  public AnnotationReference newAnnotationReference(final Type arg0, final Procedure1<AnnotationReferenceBuildContext> arg1) {
-    return this.getAnnotationReferenceProvider().newAnnotationReference(arg0, arg1);
+  public AnnotationReference newAnnotationReference(final Type annotationTypeDelcaration, final Procedure1<AnnotationReferenceBuildContext> initializer) {
+    return this.getAnnotationReferenceProvider().newAnnotationReference(annotationTypeDelcaration, initializer);
   }
 
   public boolean exists(final Path path) {
