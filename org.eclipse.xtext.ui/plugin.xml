@@ -1176,4 +1176,20 @@
          </themeid>	
 	  </stylesheet>	
    </extension>
+ <extension
+       point="org.eclipse.core.runtime.adapters">
+    <factory
+          adaptableType="org.eclipse.xtext.ui.editor.model.XtextDocument"
+          class="org.eclipse.xtext.ui.editor.model.XtextDocumentAdapterFactory">
+       <adapter
+             type="java.net.URI">
+       </adapter>
+       <adapter
+             type="org.eclipse.core.resources.IFile">
+       </adapter>
+       <adapter
+             type="org.eclipse.core.runtime.IPath">
+       </adapter>
+    </factory>
+ </extension>
 </plugin>
