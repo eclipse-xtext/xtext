@@ -12,6 +12,7 @@ package org.eclipse.xtext.ui.editor.model;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.URI;
@@ -26,12 +27,13 @@ import org.eclipse.xtext.util.concurrent.IWriteAccess;
  * @author Sven Efftinge
  * @author Jan Koehnlein
  */
-public interface IXtextDocument extends IDocument, IDocumentExtension3, IReadAccess<XtextResource>, IReadAccess.Priority<XtextResource>, IWriteAccess<XtextResource> {
+public interface IXtextDocument extends IDocument, IDocumentExtension3, IReadAccess<XtextResource>, IReadAccess.Priority<XtextResource>, IWriteAccess<XtextResource>, IAdaptable {
 
 	/**
 	 * Supported adapter types are {@link IFile}, {@link IResource}, {@link URI} and real supertypes of the implementation class, e.g. all
 	 * document extensions.
 	 */
+	@Override
 	default public <T> T getAdapter(Class<T> adapterType) {
 		if (adapterType.isInstance(this)) {
 			return adapterType.cast(this);
