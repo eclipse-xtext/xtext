@@ -20,6 +20,7 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.core.runtime.OperationCanceledException;
@@ -652,6 +653,19 @@ public class XtextDocument extends Document implements IXtextDocument {
 		if (ValidationJob.class.equals(adapterType)) {
 			return adapterType.cast(validationJob);
 		}
+		
+		if (java.net.URI.class.equals(adapterType)) {
+			if (this.resource != null) {
+				IFile ifile = IXtextDocument.super.getAdapter(IFile.class);
+				if (ifile != null) {
+					java.net.URI uri = ifile.getLocationURI();
+					if (uri != null) {
+						return adapterType.cast(uri);
+					}
+				}
+			}
+		}
+		
 		return IXtextDocument.super.getAdapter(adapterType);
 	}
 
