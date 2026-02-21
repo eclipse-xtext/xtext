@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2010, 2018 itemis AG (http://www.itemis.eu) and others.
+ * Copyright (c) 2010, 2024 itemis AG (http://www.itemis.eu) and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -243,14 +243,12 @@ public class QualifiedName implements Comparable<QualifiedName> {
 	 * Wraps a name function to return a qualified name. Returns null if the name function returns null.
 	 */
 	public static <F> Function<F, QualifiedName> wrapper(final Function<F, String> nameFunction) {
-		return new Function<F, QualifiedName>() {
-			@Override
-			public QualifiedName apply(F from) {
-				String name = nameFunction.apply(from);
-				if (name == null)
-					return null;
-				return QualifiedName.create(name);
+		return from -> {
+			String name = nameFunction.apply(from);
+			if (name == null) {
+				return null;
 			}
+			return QualifiedName.create(name);
 		};
 	}
 
