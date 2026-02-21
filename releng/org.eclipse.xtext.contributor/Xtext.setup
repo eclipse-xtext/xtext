@@ -342,6 +342,14 @@
           key="/instance/org.eclipse.xtext.builder/schedulingrule"
           value="ALL_XTEXT_PROJECTS"/>
     </setupTask>
+    <setupTask
+        xsi:type="setup:CompoundTask"
+        name="org.eclipse.xtend.core.Xtend">
+      <setupTask
+          xsi:type="setup:PreferenceTask"
+          key="/instance/org.eclipse.xtend.core.Xtend/useXbaseGenerated"
+          value="true"/>
+    </setupTask>
   </setupTask>
   <setupTask
       xsi:type="setup.p2:P2Task"
