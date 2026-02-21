@@ -127,8 +127,6 @@
 		<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
 		<tycho-version>4.0.13</tycho-version>
 
-		<maven.compiler.source>17</maven.compiler.source>
-		<maven.compiler.target>17</maven.compiler.target>
 		<maven.compiler.release>17</maven.compiler.release>
 		<maven.javadoc.failOnError>false</maven.javadoc.failOnError>
 
@@ -731,10 +729,6 @@
 					see https://github.com/eclipse-xtext/xtext/issues/2686#issuecomment-2038175179
 				-->
 				<maven.compiler.release>21</maven.compiler.release>
-				<!--
-					Force generatation of Java 21 bytecode
-				-->
-				<maven.compiler.target>21</maven.compiler.target>
 			</properties>
 		</profile>
 	</profiles>

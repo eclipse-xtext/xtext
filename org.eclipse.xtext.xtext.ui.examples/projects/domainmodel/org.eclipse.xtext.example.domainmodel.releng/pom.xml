@@ -19,10 +19,9 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- although this example and the Xtext dependencies work and compile with
-		Java 8 you need to execute the Maven build with Java 11 as parts of Eclipse
-		2020-09+ require Java 11 -->
-		<maven.compiler.source>17</maven.compiler.source>
-		<maven.compiler.target>17</maven.compiler.target>
+		Java 8 you need to execute the Maven build with Java 17 as parts of Eclipse
+		2024-03+ require Java 17 -->
+		<maven.compiler.release>17</maven.compiler.release>
 		<!-- Tycho settings -->
 		<tycho-version>4.0.13</tycho-version>
 		<targetplatform.groupId>${project.groupId}</targetplatform.groupId>
