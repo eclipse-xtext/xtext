@@ -127,7 +127,7 @@
 	<properties>
 		<junit-platform-version>1.14.0</junit-platform-version>
 		<junit-jupiter-version>5.14.0</junit-jupiter-version>
-		<org.eclipse.emf.mwe2-version>2.25.</org.eclipse.emf.mwe2-version>
+		<org.eclipse.emf.mwe2-version>2.25.0</org.eclipse.emf.mwe2-version>
 		<org.eclipse.emf.mwe-version>1.19.0</org.eclipse.emf.mwe-version>
 		<org.eclipse.lsp4j-version>1.0.0</org.eclipse.lsp4j-version>
 		<org.eclipse.jdt.core-version>3.37.0</org.eclipse.jdt.core-version>
