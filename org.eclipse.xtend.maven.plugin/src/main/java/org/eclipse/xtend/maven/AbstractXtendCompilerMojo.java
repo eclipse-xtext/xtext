@@ -45,10 +45,23 @@ public abstract class AbstractXtendCompilerMojo extends AbstractXtendMojo {
 	/**
 	 * Create Java Source Code that is compatible to this Java version.
 	 * 
-	 * Supported values: 11, 17 and so forth
+	 * Supported values: 11, 17, 21 and so forth
 	 */
 	@Parameter(property="maven.compiler.source", defaultValue="11")
 	private String javaSourceVersion;
+
+	/**
+	 * Create Java Source Code that targets this Java release.
+	 * <p>
+	 * If set, this implies a {@link #javaSourceVersion} of the same value and any value explicitly configured for the latter is ignored.
+	 * Nevertheless specifying this parameter does not enforce strict Java API checks like the {@code release} option for a Java compiler
+	 * does. Still it is possible to enforce strict Java API checks by specifying the {@code release} option for the compiler-plugin.
+	 * </p>
+	 * 
+	 * Supported values: 11, 17, 21 and so forth
+	 */
+	@Parameter(property = "maven.compiler.release")
+	private String javaReleaseVersion;
 
 	/**
 	 * The current build session instance. This is used for toolchain manager API calls.
@@ -132,8 +145,9 @@ public abstract class AbstractXtendCompilerMojo extends AbstractXtendMojo {
 			return;
 		}
 		String baseDir = project.getBasedir().getAbsolutePath();
-		log.debug("Set Java Compliance Level: " + javaSourceVersion);
-		compiler.setJavaSourceVersion(javaSourceVersion);
+		String sourceVersion = javaReleaseVersion != null && !javaReleaseVersion.isBlank() ? javaReleaseVersion : javaSourceVersion;
+		log.debug("Set Java Compliance Level: " + sourceVersion);
+		compiler.setJavaSourceVersion(sourceVersion);
 		log.debug("Set generateSyntheticSuppressWarnings: " + generateSyntheticSuppressWarnings);
 		compiler.setGenerateSyntheticSuppressWarnings(generateSyntheticSuppressWarnings);
 		log.debug("Set useXbaseGenerated: " + useXbaseGenerated);
