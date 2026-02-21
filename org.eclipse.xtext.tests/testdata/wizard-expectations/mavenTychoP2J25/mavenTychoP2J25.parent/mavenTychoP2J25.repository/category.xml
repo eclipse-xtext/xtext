@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+	<feature id="mavenTychoP2J25.feature" version="0.0.0">
+		<category name="main"/>
+	</feature>
+	<feature id="mavenTychoP2J25.feature.source" version="0.0.0">
+		<category name="main.source"/>
+	</feature>
+	<category-def name="main" label="MyDsl"/>
+	<category-def name="main.source" label="MyDsl (Sources)"/>
+</site>

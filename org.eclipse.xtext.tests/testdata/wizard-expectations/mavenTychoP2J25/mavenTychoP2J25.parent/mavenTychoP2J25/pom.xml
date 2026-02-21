@@ -1,0 +1,102 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>mavenTychoP2J25</groupId>
+		<artifactId>mavenTychoP2J25.parent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>mavenTychoP2J25</artifactId>
+	<packaging>eclipse-plugin</packaging>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>3.0.0</version>
+				<executions>
+					<execution>
+						<?m2e ignore?>
+						<id>mwe2Launcher</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>java</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<mainClass>org.eclipse.emf.mwe2.launch.runtime.Mwe2Launcher</mainClass>
+					<arguments>
+						<argument>/${project.basedir}/src/mydsl/GenerateMyDsl.mwe2</argument>
+						<argument>-p</argument>
+						<argument>rootPath=/${project.basedir}/..</argument>
+					</arguments>
+					<classpathScope>compile</classpathScope>
+					<includePluginDependencies>true</includePluginDependencies>
+					<cleanupDaemonThreads>false</cleanupDaemonThreads><!-- see https://bugs.eclipse.org/bugs/show_bug.cgi?id=475098#c3 -->
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.eclipse.xtext</groupId>
+						<artifactId>org.eclipse.xtext.xtext.generator.dependencies</artifactId>
+						<version>${xtextVersion}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.xtext</groupId>
+				<artifactId>xtend-maven-plugin</artifactId>
+			</plugin>
+	
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-clean-plugin</artifactId>
+				<configuration>
+					<filesets combine.children="append">
+						<fileset>
+							<directory>${basedir}/../mavenTychoP2J25/src-gen/</directory>
+							<includes>
+								<include>**/*</include>
+							</includes>
+						</fileset>
+						<fileset>
+							<directory>${basedir}/../mavenTychoP2J25.tests/src-gen/</directory>
+							<includes>
+								<include>**/*</include>
+							</includes>
+						</fileset>
+						<fileset>
+							<directory>${basedir}/../mavenTychoP2J25.ide/src-gen/</directory>
+							<includes>
+								<include>**/*</include>
+							</includes>
+						</fileset>
+						<fileset>
+							<directory>${basedir}/../mavenTychoP2J25.ui/src-gen/</directory>
+							<includes>
+								<include>**/*</include>
+							</includes>
+						</fileset>
+						<fileset>
+							<directory>${basedir}/../mavenTychoP2J25.ui.tests/src-gen/</directory>
+							<includes>
+								<include>**/*</include>
+							</includes>
+						</fileset>
+						<fileset>
+							<directory>${basedir}/../mavenTychoP2J25.web/src-gen/</directory>
+							<includes>
+								<include>**/*</include>
+							</includes>
+						</fileset>
+						<fileset>
+							<directory>${basedir}/model/generated/</directory>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: mavenTychoP2J25.ide
+Bundle-Vendor: My Company
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: mavenTychoP2J25.ide; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: mavenTychoP2J25,
+ org.eclipse.xtext.ide,
+ org.eclipse.xtext.xbase.ide
+Bundle-RequiredExecutionEnvironment: JavaSE-25
+Automatic-Module-Name: mavenTychoP2J25.ide

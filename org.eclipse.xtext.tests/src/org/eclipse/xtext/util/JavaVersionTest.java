@@ -18,6 +18,7 @@ import org.junit.Test;
 public class JavaVersionTest {
 	@Test
 	public void test_fromBree() {
+		assertEquals(JavaVersion.JAVA25, JavaVersion.fromBree("JavaSE-25"));
 		assertEquals(JavaVersion.JAVA21, JavaVersion.fromBree("JavaSE-21"));
 		assertEquals(JavaVersion.JAVA17, JavaVersion.fromBree("JavaSE-17"));
 		assertEquals(JavaVersion.JAVA11, JavaVersion.fromBree("JavaSE-11"));
@@ -31,6 +32,8 @@ public class JavaVersionTest {
 	
 	@Test
 	public void testFromQualifier() {
+		assertEquals(JavaVersion.JAVA25, JavaVersion.fromQualifier("25"));
+		assertEquals(JavaVersion.JAVA25, JavaVersion.fromQualifier("1.25"));
 		assertEquals(JavaVersion.JAVA21, JavaVersion.fromQualifier("21"));
 		assertEquals(JavaVersion.JAVA21, JavaVersion.fromQualifier("1.21"));
 		assertEquals(JavaVersion.JAVA17, JavaVersion.fromQualifier("17"));
@@ -55,6 +58,7 @@ public class JavaVersionTest {
 	
 	@Test
 	public void test_getQualifier() {
+		assertEquals("25", JavaVersion.JAVA25.getQualifier());
 		assertEquals("21", JavaVersion.JAVA21.getQualifier());
 		assertEquals("17", JavaVersion.JAVA17.getQualifier());
 		assertEquals("11", JavaVersion.JAVA11.getQualifier());
@@ -73,6 +77,7 @@ public class JavaVersionTest {
 
 	@Test
 	public void test_toJdtClassFileConstant () {
+		assertEquals(4521984, JavaVersion.JAVA25.toJdtClassFileConstant());
 		assertEquals(4259840, JavaVersion.JAVA21.toJdtClassFileConstant());
 		assertEquals(3997696, JavaVersion.JAVA17.toJdtClassFileConstant());
 		assertEquals(3604480, JavaVersion.JAVA11.toJdtClassFileConstant());

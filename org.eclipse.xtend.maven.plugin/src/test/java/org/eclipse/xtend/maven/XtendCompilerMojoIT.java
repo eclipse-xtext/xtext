@@ -72,6 +72,12 @@ public class XtendCompilerMojoIT {
 	}
 
 	@Test
+	public void simpleJava25Project() throws Exception {
+		Assume.assumeTrue("Active only on Java 25 and later", JavaRuntimeVersion.isJava25OrLater());
+		verifyErrorFreeLog(ROOT + "/simple-java21");
+	}
+
+	@Test
 	public void encoding() throws Exception {
 		Verifier verifier = MavenVerifierUtil.newVerifier(ROOT + "/encoding");
 

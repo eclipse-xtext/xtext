@@ -519,6 +519,30 @@
 				</plugins>
 			</build>
 		</profile>
+		<profile>
+			<!--
+				To be activated explicitly when using Java 25 to get
+				the latest version of JDT to access Java 25 new features.
+
+				The profile must be activated through the system property "java-25"
+				either on the command line "-Djava-25", or by creating the file
+				"maven.config" inside the folder ".mvn" at the root of the
+				project, with the content "-Djava-25"
+			-->
+			<id>java-25</id>
+			<activation>
+				<property>
+					<name>java-25</name>
+				</property>
+			</activation>
+			<properties>
+				<!-- TODO: Is this profile even necessary if jdt-core is still at Java-17? -->
+				<!-- This version supports Java 25 but requires Java 17;
+					for the moment we activate it only when building with Java 25. -->
+				<org.eclipse.jdt.core-version>3.44.0</org.eclipse.jdt.core-version>
+			</properties>
+		</profile>
+
 	</profiles>
 
 </project>

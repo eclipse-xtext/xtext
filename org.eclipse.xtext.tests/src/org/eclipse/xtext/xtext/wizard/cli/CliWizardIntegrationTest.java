@@ -201,6 +201,18 @@ public class CliWizardIntegrationTest {
 				project.getWebProject().setEnabled(true);
 				project.getP2Project().setEnabled(true);
 			}), CliWizardIntegrationTest.newProjectConfig(project -> {
+				project.setBaseName("mavenTychoP2J25");
+				project.setJavaVersion(JavaVersion.JAVA25);
+				project.setPreferredBuildSystem(BuildSystem.MAVEN);
+				project.setSourceLayout(SourceLayout.PLAIN);
+				project.setProjectLayout(ProjectLayout.HIERARCHICAL);
+				project.getRuntimeProject().getTestProject().setEnabled(true);
+				project.getUiProject().setEnabled(true);
+				project.getUiProject().getTestProject().setEnabled(true);
+				project.getIdeProject().setEnabled(true);
+				project.getWebProject().setEnabled(true);
+				project.getP2Project().setEnabled(true);
+			}), CliWizardIntegrationTest.newProjectConfig(project -> {
 				project.setBaseName("full");
 				project.setPreferredBuildSystem(BuildSystem.GRADLE);
 				project.setSourceLayout(SourceLayout.PLAIN);
