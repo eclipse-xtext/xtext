@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.eclipse.emf.mwe2.language.sdk"
-      version="2.25.0.v20260129-0926"
+      version="2.25.0.v20260221-0523"
       label="Dummy Feature"
       provider-name="Eclipse Xtext">
 
