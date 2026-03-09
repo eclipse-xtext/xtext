@@ -66,11 +66,7 @@ class TargetPlatformProject extends ProjectDescriptor {
 					<unit id="org.eclipse.pde.feature.group" version="0.0.0"/>
 					<unit id="org.eclipse.draw2d.feature.group" version="0.0.0"/>
 					<unit id="org.eclipse.emf.sdk.feature.group" version="0.0.0"/>
-					«IF config.javaVersion.isAtLeast(JavaVersion.JAVA21)»
-						<repository location="https://download.eclipse.org/releases/2026-03"/>
-					«ELSE»
-						<repository location="https://download.eclipse.org/releases/2024-12"/>
-					«ENDIF»
+					<repository location="https://download.eclipse.org/releases/2026-03"/>
 				</location>
 				<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 					<unit id="org.eclipse.emf.mwe2.launcher.feature.group" version="0.0.0"/>

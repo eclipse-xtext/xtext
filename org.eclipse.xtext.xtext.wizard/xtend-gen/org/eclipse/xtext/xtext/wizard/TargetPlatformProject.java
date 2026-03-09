@@ -120,18 +120,9 @@ public class TargetPlatformProject extends ProjectDescriptor {
     _builder.append("\t\t\t");
     _builder.append("<unit id=\"org.eclipse.emf.sdk.feature.group\" version=\"0.0.0\"/>");
     _builder.newLine();
-    {
-      boolean _isAtLeast_1 = this.getConfig().getJavaVersion().isAtLeast(JavaVersion.JAVA21);
-      if (_isAtLeast_1) {
-        _builder.append("\t\t\t");
-        _builder.append("<repository location=\"https://download.eclipse.org/releases/2026-03\"/>");
-        _builder.newLine();
-      } else {
-        _builder.append("\t\t\t");
-        _builder.append("<repository location=\"https://download.eclipse.org/releases/2024-12\"/>");
-        _builder.newLine();
-      }
-    }
+    _builder.append("\t\t\t");
+    _builder.append("<repository location=\"https://download.eclipse.org/releases/2026-03\"/>");
+    _builder.newLine();
     _builder.append("\t\t");
     _builder.append("</location>");
     _builder.newLine();
