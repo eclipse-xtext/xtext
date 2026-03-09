@@ -88,14 +88,14 @@ public class TargetPlatformProject extends ProjectDescriptor {
     _builder.append("\" sequenceNumber=\"1\">");
     _builder.newLineIfNotEmpty();
     {
-      boolean _isAtLeast = this.getConfig().getJavaVersion().isAtLeast(JavaVersion.JAVA21);
+      boolean _isAtLeast = this.getConfig().getJavaVersion().isAtLeast(JavaVersion.JAVA25);
       if (_isAtLeast) {
         _builder.append("\t");
-        _builder.append("<targetJRE path=\"org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-21\"/>");
+        _builder.append("<targetJRE path=\"org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-25\"/>");
         _builder.newLine();
       } else {
         _builder.append("\t");
-        _builder.append("<targetJRE path=\"org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-17\"/>");
+        _builder.append("<targetJRE path=\"org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-21\"/>");
         _builder.newLine();
       }
     }

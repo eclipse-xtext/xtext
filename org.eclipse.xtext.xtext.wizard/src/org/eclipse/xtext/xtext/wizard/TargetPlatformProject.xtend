@@ -54,10 +54,10 @@ class TargetPlatformProject extends ProjectDescriptor {
 		<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 		<?pde version="3.8"?>
 		<target name="«name»" sequenceNumber="1">
-			«IF config.javaVersion.isAtLeast(JavaVersion.JAVA21)»
-				<targetJRE path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-21"/>
+			«IF config.javaVersion.isAtLeast(JavaVersion.JAVA25)»
+				<targetJRE path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-25"/>
 			«ELSE»
-				<targetJRE path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-17"/>
+				<targetJRE path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-21"/>
 			«ENDIF»
 			<locations>
 				<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
