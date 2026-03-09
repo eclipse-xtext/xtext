@@ -8,5 +8,5 @@ Bundle-ActivationPolicy: lazy
 Require-Bundle: eclipsePluginP2,
  org.eclipse.xtext.ide,
  org.eclipse.xtext.xbase.ide
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Automatic-Module-Name: eclipsePluginP2.ide

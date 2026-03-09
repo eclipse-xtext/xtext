@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.emf.mwe2.launch.Mwe2LaunchConfigurationType">
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+<listEntry value="/mavenTychoP2J25"/>
+</listAttribute>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+<listEntry value="4"/>
+</listAttribute>
+<listAttribute key="org.eclipse.debug.ui.favoriteGroups">
+<listEntry value="org.eclipse.debug.ui.launchGroup.debug"/>
+<listEntry value="org.eclipse.debug.ui.launchGroup.run"/>
+</listAttribute>
+<stringAttribute key="org.eclipse.debug.core.ATTR_REFRESH_SCOPE" value="${working_set:&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#10;&lt;resources&gt;&#10;&lt;item path=&quot;/mavenTychoP2J25.parent&quot; type=&quot;4&quot;/&gt;&#10;&lt;item path=&quot;/mavenTychoP2J25&quot; type=&quot;4&quot;/&gt;&#10;&lt;item path=&quot;/mavenTychoP2J25.ide&quot; type=&quot;4&quot;/&gt;&#10;&lt;item path=&quot;/mavenTychoP2J25.ui&quot; type=&quot;4&quot;/&gt;&#10;&lt;item path=&quot;/mavenTychoP2J25.web&quot; type=&quot;4&quot;/&gt;&#10;&lt;item path=&quot;/mavenTychoP2J25.target&quot; type=&quot;4&quot;/&gt;&#10;&lt;item path=&quot;/mavenTychoP2J25.feature&quot; type=&quot;4&quot;/&gt;&#10;&lt;item path=&quot;/mavenTychoP2J25.repository&quot; type=&quot;4&quot;/&gt;&#10;&lt;item path=&quot;/mavenTychoP2J25.tests&quot; type=&quot;4&quot;/&gt;&#10;&lt;item path=&quot;/mavenTychoP2J25.ui.tests&quot; type=&quot;4&quot;/&gt;&#10;&lt;item path=&quot;/mavenTychoP2J25.tests&quot; type=&quot;4&quot;/&gt;&#10;&lt;item path=&quot;/mavenTychoP2J25.ui.tests&quot; type=&quot;4&quot;/&gt;&#10;;&lt;/resources&gt;}"/>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="org.eclipse.emf.mwe2.launch.runtime.Mwe2Launcher"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="mydsl.GenerateMyDsl"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="mavenTychoP2J25"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Xmx512m"/>
+</launchConfiguration>

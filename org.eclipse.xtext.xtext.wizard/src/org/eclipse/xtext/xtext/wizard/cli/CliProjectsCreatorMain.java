@@ -77,7 +77,7 @@ public class CliProjectsCreatorMain {
 	private LanguageServer languageServer = LanguageServer.NONE;
 
 	@Option(name = "-javaVersion", usage = "Java Version", handler = OptionHandlers.JavaVersionOptionHandler.class)
-	private JavaVersion javaVersion = JavaVersion.JAVA17;
+	private JavaVersion javaVersion = JavaVersion.JAVA21;
 
 	@Option(name = "-junitVersion", usage = "JUnit Version", handler = OptionHandlers.JUnitVersionOptionHandler.class)
 	private JUnitVersion junitVersion = JUnitVersion.JUNIT_5;

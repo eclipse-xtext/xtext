@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde version="3.8"?>
 <target name="lsMavenTychoApp.target" sequenceNumber="1">
-	<targetJRE path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-17"/>
+	<targetJRE path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-21"/>
 	<locations>
 		<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 			<unit id="org.eclipse.jdt.feature.group" version="0.0.0"/>
@@ -9,7 +9,7 @@
 			<unit id="org.eclipse.pde.feature.group" version="0.0.0"/>
 			<unit id="org.eclipse.draw2d.feature.group" version="0.0.0"/>
 			<unit id="org.eclipse.emf.sdk.feature.group" version="0.0.0"/>
-			<repository location="https://download.eclipse.org/releases/2024-12"/>
+			<repository location="https://download.eclipse.org/releases/2026-03"/>
 		</location>
 		<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 			<unit id="org.eclipse.emf.mwe2.launcher.feature.group" version="0.0.0"/>

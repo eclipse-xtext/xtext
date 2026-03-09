@@ -11,5 +11,5 @@ Require-Bundle: eclipsePluginP2.ui,
  org.eclipse.xtext.ui.testing,
  org.eclipse.xtext.xbase.testing,
  org.eclipse.xtext.xbase.ui.testing
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Automatic-Module-Name: eclipsePluginP2.ui.tests

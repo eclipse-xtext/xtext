@@ -9,5 +9,5 @@ Require-Bundle: eclipsePlugin,
  org.junit;bundle-version="4.13.2",
  org.eclipse.xtext.testing,
  org.eclipse.xtext.xbase.testing
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Automatic-Module-Name: eclipsePlugin.tests

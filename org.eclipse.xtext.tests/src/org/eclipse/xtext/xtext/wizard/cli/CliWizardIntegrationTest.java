@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2015, 2024 itemis AG (http://www.itemis.eu) and others.
+ * Copyright (c) 2015, 2026 itemis AG (http://www.itemis.eu) and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -189,8 +189,8 @@ public class CliWizardIntegrationTest {
 				project.getWebProject().setEnabled(true);
 				project.getP2Project().setEnabled(true);
 			}), CliWizardIntegrationTest.newProjectConfig(project -> {
-				project.setBaseName("mavenTychoP2J21");
-				project.setJavaVersion(JavaVersion.JAVA21);
+				project.setBaseName("mavenTychoP2J25");
+				project.setJavaVersion(JavaVersion.JAVA25);
 				project.setPreferredBuildSystem(BuildSystem.MAVEN);
 				project.setSourceLayout(SourceLayout.PLAIN);
 				project.setProjectLayout(ProjectLayout.HIERARCHICAL);
