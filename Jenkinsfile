@@ -13,7 +13,7 @@ pipeline {
 
   triggers {
     parameterizedCron(env.BRANCH_NAME == 'main' ? '''
-      H H(0-1) * * * %TARGET_PLATFORM=r202403;JDK_VERSION=21
+      H H(0-1) * * * %TARGET_PLATFORM=r202512;JDK_VERSION=21
       H H(3-4) * * * %TARGET_PLATFORM=latest;JDK_VERSION=25
       ''' : '')
   }
@@ -59,7 +59,6 @@ pipeline {
       environment {
         MAVEN_OPTS = "-Xmx1500m"
         // set all Java versions needed by our toolchains.xml
-        JAVA_HOME_17_X64 = tool(type:'jdk', name:'temurin-jdk17-latest')
         JAVA_HOME_21_X64 = tool(type:'jdk', name:'temurin-jdk21-latest')
         JAVA_HOME_25_X64 = tool(type:'jdk', name:'temurin-jdk25-latest')
       }
