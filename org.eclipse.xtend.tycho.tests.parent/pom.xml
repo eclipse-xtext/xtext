@@ -126,6 +126,11 @@
 							<include>**/*Test?.java</include>
 						</includes>
 						<appArgLine>-pluginCustomization ${basedir}/../releng/org.eclipse.xtend.tycho.tests.parent/pluginCustomization.ini</appArgLine>
+						<!-- Tycho 5.0 defaults to JUnitPlatformProvider, which causes a classloader
+						     conflict: TestEngine.class from the OSGi bundle classloader vs
+						     JupiterTestEngine found via ServiceLoader on the flat JVM classpath.
+						     These test bundles use JUnit 4 only — force the JUnit 4 provider. -->
+						<useJUnitPlatform>false</useJUnitPlatform>
 					</configuration>
 				</plugin>
 			</plugins>
