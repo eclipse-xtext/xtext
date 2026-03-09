@@ -230,7 +230,7 @@ public class WizardNewXtextProjectCreationPage extends WizardNewProjectCreationP
 		}
 		JavaVersion javaVersion = JavaVersion.fromBree(breeCombo.getText());
 		if (javaVersion != null) {
-			if (!javaVersion.isAtLeast(JavaVersion.JAVA17)) {
+			if (!javaVersion.isAtLeast(JavaVersion.JAVA21)) {
 				setErrorMessage(Messages.WizardNewXtextProjectCreationPage_MessageAtLeastJava21);
 				return false;
 			}
