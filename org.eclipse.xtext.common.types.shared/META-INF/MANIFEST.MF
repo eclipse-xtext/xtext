@@ -16,7 +16,7 @@ Require-Bundle: org.eclipse.core.runtime;bundle-version="3.31.0",
  org.eclipse.debug.core;bundle-version="3.21.300";resolution:=optional;x-installation:=greedy,
  org.eclipse.debug.ui;bundle-version="3.18.300";resolution:=optional;x-installation:=greedy,
  org.eclipse.jdt.debug;bundle-version="3.21.300";resolution:=optional;x-installation:=greedy
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.xtext.common.types.shared;version="2.43.0";x-internal:=true
 Automatic-Module-Name: org.eclipse.xtext.common.types.shared

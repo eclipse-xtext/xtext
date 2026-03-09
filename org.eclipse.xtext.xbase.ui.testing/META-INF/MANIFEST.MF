@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-SymbolicName: org.eclipse.xtext.xbase.ui.testing
 Bundle-Version: 2.43.0.qualifier
 Bundle-Localization: plugin
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Require-Bundle: org.eclipse.xtext.xbase.lib;bundle-version="2.43.0";visibility:=reexport,
  org.eclipse.core.resources;bundle-version="3.20.100";resolution:=optional;visibility:=reexport;x-installation:=greedy,
  org.eclipse.xtext.ui;bundle-version="2.43.0";resolution:=optional;visibility:=reexport;x-installation:=greedy,

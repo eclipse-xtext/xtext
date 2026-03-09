@@ -4,7 +4,7 @@ Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.xtext.activities;singleton:=true
 Bundle-Version: 2.43.0.qualifier
 Bundle-Vendor: %providerName
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Bundle-Localization: plugin
 Bundle-Activator: org.eclipse.xtext.activities.Activator
 Require-Bundle: org.eclipse.core.runtime;bundle-version="3.31.0"

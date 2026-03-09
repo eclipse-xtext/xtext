@@ -9,7 +9,7 @@ Require-Bundle: org.eclipse.xtext.purexbase;bundle-version="2.43.0",
  org.eclipse.xtext.ide;bundle-version="2.43.0",
  org.eclipse.xtext.xbase.ide;bundle-version="2.43.0",
  org.antlr.runtime;bundle-version="[3.2.0,3.2.1)"
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Export-Package: org.eclipse.xtext.purexbase.ide;version="2.43.0";x-internal:=true,
  org.eclipse.xtext.purexbase.ide.contentassist.antlr;version="2.43.0",
  org.eclipse.xtext.purexbase.ide.contentassist.antlr.internal;version="2.43.0"

@@ -5,7 +5,7 @@ Bundle-SymbolicName: org.eclipse.xtext.xtext.ui.graph;singleton:=true
 Bundle-Version: 2.43.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: Eclipse Xtext
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Export-Package: org.eclipse.xtext.xtext.ui.graph;version="2.43.0",
  org.eclipse.xtext.xtext.ui.graph.actions;version="2.43.0",
  org.eclipse.xtext.xtext.ui.graph.bundle;version="2.43.0",

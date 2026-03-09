@@ -32,7 +32,7 @@ Require-Bundle: org.eclipse.xtend.core;bundle-version="2.43.0",
  org.eclipse.e4.ui.css.swt.theme;bundle-version="0.14.300"
 Import-Package: org.apache.log4j;version="1.2.26",
  org.osgi.service.event;version="[1.4.0,2.0.0)"
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Bundle-Activator: org.eclipse.xtend.ide.XtendActivator
 Export-Package: org.eclipse.xtend.ide;version="2.43.0";x-internal:=true,
  org.eclipse.xtend.ide.autoedit;version="2.43.0";x-friends:="org.eclipse.xtend.ide.tests",

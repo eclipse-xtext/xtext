@@ -4,7 +4,7 @@ Bundle-Name: Bootstrap project for the Xtext language
 Bundle-SymbolicName: org.eclipse.xtext.xtext.bootstrap;singleton:=true
 Bundle-Vendor: Eclipse Xtext
 Bundle-Version: 2.43.0.qualifier
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Automatic-Module-Name: org.eclipse.xtext.xtext.bootstrap
 Export-Package: org.eclipse.xtext.xtext.bootstrap;version="2.43.0"
 Require-Bundle: org.eclipse.xtext;bundle-version="2.43.0",

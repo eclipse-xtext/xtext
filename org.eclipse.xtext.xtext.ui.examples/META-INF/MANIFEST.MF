@@ -9,7 +9,7 @@ Require-Bundle: org.eclipse.ui;bundle-version="3.205.100",
  org.eclipse.core.resources;bundle-version="3.20.100",
  org.eclipse.ui.ide;bundle-version="3.22.100"
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Export-Package: org.eclipse.xtext.xtext.ui.examples;version="2.43.0";x-internal:=true

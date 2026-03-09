@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Xtext Extras Runtime Tests
 Bundle-SymbolicName: org.eclipse.xtext.extras.tests;singleton:=true
 Bundle-Version: 2.43.0.qualifier
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.xtext.enumrules;version="2.43.0",
  org.eclipse.xtext.enumrules.enumAndReferenceTestLanguage;version="2.43.0",

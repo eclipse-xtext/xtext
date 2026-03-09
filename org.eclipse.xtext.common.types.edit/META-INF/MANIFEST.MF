@@ -5,7 +5,7 @@ Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-SymbolicName: org.eclipse.xtext.common.types.edit;singleton:=true
 Bundle-Version: 2.43.0.qualifier
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Export-Package: org.eclipse.xtext.common.types.provider;version="2.43.0"
 Bundle-Activator: org.eclipse.xtext.common.types.provider.TypesEditPlugin$Implementation
 Require-Bundle: org.eclipse.xtext.common.types;bundle-version="2.43.0",

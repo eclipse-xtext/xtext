@@ -5,7 +5,7 @@ Bundle-SymbolicName: org.eclipse.xtext.builder.standalone
 Bundle-Version: 2.43.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: Eclipse Xtext
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Bundle-ActivationPolicy: lazy
 Import-Package: org.apache.log4j;version="1.2.26"
 Require-Bundle: org.eclipse.xtext.xbase.lib;bundle-version="2.43.0",

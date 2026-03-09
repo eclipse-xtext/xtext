@@ -31,7 +31,7 @@ Import-Package: org.apache.log4j,
  org.junit.runners;version="4.13.2",
  org.junit.runners.model;version="4.13.2",
  org.hamcrest.core
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Export-Package: org.eclipse.xtext.xbase.testlanguages.bug462047.ui;version="2.43.0";x-internal:=true,
  org.eclipse.xtext.xbase.testlanguages.bug462047.ui.contentassist;version="2.43.0",
  org.eclipse.xtext.xbase.testlanguages.ui;version="2.43.0",

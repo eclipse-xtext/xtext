@@ -21,7 +21,7 @@ Require-Bundle: org.eclipse.compare;bundle-version="3.8.300",
  org.eclipse.xtext.xbase.lib;bundle-version="2.14.0",
  org.eclipse.xtext.xbase.ui
 Import-Package: org.apache.log4j
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Export-Package: org.eclipse.xtext.example.homeautomation.ui.contentassist,
  org.eclipse.xtext.example.homeautomation.ui.editor,
  org.eclipse.xtext.example.homeautomation.ui.internal,

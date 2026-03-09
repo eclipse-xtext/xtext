@@ -13,7 +13,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.xtext.testing,
  org.eclipse.xtext.ui.testing,
  org.eclipse.xtext.xbase.lib
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Export-Package: org.eclipse.xtext.example.fowlerdsl.ui.tests;x-internal=true
 Import-Package: org.hamcrest.core,
  org.junit;version="4.13.2",

@@ -150,7 +150,7 @@ Export-Package: org.eclipse.xtext.common.ui.contentassist;version="2.43.0",
    org.eclipse.xtext.xbase.ui,
    org.eclipse.xtext.ui.shared,
    org.eclipse.xtext.builder"
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: %providerName
 Import-Package: org.apache.log4j;version="1.2.26"

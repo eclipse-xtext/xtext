@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="src" output="target/classes" path="src"/>
 	<classpathentry including="**/*.java|**/*.xtend" kind="src" output="target/classes" path="xtend-gen"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-17/">
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-21/">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>

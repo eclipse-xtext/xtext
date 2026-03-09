@@ -5,21 +5,21 @@
 	<toolchain>
 		<type>jdk</type>
 		<provides>
-			<id>JavaSE-17</id>
-			<version>17</version>
-		</provides>
-		<configuration>
-			<jdkHome>${env.JAVA_HOME_17_X64}</jdkHome>
-		</configuration>
-	</toolchain>
-	<toolchain>
-		<type>jdk</type>
-		<provides>
 			<id>JavaSE-21</id>
 			<version>21</version>
 		</provides>
 		<configuration>
 			<jdkHome>${env.JAVA_HOME_21_X64}</jdkHome>
+		</configuration>
+	</toolchain>
+	<toolchain>
+		<type>jdk</type>
+		<provides>
+			<id>JavaSE-25</id>
+			<version>25</version>
+		</provides>
+		<configuration>
+			<jdkHome>${env.JAVA_HOME_25_X64}</jdkHome>
 		</configuration>
 	</toolchain>
 </toolchains>

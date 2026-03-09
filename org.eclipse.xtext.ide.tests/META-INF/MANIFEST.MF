@@ -4,7 +4,7 @@ Bundle-Name: Xtext IDE Tests
 Bundle-SymbolicName: org.eclipse.xtext.ide.tests;singleton:=true
 Bundle-Version: 2.43.0.qualifier
 Bundle-Localization: plugin
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: Eclipse Xtext
 Require-Bundle: org.eclipse.xtext;bundle-version="2.43.0";visibility:=reexport,

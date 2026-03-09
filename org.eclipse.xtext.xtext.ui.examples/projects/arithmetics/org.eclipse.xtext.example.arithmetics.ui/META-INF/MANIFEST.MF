@@ -19,7 +19,7 @@ Require-Bundle: org.eclipse.compare,
  org.eclipse.xtext.xbase.lib;bundle-version="2.14.0"
 Import-Package: org.apache.log4j,
  org.eclipse.xtext.ui.codemining;resolution:=optional
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Export-Package: org.eclipse.xtext.example.arithmetics.ui;x-internal:=true,
  org.eclipse.xtext.example.arithmetics.ui.autoedit;x-internal:=true,
  org.eclipse.xtext.example.arithmetics.ui.codemining;x-internal:=true,

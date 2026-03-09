@@ -6,7 +6,7 @@ Bundle-Version: 2.43.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Export-Package: org.eclipse.xtend.core;version="2.43.0";
   x-friends:="org.eclipse.xtend.ide.common,
    org.eclipse.xtend.ide.tests,
