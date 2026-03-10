@@ -97,23 +97,23 @@ public class BumpVersions {
 		bundleToVersion.put("org.eclipse.lsp4j", LSP4J_VERSION);
 		bundleToVersion.put("org.eclipse.lsp4j.jsonrpc", LSP4J_VERSION);
 		
-		bundleToVersion.put("org.eclipse.jdt.core", "3.37.0");
-		bundleToVersion.put("org.eclipse.jdt.core.manipulation", "1.21.0");
-		bundleToVersion.put("org.eclipse.jdt.debug", "3.21.300");
-		bundleToVersion.put("org.eclipse.jdt.debug.ui", "3.13.300");
-		bundleToVersion.put("org.eclipse.jdt.junit", "3.16.300");
-		bundleToVersion.put("org.eclipse.jdt.launching", "3.21.100");
-		bundleToVersion.put("org.eclipse.jdt.ui", "3.32.0");
+		bundleToVersion.put("org.eclipse.jdt.core", "3.44.0");
+		bundleToVersion.put("org.eclipse.jdt.core.manipulation", "1.23.200");
+		bundleToVersion.put("org.eclipse.jdt.debug", "3.25.0");
+		bundleToVersion.put("org.eclipse.jdt.debug.ui", "3.15.200");
+		bundleToVersion.put("org.eclipse.jdt.junit", "3.17.300");
+		bundleToVersion.put("org.eclipse.jdt.launching", "3.24.0");
+		bundleToVersion.put("org.eclipse.jdt.ui", "3.36.0");
 		
-		bundleToVersion.put("org.eclipse.ui", "3.205.100");
-		bundleToVersion.put("org.eclipse.ui.console", "3.14.0");
-		bundleToVersion.put("org.eclipse.ui.editors", "3.17.200");
-		bundleToVersion.put("org.eclipse.ui.forms", "3.13.200");
-		bundleToVersion.put("org.eclipse.ui.ide", "3.22.100");
-		bundleToVersion.put("org.eclipse.ui.navigator", "3.12.300");
-		bundleToVersion.put("org.eclipse.ui.views", "3.12.200");
-		bundleToVersion.put("org.eclipse.ui.workbench", "3.131.100");
-		bundleToVersion.put("org.eclipse.ui.workbench.texteditor", "3.17.300");
+		bundleToVersion.put("org.eclipse.ui", "3.207.400");
+		bundleToVersion.put("org.eclipse.ui.console", "3.15.0");
+		bundleToVersion.put("org.eclipse.ui.editors", "3.20.200");
+		bundleToVersion.put("org.eclipse.ui.forms", "3.13.700");
+		bundleToVersion.put("org.eclipse.ui.ide", "3.22.800");
+		bundleToVersion.put("org.eclipse.ui.navigator", "3.13.300");
+		bundleToVersion.put("org.eclipse.ui.views", "3.12.800");
+		bundleToVersion.put("org.eclipse.ui.workbench", "3.137.0");
+		bundleToVersion.put("org.eclipse.ui.workbench.texteditor", "3.19.400");
 		
 		bundleToVersion.put("org.eclipse.swtbot.eclipse.core", "4.1.0");
 		bundleToVersion.put("org.eclipse.swtbot.eclipse.finder", "4.1.0");
@@ -123,23 +123,23 @@ public class BumpVersions {
 		bundleToVersion.put("org.apache.ant", "1.10.14");
 		bundleToVersion.put("org.eclipse.buildship.core", "3.1.9");
 		
-		bundleToVersion.put("org.eclipse.compare", "3.10.0");
-		bundleToVersion.put("org.eclipse.e4.core.services", "2.4.300");
-		bundleToVersion.put("org.eclipse.e4.ui.css.swt.theme", "0.14.300");
+		bundleToVersion.put("org.eclipse.compare", "3.11.600");
+		bundleToVersion.put("org.eclipse.e4.core.services", "2.5.300");
+		bundleToVersion.put("org.eclipse.e4.ui.css.swt.theme", "0.14.600");
 		
 		bundleToVersion.put("jakarta.inject.jakarta.inject-api", "2.0.1");
 		
-		bundleToVersion.put("org.eclipse.core.databinding", "1.13.200");
-		bundleToVersion.put("org.eclipse.core.databinding.beans", "1.10.200");
-		bundleToVersion.put("org.eclipse.core.databinding.property", "1.10.200");
+		bundleToVersion.put("org.eclipse.core.databinding", "1.13.700");
+		bundleToVersion.put("org.eclipse.core.databinding.beans", "1.10.500");
+		bundleToVersion.put("org.eclipse.core.databinding.property", "1.10.500");
 		
-		bundleToVersion.put("org.eclipse.core.expressions", "3.9.300");
-		bundleToVersion.put("org.eclipse.core.filesystem", "1.10.300");
-		bundleToVersion.put("org.eclipse.core.resources", "3.20.100");
-		bundleToVersion.put("org.eclipse.core.runtime", "3.31.0");
-		bundleToVersion.put("org.eclipse.debug.core", "3.21.300");
-		bundleToVersion.put("org.eclipse.debug.ui", "3.18.300");
-		bundleToVersion.put("org.eclipse.draw2d", "3.15.0");
+		bundleToVersion.put("org.eclipse.core.expressions", "3.9.500");
+		bundleToVersion.put("org.eclipse.core.filesystem", "1.11.400");
+		bundleToVersion.put("org.eclipse.core.resources", "3.23.100");
+		bundleToVersion.put("org.eclipse.core.runtime", "3.34.100");
+		bundleToVersion.put("org.eclipse.debug.core", "3.23.200");
+		bundleToVersion.put("org.eclipse.debug.ui", "3.19.100");
+		bundleToVersion.put("org.eclipse.draw2d", "3.21.0");
 		bundleToVersion.put("org.eclipse.emf.codegen", "2.23.0");
 		bundleToVersion.put("org.eclipse.emf.codegen.ecore", "2.37.0");
 		bundleToVersion.put("org.eclipse.emf.common", "2.30.0");
@@ -150,21 +150,21 @@ public class BumpVersions {
 		bundleToVersion.put("org.eclipse.emf.ecore.xmi", "2.37.0");
 		bundleToVersion.put("org.eclipse.emf.edit", "2.21.0");
 		bundleToVersion.put("org.eclipse.emf.edit.ui", "2.23.0");
-		bundleToVersion.put("org.eclipse.equinox.common", "3.19.0");
-		bundleToVersion.put("org.eclipse.help", "3.10.300");
-		bundleToVersion.put("org.eclipse.jface", "3.33.0");
-		bundleToVersion.put("org.eclipse.jface.databinding", "1.15.200");
-		bundleToVersion.put("org.eclipse.jface.text", "3.25.0");
-		bundleToVersion.put("org.eclipse.ltk.core.refactoring", "3.14.300");
-		bundleToVersion.put("org.eclipse.ltk.ui.refactoring", "3.13.300");
-		bundleToVersion.put("org.eclipse.m2e.core", "2.6.0");
-		bundleToVersion.put("org.eclipse.m2e.maven.runtime", "3.9.600");
-		bundleToVersion.put("org.eclipse.pde.core", "3.18.0");
-		bundleToVersion.put("org.eclipse.pde.ui", "3.15.100");
-		bundleToVersion.put("org.eclipse.search", "3.16.100");
+		bundleToVersion.put("org.eclipse.equinox.common", "3.20.300");
+		bundleToVersion.put("org.eclipse.help", "3.10.600");
+		bundleToVersion.put("org.eclipse.jface", "3.38.100");
+		bundleToVersion.put("org.eclipse.jface.databinding", "1.15.400");
+		bundleToVersion.put("org.eclipse.jface.text", "3.29.0");
+		bundleToVersion.put("org.eclipse.ltk.core.refactoring", "3.15.100");
+		bundleToVersion.put("org.eclipse.ltk.ui.refactoring", "3.13.700");
+		bundleToVersion.put("org.eclipse.m2e.core", "2.7.600");
+		bundleToVersion.put("org.eclipse.m2e.maven.runtime", "3.9.1101");
+		bundleToVersion.put("org.eclipse.pde.core", "3.21.100");
+		bundleToVersion.put("org.eclipse.pde.ui", "3.16.300");
+		bundleToVersion.put("org.eclipse.search", "3.17.400");
 
-		bundleToVersion.put("org.eclipse.team.core", "3.10.300");
-		bundleToVersion.put("org.eclipse.team.ui", "3.10.300");
+		bundleToVersion.put("org.eclipse.team.core", "3.10.900");
+		bundleToVersion.put("org.eclipse.team.ui", "3.11.300");
 	}
 	
 	

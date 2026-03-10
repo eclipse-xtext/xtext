@@ -7,21 +7,21 @@ Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-21
 Require-Bundle: org.eclipse.xtext;bundle-version="2.43.0",
- org.eclipse.emf.mwe.utils;bundle-version="1.15.0",
+ org.eclipse.emf.mwe.utils;bundle-version="1.19.0",
  org.eclipse.emf.ecore;bundle-version="2.36.0";visibility:=reexport,
  org.eclipse.emf.common;bundle-version="2.30.0",
- org.eclipse.emf.mwe2.launch;bundle-version="2.21.0";resolution:=optional;x-installation:=greedy,
+ org.eclipse.emf.mwe2.launch;bundle-version="2.25.0";resolution:=optional;x-installation:=greedy,
  org.eclipse.xtext.testlanguages;bundle-version="2.43.0",
  org.antlr.runtime;bundle-version="[3.2.0,3.2.1)",
  org.eclipse.xtext.testing;bundle-version="2.43.0",
- org.eclipse.core.runtime;bundle-version="3.31.0",
+ org.eclipse.core.runtime;bundle-version="3.34.100",
  org.eclipse.xtend.lib;bundle-version="2.43.0",
- org.eclipse.ui.workbench;bundle-version="3.131.100";resolution:=optional,
+ org.eclipse.ui.workbench;bundle-version="3.137.0";resolution:=optional,
  org.eclipse.xtext.xbase.lib;bundle-version="2.43.0",
  org.eclipse.xtext.xtext.generator;bundle-version="2.43.0",
  org.eclipse.xtext.xtext.wizard;bundle-version="2.43.0",
- org.eclipse.emf.mwe.core;bundle-version="1.15.0",
- org.eclipse.emf.mwe2.lib;bundle-version="2.21.0",
+ org.eclipse.emf.mwe.core;bundle-version="1.19.0",
+ org.eclipse.emf.mwe2.lib;bundle-version="2.25.0",
  org.junit;bundle-version="4.13.2",
  org.aopalliance;bundle-version="1.0.0"
 Bundle-ActivationPolicy: lazy

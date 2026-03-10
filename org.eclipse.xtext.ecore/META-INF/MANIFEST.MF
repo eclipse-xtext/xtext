@@ -4,7 +4,7 @@ Bundle-Name: Xtext Ecore Support
 Bundle-SymbolicName: org.eclipse.xtext.ecore;singleton:=true
 Bundle-Version: 2.43.0.qualifier
 Bundle-Vendor: Eclipse Xtext
-Require-Bundle: org.eclipse.core.runtime;bundle-version="3.31.0",
+Require-Bundle: org.eclipse.core.runtime;bundle-version="3.34.100",
  org.eclipse.xtext;bundle-version="2.43.0";visibility:=reexport
 Bundle-RequiredExecutionEnvironment: JavaSE-21
 Bundle-ActivationPolicy: lazy
