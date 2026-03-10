@@ -79,7 +79,8 @@ class TargetPlatformProject extends ProjectDescriptor {
 				<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 					<unit id="org.eclipse.xtext.sdk.feature.group" version="0.0.0"/>
 					«IF config.xtextVersion.isSnapshot»
-						<repository location="https://download.eclipse.org/modeling/tmf/xtext/updates/nightly/"/>
+«««						<repository location="https://download.eclipse.org/modeling/tmf/xtext/updates/nightly/"/>
+						<repository location="https://ci.eclipse.org/xtext/job/xtext/job/cd-big-bump/lastSuccessfulBuild/artifact/build/p2-repository/"/>
 					«ELSEIF config.xtextVersion.isStable»
 						<repository location="https://download.eclipse.org/modeling/tmf/xtext/updates/milestones/"/>
 					«ELSE»

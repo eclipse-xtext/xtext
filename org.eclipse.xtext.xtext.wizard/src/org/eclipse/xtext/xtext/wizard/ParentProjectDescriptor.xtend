@@ -94,8 +94,11 @@ class ParentProjectDescriptor extends ProjectDescriptor {
 					repositories {
 						mavenCentral()
 						«IF config.xtextVersion.isSnapshot»
+«««							maven {
+«««								url = 'https://central.sonatype.com/repository/maven-snapshots'
+«««							}
 							maven {
-								url = 'https://central.sonatype.com/repository/maven-snapshots'
+								url = 'https://ci.eclipse.org/xtext/job/xtext/job/cd-big-bump/lastSuccessfulBuild/artifact/build/maven-repository/'
 							}
 							maven {
 								url = 'https://oss.sonatype.org/content/repositories/snapshots'
@@ -460,10 +463,21 @@ class ParentProjectDescriptor extends ProjectDescriptor {
 						</repository>
 					«ENDIF»
 					«IF config.xtextVersion.isSnapshot»
+«««						<repository>
+«««							<name>Central Portal Snapshots</name>
+«««							<id>central-portal-snapshots</id>
+«««							<url>https://central.sonatype.com/repository/maven-snapshots/</url>
+«««							<releases>
+«««								<enabled>false</enabled>
+«««							</releases>
+«««							<snapshots>
+«««								<enabled>true</enabled>
+«««							</snapshots>
+«««						</repository>
 						<repository>
 							<name>Central Portal Snapshots</name>
 							<id>central-portal-snapshots</id>
-							<url>https://central.sonatype.com/repository/maven-snapshots/</url>
+							<url>https://ci.eclipse.org/xtext/job/xtext/job/cd-big-bump/lastSuccessfulBuild/artifact/build/maven-repository/</url>
 							<releases>
 								<enabled>false</enabled>
 							</releases>
@@ -530,10 +544,21 @@ class ParentProjectDescriptor extends ProjectDescriptor {
 						</pluginRepository>
 					«ENDIF»
 					«IF config.xtextVersion.isSnapshot»
+«««						<pluginRepository>
+«««							<name>Central Portal Snapshots</name>
+«««							<id>central-portal-snapshots</id>
+«««							<url>https://central.sonatype.com/repository/maven-snapshots/</url>
+«««							<releases>
+«««								<enabled>false</enabled>
+«««							</releases>
+«««							<snapshots>
+«««								<enabled>true</enabled>
+«««							</snapshots>
+«««						</pluginRepository>
 						<pluginRepository>
 							<name>Central Portal Snapshots</name>
 							<id>central-portal-snapshots</id>
-							<url>https://central.sonatype.com/repository/maven-snapshots/</url>
+							<url>https://ci.eclipse.org/xtext/job/xtext/job/cd-big-bump/lastSuccessfulBuild/artifact/build/maven-repository/</url>
 							<releases>
 								<enabled>false</enabled>
 							</releases>

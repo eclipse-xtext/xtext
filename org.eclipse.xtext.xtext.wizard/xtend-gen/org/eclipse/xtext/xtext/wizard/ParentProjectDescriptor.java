@@ -172,7 +172,7 @@ public class ParentProjectDescriptor extends ProjectDescriptor {
           _builder.newLine();
           _builder.append("\t\t");
           _builder.append("\t");
-          _builder.append("url = \'https://central.sonatype.com/repository/maven-snapshots\'");
+          _builder.append("url = \'https://ci.eclipse.org/xtext/job/xtext/job/cd-big-bump/lastSuccessfulBuild/artifact/build/maven-repository/\'");
           _builder.newLine();
           _builder.append("\t\t");
           _builder.append("}");
@@ -1484,7 +1484,7 @@ public class ParentProjectDescriptor extends ProjectDescriptor {
           _builder.newLine();
           _builder.append("\t");
           _builder.append("\t");
-          _builder.append("<url>https://central.sonatype.com/repository/maven-snapshots/</url>");
+          _builder.append("<url>https://ci.eclipse.org/xtext/job/xtext/job/cd-big-bump/lastSuccessfulBuild/artifact/build/maven-repository/</url>");
           _builder.newLine();
           _builder.append("\t");
           _builder.append("\t");
@@ -1695,7 +1695,7 @@ public class ParentProjectDescriptor extends ProjectDescriptor {
           _builder.newLine();
           _builder.append("\t");
           _builder.append("\t");
-          _builder.append("<url>https://central.sonatype.com/repository/maven-snapshots/</url>");
+          _builder.append("<url>https://ci.eclipse.org/xtext/job/xtext/job/cd-big-bump/lastSuccessfulBuild/artifact/build/maven-repository/</url>");
           _builder.newLine();
           _builder.append("\t");
           _builder.append("\t");
