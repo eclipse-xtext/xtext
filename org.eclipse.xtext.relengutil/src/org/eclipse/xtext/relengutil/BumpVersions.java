@@ -13,6 +13,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+//import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -83,6 +84,35 @@ public class BumpVersions {
 					}
 				}
 			}
+			
+			// Also process examples/projects subdirectories
+//			File examplesDir = new File(gitRoot, "org.eclipse.xtext.xtext.ui.examples/projects");
+//			if (examplesDir.exists()) {
+//				Files.walk(examplesDir.toPath())
+//					.filter(p -> p.endsWith("META-INF/MANIFEST.MF"))
+//					.forEach(path -> {
+//						File manifest = path.toFile();
+//						MergeableManifest2 mergable;
+//						try (FileInputStream is = new FileInputStream(manifest)) {
+//							mergable = new MergeableManifest2(is);
+//						} catch (IOException e) {
+//							throw new RuntimeException(e);
+//						}
+//						mergable.getMainAttributes().put(MergeableManifest2.BUNDLE_VERSION, newVersion + ".qualifier");
+//						updateRequiredXtextBundles(mergable, newVersion);
+//						updateImportedXtextPackages(mergable, newVersion);
+//						updateExportedXtextPackages(mergable, newVersion);
+//						updateRequiredBundle(mergable, versionsFromDevBom);
+//						
+//						if (mergable.isModified()) {
+//							try (FileOutputStream out = new FileOutputStream(manifest)) {
+//								mergable.write(out);
+//							} catch (IOException e) {
+//								throw new RuntimeException(e);
+//							}
+//						}
+//					});
+//			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -231,7 +261,7 @@ public class BumpVersions {
 		List<String> updatedBundles = new ArrayList<>();
 		for (BundleOrPackage requiredBundle : requiredBundles.list()) {
 			String bundleName = requiredBundle.getName();
-			if (bundleName.startsWith("org.eclipse.x")) {
+			if (bundleName.startsWith("org.eclipse.x") && !bundleName.startsWith("org.eclipse.xtext.example")) {
 				updatedBundles.add(bundleName + ";bundle-version=\"" + newVersion + "\"");
 			}
 		}
