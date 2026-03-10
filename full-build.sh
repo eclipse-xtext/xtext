@@ -47,6 +47,15 @@ MVN_ARGS+=(-PuseJenkinsSnapshots)
 
 MVN_ARGS+=("-Dmaven.home=$(./mvnw --version | grep "Maven home:" | cut -c 13-)")
 
+echo ./mvnw -B -f org.eclipse.xtend.relocated.parent ${MVN_ARGS[@]} $@
+
+./mvnw -B \
+  -f org.eclipse.xtend.relocated.parent \
+  clean deploy \
+  -DaltDeploymentRepository=local::default::file:./build/maven-repository \
+  ${MVN_ARGS[@]} \
+  $@
+
 echo ./mvnw -B -f org.eclipse.xtext.full.releng ${MVN_ARGS[@]} $@
 
 #echo "Using target platform '$TARGET_PLATFORM'"
