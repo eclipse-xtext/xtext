@@ -5,20 +5,20 @@ Bundle-Vendor: %providerName
 Bundle-Version: 2.43.0.qualifier
 Bundle-SymbolicName: org.eclipse.xtext.common.types.ui
 Require-Bundle: org.eclipse.xtext.common.types;bundle-version="2.43.0";visibility:=reexport,
- org.eclipse.ui;bundle-version="3.205.100",
+ org.eclipse.ui;bundle-version="3.207.400",
  org.eclipse.emf.ecore;bundle-version="2.36.0",
- org.eclipse.jdt.core;bundle-version="3.37.0",
+ org.eclipse.jdt.core;bundle-version="3.44.0",
  org.eclipse.xtext;bundle-version="2.43.0",
- org.eclipse.core.runtime;bundle-version="3.31.0",
- org.eclipse.core.resources;bundle-version="3.20.100",
+ org.eclipse.core.runtime;bundle-version="3.34.100",
+ org.eclipse.core.resources;bundle-version="3.23.100",
  org.eclipse.xtext.ui;bundle-version="2.43.0",
- org.eclipse.jdt.ui;bundle-version="3.32.0",
- org.eclipse.search;bundle-version="3.16.100",
- org.eclipse.ltk.ui.refactoring;bundle-version="3.13.300",
- org.eclipse.jdt.core.manipulation;bundle-version="1.21.0",
+ org.eclipse.jdt.ui;bundle-version="3.36.0",
+ org.eclipse.search;bundle-version="3.17.400",
+ org.eclipse.ltk.ui.refactoring;bundle-version="3.13.700",
+ org.eclipse.jdt.core.manipulation;bundle-version="1.23.200",
  org.eclipse.xtext.smap;bundle-version="2.43.0";resolution:=optional;x-installation:=greedy,
  org.eclipse.xtext.common.types.edit;bundle-version="2.43.0";resolution:=optional;visibility:=reexport;x-installation:=greedy,
- org.eclipse.ui.ide;bundle-version="3.22.100";resolution:=optional
+ org.eclipse.ui.ide;bundle-version="3.22.800";resolution:=optional
 Import-Package: org.apache.log4j;version="1.2.26"
 Bundle-RequiredExecutionEnvironment: JavaSE-21
 Export-Package: org.eclipse.xtext.common.types.access.jdt;version="2.43.0",

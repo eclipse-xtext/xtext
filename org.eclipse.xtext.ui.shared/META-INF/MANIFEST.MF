@@ -8,11 +8,11 @@ Bundle-Activator: org.eclipse.xtext.ui.shared.internal.Activator
 Bundle-Vendor: Eclipse Xtext
 Require-Bundle: org.eclipse.xtext.ui;bundle-version="2.43.0";resolution:=optional;x-installation:=greedy,
  org.eclipse.xtext.builder;bundle-version="2.43.0";resolution:=optional;x-installation:=greedy,
- org.eclipse.jdt.core;bundle-version="3.37.0";resolution:=optional;x-installation:=greedy,
- org.eclipse.jdt.ui;bundle-version="3.32.0";resolution:=optional;x-installation:=greedy,
+ org.eclipse.jdt.core;bundle-version="3.44.0";resolution:=optional;x-installation:=greedy,
+ org.eclipse.jdt.ui;bundle-version="3.36.0";resolution:=optional;x-installation:=greedy,
  org.eclipse.xtext.common.types.ui;bundle-version="2.43.0";resolution:=optional;x-installation:=greedy,
- org.eclipse.ui.ide;bundle-version="3.22.100";resolution:=optional;x-installation:=greedy,
- org.eclipse.core.expressions;bundle-version="3.9.300"
+ org.eclipse.ui.ide;bundle-version="3.22.800";resolution:=optional;x-installation:=greedy,
+ org.eclipse.core.expressions;bundle-version="3.9.500"
 Bundle-RequiredExecutionEnvironment: JavaSE-21
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.xtext.ui.shared;version="2.43.0",
