@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2013, 2018 itemis AG (http://www.itemis.eu) and others.
+ * Copyright (c) 2013, 2026 itemis AG (http://www.itemis.eu) and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -23,6 +23,8 @@ import org.junit.After
 import org.junit.Test
 
 import static org.eclipse.xtend.ide.tests.WorkbenchTestHelper.*
+import org.osgi.framework.Version
+import org.eclipse.core.runtime.Platform
 
 /**
  * @author Sven Efftinge - Initial contribution and API
@@ -139,7 +141,9 @@ class DirtyStateEditorValidationTest extends AbstractXtendUITestCase {
 			}
 		''')
 		editor2.waitForReconciler
-		editor2.assertNumberOfErrorAnnotations(1)
+		// TODO remove when minimal > 2026-03
+		val beforePdeFix = Platform.getBundle("org.eclipse.pde.core").getVersion().compareTo(new Version(3,21,300)) < 0
+		editor2.assertNumberOfErrorAnnotations(beforePdeFix? 1 : 0)
 	}
 	
 	/**

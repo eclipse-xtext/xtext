@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2013, 2018 itemis AG (http://www.itemis.eu) and others.
+ * Copyright (c) 2013, 2026 itemis AG (http://www.itemis.eu) and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -15,6 +15,7 @@ import java.util.Objects;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jface.text.source.Annotation;
@@ -41,6 +42,7 @@ import org.eclipse.xtext.xbase.lib.ListExtensions;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
+import org.osgi.framework.Version;
 
 /**
  * @author Sven Efftinge - Initial contribution and API
@@ -235,7 +237,17 @@ public class DirtyStateEditorValidationTest extends AbstractXtendUITestCase {
       _builder_4.newLine();
       _document_2.set(_builder_4.toString());
       this._syncUtil.waitForReconciler(editor2);
-      this.assertNumberOfErrorAnnotations(editor2, 1);
+      Version _version = Platform.getBundle("org.eclipse.pde.core").getVersion();
+      Version _version_1 = new Version(3, 21, 300);
+      int _compareTo = _version.compareTo(_version_1);
+      final boolean beforePdeFix = (_compareTo < 0);
+      int _xifexpression = (int) 0;
+      if (beforePdeFix) {
+        _xifexpression = 1;
+      } else {
+        _xifexpression = 0;
+      }
+      this.assertNumberOfErrorAnnotations(editor2, _xifexpression);
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }
