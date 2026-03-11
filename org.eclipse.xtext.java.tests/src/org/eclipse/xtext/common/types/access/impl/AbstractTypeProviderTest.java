@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009, 2023 itemis AG (http://www.itemis.eu) and others.
+ * Copyright (c) 2009, 2026 itemis AG (http://www.itemis.eu) and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -333,8 +333,13 @@ public abstract class AbstractTypeProviderTest extends Assert {
 				Set<String> memberNamesJ11 = Sets.newHashSet("length", "chars", "charAt", "codePoints", "subSequence", "toString", "compare");
 				assertMembers(typeName, memberNamesJ11);
 			} catch (AssertionError e2) {
+				try {
 				Set<String> memberNamesJ15 = Sets.newHashSet("length", "chars", "charAt", "codePoints", "isEmpty", "subSequence", "toString", "compare");
 				assertMembers(typeName, memberNamesJ15);
+				} catch (AssertionError e3) {
+					Set<String> memberNamesJ25 = Sets.newHashSet("length", "chars", "charAt", "codePoints", "isEmpty", "subSequence", "toString", "compare", "getChars");
+					assertMembers(typeName, memberNamesJ25);
+				}
 			}
 		}
 	}
