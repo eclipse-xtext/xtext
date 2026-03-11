@@ -58,16 +58,22 @@ pipeline {
     stage('Maven/Tycho Build & Test') {
       environment {
         MAVEN_OPTS = "-Xmx1500m"
-        // set all Java versions needed by our toolchains.xml
-        JAVA_HOME_21_X64 = tool(type:'jdk', name:'temurin-jdk21-latest')
-        JAVA_HOME_25_X64 = tool(type:'jdk', name:'temurin-jdk25-latest')
+        // Set all Java version that can be discovered/selected by maven-toolchains-plugin
+        JAVA_21_HOME = tool(type:'jdk', name:'temurin-jdk21-latest')
+        JAVA_25_HOME = tool(type:'jdk', name:'temurin-jdk25-latest')
       }
       steps {
         xvnc(useXauthority: true) {
           sh """
+            jdkEnvVar='JAVA_${javaVersion()}_HOME'
+            if [ "${JAVA_HOME}" = "\${JAVA_${javaVersion()}_HOME}" ]; then
+              # Workaround for https://github.com/apache/maven-toolchains-plugin/pull/148
+              # clear the structured variable and require JAVA_HOME instead
+              export JAVA_${javaVersion()}_HOME=''
+              jdkEnvVar='JAVA_HOME'
+            fi
             ./full-build.sh --tp=${selectedTargetPlatform()} \
-              ${javaVersion() == 21 ? '--toolchains releng/toolchains.xml -Pstrict-jdk-21' : ''} \
-              ${javaVersion() == 25 ? '-Pstrict-jdk-25' : ''}
+              -Pstrict-jdk-${javaVersion()} -Dtoolchain.jdk.env=\${jdkEnvVar}
           """
         }
       }// END steps
