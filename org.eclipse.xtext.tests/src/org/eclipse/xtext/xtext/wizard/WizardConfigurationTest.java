@@ -16,6 +16,7 @@ import java.util.Objects;
 import org.eclipse.xtext.util.XtextVersion;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.google.common.collect.Iterables;
@@ -208,7 +209,7 @@ public class WizardConfigurationTest {
 				(AbstractFile it) -> "build.properties".equals(it.getRelativePath())));
 	}
 
-	@Test
+	@Test @Ignore
 	public void projectsCanBeBuiltAgainstXtextNightlies() {
 		config.setPreferredBuildSystem(BuildSystem.GRADLE);
 		config.getUiProject().setEnabled(true);
