@@ -3875,19 +3875,19 @@ public class ImportOrganizerTest extends AbstractXtendTestCase {
   @Test
   public void testExtensionFeatureCallToStaticLocalFieldFromSuper() {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("import java.util.Collections");
+    _builder.append("import java.util.ArrayList");
     _builder.newLine();
     _builder.newLine();
-    _builder.append("import static extension java.util.Collections.*");
+    _builder.append("import static extension java.util.List.*");
     _builder.newLine();
     _builder.newLine();
-    _builder.append("class Foo extends Collections {");
+    _builder.append("class Foo extends ArrayList {");
     _builder.newLine();
     _builder.append("\t");
     _builder.append("def foo() {");
     _builder.newLine();
     _builder.append("\t\t");
-    _builder.append("\'\'.singleton");
+    _builder.append("\'\'.of");
     _builder.newLine();
     _builder.append("\t");
     _builder.append("}");
@@ -3895,16 +3895,16 @@ public class ImportOrganizerTest extends AbstractXtendTestCase {
     _builder.append("}");
     _builder.newLine();
     StringConcatenation _builder_1 = new StringConcatenation();
-    _builder_1.append("import java.util.Collections");
+    _builder_1.append("import java.util.ArrayList");
     _builder_1.newLine();
     _builder_1.newLine();
-    _builder_1.append("class Foo extends Collections {");
+    _builder_1.append("class Foo extends ArrayList {");
     _builder_1.newLine();
     _builder_1.append("\t");
     _builder_1.append("def foo() {");
     _builder_1.newLine();
     _builder_1.append("\t\t");
-    _builder_1.append("\'\'.singleton");
+    _builder_1.append("\'\'.of");
     _builder_1.newLine();
     _builder_1.append("\t");
     _builder_1.append("}");

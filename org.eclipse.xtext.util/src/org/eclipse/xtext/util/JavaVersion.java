@@ -1,5 +1,9 @@
 /*******************************************************************************
+<<<<<<< HEAD
  * Copyright (c) 2015, 2017, 2026 itemis AG (http://www.itemis.eu) and others.
+=======
+ * Copyright (c) 2015, 2026 itemis AG (http://www.itemis.eu) and others.
+>>>>>>> origin/main
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -69,17 +73,17 @@ public enum JavaVersion {
 	 */
 	JAVA11("Java 11", new String[] {"11", "1.11"}, "JavaSE-11", "-1.11", Constants.JAVA11),
 	/**
-	 * Well, Java 17, next LTS version
+	 * Well, Java 17
 	 */
 	JAVA17("Java 17", new String[] {"17", "1.17"}, "JavaSE-17", "-1.17", Constants.JAVA17),
 	/**
-	 * Java 21, next LTS version
+	 * Java 21
 	 */
 	JAVA21("Java 21", new String[] {"21", "1.21"}, "JavaSE-21", "-1.21", Constants.JAVA21),
 	/**
-	 * Java 25, next LTS version
+	 * Java 25
 	 */
-	JAVA25("Java 25", new String[] {"25", "1.25"}, "JavaSE-25", "-1.25", Constants.JAVA25)
+	JAVA25("Java 25", new String[] {"25", "1.25"}, "JavaSE-25", "-1.25", Constants.JAVA25),
 	;
 
 	private static final class Constants {

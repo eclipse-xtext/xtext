@@ -2020,21 +2020,21 @@ class ImportOrganizerTest extends AbstractXtendTestCase {
 	// see https://bugs.eclipse.org/bugs/show_bug.cgi?id=399519
 	@Test def testExtensionFeatureCallToStaticLocalFieldFromSuper() {
 		'''
-			import java.util.Collections
+			import java.util.ArrayList
 			
-			import static extension java.util.Collections.*
+			import static extension java.util.List.*
 
-			class Foo extends Collections {
+			class Foo extends ArrayList {
 				def foo() {
-					''.singleton
+					''.of
 				}
 			}
 		'''.assertIsOrganizedTo('''
-			import java.util.Collections
+			import java.util.ArrayList
 			
-			class Foo extends Collections {
+			class Foo extends ArrayList {
 				def foo() {
-					''.singleton
+					''.of
 				}
 			}
 		''')

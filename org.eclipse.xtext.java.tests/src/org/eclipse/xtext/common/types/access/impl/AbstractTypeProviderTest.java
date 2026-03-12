@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009, 2026 itemis AG (http://www.itemis.eu) and others.
+ * Copyright (c) 2009, 2023 itemis AG (http://www.itemis.eu) and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -18,6 +18,7 @@ import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -325,23 +326,19 @@ public abstract class AbstractTypeProviderTest extends Assert {
 	@Test
 	public void testFindTypeByName_javaLangCharSequence_02() {
 		String typeName = CharSequence.class.getName();
-		try {
-			Set<String> memberNames = Sets.newHashSet("length", "chars", "charAt", "codePoints", "subSequence", "toString");
-			assertMembers(typeName, memberNames);
-		} catch(AssertionError e) {
-			try {
-				Set<String> memberNamesJ11 = Sets.newHashSet("length", "chars", "charAt", "codePoints", "subSequence", "toString", "compare");
-				assertMembers(typeName, memberNamesJ11);
-			} catch (AssertionError e2) {
-				try {
-				Set<String> memberNamesJ15 = Sets.newHashSet("length", "chars", "charAt", "codePoints", "isEmpty", "subSequence", "toString", "compare");
-				assertMembers(typeName, memberNamesJ15);
-				} catch (AssertionError e3) {
-					Set<String> memberNamesJ25 = Sets.newHashSet("length", "chars", "charAt", "codePoints", "isEmpty", "subSequence", "toString", "compare", "getChars");
-					assertMembers(typeName, memberNamesJ25);
-				}
-			}
+		int javaVersion = Runtime.version().feature();
+		Set<String> expectedMemberNames = new HashSet<>(
+				Set.of("length", "chars", "charAt", "codePoints", "subSequence", "toString"));
+		if (javaVersion >= 11) {
+			expectedMemberNames.add("compare");
 		}
+		if (javaVersion >= 15) {
+			expectedMemberNames.add("isEmpty");
+		}
+		if (javaVersion >= 25) {
+			expectedMemberNames.add("getChars");
+		}
+		assertMembers(typeName, expectedMemberNames);
 	}
 
 	@Test
