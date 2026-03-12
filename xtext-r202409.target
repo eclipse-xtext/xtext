@@ -31,7 +31,7 @@
 			<unit id="org.eclipse.lsp4j.jsonrpc" version="0.0.0"/>
 		</location>
 		<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-			<repository location="https://artifacts.itemis.cloud/service/rest/repository/browse/p2/xtext-updates/releases/2.1.1"/>
+			<repository location="https://artifacts.itemis.cloud/repository/p2/xtext-updates/releases/2.1.1"/>
 			<unit id="de.itemis.xtext.antlr.feature.feature.group" version="0.0.0"/>
 		</location>
 		<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">

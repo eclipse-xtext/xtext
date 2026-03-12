@@ -153,7 +153,7 @@ public class AntlrToolFacade {
 				System.err.println("Downloading ANTLR parser generator failed: " + e2.getMessage());
 				System.err.println("Please install the feature 'Xtext Antlr SDK' manually using the external updatesite:");
 				System.err.println();
-				System.err.println("\t\t'https://artifacts.itemis.cloud/service/rest/repository/browse/p2/xtext-updates/releases/2.1.1/'."); 
+				System.err.println("\t\t'https://artifacts.itemis.cloud/repository/p2/xtext-updates/releases/2.1.1/'."); 
 				System.err.println();
 				System.err.println("(see https://www.eclipse.org/Xtext/download.html for details)");
 				return false;
