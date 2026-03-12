@@ -694,6 +694,13 @@
 			</build>
 		</profile>
 		<profile>
+			<id>strict-jdk-21</id>
+			<properties>
+				<maven.compiler.release>21</maven.compiler.release>
+				<toolchain.jdk.version>[21,22)</toolchain.jdk.version>
+			</properties>
+		</profile>
+		<profile>
 			<id>strict-jdk-25</id>
 			<properties>
 				<!--
@@ -704,13 +711,6 @@
 				-->
 				<maven.compiler.release>21</maven.compiler.release>
 				<toolchain.jdk.version>[25,26)</toolchain.jdk.version>
-			</properties>
-		</profile>
-		<profile>
-			<id>strict-jdk-21</id>
-			<properties>
-				<maven.compiler.release>21</maven.compiler.release>
-				<toolchain.jdk.version>[21,22)</toolchain.jdk.version>
 			</properties>
 		</profile>
 	</profiles>
