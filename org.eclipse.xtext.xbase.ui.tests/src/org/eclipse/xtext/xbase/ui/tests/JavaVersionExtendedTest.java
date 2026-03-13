@@ -29,7 +29,7 @@ public class JavaVersionExtendedTest {
 		assertEquals(ClassFileConstants.JDK21, JavaVersion.JAVA21.toJdtClassFileConstant());
 		assertEquals(ClassFileConstants.JDK25, JavaVersion.JAVA25.toJdtClassFileConstant());
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	@Test
 	public void testSpoofedClassFileConstant() {

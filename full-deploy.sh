@@ -18,7 +18,7 @@ while [ "$1" != "" ]; do
       echo -e "\t-h --help"
       echo -e "\t--no-tests Skip test execution"
       echo -e "\t--local-repository=<PATH> Use local Maven repository"
-      echo -e "\t--tp=$TARGET_PLATFORM (valid values: r2024-03,r2024-06,...,latest)"
+      echo -e "\t--tp=$TARGET_PLATFORM (valid values: r202512,r202603,...,latest)"
       echo ""
       exit
       ;;
