@@ -7,12 +7,12 @@
 	editPluginID="sample-auto.emf.edit", 
 	forceOverwrite="true", 
 	resource="XMI",
-	complianceLevel="11.0"
+	complianceLevel="21.0"
 )
 package axcore
 
 annotation "http://www.eclipse.org/emf/2002/GenModel" as GenModel
 
 class ModelA {
-	
+
 }

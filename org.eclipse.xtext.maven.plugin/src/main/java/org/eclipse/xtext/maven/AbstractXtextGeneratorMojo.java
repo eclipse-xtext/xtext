@@ -95,10 +95,10 @@ public abstract class AbstractXtextGeneratorMojo extends AbstractXtextMojo {
 	@Parameter(defaultValue = "true")
 	private boolean failOnValidationError = true;
 
-	@Parameter(property = "maven.compiler.source", defaultValue = "11")
+	@Parameter(property = "maven.compiler.source", defaultValue = "21")
 	private String compilerSourceLevel;
 
-	@Parameter(property = "maven.compiler.target", defaultValue = "11")
+	@Parameter(property = "maven.compiler.target", defaultValue = "21")
 	private String compilerTargetLevel;
 	/**
 	 * Create Java Source Code that is compatible to this Java release.

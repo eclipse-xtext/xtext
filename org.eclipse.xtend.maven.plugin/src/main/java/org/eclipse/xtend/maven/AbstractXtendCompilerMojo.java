@@ -44,10 +44,10 @@ public abstract class AbstractXtendCompilerMojo extends AbstractXtendMojo {
 
 	/**
 	 * Create Java Source Code that is compatible to this Java version.
-	 * 
+	 *
 	 * Supported values: 11, 17, 21 and so forth
 	 */
-	@Parameter(property="maven.compiler.source", defaultValue="11")
+	@Parameter(property="maven.compiler.source", defaultValue="21")
 	private String javaSourceVersion;
 
 	/**
