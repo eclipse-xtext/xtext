@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2015, 2025 itemis AG (http://www.itemis.eu) and others.
+ * Copyright (c) 2015, 2026 itemis AG (http://www.itemis.eu) and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -432,7 +432,7 @@ class ParentProjectDescriptor extends ProjectDescriptor {
 						</snapshots>
 					</repository>
 					«IF config.needsTychoBuild»
-						<!-- This must be disabled explicitly, otherwise it is enabled by https://github.com/mojohaus/mojo-parent 
+						<!-- This must be disabled explicitly, otherwise it is enabled by https://github.com/mojohaus/mojo-parent
 							which is taken from exec-maven-plugin from at least version 1.6.0 -->
 						<repository>
 							<id>ossrh-snapshots</id>
@@ -445,7 +445,7 @@ class ParentProjectDescriptor extends ProjectDescriptor {
 							</snapshots>
 							<url>http://oss.sonatype.org/content/repositories/snapshots</url>
 						</repository>
-						<!-- This is enabled by /org/sonatype/oss/oss-parent/7 used as parent by 
+						<!-- This is enabled by /org/sonatype/oss/oss-parent/7 used as parent by
 							org/xtext/antlr-generator/3.2.1 -->
 						<repository>
 							<id>sonatype-nexus-snapshots</id>

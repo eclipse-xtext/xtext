@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2015, 2025 itemis AG (http://www.itemis.eu) and others.
+ * Copyright (c) 2015, 2026 itemis AG (http://www.itemis.eu) and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -1369,7 +1369,7 @@ public class ParentProjectDescriptor extends ProjectDescriptor {
         boolean _needsTychoBuild_5 = this.getConfig().needsTychoBuild();
         if (_needsTychoBuild_5) {
           _builder.append("\t");
-          _builder.append("<!-- This must be disabled explicitly, otherwise it is enabled by https://github.com/mojohaus/mojo-parent ");
+          _builder.append("<!-- This must be disabled explicitly, otherwise it is enabled by https://github.com/mojohaus/mojo-parent");
           _builder.newLine();
           _builder.append("\t");
           _builder.append("\t");
@@ -1418,7 +1418,7 @@ public class ParentProjectDescriptor extends ProjectDescriptor {
           _builder.append("</repository>");
           _builder.newLine();
           _builder.append("\t");
-          _builder.append("<!-- This is enabled by /org/sonatype/oss/oss-parent/7 used as parent by ");
+          _builder.append("<!-- This is enabled by /org/sonatype/oss/oss-parent/7 used as parent by");
           _builder.newLine();
           _builder.append("\t");
           _builder.append("\t");
