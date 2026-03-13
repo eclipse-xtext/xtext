@@ -163,7 +163,7 @@ public class TargetPlatformProject extends ProjectDescriptor {
       boolean _isSnapshot = this.getConfig().getXtextVersion().isSnapshot();
       if (_isSnapshot) {
         _builder.append("\t\t\t");
-        _builder.append("<repository location=\"https://ci.eclipse.org/xtext/job/xtext/job/cd-big-bump/lastSuccessfulBuild/artifact/build/p2-repository/\"/>");
+        _builder.append("<repository location=\"https://download.eclipse.org/modeling/tmf/xtext/updates/nightly/\"/>");
         _builder.newLine();
       } else {
         boolean _isStable = this.getConfig().getXtextVersion().isStable();
