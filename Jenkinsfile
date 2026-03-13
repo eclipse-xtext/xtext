@@ -27,7 +27,7 @@ pipeline {
   tools {
      // the Java version we use to run the build
      // we force the effective JDK version for compilation/testing through Maven toolchains
-     jdk "temurin-jdk25-latest"
+     jdk "temurin-jdk21-latest"
   }
 
   stages {
