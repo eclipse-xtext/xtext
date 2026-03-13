@@ -4,7 +4,7 @@ Bundle-Name: Xtext Utility
 Bundle-SymbolicName: org.eclipse.xtext.util
 Bundle-Version: 2.43.0.qualifier
 Bundle-Vendor: Eclipse Xtext
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Export-Package: org.eclipse.xtext.util;version="2.43.0";
   uses:="org.eclipse.emf.ecore.resource,
    org.apache.log4j,

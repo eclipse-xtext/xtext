@@ -3,8 +3,8 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.xtend.examples;singleton:=true
 Bundle-Version: 2.43.0.qualifier
-Require-Bundle: org.eclipse.ui;bundle-version="3.205.100",
- org.eclipse.core.runtime;bundle-version="3.31.0",
+Require-Bundle: org.eclipse.ui;bundle-version="3.207.400",
+ org.eclipse.core.runtime;bundle-version="3.34.100",
  org.eclipse.emf.common.ui;bundle-version="2.22.0"
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: %providerName

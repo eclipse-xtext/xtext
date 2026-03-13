@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2015, 2024 itemis AG (http://www.itemis.eu) and others.
+ * Copyright (c) 2015, 2026 itemis AG (http://www.itemis.eu) and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
- * 
+ *
  * SPDX-License-Identifier: EPL-2.0
  */
 package org.eclipse.xtext.xtext.wizard.cli;
@@ -179,18 +179,6 @@ public class CliWizardIntegrationTest {
 				project.getP2Project().setEnabled(true);
 			}), CliWizardIntegrationTest.newProjectConfig(project -> {
 				project.setBaseName("mavenTychoP2");
-				project.setPreferredBuildSystem(BuildSystem.MAVEN);
-				project.setSourceLayout(SourceLayout.PLAIN);
-				project.setProjectLayout(ProjectLayout.HIERARCHICAL);
-				project.getRuntimeProject().getTestProject().setEnabled(true);
-				project.getUiProject().setEnabled(true);
-				project.getUiProject().getTestProject().setEnabled(true);
-				project.getIdeProject().setEnabled(true);
-				project.getWebProject().setEnabled(true);
-				project.getP2Project().setEnabled(true);
-			}), CliWizardIntegrationTest.newProjectConfig(project -> {
-				project.setBaseName("mavenTychoP2J21");
-				project.setJavaVersion(JavaVersion.JAVA21);
 				project.setPreferredBuildSystem(BuildSystem.MAVEN);
 				project.setSourceLayout(SourceLayout.PLAIN);
 				project.setProjectLayout(ProjectLayout.HIERARCHICAL);

@@ -10,7 +10,7 @@ Require-Bundle: org.antlr.runtime;bundle-version="[3.2.0,3.2.1)",
  org.eclipse.xtext.ide,
  org.eclipse.xtext.xbase.lib
 Import-Package: org.apache.log4j
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Export-Package: org.eclipse.xtext.example.fowlerdsl.ide;x-internal:=true,
  org.eclipse.xtext.example.fowlerdsl.ide.contentassist.antlr,
  org.eclipse.xtext.example.fowlerdsl.ide.contentassist.antlr.internal

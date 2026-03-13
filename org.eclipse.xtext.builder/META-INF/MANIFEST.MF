@@ -6,7 +6,7 @@ Bundle-Version: 2.43.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Export-Package: org.eclipse.xtext.builder;version="2.43.0",
  org.eclipse.xtext.builder.builderState;version="2.43.0";
   x-friends:="org.eclipse.xtext.builder.tests,
@@ -47,22 +47,22 @@ Export-Package: org.eclipse.xtext.builder;version="2.43.0",
  org.eclipse.xtext.builder.trace.util;version="2.43.0";x-internal:=true
 Require-Bundle: org.eclipse.xtext;bundle-version="2.43.0",
  org.eclipse.emf.ecore;bundle-version="2.36.0";visibility:=reexport,
- org.eclipse.core.resources;bundle-version="3.20.100";resolution:=optional;x-installation:=greedy,
- org.eclipse.jdt.core;bundle-version="3.37.0";resolution:=optional;x-installation:=greedy,
- org.eclipse.core.runtime;bundle-version="3.31.0";resolution:=optional;x-installation:=greedy,
- org.eclipse.jface;bundle-version="3.33.0";resolution:=optional;x-installation:=greedy,
- org.eclipse.ui;bundle-version="3.205.100";resolution:=optional;x-installation:=greedy,
+ org.eclipse.core.resources;bundle-version="3.23.100";resolution:=optional;x-installation:=greedy,
+ org.eclipse.jdt.core;bundle-version="3.44.0";resolution:=optional;x-installation:=greedy,
+ org.eclipse.core.runtime;bundle-version="3.34.100";resolution:=optional;x-installation:=greedy,
+ org.eclipse.jface;bundle-version="3.38.100";resolution:=optional;x-installation:=greedy,
+ org.eclipse.ui;bundle-version="3.207.400";resolution:=optional;x-installation:=greedy,
  org.eclipse.xtext.ui;bundle-version="2.43.0",
- org.eclipse.ui.ide;bundle-version="3.22.100";resolution:=optional;x-installation:=greedy,
+ org.eclipse.ui.ide;bundle-version="3.22.800";resolution:=optional;x-installation:=greedy,
  org.eclipse.xtext.common.types.ui;bundle-version="2.43.0";resolution:=optional;x-installation:=greedy,
- org.eclipse.jdt.launching;bundle-version="3.21.100";resolution:=optional;x-installation:=greedy,
- org.eclipse.ui.forms;bundle-version="3.13.200";resolution:=optional;x-installation:=greedy,
+ org.eclipse.jdt.launching;bundle-version="3.24.0";resolution:=optional;x-installation:=greedy,
+ org.eclipse.ui.forms;bundle-version="3.13.700";resolution:=optional;x-installation:=greedy,
  org.eclipse.xtext.xbase.lib;bundle-version="2.43.0";visibility:=reexport,
  org.eclipse.emf.ecore.editor;bundle-version="2.18.0";resolution:=optional;x-installation:=greedy,
- org.eclipse.debug.core;bundle-version="3.21.300";resolution:=optional;x-installation:=greedy,
- org.eclipse.debug.ui;bundle-version="3.18.300";resolution:=optional;visibility:=reexport;x-installation:=greedy,
- org.eclipse.jdt.debug;bundle-version="3.21.300";resolution:=optional;x-installation:=greedy,
- org.eclipse.ui.console;bundle-version="3.14.0",
+ org.eclipse.debug.core;bundle-version="3.23.200";resolution:=optional;x-installation:=greedy,
+ org.eclipse.debug.ui;bundle-version="3.19.100";resolution:=optional;visibility:=reexport;x-installation:=greedy,
+ org.eclipse.jdt.debug;bundle-version="3.25.0";resolution:=optional;x-installation:=greedy,
+ org.eclipse.ui.console;bundle-version="3.15.0",
  org.eclipse.xtext.smap;bundle-version="2.43.0"
 Bundle-ActivationPolicy: lazy
 Import-Package: org.apache.log4j;version="1.2.26"

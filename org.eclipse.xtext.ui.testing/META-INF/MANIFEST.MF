@@ -4,7 +4,7 @@ Bundle-Name: Xtext UI Testing Infrastructure
 Bundle-SymbolicName: org.eclipse.xtext.ui.testing
 Bundle-Version: 2.43.0.qualifier
 Bundle-Vendor: Eclipse Xtext
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Export-Package: org.eclipse.xtext.ui.testing;version="2.43.0",
  org.eclipse.xtext.ui.testing.util;version="2.43.0"
 Import-Package: org.apache.log4j;version="1.2.26";resolution:=optional,
@@ -20,16 +20,16 @@ Import-Package: org.apache.log4j;version="1.2.26";resolution:=optional,
  org.junit.runners.model;version="4.13.2"
 Require-Bundle: org.eclipse.xtext;bundle-version="2.43.0",
  org.eclipse.xtext.ui;bundle-version="2.43.0";resolution:=optional;visibility:=reexport;x-installation:=greedy,
- org.eclipse.core.runtime;bundle-version="3.31.0";resolution:=optional;x-installation:=greedy,
- org.eclipse.ui.ide;bundle-version="3.22.100";resolution:=optional;x-installation:=greedy,
- org.eclipse.jdt.core;bundle-version="3.37.0";resolution:=optional;x-installation:=greedy,
- org.eclipse.jdt.ui;bundle-version="3.32.0";resolution:=optional,
- org.eclipse.jdt.launching;bundle-version="3.21.100";resolution:=optional;x-installation:=greedy,
+ org.eclipse.core.runtime;bundle-version="3.34.100";resolution:=optional;x-installation:=greedy,
+ org.eclipse.ui.ide;bundle-version="3.22.800";resolution:=optional;x-installation:=greedy,
+ org.eclipse.jdt.core;bundle-version="3.44.0";resolution:=optional;x-installation:=greedy,
+ org.eclipse.jdt.ui;bundle-version="3.36.0";resolution:=optional,
+ org.eclipse.jdt.launching;bundle-version="3.24.0";resolution:=optional;x-installation:=greedy,
  org.eclipse.xtext.builder.standalone;bundle-version="2.43.0",
  org.eclipse.emf.codegen.ecore;bundle-version="2.37.0";resolution:=optional,
- org.eclipse.pde.core;bundle-version="3.18.0";resolution:=optional,
+ org.eclipse.pde.core;bundle-version="3.21.100";resolution:=optional,
  org.eclipse.xtext.common.types.ui;bundle-version="2.43.0";resolution:=optional,
- org.eclipse.core.filesystem;bundle-version="1.10.300",
+ org.eclipse.core.filesystem;bundle-version="1.11.400",
  org.eclipse.xtext.builder;bundle-version="2.43.0";resolution:=optional,
  org.eclipse.xtext.testing;bundle-version="2.43.0"
 Automatic-Module-Name: org.eclipse.xtext.ui.testing

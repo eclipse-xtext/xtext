@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: org.eclipse.xtext
 Bundle-SymbolicName: org.eclipse.xtext
 Bundle-Version: 0.0.1
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.xtext
 Require-Bundle: org.eclipse.xtext,

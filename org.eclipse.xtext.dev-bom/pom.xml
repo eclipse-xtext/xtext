@@ -130,7 +130,7 @@
 		<org.eclipse.emf.mwe2-version>2.25.0</org.eclipse.emf.mwe2-version>
 		<org.eclipse.emf.mwe-version>1.19.0</org.eclipse.emf.mwe-version>
 		<org.eclipse.lsp4j-version>1.0.0</org.eclipse.lsp4j-version>
-		<org.eclipse.jdt.core-version>3.37.0</org.eclipse.jdt.core-version>
+		<org.eclipse.jdt.core-version>3.44.0</org.eclipse.jdt.core-version>
 		<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
 	</properties>
 	<dependencyManagement>
@@ -283,12 +283,12 @@
 			<dependency>
 				<groupId>org.eclipse.jdt</groupId>
 				<artifactId>org.eclipse.jdt.debug</artifactId>
-				<version>3.21.300</version>
+				<version>3.25.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.eclipse.jdt</groupId>
 				<artifactId>org.eclipse.jdt.launching</artifactId>
-				<version>3.21.100</version>
+				<version>3.24.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.eclipse.lsp4j</groupId>
@@ -328,77 +328,77 @@
 			<dependency>
 				<groupId>org.eclipse.platform</groupId>
 				<artifactId>org.eclipse.core.commands</artifactId>
-				<version>3.12.0</version>
+				<version>3.12.500</version>
 			</dependency>
 			<dependency>
 				<groupId>org.eclipse.platform</groupId>
 				<artifactId>org.eclipse.core.contenttype</artifactId>
-				<version>3.9.300</version>
+				<version>3.9.800</version>
 			</dependency>
 			<dependency>
 				<groupId>org.eclipse.platform</groupId>
 				<artifactId>org.eclipse.core.expressions</artifactId>
-				<version>3.9.300</version>
+				<version>3.9.500</version>
 			</dependency>
 			<dependency>
 				<groupId>org.eclipse.platform</groupId>
 				<artifactId>org.eclipse.core.filesystem</artifactId>
-				<version>1.10.300</version>
+				<version>1.11.400</version>
 			</dependency>
 			<dependency>
 				<groupId>org.eclipse.platform</groupId>
 				<artifactId>org.eclipse.core.jobs</artifactId>
-				<version>3.15.200</version>
+				<version>3.15.700</version>
 			</dependency>
 			<dependency>
 				<groupId>org.eclipse.platform</groupId>
 				<artifactId>org.eclipse.core.resources</artifactId>
-				<version>3.20.100</version>
+				<version>3.23.100</version>
 			</dependency>
 			<dependency>
 				<groupId>org.eclipse.platform</groupId>
 				<artifactId>org.eclipse.core.runtime</artifactId>
-				<version>3.31.0</version>
+				<version>3.34.100</version>
 			</dependency>
 			<dependency>
 				<groupId>org.eclipse.platform</groupId>
 				<artifactId>org.eclipse.core.variables</artifactId>
-				<version>3.6.300</version>
+				<version>3.6.700</version>
 			</dependency>
 			<dependency>
 				<groupId>org.eclipse.platform</groupId>
 				<artifactId>org.eclipse.debug.core</artifactId>
-				<version>3.21.300</version>
+				<version>3.23.200</version>
 			</dependency>
 			<dependency>
 				<groupId>org.eclipse.platform</groupId>
 				<artifactId>org.eclipse.equinox.app</artifactId>
-				<version>1.7.0</version>
+				<version>1.7.500</version>
 			</dependency>
 			<dependency>
 				<groupId>org.eclipse.platform</groupId>
 				<artifactId>org.eclipse.equinox.common</artifactId>
-				<version>3.19.0</version>
+				<version>3.20.300</version>
 			</dependency>
 			<dependency>
 				<groupId>org.eclipse.platform</groupId>
 				<artifactId>org.eclipse.equinox.preferences</artifactId>
-				<version>3.11.0</version>
+				<version>3.12.100</version>
 			</dependency>
 			<dependency>
 				<groupId>org.eclipse.platform</groupId>
 				<artifactId>org.eclipse.equinox.registry</artifactId>
-				<version>3.12.0</version>
+				<version>3.12.600</version>
 			</dependency>
 			<dependency>
 				<groupId>org.eclipse.platform</groupId>
 				<artifactId>org.eclipse.osgi</artifactId>
-				<version>3.19.0</version>
+				<version>3.24.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.eclipse.platform</groupId>
 				<artifactId>org.eclipse.text</artifactId>
-				<version>3.14.0</version>
+				<version>3.14.500</version>
 			</dependency>
 			<dependency>
 				<groupId>org.eclipse.xtext</groupId>
@@ -518,28 +518,6 @@
 					</plugin>
 				</plugins>
 			</build>
-		</profile>
-		<profile>
-			<!--
-				To be activated explicitly when using Java 25 to get
-				the latest version of JDT to access Java 25 new features.
-
-				The profile must be activated through the system property "java-25"
-				either on the command line "-Djava-25", or by creating the file
-				"maven.config" inside the folder ".mvn" at the root of the
-				project, with the content "-Djava-25"
-			-->
-			<id>java-25</id>
-			<activation>
-				<property>
-					<name>java-25</name>
-				</property>
-			</activation>
-			<properties>
-				<!-- This version supports Java 25 but requires Java 17;
-					for the moment we activate it only when building with Java 25. -->
-				<org.eclipse.jdt.core-version>3.44.0</org.eclipse.jdt.core-version>
-			</properties>
 		</profile>
 
 	</profiles>

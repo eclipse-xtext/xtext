@@ -4,7 +4,7 @@ Bundle-SymbolicName: org.eclipse.xtend.lib
 Bundle-Name: Xtend Runtime Library
 Bundle-Vendor: Eclipse Xtext
 Bundle-Version: 2.43.0.qualifier
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Export-Package: org.eclipse.xtend.lib;version="2.43.0";uses:="org.eclipse.xtend.lib.macro.declaration,org.eclipse.xtend.lib.macro",
  org.eclipse.xtend.lib.annotations;version="2.43.0";uses:="org.eclipse.xtend.lib.macro.declaration,org.eclipse.xtend2.lib,org.eclipse.xtend.lib.macro"
 Require-Bundle: org.eclipse.xtext.xbase.lib;bundle-version="2.43.0";visibility:=reexport,

@@ -5,7 +5,7 @@ Bundle-SymbolicName: org.eclipse.xtext.buildship;singleton:=true
 Bundle-Version: 2.43.0.qualifier
 Bundle-Localization: plugin
 Bundle-Vendor: %providerName
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Export-Package: org.eclipse.xtext.buildship;version="2.43.0";x-internal:=true
 Automatic-Module-Name: org.eclipse.xtext.buildship
 Require-Bundle: org.eclipse.xtext.ui;bundle-version="2.43.0",

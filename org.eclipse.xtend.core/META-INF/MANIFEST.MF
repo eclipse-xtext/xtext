@@ -6,7 +6,7 @@ Bundle-Version: 2.43.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Export-Package: org.eclipse.xtend.core;version="2.43.0";
   x-friends:="org.eclipse.xtend.ide.common,
    org.eclipse.xtend.ide.tests,
@@ -93,13 +93,13 @@ Export-Package: org.eclipse.xtend.core;version="2.43.0";
    org.eclipse.xtend.core.tests",
  org.eclipse.xtend.core.xtend.impl;version="2.43.0";x-internal:=true,
  org.eclipse.xtend.core.xtend.util;version="2.43.0";x-internal:=true
-Require-Bundle: org.eclipse.core.runtime;bundle-version="3.31.0",
+Require-Bundle: org.eclipse.core.runtime;bundle-version="3.34.100",
  org.eclipse.emf.ecore;bundle-version="2.36.0";visibility:=reexport,
  org.eclipse.xtext.common.types;bundle-version="2.43.0";visibility:=reexport,
  org.eclipse.xtext.xbase;bundle-version="2.43.0";visibility:=reexport,
  org.eclipse.xtext;bundle-version="2.43.0",
  org.antlr.runtime;bundle-version="[3.2.0,3.2.1)",
- org.eclipse.jdt.core;bundle-version="3.37.0";resolution:=optional;x-installation:=greedy,
+ org.eclipse.jdt.core;bundle-version="3.44.0";resolution:=optional;x-installation:=greedy,
  org.eclipse.xtext.xbase.lib;bundle-version="2.43.0",
  org.eclipse.xtend.lib;bundle-version="2.43.0",
  org.eclipse.xtext.smap;bundle-version="2.43.0",

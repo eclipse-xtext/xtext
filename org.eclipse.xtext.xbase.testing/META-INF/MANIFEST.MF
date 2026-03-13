@@ -5,13 +5,13 @@ Bundle-SymbolicName: org.eclipse.xtext.xbase.testing;singleton:=true
 Bundle-Version: 2.43.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: Eclipse Xtext
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Require-Bundle: org.eclipse.xtext;bundle-version="2.43.0",
  org.eclipse.xtext.xbase;bundle-version="2.43.0";visibility:=reexport,
- org.eclipse.jdt.core;bundle-version="3.37.0";visibility:=reexport,
+ org.eclipse.jdt.core;bundle-version="3.44.0";visibility:=reexport,
  org.junit;bundle-version="4.13.2",
  org.eclipse.xtext.testing;bundle-version="2.43.0";visibility:=reexport,
- org.eclipse.core.runtime;bundle-version="3.31.0"
+ org.eclipse.core.runtime;bundle-version="3.34.100"
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.xtext.xbase.testing;version="2.43.0",
  org.eclipse.xtext.xbase.testing.evaluation;version="2.43.0";x-friends:="org.eclipse.xtext.xbase.tests,org.eclipse.xtext.purexbase.tests,org.eclipse.xtend.core.tests",

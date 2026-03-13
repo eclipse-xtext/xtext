@@ -65,7 +65,7 @@
 							of the source directories in Eclipse or Maven -->
 						<root>${basedir}/model</root>
 					</sourceRoots>
-					<javaSourceVersion>17</javaSourceVersion>
+					<javaSourceVersion>21</javaSourceVersion>
 					<autoFillPlatformResourceMap>true</autoFillPlatformResourceMap>
 				</configuration>
 				<dependencies>

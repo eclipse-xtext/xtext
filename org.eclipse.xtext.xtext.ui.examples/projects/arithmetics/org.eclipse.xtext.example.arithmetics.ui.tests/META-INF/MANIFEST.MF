@@ -12,7 +12,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.xtext.testing,
  org.eclipse.xtext.ui.testing,
  org.junit;bundle-version="4.13.2"
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Export-Package: org.eclipse.xtext.example.arithmetics.ui.tests;x-internal=true,
  org.eclipse.xtext.example.arithmetics.ui.tests.autoedit;x-internal:=true,
  org.eclipse.xtext.example.arithmetics.ui.tests.codemining;x-internal:=true,

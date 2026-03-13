@@ -1,9 +1,9 @@
 #Wed Nov 23 19:46:03 CET 2017
 eclipse.preferences.version=1
-org.eclipse.jdt.core.compiler.codegen.targetPlatform=17
-org.eclipse.jdt.core.compiler.compliance=17
+org.eclipse.jdt.core.compiler.codegen.targetPlatform=21
+org.eclipse.jdt.core.compiler.compliance=21
 org.eclipse.jdt.core.compiler.problem.forbiddenReference=warning
-org.eclipse.jdt.core.compiler.source=17
+org.eclipse.jdt.core.compiler.source=21
 org.eclipse.jdt.core.formatter.align_type_members_on_columns=false
 org.eclipse.jdt.core.formatter.alignment_for_arguments_in_allocation_expression=16
 org.eclipse.jdt.core.formatter.alignment_for_arguments_in_enum_constant=16

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2014 itemis AG (http://www.itemis.eu) and others.
+ * Copyright (c) 2014, 2026 itemis AG (http://www.itemis.eu) and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -43,7 +43,7 @@ public class JREContainerProvider {
 	/**
 	 * @since 2.7
 	 */
-	public static final String PREFERRED_BREE = "JavaSE-17";
+	public static final String PREFERRED_BREE = "JavaSE-21";
 	private static IVMInstall defaultVMInstall = null;
 	private static boolean defaultVMinitialized = false;
 

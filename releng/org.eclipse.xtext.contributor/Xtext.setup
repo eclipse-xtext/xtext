@@ -77,51 +77,6 @@
     <choice
         value="2025-12"
         label="Eclipse 2025-12 - 4.38"/>
-    <choice
-        value="2025-09"
-        label="Eclipse 2025-09 - 4.37"/>
-    <choice
-        value="2025-06"
-        label="Eclipse 2025-06 - 4.36"/>
-    <choice
-        value="2025-03"
-        label="Eclipse 2025-03 - 4.35"/>
-    <choice
-        value="2024-12"
-        label="Eclipse 2024-12 - 4.34"/>
-    <choice
-        value="2024-09"
-        label="Eclipse 2024-09 - 4.33"/>
-    <choice
-        value="2024-06"
-        label="Eclipse 2024-06 - 4.32"/>
-    <choice
-        value="2024-03"
-        label="Eclipse 2024-03 - 4.31"/>
-    <choice
-        value="2023-12"
-        label="Eclipse 2023-12 - 4.30"/>
-    <choice
-        value="2023-09"
-        label="Eclipse 2023-09 - 4.29"/>
-    <choice
-        value="2023-06"
-        label="Eclipse 2023-06 - 4.28"/>
-    <choice
-        value="2023-03"
-        label="Eclipse 2023-03 - 4.27"/>
-    <choice
-        value="2022-12"
-        label="Eclipse 2022-12 - 4.26"/>
-    <choice
-        value="2022-09"
-        label="Eclipse 2022-09 - 4.25"/>
-    <choice
-        value="2022-06"
-        label="Eclipse 2022-06 - 4.24"/>
-    <choice
-        value="2022-03"
-        label="Eclipse 2022-03 - 4.23"/>
     <description>Choose the compatibility level of the target platform</description>
   </setupTask>
   <setupTask
@@ -548,83 +503,13 @@
     </setupTask>
     <setupTask
         xsi:type="setup.targlets:TargletTask"
+        filter="(eclipse.target.platform=2026-03)">
+      <composedTarget>xtext-r202603</composedTarget>
+    </setupTask>
+    <setupTask
+        xsi:type="setup.targlets:TargletTask"
         filter="(eclipse.target.platform=2025-12)">
       <composedTarget>xtext-r202512</composedTarget>
-    </setupTask>
-    <setupTask
-        xsi:type="setup.targlets:TargletTask"
-        filter="(eclipse.target.platform=2025-09)">
-      <composedTarget>xtext-r202509</composedTarget>
-    </setupTask>
-    <setupTask
-        xsi:type="setup.targlets:TargletTask"
-        filter="(eclipse.target.platform=2025-06)">
-      <composedTarget>xtext-r202506</composedTarget>
-    </setupTask>
-    <setupTask
-        xsi:type="setup.targlets:TargletTask"
-        filter="(eclipse.target.platform=2025-03)">
-      <composedTarget>xtext-r202503</composedTarget>
-    </setupTask>
-    <setupTask
-        xsi:type="setup.targlets:TargletTask"
-        filter="(eclipse.target.platform=2024-12)">
-      <composedTarget>xtext-r202412</composedTarget>
-    </setupTask>
-    <setupTask
-        xsi:type="setup.targlets:TargletTask"
-        filter="(eclipse.target.platform=2024-09)">
-      <composedTarget>xtext-r202409</composedTarget>
-    </setupTask>
-    <setupTask
-        xsi:type="setup.targlets:TargletTask"
-        filter="(eclipse.target.platform=2024-06)">
-      <composedTarget>xtext-r202406</composedTarget>
-    </setupTask>
-    <setupTask
-        xsi:type="setup.targlets:TargletTask"
-        filter="(eclipse.target.platform=2024-03)">
-      <composedTarget>xtext-r202403</composedTarget>
-    </setupTask>
-    <setupTask
-        xsi:type="setup.targlets:TargletTask"
-        filter="(eclipse.target.platform=2023-12)">
-      <composedTarget>xtext-r202312</composedTarget>
-    </setupTask>
-    <setupTask
-        xsi:type="setup.targlets:TargletTask"
-        filter="(eclipse.target.platform=2023-09)">
-      <composedTarget>xtext-r202309</composedTarget>
-    </setupTask>
-    <setupTask
-        xsi:type="setup.targlets:TargletTask"
-        filter="(eclipse.target.platform=2023-06)">
-      <composedTarget>xtext-r202306</composedTarget>
-    </setupTask>
-    <setupTask
-        xsi:type="setup.targlets:TargletTask"
-        filter="(eclipse.target.platform=2023-03)">
-      <composedTarget>xtext-r202303</composedTarget>
-    </setupTask>
-    <setupTask
-        xsi:type="setup.targlets:TargletTask"
-        filter="(eclipse.target.platform=2022-12)">
-      <composedTarget>xtext-r202212</composedTarget>
-    </setupTask>
-    <setupTask
-        xsi:type="setup.targlets:TargletTask"
-        filter="(eclipse.target.platform=2022-09)">
-      <composedTarget>xtext-r202209</composedTarget>
-    </setupTask>
-    <setupTask
-        xsi:type="setup.targlets:TargletTask"
-        filter="(eclipse.target.platform=2022-06)">
-      <composedTarget>xtext-r202206</composedTarget>
-    </setupTask>
-    <setupTask
-        xsi:type="setup.targlets:TargletTask"
-        filter="(eclipse.target.platform=2022-03)">
-      <composedTarget>xtext-r202203</composedTarget>
     </setupTask>
     <setupTask
         xsi:type="setup:EclipseIniTask"

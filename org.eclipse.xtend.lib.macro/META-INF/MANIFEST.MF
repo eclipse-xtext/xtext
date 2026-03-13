@@ -4,7 +4,7 @@ Bundle-SymbolicName: org.eclipse.xtend.lib.macro
 Bundle-Name: Xtend Macro Interfaces
 Bundle-Vendor: Eclipse Xtext
 Bundle-Version: 2.43.0.qualifier
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Export-Package: org.eclipse.xtend.lib.macro;version="2.43.0";uses:="org.eclipse.xtend.lib.macro.file,org.eclipse.xtend.lib.macro.services,org.eclipse.xtend.lib.macro.declaration",
  org.eclipse.xtend.lib.macro.declaration;version="2.43.0";uses:="org.eclipse.xtend.lib.macro.file,  org.eclipse.xtend2.lib,  org.eclipse.xtend.lib.macro.expression,  org.eclipse.xtext.xbase.lib",
  org.eclipse.xtend.lib.macro.expression;version="2.43.0";uses:="org.eclipse.xtend.lib.macro.declaration",

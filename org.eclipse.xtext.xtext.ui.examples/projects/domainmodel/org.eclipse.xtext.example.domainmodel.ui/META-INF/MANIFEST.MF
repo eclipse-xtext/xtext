@@ -22,7 +22,7 @@ Require-Bundle: org.eclipse.compare;bundle-version="3.8.300",
  org.eclipse.xtext.xbase.ui
 Import-Package: org.apache.log4j,
  org.eclipse.xtext.ui.codemining;resolution:=optional
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Export-Package: org.eclipse.xtext.example.domainmodel.ui.autoedit,
  org.eclipse.xtext.example.domainmodel.ui.contentassist,
  org.eclipse.xtext.example.domainmodel.ui.editor,

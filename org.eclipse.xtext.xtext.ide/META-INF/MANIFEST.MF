@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Xtext Language IDE Support
 Bundle-SymbolicName: org.eclipse.xtext.xtext.ide;singleton:=true
 Bundle-Version: 2.43.0.qualifier
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: Eclipse Xtext
 Require-Bundle: org.eclipse.xtext.ide;bundle-version="2.43.0"

@@ -7,7 +7,7 @@ Bundle-SymbolicName: org.eclipse.xtext.purexbase; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.xtext;bundle-version="2.43.0",
  org.eclipse.xtext.xbase;bundle-version="2.43.0",
- org.eclipse.equinox.common;bundle-version="3.19.0",
+ org.eclipse.equinox.common;bundle-version="3.20.300",
  org.eclipse.emf.ecore;bundle-version="2.36.0",
  org.eclipse.xtext.xbase.lib;bundle-version="2.43.0",
  org.antlr.runtime;bundle-version="[3.2.0,3.2.1)",
@@ -17,7 +17,7 @@ Require-Bundle: org.eclipse.xtext;bundle-version="2.43.0",
  org.objectweb.asm;bundle-version="[9.9.1,10.0.0)";resolution:=optional
 Import-Package: org.apache.commons.logging,
  org.apache.log4j;version="1.2.26"
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Export-Package: org.eclipse.xtext.purexbase;version="2.43.0",
  org.eclipse.xtext.purexbase.jvmmodel;version="2.43.0",
  org.eclipse.xtext.purexbase.parser.antlr;version="2.43.0",

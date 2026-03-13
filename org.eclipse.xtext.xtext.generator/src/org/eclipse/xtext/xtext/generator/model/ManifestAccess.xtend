@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2015, 2022 itemis AG (http://www.itemis.eu) and others.
+ * Copyright (c) 2015, 2026 itemis AG (http://www.itemis.eu) and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -112,7 +112,7 @@ class ManifestAccess extends TextFileAccess implements IGuiceAwareGeneratorCompo
 		«IF !version.nullOrEmpty»
 			Bundle-Version: «version»
 		«ENDIF»
-		Bundle-RequiredExecutionEnvironment: JavaSE-17
+		Bundle-RequiredExecutionEnvironment: JavaSE-21
 		Bundle-ActivationPolicy: lazy
 		«IF !exportedPackages.empty»
 			Export-Package: «FOR pack : exportedPackages.sort SEPARATOR ',\n '»«pack»«ENDFOR»

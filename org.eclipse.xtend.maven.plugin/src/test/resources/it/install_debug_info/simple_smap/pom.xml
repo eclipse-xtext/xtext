@@ -15,7 +15,7 @@
 				<groupId>org.eclipse.xtext</groupId>
 				<artifactId>xtend-maven-plugin</artifactId>
 				<configuration>
-					<javaSourceVersion>17</javaSourceVersion>
+					<javaSourceVersion>21</javaSourceVersion>
 				</configuration>
 				<executions>
 					<execution>

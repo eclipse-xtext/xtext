@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2015, 2023 itemis AG (http://www.itemis.eu) and others.
+ * Copyright (c) 2015, 2026 itemis AG (http://www.itemis.eu) and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
- * 
+ *
  * SPDX-License-Identifier: EPL-2.0
  */
 package org.eclipse.xtext.xtext.wizard;
@@ -349,15 +349,15 @@ public class WizardConfigurationTest {
 	}
 
 	@Test
-	public void allBuildSystemsUseJava17() {
+	public void allBuildSystemsUseJava21() {
 		String parentPom = config.getParentProject().pom().getContent();
-		assertTrue(parentPom.contains("<maven.compiler.source>17</maven.compiler.source>"));
-		assertTrue(parentPom.contains("<maven.compiler.target>17</maven.compiler.target>"));
+		assertTrue(parentPom.contains("<maven.compiler.source>21</maven.compiler.source>"));
+		assertTrue(parentPom.contains("<maven.compiler.target>21</maven.compiler.target>"));
 		String parentGradle = config.getParentProject().buildGradle().getContent();
-		assertTrue(parentGradle.contains("sourceCompatibility = JavaVersion.VERSION_17"));
-		assertTrue(parentGradle.contains("targetCompatibility = JavaVersion.VERSION_17"));
+		assertTrue(parentGradle.contains("sourceCompatibility = JavaVersion.VERSION_21"));
+		assertTrue(parentGradle.contains("targetCompatibility = JavaVersion.VERSION_21"));
 		for (String it : Lists.transform(allJavaProjects(), (ProjectDescriptor it) -> it.manifest())) {
-			assertTrue(it.contains("Bundle-RequiredExecutionEnvironment: JavaSE-17"));
+			assertTrue(it.contains("Bundle-RequiredExecutionEnvironment: JavaSE-21"));
 		}
 	}
 

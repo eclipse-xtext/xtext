@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2018, 2024 itemis AG (http://www.itemis.eu) and others.
+ * Copyright (c) 2018, 2026 itemis AG (http://www.itemis.eu) and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -77,7 +77,7 @@ public class CliProjectsCreatorMain {
 	private LanguageServer languageServer = LanguageServer.NONE;
 
 	@Option(name = "-javaVersion", usage = "Java Version", handler = OptionHandlers.JavaVersionOptionHandler.class)
-	private JavaVersion javaVersion = JavaVersion.JAVA17;
+	private JavaVersion javaVersion = JavaVersion.JAVA21;
 
 	@Option(name = "-junitVersion", usage = "JUnit Version", handler = OptionHandlers.JUnitVersionOptionHandler.class)
 	private JUnitVersion junitVersion = JUnitVersion.JUNIT_5;

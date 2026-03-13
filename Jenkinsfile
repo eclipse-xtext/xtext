@@ -6,15 +6,15 @@ pipeline {
   }
 
   parameters {
-    choice(name: 'TARGET_PLATFORM', choices: ['r202403', 'r202406', 'r202409', 'r202412', 'r202503', 'r202506', 'r202509', 'r202512', 'r202603', 'latest'], description: 'Which Target Platform should be used?')
+    choice(name: 'TARGET_PLATFORM', choices: ['r202512', 'r202603', 'latest'], description: 'Which Target Platform should be used?')
     // see https://wiki.eclipse.org/Jenkins#JDK
-    choice(name: 'JDK_VERSION', choices: [ '17', '21', '25' ], description: 'Which JDK version should be used?')
+    choice(name: 'JDK_VERSION', choices: [ '21', '25' ], description: 'Which JDK version should be used?')
   }
 
   triggers {
     parameterizedCron(env.BRANCH_NAME == 'main' ? '''
-      H H(0-1) * * * %TARGET_PLATFORM=r202403;JDK_VERSION=17
-      H H(3-4) * * * %TARGET_PLATFORM=latest;JDK_VERSION=21
+      H H(0-1) * * * %TARGET_PLATFORM=r202512;JDK_VERSION=21
+      H H(3-4) * * * %TARGET_PLATFORM=latest;JDK_VERSION=25
       ''' : '')
   }
 
@@ -59,7 +59,6 @@ pipeline {
       environment {
         MAVEN_OPTS = "-Xmx1500m"
         // Set all Java version that can be discovered/selected by maven-toolchains-plugin
-        JAVA_17_HOME = tool(type:'jdk', name:'temurin-jdk17-latest')
         JAVA_21_HOME = tool(type:'jdk', name:'temurin-jdk21-latest')
         JAVA_25_HOME = tool(type:'jdk', name:'temurin-jdk25-latest')
       }
@@ -73,7 +72,7 @@ pipeline {
               export JAVA_${javaVersion()}_HOME=''
               jdkEnvVar='JAVA_HOME'
             fi
-            ./full-build.sh --tp=${selectedTargetPlatform()} \
+            ./full-build.sh --tp=${params.TARGET_PLATFORM} \
               -Pstrict-jdk-${javaVersion()} -Dtoolchain.jdk.env=\${jdkEnvVar}
           """
         }
@@ -147,17 +146,12 @@ def javaVersion() {
   return Integer.parseInt(params.JDK_VERSION)
 }
 
-/** returns true when this build was triggered by an upstream build */
-def isTriggeredByUpstream() {
-  return !"[]".equals(currentBuild.getBuildCauses('org.jenkinsci.plugins.workflow.support.steps.build.BuildUpstreamCause').toString())
-}
-
 /**
  * Returns the Eclipse version dependent on the selected target platform.
  * Result: '4.XX'
  */
 def eclipseVersion() {
-  def targetPlatform = selectedTargetPlatform()
+  def targetPlatform = params.TARGET_PLATFORM
   if (targetPlatform == 'latest') {
     return "4.40"
   } else {
@@ -167,28 +161,4 @@ def eclipseVersion() {
     long monthsBetween = java.time.temporal.ChronoUnit.MONTHS.between(baseDate, targetDate);
     return "4."+ (8+(monthsBetween/3))
   }
-}
-
-/**
- * The target platform is primarily defined by the build parameter TARGET_PLATFORM.
- * But when the build is triggered by upstream with at least Java version 21, 'latest'
- * is returned.
- */
-def selectedTargetPlatform() {
-    def tp = params.TARGET_PLATFORM
-    def isUpstream = isTriggeredByUpstream()
-    def javaVersion = javaVersion()
-
-    if (isTriggeredByUpstream() && javaVersion>=25) {
-        println("Choosing 'latest' target since this build was triggered by upstream with Java ${javaVersion}")
-        return 'latest'
-    } else if (isTriggeredByUpstream() && javaVersion>=21) {
-        println("Choosing 'latest' target since this build was triggered by upstream with Java ${javaVersion}")
-        return 'latest'
-    } else if (isTriggeredByUpstream() && javaVersion>=17) {
-        println("Choosing 'r2024-03' target since this build was triggered by upstream with Java ${javaVersion}")
-        return 'r2024-03'
-    } else {
-        return tp
-    }
 }

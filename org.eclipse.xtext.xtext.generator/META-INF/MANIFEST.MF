@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-SymbolicName: org.eclipse.xtext.xtext.generator;singleton:=true
 Bundle-Version: 2.43.0.qualifier
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Bundle-Name: Xtext Generator 2
 Bundle-Vendor: Eclipse Xtext
 Bundle-ActivationPolicy: lazy
@@ -13,11 +13,11 @@ Require-Bundle: org.eclipse.xtext;bundle-version="2.43.0";x-installation:=greedy
  org.eclipse.emf.codegen.ecore;bundle-version="2.37.0";visibility:=reexport;x-installation:=greedy,
  org.eclipse.emf.ecore;bundle-version="2.36.0",
  org.eclipse.emf.common;bundle-version="2.30.0",
- org.eclipse.emf.mwe2.lib;bundle-version="2.21.0";resolution:=optional,
- org.eclipse.equinox.common;bundle-version="3.19.0",
+ org.eclipse.emf.mwe2.lib;bundle-version="2.25.0";resolution:=optional,
+ org.eclipse.equinox.common;bundle-version="3.20.300",
  org.antlr.runtime;bundle-version="[3.2.0,3.2.1)",
  de.itemis.xtext.antlr;bundle-version="2.0.0";resolution:=optional;visibility:=reexport,
- org.eclipse.jdt.core;bundle-version="3.37.0";resolution:=optional,
+ org.eclipse.jdt.core;bundle-version="3.44.0";resolution:=optional,
  com.google.gson;bundle-version="2.10.1";resolution:=optional
 Import-Package: org.apache.log4j;version="1.2.26"
 Export-Package: org.eclipse.xtext.xtext.generator;version="2.43.0",

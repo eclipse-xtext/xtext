@@ -6,17 +6,17 @@ Bundle-SymbolicName: org.eclipse.xtext.common.types.shared;singleton:=true
 Bundle-Version: 2.43.0.qualifier
 Bundle-Activator: org.eclipse.xtext.common.types.shared.Activator
 Bundle-Vendor: %providerName
-Require-Bundle: org.eclipse.core.runtime;bundle-version="3.31.0",
+Require-Bundle: org.eclipse.core.runtime;bundle-version="3.34.100",
  org.eclipse.xtext.common.types;bundle-version="2.43.0",
  org.eclipse.xtext.common.types.ui;bundle-version="2.43.0",
  org.eclipse.xtext.ui;bundle-version="2.43.0",
  org.eclipse.xtext.ui.shared;bundle-version="2.43.0",
  org.eclipse.xtext.builder;bundle-version="2.43.0",
- org.eclipse.jdt.core;bundle-version="3.37.0",
- org.eclipse.debug.core;bundle-version="3.21.300";resolution:=optional;x-installation:=greedy,
- org.eclipse.debug.ui;bundle-version="3.18.300";resolution:=optional;x-installation:=greedy,
- org.eclipse.jdt.debug;bundle-version="3.21.300";resolution:=optional;x-installation:=greedy
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+ org.eclipse.jdt.core;bundle-version="3.44.0",
+ org.eclipse.debug.core;bundle-version="3.23.200";resolution:=optional;x-installation:=greedy,
+ org.eclipse.debug.ui;bundle-version="3.19.100";resolution:=optional;x-installation:=greedy,
+ org.eclipse.jdt.debug;bundle-version="3.25.0";resolution:=optional;x-installation:=greedy
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.xtext.common.types.shared;version="2.43.0";x-internal:=true
 Automatic-Module-Name: org.eclipse.xtext.common.types.shared

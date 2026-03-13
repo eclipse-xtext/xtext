@@ -6,7 +6,7 @@ Bundle-Version: 2.43.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: Eclipse Xtext
 Bundle-Localization: plugin
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Export-Package: org.eclipse.xtext;version="2.43.0",
  org.eclipse.xtext.build;version="2.43.0";
   x-friends:="org.eclipse.xtext.testing,
@@ -207,12 +207,12 @@ Require-Bundle: org.eclipse.emf.ecore.xmi;bundle-version="2.37.0";visibility:=re
  org.eclipse.emf.common;bundle-version="2.30.0",
  org.antlr.runtime;bundle-version="[3.2.0,3.2.1)";visibility:=reexport,
  org.objectweb.asm;bundle-version="[9.9.1,10.0.0)";resolution:=optional,
- org.eclipse.emf.mwe.core;bundle-version="1.15.0";resolution:=optional;visibility:=reexport,
- org.eclipse.emf.mwe.utils;bundle-version="1.15.0";resolution:=optional;visibility:=reexport,
+ org.eclipse.emf.mwe.core;bundle-version="1.19.0";resolution:=optional;visibility:=reexport,
+ org.eclipse.emf.mwe.utils;bundle-version="1.19.0";resolution:=optional;visibility:=reexport,
  org.eclipse.xtext.util;bundle-version="2.43.0";visibility:=reexport,
- org.eclipse.core.runtime;bundle-version="3.31.0";resolution:=optional;x-installation:=greedy,
+ org.eclipse.core.runtime;bundle-version="3.34.100";resolution:=optional;x-installation:=greedy,
  org.eclipse.xtend.lib;bundle-version="2.43.0",
- org.eclipse.equinox.common;bundle-version="3.19.0"
+ org.eclipse.equinox.common;bundle-version="3.20.300"
 Import-Package: org.apache.log4j;version="1.2.26",org.osgi.framework
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: org.eclipse.xtext.internal.Activator
