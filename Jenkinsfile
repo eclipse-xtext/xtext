@@ -72,7 +72,7 @@ pipeline {
               export JAVA_${javaVersion()}_HOME=''
               jdkEnvVar='JAVA_HOME'
             fi
-            ./full-build.sh --tp=${selectedTargetPlatform()} \
+            ./full-build.sh --tp=${params.TARGET_PLATFORM} \
               -Pstrict-jdk-${javaVersion()} -Dtoolchain.jdk.env=\${jdkEnvVar}
           """
         }
@@ -146,17 +146,12 @@ def javaVersion() {
   return Integer.parseInt(params.JDK_VERSION)
 }
 
-/** returns true when this build was triggered by an upstream build */
-def isTriggeredByUpstream() {
-  return !"[]".equals(currentBuild.getBuildCauses('org.jenkinsci.plugins.workflow.support.steps.build.BuildUpstreamCause').toString())
-}
-
 /**
  * Returns the Eclipse version dependent on the selected target platform.
  * Result: '4.XX'
  */
 def eclipseVersion() {
-  def targetPlatform = selectedTargetPlatform()
+  def targetPlatform = params.TARGET_PLATFORM
   if (targetPlatform == 'latest') {
     return "4.40"
   } else {
@@ -166,25 +161,4 @@ def eclipseVersion() {
     long monthsBetween = java.time.temporal.ChronoUnit.MONTHS.between(baseDate, targetDate);
     return "4."+ (8+(monthsBetween/3))
   }
-}
-
-/**
- * The target platform is primarily defined by the build parameter TARGET_PLATFORM.
- * But when the build is triggered by upstream with at least Java version 21, 'latest'
- * is returned.
- */
-def selectedTargetPlatform() {
-    def tp = params.TARGET_PLATFORM
-    def isUpstream = isTriggeredByUpstream()
-    def javaVersion = javaVersion()
-
-    if (isTriggeredByUpstream() && javaVersion>=25) {
-        println("Choosing 'latest' target since this build was triggered by upstream with Java ${javaVersion}")
-        return 'latest'
-    } else if (isTriggeredByUpstream() && javaVersion>=21) {
-        println("Choosing 'r202512' target since this build was triggered by upstream with Java ${javaVersion}")
-        return 'r202512'
-    } else {
-        return tp
-    }
 }
