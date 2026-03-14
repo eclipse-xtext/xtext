@@ -32,8 +32,8 @@ public class AntlrToolFacade {
 		this.loader = loader;
 	}
 
-	private String downloadURL = "http://download.itemis.com/antlr-generator-3.2.0-patch.jar";
-	private String secureDownloadURL = "https://download.itemis.com/antlr-generator-3.2.0-patch.jar";
+	private String downloadURL = "https://artifacts.itemis.cloud/repository/p2/antlr-generator-3.2.0-patch.jar";
+	private String secureDownloadURL = "https://artifacts.itemis.cloud/repository/p2/antlr-generator-3.2.0-patch.jar";
 	private boolean askBeforeDownload = false;
 
 	public void setAskBeforeDownload(boolean shouldAsk) {

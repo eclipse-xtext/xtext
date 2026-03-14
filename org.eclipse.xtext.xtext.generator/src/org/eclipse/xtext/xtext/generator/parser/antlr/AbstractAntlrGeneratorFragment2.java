@@ -94,7 +94,7 @@ public abstract class AbstractAntlrGeneratorFragment2 extends AbstractXtextGener
 		super.checkConfiguration(issues);
 		if (!antlrTool.isWorkable()) {
 			issues.addError(
-					"\n\n*ATTENTION*\nIt is required to use ANTLR's parser generator (get it from 'https://download.itemis.com/antlr-generator-3.2.0-patch.jar').");
+					"\n\n*ATTENTION*\nIt is required to use ANTLR's parser generator (get it from 'https://artifacts.itemis.cloud/repository/p2/antlr-generator-3.2.0-patch.jar').");
 		}
 	}
 
