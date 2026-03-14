@@ -12,13 +12,8 @@ pipeline {
   }
 
   triggers {
-    // Nightly builds only for main of the upstream repository, not for private copies
-    // of it (e.g. one used for security fixes). This runs before checkout, so the URL
-    // comes from the job's SCM configuration (same pattern as IS_UPSTREAM in Initialize).
-    // The repo check comes first so that every build evaluates it, not only main builds.
-    parameterizedCron((scm.userRemoteConfigs[0]?.url ==~ /(https:\/\/|git@)github\.com[\/:]eclipse(-xtext)?\/xtext(\.git)?\/?/) && env.BRANCH_NAME == 'main' ? '''
-      H H(0-1) * * * %TARGET_PLATFORM=r202512;JDK_VERSION=21
-      H H(3-4) * * * %TARGET_PLATFORM=latest;JDK_VERSION=25
+    parameterizedCron(env.BRANCH_NAME == 'cd_tycho50' ? '''
+      H H(13-14) * * * %TARGET_PLATFORM=latest;JDK_VERSION=25
       ''' : '')
   }
 
