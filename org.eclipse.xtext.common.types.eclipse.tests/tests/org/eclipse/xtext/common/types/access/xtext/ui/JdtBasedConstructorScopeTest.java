@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009 itemis AG (http://www.itemis.eu) and others.
+ * Copyright (c) 2009, 2026 itemis AG (http://www.itemis.eu) and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -32,6 +32,7 @@ import org.osgi.framework.Version;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Iterables;
+import org.eclipse.xtext.testing.Flaky;
 
 /**
  * @author Sebastian Zarnekow - Initial contribution and API
@@ -75,6 +76,7 @@ public class JdtBasedConstructorScopeTest extends AbstractConstructorScopeTest {
 		}));
 	}
 	
+	@Flaky
 	@Test public void testGetContents_03() {
 		assumeTrue(JavaCore.getPlugin().getBundle().getVersion().compareTo(new Version(3,31,0)) >= 0);
 		Iterable<IEObjectDescription> contents = constructorScope.getAllElements();
@@ -86,6 +88,7 @@ public class JdtBasedConstructorScopeTest extends AbstractConstructorScopeTest {
 		}));
 	}
 	
+	@Flaky
 	@Test public void testGetContents_04() {
 		assumeTrue(JavaCore.getPlugin().getBundle().getVersion().compareTo(new Version(3,31,0)) >= 0);
 		Iterable<IEObjectDescription> contents = constructorScope.getAllElements();

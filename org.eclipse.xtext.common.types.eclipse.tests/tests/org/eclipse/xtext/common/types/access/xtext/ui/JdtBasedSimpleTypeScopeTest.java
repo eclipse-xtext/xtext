@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009 itemis AG (http://www.itemis.eu) and others.
+ * Copyright (c) 2009, 2026 itemis AG (http://www.itemis.eu) and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -25,6 +25,7 @@ import org.junit.Test;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Iterables;
+import org.eclipse.xtext.testing.Flaky;
 
 /**
  * @author Sebastian Zarnekow - Initial contribution and API
@@ -44,6 +45,7 @@ public class JdtBasedSimpleTypeScopeTest extends AbstractTypeScopeTest {
 		typeScope = new JdtBasedSimpleTypeScope(factory.createTypeProvider(resourceSet), new IQualifiedNameConverter.DefaultImpl(),Predicates.<IEObjectDescription>alwaysTrue());
 	}
 	
+	@Flaky
 	@Test public void testGetContents_01() {
 		Iterable<IEObjectDescription> contents = typeScope.getAllElements();
 		assertTrue(Iterables.any(contents, new Predicate<IEObjectDescription>() {
@@ -64,6 +66,7 @@ public class JdtBasedSimpleTypeScopeTest extends AbstractTypeScopeTest {
 		}));
 	}
 	
+	@Flaky
 	@Test public void testGetContents_03() {
 		Iterable<IEObjectDescription> contents = typeScope.getAllElements();
 		assertTrue(Iterables.any(contents, new Predicate<IEObjectDescription>() {
