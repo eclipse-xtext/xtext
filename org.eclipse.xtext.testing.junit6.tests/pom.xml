@@ -11,7 +11,7 @@
 	<artifactId>org.eclipse.xtext.testing.junit6.tests</artifactId>
 	<packaging>eclipse-plugin</packaging>
 
-	<name>Junit 5 Tests for Xtext Testing Library</name>
+	<name>Junit 6 Tests for Xtext Testing Library</name>
 
 	<dependencies>
 		<dependency>

@@ -6,7 +6,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0
  *******************************************************************************/
-package org.eclipse.xtext.testing.tests.junit5;
+package org.eclipse.xtext.testing.tests.junit6;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

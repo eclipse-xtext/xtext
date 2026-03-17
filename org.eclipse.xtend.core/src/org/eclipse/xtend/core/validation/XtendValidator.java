@@ -207,7 +207,7 @@ public class XtendValidator extends XbaseWithAnnotationsValidator {
 		"org.junit.BeforeClass",
 		"org.junit.AfterClass",
 		
-		// JUnit5 annotations
+		// JUnit6 annotations
 		"org.junit.jupiter.api.Test",
 		"org.junit.jupiter.api.BeforeEach",
 		"org.junit.jupiter.api.AfterEach",

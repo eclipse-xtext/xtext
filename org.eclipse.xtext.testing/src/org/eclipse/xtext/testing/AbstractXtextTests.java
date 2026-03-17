@@ -71,7 +71,7 @@ import com.google.inject.name.Names;
  * New tests should be implemented using the {@link InjectWith} annotation, and
  * the generated {@link IInjectorProvider} and {@link RunWith} with
  * {@link XtextRunner}, for JUnit 4, and {@link ExtendWith} with
- * {@link InjectionExtension}, for JUnit 5.
+ * {@link InjectionExtension}, for JUnit 6.
  * 
  * @author Sven Efftinge - Initial contribution and API
  * @since 2.35

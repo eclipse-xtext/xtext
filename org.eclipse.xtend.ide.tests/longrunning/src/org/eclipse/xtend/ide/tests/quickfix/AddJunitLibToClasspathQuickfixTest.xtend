@@ -9,7 +9,7 @@
 package org.eclipse.xtend.ide.tests.quickfix
 
 import org.eclipse.xtend.ide.buildpath.Junit4LibClasspathAdder
-import org.eclipse.xtend.ide.buildpath.Junit5LibClasspathAdder
+import org.eclipse.xtend.ide.buildpath.Junit6LibClasspathAdder
 import org.eclipse.xtend.ide.tests.XtendIDEInjectorProvider
 import org.eclipse.xtend.ide.tests.buildpath.AbstractJunitLibClasspathAdderTestCase
 import org.eclipse.xtext.diagnostics.Diagnostic
@@ -80,7 +80,7 @@ class AddJunitLibToClasspathQuickfixTest extends AbstractJunitLibClasspathAdderT
     }
 
     @Test
-    def void addJUnit5LibToPluginProjectClasspath() {
+    def void addJUnit6LibToPluginProjectClasspath() {
         val content = '''
             import org.junit.jupiter.api|.Test
             
@@ -91,14 +91,14 @@ class AddJunitLibToClasspathQuickfixTest extends AbstractJunitLibClasspathAdderT
         '''
         create('FooTest2.xtend', content)
             .assertIssueCodes(Diagnostic.LINKING_DIAGNOSTIC)
-            .assertResolutionLabels('Add JUnit 5 lib to classpath')
+            .assertResolutionLabels('Add JUnit 6 lib to classpath')
             .assertModelAfterQuickfix(content.replace('|', ''))
        assertImportPackages(#["org.junit.jupiter.api;version=\"[6.0.0,7.0.0)\""]) // just test 1
     }
     
     
     @Test
-    def void addJUnit5LibToProjectClasspath() {
+    def void addJUnit6LibToProjectClasspath() {
         removePluginNature
         val content = '''
             import org.junit.jupiter.api|.Test
@@ -110,11 +110,11 @@ class AddJunitLibToClasspathQuickfixTest extends AbstractJunitLibClasspathAdderT
         '''
         create('FooTest.xtend', content)
             .assertIssueCodes(Diagnostic.LINKING_DIAGNOSTIC)
-            .assertResolutionLabels('Add JUnit 5 lib to classpath')
+            .assertResolutionLabels('Add JUnit 6 lib to classpath')
             .assertModelAfterQuickfix(content.replace('|', ''))
         assertClasspath(
-            'classpath should contain a JUnit 5 container entry', 
-            Junit5LibClasspathAdder.JUNIT5_LIBRARY_PATH
+            'classpath should contain a JUnit 6 container entry',
+            Junit6LibClasspathAdder.JUNIT6_LIBRARY_PATH
         )
     }
 

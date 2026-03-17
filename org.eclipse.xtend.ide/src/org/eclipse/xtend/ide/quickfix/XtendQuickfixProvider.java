@@ -52,7 +52,7 @@ import org.eclipse.xtend.core.xtend.XtendFunction;
 import org.eclipse.xtend.core.xtend.XtendPackage;
 import org.eclipse.xtend.core.xtend.XtendTypeDeclaration;
 import org.eclipse.xtend.ide.buildpath.Junit4LibClasspathAdder;
-import org.eclipse.xtend.ide.buildpath.Junit5LibClasspathAdder;
+import org.eclipse.xtend.ide.buildpath.Junit6LibClasspathAdder;
 import org.eclipse.xtend.ide.buildpath.XtendLibClasspathAdder;
 import org.eclipse.xtend.ide.codebuilder.InsertionOffsets;
 import org.eclipse.xtend.ide.codebuilder.MemberFromSuperImplementor;
@@ -139,7 +139,7 @@ public class XtendQuickfixProvider extends XbaseQuickfixProvider {
 	
 	@Inject private Junit4LibClasspathAdder junit4LibAdder;
 	
-	@Inject private Junit5LibClasspathAdder junit5LibAdder;
+	@Inject private Junit6LibClasspathAdder junit6LibAdder;
 	
 	@Inject private IJavaProjectProvider projectProvider;
 
@@ -217,13 +217,13 @@ public class XtendQuickfixProvider extends XbaseQuickfixProvider {
 			String type = issue.getData()[0];
 			
 			if (type.startsWith("org.junit.jupiter.")) {
-				acceptor.accept(issue, "Add JUnit 5 lib to classpath", "Add JUnit 5 lib to classpath", "julaunch.gif",
+				acceptor.accept(issue, "Add JUnit 6 lib to classpath", "Add JUnit 6 lib to classpath", "julaunch.gif",
 						new ISemanticModification() {
 							@Override
 							public void apply(EObject element, IModificationContext context) throws Exception {
 								ResourceSet resourceSet = element.eResource().getResourceSet();
 								IJavaProject javaProject = projectProvider.getJavaProject(resourceSet);
-								junit5LibAdder.addLibsToClasspath(javaProject, new NullProgressMonitor());
+								junit6LibAdder.addLibsToClasspath(javaProject, new NullProgressMonitor());
 							}
 						});
 			} else if (type.startsWith("org.junit.")) {

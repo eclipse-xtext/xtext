@@ -10,7 +10,7 @@ package org.eclipse.xtend.ide.tests.quickfix;
 
 import com.google.inject.Inject;
 import org.eclipse.xtend.ide.buildpath.Junit4LibClasspathAdder;
-import org.eclipse.xtend.ide.buildpath.Junit5LibClasspathAdder;
+import org.eclipse.xtend.ide.buildpath.Junit6LibClasspathAdder;
 import org.eclipse.xtend.ide.tests.XtendIDEInjectorProvider;
 import org.eclipse.xtend.ide.tests.buildpath.AbstractJunitLibClasspathAdderTestCase;
 import org.eclipse.xtend2.lib.StringConcatenation;
@@ -92,7 +92,7 @@ public class AddJunitLibToClasspathQuickfixTest extends AbstractJunitLibClasspat
   }
 
   @Test
-  public void addJUnit5LibToPluginProjectClasspath() {
+  public void addJUnit6LibToPluginProjectClasspath() {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("import org.junit.jupiter.api|.Test");
     _builder.newLine();
@@ -108,12 +108,12 @@ public class AddJunitLibToClasspathQuickfixTest extends AbstractJunitLibClasspat
     _builder.append("}");
     _builder.newLine();
     final String content = _builder.toString();
-    this.builder.create("FooTest2.xtend", content).assertIssueCodes(Diagnostic.LINKING_DIAGNOSTIC).assertResolutionLabels("Add JUnit 5 lib to classpath").assertModelAfterQuickfix(content.replace("|", ""));
+    this.builder.create("FooTest2.xtend", content).assertIssueCodes(Diagnostic.LINKING_DIAGNOSTIC).assertResolutionLabels("Add JUnit 6 lib to classpath").assertModelAfterQuickfix(content.replace("|", ""));
     this.assertImportPackages(new String[] { "org.junit.jupiter.api;version=\"[6.0.0,7.0.0)\"" });
   }
 
   @Test
-  public void addJUnit5LibToProjectClasspath() {
+  public void addJUnit6LibToProjectClasspath() {
     this.removePluginNature();
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("import org.junit.jupiter.api|.Test");
@@ -130,9 +130,9 @@ public class AddJunitLibToClasspathQuickfixTest extends AbstractJunitLibClasspat
     _builder.append("}");
     _builder.newLine();
     final String content = _builder.toString();
-    this.builder.create("FooTest.xtend", content).assertIssueCodes(Diagnostic.LINKING_DIAGNOSTIC).assertResolutionLabels("Add JUnit 5 lib to classpath").assertModelAfterQuickfix(content.replace("|", ""));
+    this.builder.create("FooTest.xtend", content).assertIssueCodes(Diagnostic.LINKING_DIAGNOSTIC).assertResolutionLabels("Add JUnit 6 lib to classpath").assertModelAfterQuickfix(content.replace("|", ""));
     this.assertClasspath(
-      "classpath should contain a JUnit 5 container entry", 
-      Junit5LibClasspathAdder.JUNIT5_LIBRARY_PATH);
+      "classpath should contain a JUnit 6 container entry",
+      Junit6LibClasspathAdder.JUNIT6_LIBRARY_PATH);
   }
 }

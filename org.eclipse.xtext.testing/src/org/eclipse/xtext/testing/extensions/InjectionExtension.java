@@ -29,13 +29,13 @@ import com.google.common.collect.MutableClassToInstanceMap;
 import com.google.inject.Injector;
 
 /**
- * Use this extension together with {@link InjectWith} for JUnit 5 based Xtext
+ * Use this extension together with {@link InjectWith} for JUnit 6 based Xtext
  * tests.
  * <p>
  * The extension retrieves an {@link Injector} to inject members in the instance
  * under test before best execution and resets registries after execution.
  * </p>
- * It takes care about JUnit5 {@link Nested nested} test classes. They are inner classes that might
+ * It takes care about JUnit6 {@link Nested nested} test classes. They are inner classes that might
  * be annotated as well and must be handled for injection.
  * </p>
  * 

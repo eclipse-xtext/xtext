@@ -17,7 +17,7 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.xtend.ide.buildpath.Junit4LibClasspathAdder;
-import org.eclipse.xtend.ide.buildpath.Junit5LibClasspathAdder;
+import org.eclipse.xtend.ide.buildpath.Junit6LibClasspathAdder;
 import org.eclipse.xtend.ide.tests.XtendIDEInjectorProvider;
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
@@ -38,7 +38,7 @@ public class JunitLibClasspathAdderTest extends AbstractJunitLibClasspathAdderTe
   private Junit4LibClasspathAdder junit4LibAdder;
 
   @Inject
-  private Junit5LibClasspathAdder junit5LibAdder;
+  private Junit6LibClasspathAdder junit6LibAdder;
 
   @Test
   public void addJUnit4LibToPluginProjectClasspath() {
@@ -68,21 +68,21 @@ public class JunitLibClasspathAdderTest extends AbstractJunitLibClasspathAdderTe
   }
 
   @Test
-  public void addJUnit5LibToPluginProjectClasspath() {
+  public void addJUnit6LibToPluginProjectClasspath() {
     IJavaProject _create = JavaCore.create(this.workbenchHelper.getProject());
     NullProgressMonitor _nullProgressMonitor = new NullProgressMonitor();
-    this.junit5LibAdder.addLibsToClasspath(_create, _nullProgressMonitor);
-    this.assertRequireBundles(Junit5LibClasspathAdder.BUNDLE_IDS);
+    this.junit6LibAdder.addLibsToClasspath(_create, _nullProgressMonitor);
+    this.assertRequireBundles(Junit6LibClasspathAdder.BUNDLE_IDS);
   }
 
   @Test
-  public void addJUnit5LibToProjectClasspath() {
+  public void addJUnit6LibToProjectClasspath() {
     this.removePluginNature();
     IJavaProject _create = JavaCore.create(this.workbenchHelper.getProject());
     NullProgressMonitor _nullProgressMonitor = new NullProgressMonitor();
-    this.junit5LibAdder.addLibsToClasspath(_create, _nullProgressMonitor);
+    this.junit6LibAdder.addLibsToClasspath(_create, _nullProgressMonitor);
     this.assertClasspath(
-      "classpath should contain a JUnit 5 container entry", 
-      Junit5LibClasspathAdder.JUNIT5_LIBRARY_PATH);
+      "classpath should contain a JUnit 6 container entry",
+      Junit6LibClasspathAdder.JUNIT6_LIBRARY_PATH);
   }
 }

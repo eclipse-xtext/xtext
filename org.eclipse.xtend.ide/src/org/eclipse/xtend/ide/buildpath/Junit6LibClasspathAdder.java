@@ -16,9 +16,9 @@ import org.eclipse.jdt.core.JavaCore;
 /**
  * @author vivienjovet - Initial contribution and API
  */
-public class Junit5LibClasspathAdder extends AbstractLibClasspathAdder {
+public class Junit6LibClasspathAdder extends AbstractLibClasspathAdder {
 
-	public static final IPath JUNIT5_LIBRARY_PATH = new Path("org.eclipse.jdt.junit.JUNIT_CONTAINER/5");
+	public static final IPath JUNIT6_LIBRARY_PATH = new Path("org.eclipse.jdt.junit.JUNIT_CONTAINER/6");
 	public static final String[] BUNDLE_IDS = new String[] { 
 			"org.junit",
 			"org.hamcrest.core",
@@ -27,7 +27,7 @@ public class Junit5LibClasspathAdder extends AbstractLibClasspathAdder {
 
 	@Override
 	protected IClasspathEntry createContainerClasspathEntry() {
-		return JavaCore.newContainerEntry(JUNIT5_LIBRARY_PATH);
+		return JavaCore.newContainerEntry(JUNIT6_LIBRARY_PATH);
 	}
 
 	@Override

@@ -11,7 +11,7 @@ package org.eclipse.xtend.ide.tests.buildpath
 import org.eclipse.core.runtime.NullProgressMonitor
 import org.eclipse.jdt.core.JavaCore
 import org.eclipse.xtend.ide.buildpath.Junit4LibClasspathAdder
-import org.eclipse.xtend.ide.buildpath.Junit5LibClasspathAdder
+import org.eclipse.xtend.ide.buildpath.Junit6LibClasspathAdder
 import org.eclipse.xtend.ide.tests.XtendIDEInjectorProvider
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
@@ -28,7 +28,7 @@ class JunitLibClasspathAdderTest extends AbstractJunitLibClasspathAdderTestCase 
 
     @Inject Junit4LibClasspathAdder junit4LibAdder
 
-    @Inject Junit5LibClasspathAdder junit5LibAdder
+    @Inject Junit6LibClasspathAdder junit6LibAdder
 
     @Test
     def void addJUnit4LibToPluginProjectClasspath() {
@@ -48,18 +48,18 @@ class JunitLibClasspathAdderTest extends AbstractJunitLibClasspathAdderTestCase 
     }
 
     @Test
-    def void addJUnit5LibToPluginProjectClasspath() {
-        junit5LibAdder.addLibsToClasspath(JavaCore.create(project), new NullProgressMonitor)
-        assertRequireBundles(Junit5LibClasspathAdder.BUNDLE_IDS)
+    def void addJUnit6LibToPluginProjectClasspath() {
+        junit6LibAdder.addLibsToClasspath(JavaCore.create(project), new NullProgressMonitor)
+        assertRequireBundles(Junit6LibClasspathAdder.BUNDLE_IDS)
     }
 
     @Test
-    def void addJUnit5LibToProjectClasspath() {
+    def void addJUnit6LibToProjectClasspath() {
         removePluginNature
-        junit5LibAdder.addLibsToClasspath(JavaCore.create(project), new NullProgressMonitor)
+        junit6LibAdder.addLibsToClasspath(JavaCore.create(project), new NullProgressMonitor)
         assertClasspath(
-            'classpath should contain a JUnit 5 container entry',
-            Junit5LibClasspathAdder.JUNIT5_LIBRARY_PATH
+            'classpath should contain a JUnit 6 container entry',
+            Junit6LibClasspathAdder.JUNIT6_LIBRARY_PATH
         )
     }
 

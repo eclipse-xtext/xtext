@@ -500,7 +500,7 @@
 									org.eclipse.xtext.java.tests
 								</excludeArtifact>
 								<excludeArtifact>
-									org.eclipse.xtext.junit5.tests
+									org.eclipse.xtext.junit6.tests
 								</excludeArtifact>
 								<excludeArtifact>
 									org.eclipse.xtext.logging
@@ -539,7 +539,7 @@
 									org.eclipse.xtext.sdk
 								</excludeArtifact>
 								<excludeArtifact>
-									org.eclipse.xtext.testing.junit5.tests
+									org.eclipse.xtext.testing.junit6.tests
 								</excludeArtifact>
 								<excludeArtifact>
 									org.eclipse.xtext.testing.tests
@@ -799,7 +799,7 @@
 					<configuration>
 						<!--
 						The Surefire Plugin excludes nested classes by default: http://maven.apache.org/surefire/maven-surefire-plugin/test-mojo.html#excludes
-						By removing all default exclusions the nested classes get executed too, JUnit 4 and JUnit 5.
+						By removing all default exclusions the nested classes get executed too, JUnit 4 and JUnit 6.
 						-->
 						<excludes>
 							<exclude />
@@ -908,7 +908,7 @@
 					<configuration>
 						<!--
 						The Tycho Surefire Plugin excludes nested classes by default: https://tycho.eclipseprojects.io/doc/latest/tycho-surefire-plugin/test-mojo.html#excludes
-						By removing all default exclusions the nested classes get executed too, JUnit 4 and JUnit 5.
+						By removing all default exclusions the nested classes get executed too, JUnit 4 and JUnit 6.
 						-->
 						<excludes>
 							<exclude />

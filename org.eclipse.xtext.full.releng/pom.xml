@@ -43,10 +43,10 @@
 
 		<!-- xtext-core -->
 		<module>../org.eclipse.xtext.testing.tests</module>
-		<module>../org.eclipse.xtext.testing.junit5.tests</module>
+		<module>../org.eclipse.xtext.testing.junit6.tests</module>
 		<module>../org.eclipse.xtext.tests</module>
 		<module>../org.eclipse.xtext.ide.tests</module>
-		<module>../org.eclipse.xtext.junit5.tests</module>
+		<module>../org.eclipse.xtext.junit6.tests</module>
 		<module>../org.eclipse.xtext.testlanguages.ide</module>
 		<module>../org.eclipse.xtext.xtext.bootstrap</module>
 

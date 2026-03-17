@@ -17,7 +17,7 @@
 	(configured in the parent POM).
 	In Tycho 2.7.5, no further configuration is needed besides marking the
 	folders containing tests as test source folders.
-	(you can still force JUnit5 as done below)
+	(you can still force JUnit6 as done below)
 	Moreover, the packaging type must be "eclipse-plugin".
 	-->
 

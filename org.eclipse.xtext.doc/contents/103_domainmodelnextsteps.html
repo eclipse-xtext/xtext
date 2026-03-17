@@ -268,7 +268,7 @@ public void checkFeatureNameIsUnique(Feature feature) {
  }
 </code></pre>
 
-    <p><em>Note</em>: When using JUnit 5 the <a href="https://github.com/eclipse-xtext/xtext/blob/main/org.eclipse.xtext.testing/src/org/eclipse/xtext/testing/extensions/InjectionExtension.java">InjectionExtension</a> is used instead of the XtextRunner. The Xtext code generator generates the example slightly different, depending on which option you have chosen in the <em>New Xtext Project</em> wizard.</p>
+    <p><em>Note</em>: When using JUnit 6 the <a href="https://github.com/eclipse-xtext/xtext/blob/main/org.eclipse.xtext.testing/src/org/eclipse/xtext/testing/extensions/InjectionExtension.java">InjectionExtension</a> is used instead of the XtextRunner. The Xtext code generator generates the example slightly different, depending on which option you have chosen in the <em>New Xtext Project</em> wizard.</p>
   </li>
   <li>
     <p>The utility class <a href="https://github.com/eclipse-xtext/xtext/blob/main/org.eclipse.xtext.testing/src/org/eclipse/xtext/testing/util/ParseHelper.java">ParseHelper</a> allows to parse an arbitrary string into a <em>Domainmodel</em>. The model itself can be traversed and checked afterwards. A static import of <a href="https://junit.org/junit4/javadoc/4.13/org/junit/Assert.html">Assert</a> leads to concise and readable test cases. You can rewrite the generated test case as follows:</p>

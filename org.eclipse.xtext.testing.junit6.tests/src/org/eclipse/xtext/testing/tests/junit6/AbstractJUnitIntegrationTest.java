@@ -1,4 +1,4 @@
-package org.eclipse.xtext.testing.tests.junit5;
+package org.eclipse.xtext.testing.tests.junit6;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -17,7 +17,7 @@ import com.google.inject.Module;
 
 /**
  * Base class for testing JUnit specific integration. For JUnit 4 this is the Test Runner {@link XtextRunner},
- * while JUnit 5 uses extensions, here the {@link InjectionExtension}.
+ * while JUnit 6 uses extensions, here the {@link InjectionExtension}.
  * <p>
  * Copied from initial XtextRunnerTest.
  * 

@@ -35,13 +35,13 @@ public class FileAwareTestLanguageValidationJunit6Test {
 	private ValidationTestHelper validationTestHelper;
 
 	@Test
-	public void testWithJunit5_01() throws Exception {
+	public void testWithJunit6_01() throws Exception {
 		PackageDeclaration model = parseHelper.parse("package x element Y {}");
 		validationTestHelper.assertNoIssues(model);
 	}
 
 	@Test
-	public void testWithJunit5_02() throws Exception {
+	public void testWithJunit6_02() throws Exception {
 		PackageDeclaration model = parseHelper.parse("package x element LetItFail {}");
 		validationTestHelper.assertWarning(model.eResource(), FileAwarePackage.Literals.ELEMENT,
 				FileAwareTestLanguageValidator.INVALID_NAME);
