@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: mavenTychoJUnit6.ide
+Bundle-Vendor: My Company
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: mavenTychoJUnit6.ide; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: mavenTychoJUnit6,
+ org.eclipse.xtext.ide,
+ org.eclipse.xtext.xbase.ide
+Bundle-RequiredExecutionEnvironment: JavaSE-21
+Automatic-Module-Name: mavenTychoJUnit6.ide

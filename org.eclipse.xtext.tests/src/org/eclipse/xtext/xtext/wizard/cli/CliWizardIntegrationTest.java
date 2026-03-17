@@ -139,7 +139,7 @@ public class CliWizardIntegrationTest {
 				project.getIdeProject().setEnabled(true);
 				project.getWebProject().setEnabled(true);
 			}), CliWizardIntegrationTest.newProjectConfig(project -> {
-				project.setBaseName("mavenTychoJUnit5");
+				project.setBaseName("mavenTychoJUnit6");
 				project.setPreferredBuildSystem(BuildSystem.MAVEN);
 				project.setSourceLayout(SourceLayout.PLAIN);
 				project.setProjectLayout(ProjectLayout.HIERARCHICAL);

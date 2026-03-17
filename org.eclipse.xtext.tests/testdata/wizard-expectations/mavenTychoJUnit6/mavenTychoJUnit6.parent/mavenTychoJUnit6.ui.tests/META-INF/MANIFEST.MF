@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: mavenTychoJUnit6.ui.tests
+Bundle-Vendor: My Company
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: mavenTychoJUnit6.ui.tests; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: mavenTychoJUnit6.ui,
+ org.eclipse.xtext.testing,
+ org.eclipse.xtext.ui.testing,
+ org.eclipse.xtext.xbase.testing,
+ org.eclipse.xtext.xbase.ui.testing
+Import-Package: org.junit.jupiter.api;version="[6.0.0,7.0.0)",
+ org.junit.jupiter.api.extension;version="[6.0.0,7.0.0)"
+Bundle-RequiredExecutionEnvironment: JavaSE-21
+Automatic-Module-Name: mavenTychoJUnit6.ui.tests
