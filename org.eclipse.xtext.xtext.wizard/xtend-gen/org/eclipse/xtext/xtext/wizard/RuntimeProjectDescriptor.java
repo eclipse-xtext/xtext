@@ -555,7 +555,7 @@ public class RuntimeProjectDescriptor extends TestedProjectDescriptor {
         _builder.newLine();
         _builder.append("\t\t\t");
         _builder.append("\t");
-        _builder.append("junitVersion = \"5\"");
+        _builder.append("junitVersion = \"6\"");
         _builder.newLine();
         _builder.append("\t\t\t");
         _builder.append("}");
