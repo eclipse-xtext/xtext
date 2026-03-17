@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
-Bundle-SymbolicName: org.eclipse.xtext.junit5.tests;singleton:=true
+Bundle-SymbolicName: org.eclipse.xtext.junit6.tests;singleton:=true
 Bundle-Version: 2.43.0.qualifier
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin

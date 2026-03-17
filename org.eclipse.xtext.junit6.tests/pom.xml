@@ -6,11 +6,11 @@
 		<version>2.43.0-SNAPSHOT</version>
 		<relativePath>../org.eclipse.xtext.nodeploy.parent</relativePath>
 	</parent>
-	<artifactId>org.eclipse.xtext.junit5.tests</artifactId>
+	<artifactId>org.eclipse.xtext.junit6.tests</artifactId>
 	<packaging>eclipse-test-plugin</packaging>
 
-	<name>Xtext Core Runtime JUnit5 Tests</name>
-	<description>Xtext Core Runtime Junit5 Tests.</description>
+	<name>Xtext Core Runtime JUnit6 Tests</name>
+	<description>Xtext Core Runtime Junit6 Tests.</description>
 
 	<dependencies>
 		<dependency>

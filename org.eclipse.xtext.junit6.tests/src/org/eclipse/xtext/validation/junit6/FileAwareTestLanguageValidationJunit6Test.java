@@ -6,7 +6,7 @@
  * 
  * SPDX-License-Identifier: EPL-2.0
  *******************************************************************************/
-package org.eclipse.xtext.validation.junit5;
+package org.eclipse.xtext.validation.junit6;
 
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.extensions.InjectionExtension;
@@ -26,7 +26,7 @@ import com.google.inject.Inject;
  */
 @ExtendWith(InjectionExtension.class)
 @InjectWith(FileAwareTestLanguageInjectorProvider.class)
-public class FileAwareTestLanguageValidationJunit5Test {
+public class FileAwareTestLanguageValidationJunit6Test {
 
 	@Inject
 	private ParseHelper<PackageDeclaration> parseHelper;
