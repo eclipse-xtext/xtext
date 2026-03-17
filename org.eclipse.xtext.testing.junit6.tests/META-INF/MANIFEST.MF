@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Xtext Testing Infrastructure Junit 5 tests
-Bundle-SymbolicName: org.eclipse.xtext.testing.junit5.tests;singleton:=true
+Bundle-Name: Xtext Testing Infrastructure Junit 6 tests
+Bundle-SymbolicName: org.eclipse.xtext.testing.junit6.tests;singleton:=true
 Bundle-Version: 2.43.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: Eclipse Xtext
