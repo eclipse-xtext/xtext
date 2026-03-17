@@ -548,7 +548,7 @@ public class RuntimeProjectDescriptor extends TestedProjectDescriptor {
     _builder.newLine();
     {
       JUnitVersion _junitVersion = this.getConfig().getJunitVersion();
-      boolean _equals_1 = Objects.equals(_junitVersion, JUnitVersion.JUNIT_5);
+      boolean _equals_1 = Objects.equals(_junitVersion, JUnitVersion.JUNIT_6);
       if (_equals_1) {
         _builder.append("\t\t\t");
         _builder.append("junitSupport = {");

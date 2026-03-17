@@ -94,7 +94,7 @@ public abstract class TestProjectDescriptor extends ProjectDescriptor {
       deps.add(_doubleArrow);
     }
     JUnitVersion _junitVersion_1 = this.getConfig().getJunitVersion();
-    boolean _equals_1 = Objects.equals(_junitVersion_1, JUnitVersion.JUNIT_5);
+    boolean _equals_1 = Objects.equals(_junitVersion_1, JUnitVersion.JUNIT_6);
     if (_equals_1) {
       ExternalDependency _externalDependency_1 = new ExternalDependency();
       final Procedure1<ExternalDependency> _function_1 = (ExternalDependency it) -> {
@@ -397,7 +397,7 @@ public abstract class TestProjectDescriptor extends ProjectDescriptor {
     GradleBuildFile _buildGradle = super.buildGradle();
     final Procedure1<GradleBuildFile> _function = (GradleBuildFile it) -> {
       JUnitVersion _junitVersion = this.getConfig().getJunitVersion();
-      boolean _equals = Objects.equals(_junitVersion, JUnitVersion.JUNIT_5);
+      boolean _equals = Objects.equals(_junitVersion, JUnitVersion.JUNIT_6);
       if (_equals) {
         StringConcatenation _builder = new StringConcatenation();
         _builder.append("test {");

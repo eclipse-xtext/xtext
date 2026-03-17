@@ -13,7 +13,7 @@ package org.eclipse.xtext.util;
  * @since 2.14
  */
 public enum JUnitVersion {
-	JUNIT_4 (4), JUNIT_5 (5);
+	JUNIT_4 (4), JUNIT_6 (6);
 	
 	public static JUnitVersion DEFAULT = JUNIT_4;
 	
@@ -30,7 +30,7 @@ public enum JUnitVersion {
 	public static JUnitVersion fromString (String version) {
 		switch (version) {
 		case "4": return JUNIT_4;
-		case "5": return JUNIT_5;
+		case "6": return JUNIT_6;
 		}
 		throw new IllegalArgumentException(version);
 	}

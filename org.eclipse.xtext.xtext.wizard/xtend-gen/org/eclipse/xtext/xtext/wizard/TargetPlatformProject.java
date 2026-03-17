@@ -213,7 +213,7 @@ public class TargetPlatformProject extends ProjectDescriptor {
     _builder.newLine();
     {
       JUnitVersion _junitVersion = this.getConfig().getJunitVersion();
-      boolean _equals = Objects.equals(_junitVersion, JUnitVersion.JUNIT_5);
+      boolean _equals = Objects.equals(_junitVersion, JUnitVersion.JUNIT_6);
       if (_equals) {
         _builder.append("\t\t\t");
         _builder.append("<unit id=\"org.apiguardian.api\" version=\"0.0.0\"/>");

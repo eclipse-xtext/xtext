@@ -116,18 +116,18 @@ class JUnitFragment extends AbstractStubGeneratingFragment {
 		val parseHelper = new TypeReference(testingPackage + ".util.ParseHelper")
 		val test = switch (junitVersion) {
 			case JUnitVersion.JUNIT_4: new TypeReference("org.junit.Test")
-			case JUnitVersion.JUNIT_5: new TypeReference("org.junit.jupiter.api.Test")
+			case JUnitVersion.JUNIT_6: new TypeReference("org.junit.jupiter.api.Test")
 		}
 		val assert = switch (junitVersion) {
 			case JUnitVersion.JUNIT_4: new TypeReference("org.junit.Assert")
-			case JUnitVersion.JUNIT_5: new TypeReference("org.junit.jupiter.api.Assertions")
+			case JUnitVersion.JUNIT_6: new TypeReference("org.junit.jupiter.api.Assertions")
 		}
 		val rootType = new TypeReference(grammar.rules.head.type.classifier as EClass, grammar.eResource.resourceSet)
 		return fileAccessFactory.createXtendFile(exampleRuntimeTest, '''
 			«IF junitVersion==JUnitVersion.JUNIT_4»
 				@«runWith»(«xtextRunner»)
 			«ENDIF»
-			«IF junitVersion==JUnitVersion.JUNIT_5»
+			«IF junitVersion==JUnitVersion.JUNIT_6»
 				@«extendWith»(«injectionExtension»)
 			«ENDIF»
 			@«injectWith»(«injectorProvider»)
@@ -145,7 +145,7 @@ class JUnitFragment extends AbstractStubGeneratingFragment {
 					«IF junitVersion==JUnitVersion.JUNIT_4»
 						«assert».assertTrue(''«»'Unexpected errors: «"\u00AB"»errors.join(", ")«"\u00BB"»''«»', errors.isEmpty)
 					«ENDIF»
-					«IF junitVersion==JUnitVersion.JUNIT_5»
+					«IF junitVersion==JUnitVersion.JUNIT_6»
 						«assert».assertTrue(errors.isEmpty, ''«»'Unexpected errors: «"\u00AB"»errors.join(", ")«"\u00BB"»''«»')
 					«ENDIF»
 				}
@@ -162,11 +162,11 @@ class JUnitFragment extends AbstractStubGeneratingFragment {
 		val parseHelper = new TypeReference(testingPackage + ".util.ParseHelper")
 		val test = switch (junitVersion) {
 			case JUnitVersion.JUNIT_4: new TypeReference("org.junit.Test")
-			case JUnitVersion.JUNIT_5: new TypeReference("org.junit.jupiter.api.Test")
+			case JUnitVersion.JUNIT_6: new TypeReference("org.junit.jupiter.api.Test")
 		}
 		val assert = switch (junitVersion) {
 			case JUnitVersion.JUNIT_4: new TypeReference("org.junit.Assert")
-			case JUnitVersion.JUNIT_5: new TypeReference("org.junit.jupiter.api.Assertions")
+			case JUnitVersion.JUNIT_6: new TypeReference("org.junit.jupiter.api.Assertions")
 		}
 		val rootType = new TypeReference(grammar.rules.head.type.classifier as EClass, grammar.eResource.resourceSet)
 		val list = new TypeReference("java.util.List")
@@ -176,7 +176,7 @@ class JUnitFragment extends AbstractStubGeneratingFragment {
 			«IF junitVersion==JUnitVersion.JUNIT_4»
 				@«runWith»(«xtextRunner».class)
 			«ENDIF»
-			«IF junitVersion==JUnitVersion.JUNIT_5»
+			«IF junitVersion==JUnitVersion.JUNIT_6»
 				@«extendWith»(«injectionExtension».class)
 			«ENDIF»
 			@«injectWith»(«injectorProvider».class)
@@ -192,7 +192,7 @@ class JUnitFragment extends AbstractStubGeneratingFragment {
 					«IF junitVersion==JUnitVersion.JUNIT_4»
 						«assert».assertTrue("Unexpected errors: " + «iterableExtensions».join(errors, ", "), errors.isEmpty());
 					«ENDIF»
-					«IF junitVersion==JUnitVersion.JUNIT_5»
+					«IF junitVersion==JUnitVersion.JUNIT_6»
 						«assert».assertTrue(errors.isEmpty(), "Unexpected errors: " + «iterableExtensions».join(errors, ", "));
 					«ENDIF»
 				}

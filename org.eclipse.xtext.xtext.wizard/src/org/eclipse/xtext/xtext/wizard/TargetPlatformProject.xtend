@@ -95,7 +95,7 @@ class TargetPlatformProject extends ProjectDescriptor {
 					<unit id="org.hamcrest" version="2.2.0"/>
 					<unit id="org.hamcrest.core" version="2.2.0.v20230809-1000"/>
 					<unit id="org.apache.commons.commons-logging" version="0.0.0"/>
-					«IF config.junitVersion == JUnitVersion.JUNIT_5»
+					«IF config.junitVersion == JUnitVersion.JUNIT_6»
 						<unit id="org.apiguardian.api" version="0.0.0"/>
 						<unit id="junit-jupiter-api" version="[6.0.0,7.0.0)"/>
 						<unit id="junit-jupiter-engine" version="[6.0.0,7.0.0)"/>

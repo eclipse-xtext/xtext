@@ -484,7 +484,7 @@ public class AdvancedNewProjectPage extends WizardPage {
 		if (junitVersion4.getSelection()) {
 			return JUnitVersion.JUNIT_4;
 		} else if (junitVersion5.getSelection()) {
-			return JUnitVersion.JUNIT_5;
+			return JUnitVersion.JUNIT_6;
 		} else {
 			throw new IllegalStateException("JUnit version could not be determined");
 		}

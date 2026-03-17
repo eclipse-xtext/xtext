@@ -80,7 +80,7 @@ public class CliProjectsCreatorMain {
 	private JavaVersion javaVersion = JavaVersion.JAVA21;
 
 	@Option(name = "-junitVersion", usage = "JUnit Version", handler = OptionHandlers.JUnitVersionOptionHandler.class)
-	private JUnitVersion junitVersion = JUnitVersion.JUNIT_5;
+	private JUnitVersion junitVersion = JUnitVersion.JUNIT_6;
 
 	@Option(name = "-lineDelimiter", usage = "Line delimiter style", handler = OptionHandlers.LineDelimiterOptionHandler.class)
 	private LineDelimiter delimiter = LineDelimiter.UNIX;

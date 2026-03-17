@@ -162,7 +162,7 @@ public class JUnitFragment extends AbstractStubGeneratingFragment {
         case JUNIT_4:
           _switchResult = new TypeReference("org.junit.Test");
           break;
-        case JUNIT_5:
+        case JUNIT_6:
           _switchResult = new TypeReference("org.junit.jupiter.api.Test");
           break;
         default:
@@ -177,7 +177,7 @@ public class JUnitFragment extends AbstractStubGeneratingFragment {
         case JUNIT_4:
           _switchResult_1 = new TypeReference("org.junit.Assert");
           break;
-        case JUNIT_5:
+        case JUNIT_6:
           _switchResult_1 = new TypeReference("org.junit.jupiter.api.Assertions");
           break;
         default:
@@ -204,7 +204,7 @@ public class JUnitFragment extends AbstractStubGeneratingFragment {
           }
         }
         {
-          boolean _equals_1 = Objects.equals(JUnitFragment.this.junitVersion, JUnitVersion.JUNIT_5);
+          boolean _equals_1 = Objects.equals(JUnitFragment.this.junitVersion, JUnitVersion.JUNIT_6);
           if (_equals_1) {
             _builder.append("@");
             _builder.append(extendWith);
@@ -279,7 +279,7 @@ public class JUnitFragment extends AbstractStubGeneratingFragment {
           }
         }
         {
-          boolean _equals_3 = Objects.equals(JUnitFragment.this.junitVersion, JUnitVersion.JUNIT_5);
+          boolean _equals_3 = Objects.equals(JUnitFragment.this.junitVersion, JUnitVersion.JUNIT_6);
           if (_equals_3) {
             _builder.append("\t\t");
             _builder.append(assert_, "\t\t");
@@ -323,7 +323,7 @@ public class JUnitFragment extends AbstractStubGeneratingFragment {
         case JUNIT_4:
           _switchResult = new TypeReference("org.junit.Test");
           break;
-        case JUNIT_5:
+        case JUNIT_6:
           _switchResult = new TypeReference("org.junit.jupiter.api.Test");
           break;
         default:
@@ -338,7 +338,7 @@ public class JUnitFragment extends AbstractStubGeneratingFragment {
         case JUNIT_4:
           _switchResult_1 = new TypeReference("org.junit.Assert");
           break;
-        case JUNIT_5:
+        case JUNIT_6:
           _switchResult_1 = new TypeReference("org.junit.jupiter.api.Assertions");
           break;
         default:
@@ -368,7 +368,7 @@ public class JUnitFragment extends AbstractStubGeneratingFragment {
           }
         }
         {
-          boolean _equals_1 = Objects.equals(JUnitFragment.this.junitVersion, JUnitVersion.JUNIT_5);
+          boolean _equals_1 = Objects.equals(JUnitFragment.this.junitVersion, JUnitVersion.JUNIT_6);
           if (_equals_1) {
             _builder.append("@");
             _builder.append(extendWith);
@@ -435,7 +435,7 @@ public class JUnitFragment extends AbstractStubGeneratingFragment {
           }
         }
         {
-          boolean _equals_3 = Objects.equals(JUnitFragment.this.junitVersion, JUnitVersion.JUNIT_5);
+          boolean _equals_3 = Objects.equals(JUnitFragment.this.junitVersion, JUnitVersion.JUNIT_6);
           if (_equals_3) {
             _builder.append("\t\t");
             _builder.append(assert_, "\t\t");
