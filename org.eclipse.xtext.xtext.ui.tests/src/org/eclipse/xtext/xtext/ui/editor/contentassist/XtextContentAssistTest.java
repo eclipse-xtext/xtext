@@ -80,6 +80,7 @@ public class XtextContentAssistTest extends AbstractXtextTests implements Resour
 	public static void doDeleteProject() throws CoreException {
 		if(project != null && project.exists())
 			project.delete(true, new NullProgressMonitor());
+		project = null;
 	}
 	
 	public ISetup doGetSetup() {
