@@ -265,7 +265,7 @@ class RuntimeProjectDescriptor extends TestedProjectDescriptor {
 						}
 						«IF config.junitVersion == JUnitVersion.JUNIT_6»
 							junitSupport = {
-								junitVersion = "5"
+								junitVersion = "6"
 							}
 						«ENDIF»
 					}

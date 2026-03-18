@@ -56,7 +56,7 @@ public class AdvancedNewProjectPage extends WizardPage {
 
 	private Button junitVersion4;
 
-	private Button junitVersion5;
+	private Button junitVersion6;
 
 	private Combo preferredBuildSystem;
 
@@ -122,9 +122,9 @@ public class AdvancedNewProjectPage extends WizardPage {
 				button.setSelection(false);
 			});
 
-			junitVersion5 = Radio(childComposite, (button) -> {
+			junitVersion6 = Radio(childComposite, (button) -> {
 				button.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
-				button.setText("5");
+				button.setText("6");
 				button.setSelection(true);
 			});
 		});
@@ -239,7 +239,7 @@ public class AdvancedNewProjectPage extends WizardPage {
 			public void widgetSelected(SelectionEvent e) {
 				boolean enabled = createTestProject.getSelection() == true;
 				junitVersion4.setEnabled(enabled);
-				junitVersion5.setEnabled(enabled);
+				junitVersion6.setEnabled(enabled);
 				validate(e);
 			}
 		});
@@ -483,7 +483,7 @@ public class AdvancedNewProjectPage extends WizardPage {
 	public JUnitVersion getSelectedJUnitVersion() {
 		if (junitVersion4.getSelection()) {
 			return JUnitVersion.JUNIT_4;
-		} else if (junitVersion5.getSelection()) {
+		} else if (junitVersion6.getSelection()) {
 			return JUnitVersion.JUNIT_6;
 		} else {
 			throw new IllegalStateException("JUnit version could not be determined");

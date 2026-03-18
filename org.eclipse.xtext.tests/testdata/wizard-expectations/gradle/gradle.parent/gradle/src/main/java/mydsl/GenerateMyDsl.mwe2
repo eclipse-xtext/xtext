@@ -47,7 +47,7 @@ Workflow {
 				generateXtendStub = true
 			}
 			junitSupport = {
-				junitVersion = "5"
+				junitVersion = "6"
 			}
 		}
 	}
