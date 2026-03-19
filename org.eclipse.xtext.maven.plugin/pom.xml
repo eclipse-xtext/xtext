@@ -158,6 +158,7 @@
 				<artifactId>maven-plugin-plugin</artifactId>
 				<configuration>
 					<goalPrefix>xtext</goalPrefix>
+					<requiredJavaVersion>${maven.compiler.release}</requiredJavaVersion>
 				</configuration>
 			</plugin>
 			<plugin>
