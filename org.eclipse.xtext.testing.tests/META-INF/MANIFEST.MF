@@ -16,5 +16,5 @@ Require-Bundle: org.eclipse.xtext;bundle-version="2.43.0";visibility:=reexport,
 Import-Package: org.apache.log4j;version="1.2.26",
  org.apache.log4j.spi;version="1.2.26"
 Bundle-ActivationPolicy: lazy
-Automatic-Module-Name: org.eclipse.xtext.testing
+Automatic-Module-Name: org.eclipse.xtext.testing.tests
 Eclipse-SourceReferences: eclipseSourceReferences

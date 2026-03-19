@@ -34,4 +34,4 @@ Import-Package: org.apache.commons.logging;version="1.2.0",
  org.junit.jupiter.params;version="[6.0.0,7.0.0)",
  org.junit.jupiter.params.provider;version="[6.0.0,7.0.0)",
  org.junit.platform.commons.support;version="[6.0.0,7.0.0)"
-Automatic-Module-Name: org.eclipse.xtext.tests
+Automatic-Module-Name: org.eclipse.xtext.junit6.tests

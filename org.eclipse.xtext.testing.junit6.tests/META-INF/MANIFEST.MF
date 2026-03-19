@@ -23,5 +23,5 @@ Import-Package: jakarta.inject;version="2.0.1",
  org.junit.jupiter.params.provider;version="[6.0.0,7.0.0)",
  org.junit.platform.commons.support;version="[6.0.0,7.0.0)";resolution:=optional
 Bundle-ActivationPolicy: lazy
-Automatic-Module-Name: org.eclipse.xtext.testing
+Automatic-Module-Name: org.eclipse.xtext.testing.junit6.tests
 Eclipse-SourceReferences: eclipseSourceReferences
