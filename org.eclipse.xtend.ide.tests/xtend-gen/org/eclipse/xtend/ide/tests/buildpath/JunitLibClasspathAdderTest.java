@@ -82,7 +82,7 @@ public class JunitLibClasspathAdderTest extends AbstractJunitLibClasspathAdderTe
     NullProgressMonitor _nullProgressMonitor = new NullProgressMonitor();
     this.junit6LibAdder.addLibsToClasspath(_create, _nullProgressMonitor);
     this.assertClasspath(
-      "classpath should contain a JUnit 6 container entry",
+      "classpath should contain a JUnit 6 container entry", 
       Junit6LibClasspathAdder.JUNIT6_LIBRARY_PATH);
   }
 }

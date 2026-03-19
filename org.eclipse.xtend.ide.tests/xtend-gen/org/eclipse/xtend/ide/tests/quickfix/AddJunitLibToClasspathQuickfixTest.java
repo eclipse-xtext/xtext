@@ -132,7 +132,7 @@ public class AddJunitLibToClasspathQuickfixTest extends AbstractJunitLibClasspat
     final String content = _builder.toString();
     this.builder.create("FooTest.xtend", content).assertIssueCodes(Diagnostic.LINKING_DIAGNOSTIC).assertResolutionLabels("Add JUnit 6 lib to classpath").assertModelAfterQuickfix(content.replace("|", ""));
     this.assertClasspath(
-      "classpath should contain a JUnit 6 container entry",
+      "classpath should contain a JUnit 6 container entry", 
       Junit6LibClasspathAdder.JUNIT6_LIBRARY_PATH);
   }
 }
