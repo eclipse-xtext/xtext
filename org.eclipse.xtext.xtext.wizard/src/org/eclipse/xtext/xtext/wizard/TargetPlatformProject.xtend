@@ -49,11 +49,11 @@ class TargetPlatformProject extends ProjectDescriptor {
 	override getSourceFolders() {
 		#{}
 	}
-	
+
 	def target() '''
 		<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 		<?pde version="3.8"?>
-		<target name="«name»" sequenceNumber="1">
+		<target name="«name»">
 			«IF config.javaVersion.isAtLeast(JavaVersion.JAVA25)»
 				<targetJRE path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-25"/>
 			«ELSE»
@@ -61,15 +61,15 @@ class TargetPlatformProject extends ProjectDescriptor {
 			«ENDIF»
 			<locations>
 				<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-					<unit id="org.eclipse.jdt.feature.group" version="0.0.0"/>
-					<unit id="org.eclipse.platform.feature.group" version="0.0.0"/>
-					<unit id="org.eclipse.pde.feature.group" version="0.0.0"/>
-					<unit id="org.eclipse.draw2d.feature.group" version="0.0.0"/>
-					<unit id="org.eclipse.emf.sdk.feature.group" version="0.0.0"/>
+					<unit id="org.eclipse.jdt.feature.group"/>
+					<unit id="org.eclipse.platform.feature.group"/>
+					<unit id="org.eclipse.pde.feature.group"/>
+					<unit id="org.eclipse.draw2d.feature.group"/>
+					<unit id="org.eclipse.emf.sdk.feature.group"/>
 					<repository location="https://download.eclipse.org/releases/2026-06"/>
 				</location>
 				<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-					<unit id="org.eclipse.emf.mwe2.launcher.feature.group" version="0.0.0"/>
+					<unit id="org.eclipse.emf.mwe2.launcher.feature.group"/>
 					«IF config.xtextVersion.mweVersion.matches("\\d+\\.\\d+(\\.\\d+)+")»
 						<repository location="https://download.eclipse.org/modeling/emft/mwe/updates/releases/«config.xtextVersion.mweVersion»/"/>
 					«ELSE»
@@ -77,7 +77,7 @@ class TargetPlatformProject extends ProjectDescriptor {
 					«ENDIF»
 				</location>
 				<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-					<unit id="org.eclipse.xtext.sdk.feature.group" version="0.0.0"/>
+					<unit id="org.eclipse.xtext.sdk.feature.group"/>
 					«IF config.xtextVersion.isSnapshot»
 						<repository location="https://download.eclipse.org/modeling/tmf/xtext/updates/nightly/"/>
 					«ELSEIF config.xtextVersion.isStable»
@@ -87,16 +87,16 @@ class TargetPlatformProject extends ProjectDescriptor {
 					«ENDIF»
 				</location>
 				<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-					<unit id="com.google.gson" version="2.13.2"/>
-					<unit id="com.google.inject" version="7.0.0"/>
-					<unit id="jakarta.inject.jakarta.inject-api" version="2.0.1"/>
-					<unit id="org.antlr.runtime" version="3.2.0.v20230929-1400"/>
-					<unit id="org.junit" version="0.0.0"/>
-					<unit id="org.hamcrest" version="2.2.0"/>
-					<unit id="org.hamcrest.core" version="2.2.0.v20230809-1000"/>
-					<unit id="org.apache.commons.commons-logging" version="0.0.0"/>
+					<unit id="com.google.gson"/>
+					<unit id="com.google.inject" version="[7,8)"/>
+					<unit id="jakarta.inject.jakarta.inject-api" version="[2,3)"/>
+					<unit id="org.antlr.runtime"/>
+					<unit id="org.junit"/>
+					<unit id="org.hamcrest" version="[2,3)"/>
+					<unit id="org.hamcrest.core" version="[2,3)"/>
+					<unit id="org.apache.commons.commons-logging"/>
 					«IF config.junitVersion == JUnitVersion.JUNIT_6»
-						<unit id="org.apiguardian.api" version="0.0.0"/>
+						<unit id="org.apiguardian.api"/>
 						<unit id="junit-jupiter-api" version="[6.0.0,7.0.0)"/>
 						<unit id="junit-jupiter-engine" version="[6.0.0,7.0.0)"/>
 						<unit id="junit-jupiter-migrationsupport" version="[6.0.0,7.0.0)"/>
@@ -106,10 +106,10 @@ class TargetPlatformProject extends ProjectDescriptor {
 						<unit id="junit-platform-launcher" version="[6.0.0,7.0.0)"/>
 						<unit id="junit-platform-suite-api" version="[6.0.0,7.0.0)"/>
 						<unit id="junit-vintage-engine" version="[6.0.0,7.0.0)"/>
-						<unit id="org.opentest4j" version="0.0.0"/>
+						<unit id="org.opentest4j"/>
 					«ENDIF»
-					<unit id="org.objectweb.asm" version="9.9.1"/>
-					<unit id="io.github.classgraph.classgraph" version="0.0.0"/>
+					<unit id="org.objectweb.asm"/>
+					<unit id="io.github.classgraph.classgraph"/>
 					<repository location="https://download.eclipse.org/tools/orbit/simrel/orbit-aggregation/2026-06"/>
 				</location>
 			</locations>
