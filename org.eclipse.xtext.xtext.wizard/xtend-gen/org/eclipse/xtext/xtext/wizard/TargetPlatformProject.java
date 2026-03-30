@@ -85,7 +85,7 @@ public class TargetPlatformProject extends ProjectDescriptor {
     _builder.append("<target name=\"");
     String _name = this.getName();
     _builder.append(_name);
-    _builder.append("\" sequenceNumber=\"1\">");
+    _builder.append("\">");
     _builder.newLineIfNotEmpty();
     {
       boolean _isAtLeast = this.getConfig().getJavaVersion().isAtLeast(JavaVersion.JAVA25);
@@ -106,19 +106,19 @@ public class TargetPlatformProject extends ProjectDescriptor {
     _builder.append("<location includeAllPlatforms=\"false\" includeConfigurePhase=\"false\" includeMode=\"planner\" includeSource=\"true\" type=\"InstallableUnit\">");
     _builder.newLine();
     _builder.append("\t\t\t");
-    _builder.append("<unit id=\"org.eclipse.jdt.feature.group\" version=\"0.0.0\"/>");
+    _builder.append("<unit id=\"org.eclipse.jdt.feature.group\"/>");
     _builder.newLine();
     _builder.append("\t\t\t");
-    _builder.append("<unit id=\"org.eclipse.platform.feature.group\" version=\"0.0.0\"/>");
+    _builder.append("<unit id=\"org.eclipse.platform.feature.group\"/>");
     _builder.newLine();
     _builder.append("\t\t\t");
-    _builder.append("<unit id=\"org.eclipse.pde.feature.group\" version=\"0.0.0\"/>");
+    _builder.append("<unit id=\"org.eclipse.pde.feature.group\"/>");
     _builder.newLine();
     _builder.append("\t\t\t");
-    _builder.append("<unit id=\"org.eclipse.draw2d.feature.group\" version=\"0.0.0\"/>");
+    _builder.append("<unit id=\"org.eclipse.draw2d.feature.group\"/>");
     _builder.newLine();
     _builder.append("\t\t\t");
-    _builder.append("<unit id=\"org.eclipse.emf.sdk.feature.group\" version=\"0.0.0\"/>");
+    _builder.append("<unit id=\"org.eclipse.emf.sdk.feature.group\"/>");
     _builder.newLine();
     _builder.append("\t\t\t");
     _builder.append("<repository location=\"https://download.eclipse.org/releases/2026-06\"/>");
@@ -130,7 +130,7 @@ public class TargetPlatformProject extends ProjectDescriptor {
     _builder.append("<location includeAllPlatforms=\"false\" includeConfigurePhase=\"false\" includeMode=\"planner\" includeSource=\"true\" type=\"InstallableUnit\">");
     _builder.newLine();
     _builder.append("\t\t\t");
-    _builder.append("<unit id=\"org.eclipse.emf.mwe2.launcher.feature.group\" version=\"0.0.0\"/>");
+    _builder.append("<unit id=\"org.eclipse.emf.mwe2.launcher.feature.group\"/>");
     _builder.newLine();
     {
       boolean _matches = this.getConfig().getXtextVersion().getMweVersion().matches("\\d+\\.\\d+(\\.\\d+)+");
@@ -157,7 +157,7 @@ public class TargetPlatformProject extends ProjectDescriptor {
     _builder.append("<location includeAllPlatforms=\"false\" includeConfigurePhase=\"false\" includeMode=\"planner\" includeSource=\"true\" type=\"InstallableUnit\">");
     _builder.newLine();
     _builder.append("\t\t\t");
-    _builder.append("<unit id=\"org.eclipse.xtext.sdk.feature.group\" version=\"0.0.0\"/>");
+    _builder.append("<unit id=\"org.eclipse.xtext.sdk.feature.group\"/>");
     _builder.newLine();
     {
       boolean _isSnapshot = this.getConfig().getXtextVersion().isSnapshot();
@@ -188,35 +188,35 @@ public class TargetPlatformProject extends ProjectDescriptor {
     _builder.append("<location includeAllPlatforms=\"false\" includeConfigurePhase=\"false\" includeMode=\"planner\" includeSource=\"true\" type=\"InstallableUnit\">");
     _builder.newLine();
     _builder.append("\t\t\t");
-    _builder.append("<unit id=\"com.google.gson\" version=\"2.13.2\"/>");
+    _builder.append("<unit id=\"com.google.gson\"/>");
     _builder.newLine();
     _builder.append("\t\t\t");
-    _builder.append("<unit id=\"com.google.inject\" version=\"7.0.0\"/>");
+    _builder.append("<unit id=\"com.google.inject\" version=\"[7,8)\"/>");
     _builder.newLine();
     _builder.append("\t\t\t");
-    _builder.append("<unit id=\"jakarta.inject.jakarta.inject-api\" version=\"2.0.1\"/>");
+    _builder.append("<unit id=\"jakarta.inject.jakarta.inject-api\" version=\"[2,3)\"/>");
     _builder.newLine();
     _builder.append("\t\t\t");
-    _builder.append("<unit id=\"org.antlr.runtime\" version=\"3.2.0.v20230929-1400\"/>");
+    _builder.append("<unit id=\"org.antlr.runtime\"/>");
     _builder.newLine();
     _builder.append("\t\t\t");
-    _builder.append("<unit id=\"org.junit\" version=\"0.0.0\"/>");
+    _builder.append("<unit id=\"org.junit\"/>");
     _builder.newLine();
     _builder.append("\t\t\t");
-    _builder.append("<unit id=\"org.hamcrest\" version=\"2.2.0\"/>");
+    _builder.append("<unit id=\"org.hamcrest\" version=\"[2,3)\"/>");
     _builder.newLine();
     _builder.append("\t\t\t");
-    _builder.append("<unit id=\"org.hamcrest.core\" version=\"2.2.0.v20230809-1000\"/>");
+    _builder.append("<unit id=\"org.hamcrest.core\" version=\"[2,3)\"/>");
     _builder.newLine();
     _builder.append("\t\t\t");
-    _builder.append("<unit id=\"org.apache.commons.commons-logging\" version=\"0.0.0\"/>");
+    _builder.append("<unit id=\"org.apache.commons.commons-logging\"/>");
     _builder.newLine();
     {
       JUnitVersion _junitVersion = this.getConfig().getJunitVersion();
       boolean _equals = Objects.equals(_junitVersion, JUnitVersion.JUNIT_6);
       if (_equals) {
         _builder.append("\t\t\t");
-        _builder.append("<unit id=\"org.apiguardian.api\" version=\"0.0.0\"/>");
+        _builder.append("<unit id=\"org.apiguardian.api\"/>");
         _builder.newLine();
         _builder.append("\t\t\t");
         _builder.append("<unit id=\"junit-jupiter-api\" version=\"[6.0.0,7.0.0)\"/>");
@@ -246,15 +246,15 @@ public class TargetPlatformProject extends ProjectDescriptor {
         _builder.append("<unit id=\"junit-vintage-engine\" version=\"[6.0.0,7.0.0)\"/>");
         _builder.newLine();
         _builder.append("\t\t\t");
-        _builder.append("<unit id=\"org.opentest4j\" version=\"0.0.0\"/>");
+        _builder.append("<unit id=\"org.opentest4j\"/>");
         _builder.newLine();
       }
     }
     _builder.append("\t\t\t");
-    _builder.append("<unit id=\"org.objectweb.asm\" version=\"9.9.1\"/>");
+    _builder.append("<unit id=\"org.objectweb.asm\"/>");
     _builder.newLine();
     _builder.append("\t\t\t");
-    _builder.append("<unit id=\"io.github.classgraph.classgraph\" version=\"0.0.0\"/>");
+    _builder.append("<unit id=\"io.github.classgraph.classgraph\"/>");
     _builder.newLine();
     _builder.append("\t\t\t");
     _builder.append("<repository location=\"https://download.eclipse.org/tools/orbit/simrel/orbit-aggregation/2026-06\"/>");
