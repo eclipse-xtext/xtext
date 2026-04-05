@@ -118,7 +118,7 @@ public class FlexTokenRegionProviderTest extends AbstractXtendTestCase {
 		do {
 			currentToken = (CommonToken) tokenSource.nextToken();
 			tokens.add(currentToken);
-		} while(currentToken != Token.EOF_TOKEN);
+		} while (currentToken.getType() != Token.EOF);
 		return tokens;
 	}
 }
