@@ -44,7 +44,7 @@ public class TemplateBodyHighlighter {
 	protected void doProvideHighlightingFor(String body, org.eclipse.xtext.ide.editor.syntaxcoloring.IHighlightedPositionAcceptor acceptor) {
 		lexer.setCharStream(new ANTLRStringStream(body));
 		Token token = lexer.nextToken();
-		while(token != Token.EOF_TOKEN) {
+		while(token.getType() != Token.EOF) {
 			String id = tokenIdMapper.getId(token.getType());
 			int offset = TokenTool.getOffset(token);
 			int length = TokenTool.getLength(token);

@@ -229,7 +229,7 @@ public class DocumentTokenSource {
 		List<TokenInfo> result = Lists.newArrayListWithExpectedSize(string.length() / 3);
 		TokenSource source = createTokenSource(string);
 		CommonToken token = (CommonToken) source.nextToken();
-		while (token != Token.EOF_TOKEN) {
+		while (token.getType() != Token.EOF) {
 			TokenInfo info = createTokenInfo(token);
 			result.add(info);
 			token = (CommonToken) source.nextToken();
@@ -281,7 +281,7 @@ public class DocumentTokenSource {
 			int tokenStartsAt = repairEntryData.offset;
 			int tokenInfoIdx = repairEntryData.index;
 			CommonToken token = repairEntryData.newToken;
-			if (token == Token.EOF_TOKEN) 
+			if (token.getType() == Token.EOF)
 				internalModifyableTokenInfos.subList(tokenInfoIdx, internalModifyableTokenInfos.size()).clear();
 			int regionOffset = tokenStartsAt;
 			int regionLength = e.fDocument.getLength()- tokenStartsAt;
@@ -289,7 +289,7 @@ public class DocumentTokenSource {
 			int lengthDiff = e.fText.length() - e.fLength;
 			// compute region length
 			while (true) {
-				if (token == Token.EOF_TOKEN || tokenInfoIdx >= internalModifyableTokenInfos.size())
+				if (token.getType() == Token.EOF || tokenInfoIdx >= internalModifyableTokenInfos.size())
 					break;
 				while (true) {
 					if (tokenInfoIdx >= internalModifyableTokenInfos.size())
@@ -314,7 +314,7 @@ public class DocumentTokenSource {
 			internalModifyableTokenInfos.subList(tokenInfoIdx, internalModifyableTokenInfos.size()).clear();
 			// add subsequent tokens
 			if (tokenInfoIdx >= internalModifyableTokenInfos.size()) {
-				while (token != Token.EOF_TOKEN) {
+				while (token.getType() != Token.EOF) {
 					internalModifyableTokenInfos.add(createTokenInfo(token));
 					token = (CommonToken) repairEntryData.tokenSource.nextToken();
 				}

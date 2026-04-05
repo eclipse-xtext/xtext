@@ -24,7 +24,7 @@ Export-Package: org.eclipse.xtext.enumrules,
  org.eclipse.xtext.generator.grammarAccess.parser.antlr.internal,
  org.eclipse.xtext.generator.grammarAccess.serializer,
  org.eclipse.xtext.generator.grammarAccess.services
-Require-Bundle: org.antlr.runtime;bundle-version="[3.2.0,3.2.1)",
+Require-Bundle: org.antlr.runtime;bundle-version="[3.5.3,4.5.4)",
  org.eclipse.emf.common,
  org.eclipse.emf.ecore,
  org.eclipse.xtext,

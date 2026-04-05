@@ -5,7 +5,7 @@ Bundle-Vendor: Eclipse Xtext
 Bundle-Version: 2.43.0.qualifier
 Bundle-SymbolicName: org.eclipse.xtext.example.domainmodel.ide; singleton:=true
 Bundle-ActivationPolicy: lazy
-Require-Bundle: org.antlr.runtime;bundle-version="[3.2.0,3.2.1)",
+Require-Bundle: org.antlr.runtime;bundle-version="[3.5.3,4.5.4)",
  org.eclipse.xtext.example.domainmodel,
  org.eclipse.xtext.ide,
  org.eclipse.xtext.xbase.ide

@@ -10,7 +10,6 @@ package org.eclipse.xtend.ide.codetemplates.ui.highlighting;
 
 import com.google.inject.Inject;
 import java.io.StringReader;
-import java.util.Objects;
 import org.antlr.runtime.Token;
 import org.eclipse.xtend.core.parser.antlr.internal.FlexTokenSource;
 import org.eclipse.xtend.core.parser.antlr.internal.FlexerFactory;
@@ -38,7 +37,7 @@ public class FlexerBasedTemplateBodyHighlighter extends TemplateBodyHighlighter 
     StringReader _stringReader = new StringReader(body);
     final FlexTokenSource tokenSource = this._flexerFactory.createTokenSource(_stringReader);
     Token token = tokenSource.nextToken();
-    while ((!Objects.equals(token, Token.EOF_TOKEN))) {
+    while ((token.getType() != Token.EOF)) {
       {
         final String id = this._abstractAntlrTokenToAttributeIdMapper.getId(token.getType());
         final int offset = TokenTool.getOffset(token);

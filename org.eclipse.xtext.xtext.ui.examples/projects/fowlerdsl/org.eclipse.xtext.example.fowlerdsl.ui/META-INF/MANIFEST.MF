@@ -5,7 +5,7 @@ Bundle-Vendor: Eclipse Xtext
 Bundle-Version: 2.43.0.qualifier
 Bundle-SymbolicName: org.eclipse.xtext.example.fowlerdsl.ui; singleton:=true
 Bundle-ActivationPolicy: lazy
-Require-Bundle: org.antlr.runtime;bundle-version="[3.2.0,3.2.1)",
+Require-Bundle: org.antlr.runtime;bundle-version="[3.5.3,4.5.4)",
  org.eclipse.compare;bundle-version="3.8.300",
  org.eclipse.core.resources,
  org.eclipse.core.runtime,

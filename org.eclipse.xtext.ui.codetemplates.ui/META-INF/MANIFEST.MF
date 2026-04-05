@@ -17,7 +17,7 @@ Require-Bundle: org.eclipse.xtext.ui.codetemplates;bundle-version="2.43.0";visib
  org.eclipse.ui.workbench.texteditor;bundle-version="3.19.400",
  org.eclipse.core.expressions;bundle-version="3.9.500",
  org.eclipse.ui.navigator;bundle-version="3.13.300",
- org.antlr.runtime;bundle-version="[3.2.0,3.2.1)",
+ org.antlr.runtime;bundle-version="[3.5.3,4.5.4)",
  org.eclipse.xtext.ide;bundle-version="2.43.0",
  org.eclipse.compare;bundle-version="3.11.600",
  org.eclipse.xtend.lib;bundle-version="2.43.0";resolution:=optional,
