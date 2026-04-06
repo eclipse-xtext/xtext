@@ -87,22 +87,25 @@ public class XtextTokenStream extends CommonTokenStream {
 		if ( stop>=tokens.size() ) {
 			stop = tokens.size()-1;
 		}
-		if (tokenSource instanceof Lexer) {
-			Token startToken = (Token) tokens.get(start);
-			Token stopToken = (Token) tokens.get(stop);
-			if (startToken instanceof CommonToken && stopToken instanceof CommonToken) {
-				CommonToken commonStart = (CommonToken) startToken;
-				CommonToken commonStop = (CommonToken) stopToken;
-				CharStream charStream = ((Lexer) tokenSource).getCharStream();
+		if (tokenSource instanceof Lexer lexer) {
+			Token startToken = tokens.get(start);
+			Token stopToken = tokens.get(stop);
+			if (stopToken.getType() == Token.EOF && stop > 0) {
+				stopToken = tokens.get(stop - 1);
+			}
+			if (startToken instanceof CommonToken commonStart && stopToken instanceof CommonToken commonStop) {
+				CharStream charStream = lexer.getCharStream();
 				String result = charStream.substring(commonStart.getStartIndex(), commonStop.getStopIndex());
 				return result;
 			}
 		}
 		// fall back to super implementation but use StringBuilder instead of StringBuffer
 		// and use reasonable initialization size
- 		StringBuilder result = new StringBuilder(Math.max(1024, tokens.size() * 6));
-		for (int i = start; i <= stop; i++) {
-			Token t = (Token)tokens.get(i);
+		StringBuilder result = new StringBuilder(Math.max(1024, tokens.size() * 6));
+		for (Token t : tokens.subList(start, stop + 1)) {
+			if (t.getType() == Token.EOF) {
+				break;
+			}
 			result.append(t.getText());
 		}
 		return result.toString();
