@@ -197,7 +197,7 @@ public class TargetPlatformProject extends ProjectDescriptor {
     _builder.append("<unit id=\"jakarta.inject.jakarta.inject-api\" version=\"[2,3)\"/>");
     _builder.newLine();
     _builder.append("\t\t\t");
-    _builder.append("<unit id=\"org.antlr.runtime\"/>");
+    _builder.append("<unit id=\"org.antlr.runtime\" version=\"[3.2,3.3)\"/>");
     _builder.newLine();
     _builder.append("\t\t\t");
     _builder.append("<unit id=\"org.junit\"/>");
