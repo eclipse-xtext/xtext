@@ -23,7 +23,7 @@
 			<unit id="com.google.gson"/>
 			<unit id="com.google.inject" version="[7,8)"/>
 			<unit id="jakarta.inject.jakarta.inject-api" version="[2,3)"/>
-			<unit id="org.antlr.runtime"/>
+			<unit id="org.antlr.runtime" version="[3.2,3.3)"/>
 			<unit id="org.junit"/>
 			<unit id="org.hamcrest" version="[2,3)"/>
 			<unit id="org.hamcrest.core" version="[2,3)"/>
