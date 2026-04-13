@@ -54,7 +54,7 @@ jobs:
         if: runner.os == 'Windows'
 
       - name: Build and test
-        run: xvfb-run --auto-servernum ./mvnw "-Dmaven.home=${{ env.MAVEN_WRAPPER_HOME }}" clean verify -f org.eclipse.xtext.full.releng -B -fae -PuseJenkinsSnapshots ${{ matrix.additional-maven-args }}
+        run: ${{ runner.os == 'Linux' && 'xvfb-run --auto-servernum' || '' }} ./mvnw "-Dmaven.home=${{ env.MAVEN_WRAPPER_HOME }}" clean verify -f org.eclipse.xtext.full.releng -B -fae -PuseJenkinsSnapshots ${{ matrix.additional-maven-args }}
 
       - name: Archive Test Results
         uses: actions/upload-artifact@v7.0.1
