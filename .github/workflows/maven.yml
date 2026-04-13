@@ -54,7 +54,7 @@ jobs:
         if: runner.os == 'Windows'
 
       - name: Build and test
-        uses: coactions/setup-xvfb@v1.0.1
+        uses: cdietrich/setup-xvfb@node24bump
         with: 
           run: >
             ./mvnw "-Dmaven.home=${{ env.MAVEN_WRAPPER_HOME }}"
