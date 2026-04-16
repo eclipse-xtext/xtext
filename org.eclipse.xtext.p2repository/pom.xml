@@ -13,7 +13,7 @@
 	<properties>
 		<root-dir>${basedir}/..</root-dir>
 		<zipFinalName>${project.artifactId}-${qualifiedVersion}</zipFinalName>
-		<!-- Used for tycho-eclipserun-plugin -->
+		<!-- Used for tycho-eclipse-plugin -->
 		<eclipse-version>2023-03</eclipse-version>
 		<!-- For p2 mirroring -->
 		<p2.mirrorsURL>https://www.eclipse.org/downloads/download.php?format=xml&amp;file=/modeling/tmf/xtext/${remote-subdir}/${project.version}</p2.mirrorsURL>
@@ -206,8 +206,8 @@
 					</executions>
 				</plugin>
 				<plugin>
-					<groupId>org.eclipse.tycho.extras</groupId>
-					<artifactId>tycho-eclipserun-plugin</artifactId>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-eclipse-plugin</artifactId>
 					<configuration>
 						<repositories>
 							<repository>
@@ -399,8 +399,8 @@
 						</executions>
 					</plugin>
 					<plugin>
-						<groupId>org.eclipse.tycho.extras</groupId>
-						<artifactId>tycho-eclipserun-plugin</artifactId>
+						<groupId>org.eclipse.tycho</groupId>
+						<artifactId>tycho-eclipse-plugin</artifactId>
 						<executions>
 							<!-- add our new child repository -->
 							<execution>
@@ -469,8 +469,8 @@
 						</executions>
 					</plugin>
 					<plugin>
-						<groupId>org.eclipse.tycho.extras</groupId>
-						<artifactId>tycho-eclipserun-plugin</artifactId>
+						<groupId>org.eclipse.tycho</groupId>
+						<artifactId>tycho-eclipse-plugin</artifactId>
 						<executions>
 							<!-- add our new child repository -->
 							<execution>
