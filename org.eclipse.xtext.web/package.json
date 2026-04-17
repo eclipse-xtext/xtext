@@ -8,7 +8,7 @@
 	"overrides": {
 		"glob": "11.1.0",
 		"diff": "8.0.3",
-		"serialize-javascript": "7.0.3"
+		"serialize-javascript": "7.0.5"
 	},
 	"scripts": {
 		"test": "mocha -u tdd --reporter dot src/test/js/*.js",
