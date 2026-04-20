@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2016, 2022 itemis AG (http://www.itemis.eu) and others.
+ * Copyright (c) 2016, 2026 itemis AG (http://www.itemis.eu) and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -19,9 +19,7 @@ import org.eclipse.jdt.core.IJavaElementDelta;
 import org.eclipse.jdt.core.IJavaModel;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
-import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.xtext.xbase.lib.util.ReflectExtensions;
-import org.osgi.framework.Version;
 
 import com.google.common.annotations.Beta;
 import com.google.common.collect.Sets;
@@ -35,8 +33,6 @@ import com.google.common.collect.Sets;
 public class JavaProjectClasspathChangeAnalyzer {
 	
 	private static final Logger logger = Logger.getLogger(JavaProjectClasspathChangeAnalyzer.class);
-	
-	private static final Version VERSION_3_33_0 = new Version(3,33,0);
 	
 	private ReflectExtensions reflectExtensions = new ReflectExtensions();
 
@@ -83,15 +79,9 @@ public class JavaProjectClasspathChangeAnalyzer {
 	 * Determines if a given change is a attachment change only
 	 */
 	public boolean isAttachmentChangeOnly(IJavaElementDelta delta) {
-		if (!isJdtCoreGreaterOrEqual(VERSION_3_33_0)) {			
-			if (delta.getAffectedChildren().length == 0) {
-				return true;
-			}
-		} else {
-			// there must be at least one child delta
-			if (delta.getAffectedChildren().length == 0) {
-				return false;
-			}
+		// there must be at least one child delta
+		if (delta.getAffectedChildren().length == 0) {
+			return false;
 		}
 		// all child deltas have to be attachment changes only
 		for (IJavaElementDelta child : delta.getAffectedChildren()) {
@@ -102,15 +92,6 @@ public class JavaProjectClasspathChangeAnalyzer {
 		return true;
 	}
 	
-	private static Version installedJdtCoreVersion;
-	
-	private static boolean isJdtCoreGreaterOrEqual(Version version) {
-		if (installedJdtCoreVersion == null) {
-			installedJdtCoreVersion = JavaCore.getPlugin().getBundle().getVersion();
-		}
-		return installedJdtCoreVersion.compareTo(version) >= 0;
-	}
-
 	/**
 	 * this method checks if the change is a source or javadoc (de)attachment change only.
 	 * @since 2.30
