@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2012, 2024 itemis AG (http://www.itemis.eu) and others.
+ * Copyright (c) 2012, 2026 itemis AG (http://www.itemis.eu) and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -29,7 +29,6 @@ import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.IType;
-import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.compiler.CharOperation;
 import org.eclipse.jdt.internal.core.ClasspathAccessRule;
@@ -54,7 +53,6 @@ import org.eclipse.xtext.xbase.lib.Pair;
 import org.eclipse.xtext.xbase.validation.IssueCodes;
 import org.eclipse.xtext.xtype.XImportDeclaration;
 import org.eclipse.xtext.xtype.XtypePackage;
-import org.osgi.framework.Version;
 
 import com.google.common.collect.Maps;
 import com.google.inject.Inject;
@@ -245,11 +243,7 @@ public class XbaseUIValidator extends AbstractDeclarativeValidator {
 	
 	private static MethodHandle findAccessor() {
 		try {
-			if (JavaCore.getPlugin().getBundle().getVersion().compareTo(new Version(3, 39, 0)) >= 0) {
-				return MethodHandles.lookup().findVirtual(PerProjectInfo.class, "getRootPathToResolvedEntries", MethodType.methodType(Map.class));
-			} else {
-				return MethodHandles.lookup().findGetter(PerProjectInfo.class, "rootPathToResolvedEntries", Map.class);
-			}
+			return MethodHandles.lookup().findVirtual(PerProjectInfo.class, "getRootPathToResolvedEntries", MethodType.methodType(Map.class));
 		} catch (Exception e) {
 			return MethodHandles.dropArguments(MethodHandles.constant(Map.class, Collections.emptyMap()), 0, PerProjectInfo.class);
 		}
