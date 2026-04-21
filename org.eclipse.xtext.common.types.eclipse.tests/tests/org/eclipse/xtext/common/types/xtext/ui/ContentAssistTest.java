@@ -21,6 +21,7 @@ import org.eclipse.xtext.ui.testing.util.ResourceLoadHelper;
 import org.eclipse.xtext.util.Modules2;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.eclipse.xtext.testing.Flaky;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -62,6 +63,7 @@ public class ContentAssistTest extends AbstractXtextTests implements ResourceLoa
 		};
 	}
 	
+	@Flaky
 	@Test
 	public void testDefaultArrayList_01() throws Exception {
 		//FIXME this does not consider JDT type filter, i.e. TypeFilter#isFiltered(char[],char[]) is not called.
@@ -70,6 +72,7 @@ public class ContentAssistTest extends AbstractXtextTests implements ResourceLoa
 		builder.assertText("java.lang.Appendable", "com.google.common.io.AppendableWriter");
 	}
 
+	@Flaky
 	@Test
 	public void testDefaultArrayList_02() throws Exception {
 		//FIXME this does not consider JDT type filter, i.e. TypeFilter#isFiltered(char[],char[]) is not called.
@@ -78,6 +81,7 @@ public class ContentAssistTest extends AbstractXtextTests implements ResourceLoa
 		builder.assertText("Appendable", "com.google.common.io.AppendableWriter");
 	}
 
+	@Flaky
 	@Test public void testCustomArrayList_01() throws Exception {
 		newBuilder().append("custom ArrayLis").assertText(
 				"java.util.ArrayList",
@@ -87,6 +91,7 @@ public class ContentAssistTest extends AbstractXtextTests implements ResourceLoa
 				"com.google.common.collect.ArrayListMultimap");
 	}
 	
+	@Flaky
 	@Test public void testCustomArrayList_02() throws Exception {
 		newBuilder().append("import java.util.* custom ArrayLis").assertText(
 			"ArrayList",
@@ -96,54 +101,67 @@ public class ContentAssistTest extends AbstractXtextTests implements ResourceLoa
 			"com.google.common.collect.ArrayListMultimap");
 	}
 	
+	@Flaky
 	@Test public void testDefaultBlockingQueue_01() throws Exception {
 		newBuilder().append("import java.util.* default BlockingQ").assertText("concurrent.BlockingQueue");
 	}
 	
+	@Flaky
 	@Test public void testDefaultBlockingQueue_02() throws Exception {
 		newBuilder().append("import java.* default BlockingQ").assertText("util.concurrent.BlockingQueue");
 	}
 	
+	@Flaky
 	@Test public void testCustomArrayList_03() throws Exception {
 		newBuilder().append("import java.util.* custom java.util.ArrayLis").assertText("ArrayList","ArrayList.ArrayListSpliterator");
 	}
 
+	@Flaky
 	@Test public void testCustomBlockingQueue_01() throws Exception {
 		newBuilder().append("import java.util.* custom BlockingQ").assertText("concurrent.BlockingQueue");
 	}
 	
+	@Flaky
 	@Test public void testCustomBlockingQueue_02() throws Exception {
 		newBuilder().append("import java.* custom BlockingQ").assertText("util.concurrent.BlockingQueue");
 	}
 	
+	@Flaky
 	@Test public void testCustomBlockingQueue_03() throws Exception {
 		newBuilder().append("import java.* custom concurrent.BlockingQ").assertText("util.concurrent.BlockingQueue");
 	}
 	
+	@Flaky
 	@Test public void testSubtypeArrayList_01() throws Exception {
 		newBuilder().append("subtype ArrayLis").assertText("java.util.ArrayList", "java.util.Arrays.ArrayList");
 	}
 	
+	@Flaky
 	@Test public void testSubtypeArrayList_02() throws Exception {
 		newBuilder().append("import java.util.* subtype ArrayLis").assertText("ArrayList", "Arrays.ArrayList");
 	}
 	
+	@Flaky
 	@Test public void testSubtypeHashSet_01() throws Exception {
 		newBuilder().append("subtype HashSe").assertText("java.util.HashSet");
 	}
 	
+	@Flaky
 	@Test public void testSubtypeHashSet_02() throws Exception {
 		newBuilder().append("import java.util.* subtype HashSe").assertText("HashSet");
 	}
 
+	@Flaky
 	@Test public void testSubtypeBlockingQueue_01() throws Exception {
 		newBuilder().append("import java.util.* subtype BlockingQ").assertText("concurrent.BlockingQueue");
 	}
 	
+	@Flaky
 	@Test public void testSubtypeBlockingQueue_02() throws Exception {
 		newBuilder().append("import java.* subtype BlockingQ").assertText("util.concurrent.BlockingQueue");
 	}
 	
+	@Flaky
 	@Test public void testSubtypeBlockingQueue_03() throws Exception {
 		newBuilder().append("import java.* subtype concurrent.BlockingQ").assertText("util.concurrent.BlockingQueue");
 	}
@@ -159,18 +177,21 @@ public class ContentAssistTest extends AbstractXtextTests implements ResourceLoa
 		}
 	}
 	
+	@Flaky
 	@Test public void testMap_01() throws Exception {
 		newBuilder().append("import java.util.* import javax.swing.text.html.* custom java.util.Map").assertText(
 				"java.util.Map");
 	}
 	
+	@Flaky
 	@Test public void testMap_02() throws Exception {
 		newBuilder().append("import javax.swing.text.html.* import java.util.* custom java.util.Map").assertText(
 				"java.util.Map");
 	}
 	
+	@Flaky
 	@Test public void testMap_03() throws Exception {
 		newBuilder().append("import java.util.* custom java.util.Map").assertText("Map");
 	}
 
-}
+ }

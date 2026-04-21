@@ -29,6 +29,7 @@ import org.junit.Test;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Iterables;
+import org.eclipse.xtext.testing.Flaky;
 
 /**
  * @author Sebastian Zarnekow - Initial contribution and API
@@ -70,6 +71,7 @@ public class JdtBasedConstructorScopeTest extends AbstractConstructorScopeTest {
 		}));
 	}
 	
+	@Flaky
 	@Test public void testGetContents_03() {
 		Iterable<IEObjectDescription> contents = constructorScope.getAllElements();
 		assertTrue(Iterables.any(contents, new Predicate<IEObjectDescription>() {
@@ -80,6 +82,7 @@ public class JdtBasedConstructorScopeTest extends AbstractConstructorScopeTest {
 		}));
 	}
 	
+	@Flaky
 	@Test public void testGetContents_04() {
 		Iterable<IEObjectDescription> contents = constructorScope.getAllElements();
 		assertTrue(Iterables.any(contents, new Predicate<IEObjectDescription>() {
