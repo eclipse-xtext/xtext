@@ -10,8 +10,8 @@
       <category name="Xtext"/>
    </feature>
 
-   <bundle id="com.google.guava" version="33.5.0.qualifier"/>
-   <bundle id="com.google.guava.source" version="33.5.0.qualifier"/>
+   <bundle id="com.google.guava" version="33.6.0.qualifier"/>
+   <bundle id="com.google.guava.source" version="33.6.0.qualifier"/>
    <bundle id="com.google.guava.failureaccess" version="1.0.3.qualifier"/>
    <bundle id="com.google.guava.failureaccess.source" version="1.0.3.qualifier"/>
    <bundle id="com.google.inject" version="7.0.0.qualifier"/>
