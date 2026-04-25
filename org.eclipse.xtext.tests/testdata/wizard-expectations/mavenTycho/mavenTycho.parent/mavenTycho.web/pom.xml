@@ -36,7 +36,7 @@
 			<plugin>
 				<groupId>org.eclipse.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
-				<version>11.0.26</version>
+				<version>12.1.8</version>
 				<configuration>
 					<webAppSourceDirectory>WebRoot</webAppSourceDirectory>
 				</configuration>
@@ -117,7 +117,7 @@
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-annotations</artifactId>
-			<version>11.0.26</version>
+			<version>12.1.8</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
