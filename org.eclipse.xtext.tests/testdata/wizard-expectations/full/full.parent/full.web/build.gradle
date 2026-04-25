@@ -10,7 +10,7 @@ dependencies {
 	api "org.webjars:requirejs:2.3.7"
 	api "org.webjars:jquery:3.6.0"
 	api "org.webjars:ace:1.3.3"
-	providedCompile "org.eclipse.jetty:jetty-annotations:12.1.8"
+	providedCompile "org.eclipse.jetty.ee10:jetty-ee10-annotations:12.1.8"
 	providedCompile "org.slf4j:slf4j-simple:2.0.5"
 }
 task jettyRun(type:JavaExec) {

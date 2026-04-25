@@ -24,8 +24,8 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>org.eclipse.jetty</groupId>
-				<artifactId>jetty-maven-plugin</artifactId>
+				<groupId>org.eclipse.jetty.ee10</groupId>
+				<artifactId>jetty-ee10-maven-plugin</artifactId>
 				<version>12.1.8</version>
 				<configuration>
 					<webAppSourceDirectory>src/main/webapp</webAppSourceDirectory>
@@ -105,8 +105,8 @@
 			<version>1.3.3</version>
 		</dependency>
 		<dependency>
-			<groupId>org.eclipse.jetty</groupId>
-			<artifactId>jetty-annotations</artifactId>
+			<groupId>org.eclipse.jetty.ee10</groupId>
+			<artifactId>jetty-ee10-annotations</artifactId>
 			<version>12.1.8</version>
 			<scope>provided</scope>
 		</dependency>
