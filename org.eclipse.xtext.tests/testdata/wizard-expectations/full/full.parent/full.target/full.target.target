@@ -13,7 +13,7 @@
 		</location>
 		<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 			<unit id="org.eclipse.emf.mwe2.launcher.feature.group"/>
-			<repository location="https://download.eclipse.org/modeling/emft/mwe/updates/milestones/S202604151752/"/>
+			<repository location="https://download.eclipse.org/modeling/emft/mwe/updates/milestones/S202604251324/"/>
 		</location>
 		<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 			<unit id="org.eclipse.xtext.sdk.feature.group"/>

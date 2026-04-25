@@ -8,7 +8,7 @@
 			<unit id="org.eclipse.emf.sdk.feature.group"/>
 		</location>
 		<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-			<repository location="https://download.eclipse.org/modeling/emft/mwe/updates/milestones/S202604151752/"/>
+			<repository location="https://download.eclipse.org/modeling/emft/mwe/updates/milestones/S202604251324/"/>
 			<unit id="org.eclipse.emf.mwe2.launch"/>
 			<unit id="org.eclipse.emf.mwe2.launch.ui"/>
 			<unit id="org.eclipse.emf.mwe2.language.ui"/>

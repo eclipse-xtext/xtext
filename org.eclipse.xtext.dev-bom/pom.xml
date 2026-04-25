@@ -127,8 +127,8 @@
 	<properties>
 		<junit-platform-version>6.0.1</junit-platform-version>
 		<junit-jupiter-version>6.0.1</junit-jupiter-version>
-		<org.eclipse.emf.mwe2-version>2.26.0.M1</org.eclipse.emf.mwe2-version>
-		<org.eclipse.emf.mwe-version>1.20.0.M1</org.eclipse.emf.mwe-version>
+		<org.eclipse.emf.mwe2-version>2.26.0.M2</org.eclipse.emf.mwe2-version>
+		<org.eclipse.emf.mwe-version>1.20.0.M2</org.eclipse.emf.mwe-version>
 		<org.eclipse.lsp4j-version>1.0.0</org.eclipse.lsp4j-version>
 		<org.eclipse.jdt.core-version>3.44.0</org.eclipse.jdt.core-version>
 		<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
