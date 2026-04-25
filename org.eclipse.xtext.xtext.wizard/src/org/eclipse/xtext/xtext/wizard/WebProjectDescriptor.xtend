@@ -53,7 +53,7 @@ class WebProjectDescriptor extends ProjectDescriptor {
 //		deps += createMavenDependency("org.webjars:requirejs-text:" + REQUIREJS_TEXT_VERSION)
 		deps += createMavenDependency("org.webjars:jquery:" + JQUERY_VERSION)
 		deps += createMavenDependency("org.webjars:ace:" + ACE_VERSION)
-		deps += createMavenDependency("org.eclipse.jetty:jetty-annotations:" + JETTY_VERSION) => [maven.scope = Scope.PROVIDED]
+		deps += createMavenDependency("org.eclipse.jetty.ee10:jetty-ee10-annotations:" + JETTY_VERSION) => [maven.scope = Scope.PROVIDED]
 		deps += createMavenDependency("org.slf4j:slf4j-simple:" + SLF4J_VERSION) => [maven.scope = Scope.PROVIDED]
 		return deps
 	}
@@ -109,8 +109,8 @@ class WebProjectDescriptor extends ProjectDescriptor {
 							</configuration>
 						</plugin>
 						<plugin>
-							<groupId>org.eclipse.jetty</groupId>
-							<artifactId>jetty-maven-plugin</artifactId>
+							<groupId>org.eclipse.jetty.ee10</groupId>
+							<artifactId>jetty-ee10-maven-plugin</artifactId>
 							<version>«JETTY_VERSION»</version>
 							<configuration>
 								<webAppSourceDirectory>«Outlet.WEBAPP.sourceFolder»</webAppSourceDirectory>

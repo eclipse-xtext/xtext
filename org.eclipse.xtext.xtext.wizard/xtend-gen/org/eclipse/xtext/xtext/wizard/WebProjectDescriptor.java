@@ -75,7 +75,7 @@ public class WebProjectDescriptor extends ProjectDescriptor {
     deps.add(_createMavenDependency_2);
     ExternalDependency _createMavenDependency_3 = ExternalDependency.createMavenDependency(("org.webjars:ace:" + WebProjectDescriptor.ACE_VERSION));
     deps.add(_createMavenDependency_3);
-    ExternalDependency _createMavenDependency_4 = ExternalDependency.createMavenDependency(("org.eclipse.jetty:jetty-annotations:" + WebProjectDescriptor.JETTY_VERSION));
+    ExternalDependency _createMavenDependency_4 = ExternalDependency.createMavenDependency(("org.eclipse.jetty.ee10:jetty-ee10-annotations:" + WebProjectDescriptor.JETTY_VERSION));
     final Procedure1<ExternalDependency> _function = (ExternalDependency it) -> {
       ExternalDependency.MavenCoordinates _maven = it.getMaven();
       _maven.setScope(Scope.PROVIDED);
@@ -239,10 +239,10 @@ public class WebProjectDescriptor extends ProjectDescriptor {
       _builder.append("<plugin>");
       _builder.newLine();
       _builder.append("\t\t\t");
-      _builder.append("<groupId>org.eclipse.jetty</groupId>");
+      _builder.append("<groupId>org.eclipse.jetty.ee10</groupId>");
       _builder.newLine();
       _builder.append("\t\t\t");
-      _builder.append("<artifactId>jetty-maven-plugin</artifactId>");
+      _builder.append("<artifactId>jetty-ee10-maven-plugin</artifactId>");
       _builder.newLine();
       _builder.append("\t\t\t");
       _builder.append("<version>");
