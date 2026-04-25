@@ -1579,7 +1579,7 @@ public class WebIntegrationFragment extends AbstractXtextGeneratorFragment {
           _builder.append("baseResource = ");
           TypeReference _typeRef_5 = TypeReference.typeRef("org.eclipse.jetty.util.resource.ResourceFactory");
           _builder.append(_typeRef_5, "\t\t\t");
-          _builder.append(".of(webAppContext).newResource(\'");
+          _builder.append(".of(it).newResource(\'");
           String _path = WebIntegrationFragment.this.getProjectConfig().getWeb().getAssets().getPath();
           String _path_1 = WebIntegrationFragment.this.getProjectConfig().getWeb().getRoot().getPath();
           String _plus = (_path_1 + "/");
@@ -1765,7 +1765,7 @@ public class WebIntegrationFragment extends AbstractXtextGeneratorFragment {
           _builder.append("ctx.setBaseResource(");
           TypeReference _typeRef_7 = TypeReference.typeRef("org.eclipse.jetty.util.resource.ResourceFactory");
           _builder.append(_typeRef_7, "\t\t");
-          _builder.append(".of(it).newResource(\"WebRoot\"));");
+          _builder.append(".of(ctx).newResource(\"WebRoot\"));");
           _builder.newLineIfNotEmpty();
           _builder.append("\t\t");
           _builder.append("ctx.setWelcomeFiles(new String[] {\"index.html\"});");

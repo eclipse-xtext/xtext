@@ -688,7 +688,7 @@ class WebIntegrationFragment extends AbstractXtextGeneratorFragment {
 					def static void main(String[] args) {
 						val server = new «'org.eclipse.jetty.server.Server'.typeRef»(new «'java.net.InetSocketAddress'.typeRef»('localhost', 8080))
 						server.handler = new «'org.eclipse.jetty.ee10.webapp.WebAppContext'.typeRef» => [
-							baseResource = «'org.eclipse.jetty.util.resource.ResourceFactory'.typeRef».of(webAppContext).newResource('«projectConfig.web.assets.path.replace(projectConfig.web.root.path + "/", "")»')
+							baseResource = «'org.eclipse.jetty.util.resource.ResourceFactory'.typeRef».of(it).newResource('«projectConfig.web.assets.path.replace(projectConfig.web.root.path + "/", "")»')
 							welcomeFiles = #["index.html"]
 							contextPath = "/"
 							configurations = #[
@@ -734,7 +734,7 @@ class WebIntegrationFragment extends AbstractXtextGeneratorFragment {
 					public static void main(String[] args) {
 						«'org.eclipse.jetty.server.Server'.typeRef» server = new «'org.eclipse.jetty.server.Server'.typeRef»(new «'java.net.InetSocketAddress'.typeRef»("localhost", 8080));
 						«'org.eclipse.jetty.ee10.webapp.WebAppContext'.typeRef» ctx = new «'org.eclipse.jetty.ee10.webapp.WebAppContext'.typeRef»();
-						ctx.setBaseResource(«'org.eclipse.jetty.util.resource.ResourceFactory'.typeRef».of(it).newResource("WebRoot"));
+						ctx.setBaseResource(«'org.eclipse.jetty.util.resource.ResourceFactory'.typeRef».of(ctx).newResource("WebRoot"));
 						ctx.setWelcomeFiles(new String[] {"index.html"});
 						ctx.setContextPath("/");
 						ctx.setConfigurations(new «'org.eclipse.jetty.ee10.webapp.Configuration'.typeRef»[] {
