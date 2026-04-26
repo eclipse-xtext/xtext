@@ -10,6 +10,7 @@ package org.eclipse.xtext.ide.editor.contentassist.antlr;
 
 import java.util.Iterator;
 
+import org.antlr.runtime.CommonToken;
 import org.antlr.runtime.Token;
 import org.antlr.runtime.TokenSource;
 
@@ -30,7 +31,7 @@ public class LookAheadBasedTokenSource implements TokenSource {
 			ILookAheadTerminal lookAhead = iter.next();
 			return lookAhead.getToken();
 		}
-		return Token.EOF_TOKEN;
+		return new CommonToken(Token.EOF);
 	}
 
 	@Override

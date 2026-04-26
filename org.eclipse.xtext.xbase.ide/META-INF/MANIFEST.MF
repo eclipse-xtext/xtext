@@ -10,7 +10,7 @@ Require-Bundle: org.eclipse.xtext.ide;bundle-version="2.43.0",
  org.eclipse.xtext.xbase;bundle-version="2.43.0";visibility:=reexport,
  org.eclipse.xtext.xbase.lib;bundle-version="2.43.0",
  org.objectweb.asm;bundle-version="[9.9.1,10.0.0)",
- org.antlr.runtime;bundle-version="[3.2.0,3.2.1)",
+ org.antlr.runtime;bundle-version="[3.5.3,4.5.4)",
  org.eclipse.lsp4j;bundle-version="[1.0.0,1.1.0)";resolution:=optional
 Export-Package: org.eclipse.xtext.xbase.annotations.ide.contentassist.antlr;version="2.43.0";x-friends:="org.eclipse.xtext.xbase.ui",
  org.eclipse.xtext.xbase.annotations.ide.contentassist.antlr.internal;version="2.43.0";x-friends:="org.eclipse.xtext.xbase.ui",

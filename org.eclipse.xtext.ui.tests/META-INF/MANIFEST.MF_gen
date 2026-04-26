@@ -218,7 +218,7 @@ Export-Package: org.eclipse.xtext.ui.tests,
  org.eclipse.xtext.ui.tests.xmleditor.simplexml.util,
  org.eclipse.xtext.ui.tests.xmleditor.tests;x-internal=true,
  org.eclipse.xtext.ui.tests.xmleditor.validation
-Require-Bundle: org.antlr.runtime;bundle-version="[3.2.0,3.2.1)",
+Require-Bundle: org.antlr.runtime;bundle-version="[3.5.3,4.5.4)",
  org.eclipse.emf.common,
  org.eclipse.emf.ecore,
  org.eclipse.xtext,

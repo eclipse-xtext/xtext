@@ -8,7 +8,7 @@ Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.xtext.xbase.testlanguages;bundle-version="2.43.0",
  org.eclipse.xtext.ide;bundle-version="2.43.0",
  org.eclipse.xtext.xbase.ide;bundle-version="2.43.0",
- org.antlr.runtime;bundle-version="[3.2.0,3.2.1)"
+ org.antlr.runtime;bundle-version="[3.5.3,4.5.4)"
 Bundle-RequiredExecutionEnvironment: JavaSE-21
 Export-Package: org.eclipse.xtext.xbase.testlanguages.bug462047.ide;version="2.43.0",
  org.eclipse.xtext.xbase.testlanguages.bug462047.ide.contentassist.antlr;version="2.43.0",

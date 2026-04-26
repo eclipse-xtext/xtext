@@ -82,40 +82,43 @@ public class XtextTokenStream extends CommonTokenStream {
 			return null;
 		}
 		if ( p == -1 ) {
-			fillBuffer();
+			fill();
 		}
 		if ( stop>=tokens.size() ) {
 			stop = tokens.size()-1;
 		}
-		if (tokenSource instanceof Lexer) {
-			Token startToken = (Token) tokens.get(start);
-			Token stopToken = (Token) tokens.get(stop);
-			if (startToken instanceof CommonToken && stopToken instanceof CommonToken) {
-				CommonToken commonStart = (CommonToken) startToken;
-				CommonToken commonStop = (CommonToken) stopToken;
-				CharStream charStream = ((Lexer) tokenSource).getCharStream();
+		if (tokenSource instanceof Lexer lexer) {
+			Token startToken = tokens.get(start);
+			Token stopToken = tokens.get(stop);
+			if (stopToken.getType() == Token.EOF && stop > 0) {
+				stopToken = tokens.get(stop - 1);
+			}
+			if (startToken instanceof CommonToken commonStart && stopToken instanceof CommonToken commonStop) {
+				CharStream charStream = lexer.getCharStream();
 				String result = charStream.substring(commonStart.getStartIndex(), commonStop.getStopIndex());
 				return result;
 			}
 		}
 		// fall back to super implementation but use StringBuilder instead of StringBuffer
 		// and use reasonable initialization size
- 		StringBuilder result = new StringBuilder(Math.max(1024, tokens.size() * 6));
-		for (int i = start; i <= stop; i++) {
-			Token t = (Token)tokens.get(i);
+		StringBuilder result = new StringBuilder(Math.max(1024, tokens.size() * 6));
+		for (Token t : tokens.subList(start, stop + 1)) {
+			if (t.getType() == Token.EOF) {
+				break;
+			}
 			result.append(t.getText());
 		}
 		return result.toString();
 	}
 	
 	@SuppressWarnings({ "serial" })
-	private final class TokenList extends ArrayList<Object> {
+	private final class TokenList extends ArrayList<Token> {
 		private TokenList(int initialCapacity) {
 			super(initialCapacity);
 		}
 
 		@Override
-		public Object get(int index) {
+		public Token get(int index) {
 			Token tok = (Token) super.get(index);
 			// adjust only tokens in the 'future', as we wont change the channel of previously parsed
 			// tokens
@@ -208,7 +211,7 @@ public class XtextTokenStream extends CommonTokenStream {
 	 * @since 2.22
 	 */
 	protected int getTokenIndex(Token tok) {
-		if (tok == Token.EOF_TOKEN) {
+		if (tok.getType() == Token.EOF) {
 			return size();
 		}
 		return tok.getTokenIndex();
@@ -291,7 +294,7 @@ public class XtextTokenStream extends CommonTokenStream {
         	// copied from super.LT(k) except from the last assignment to p
         	int k_ = k + 1;
         	if ( (p+k_-1) >= tokens.size() ) {
-    			return Token.EOF_TOKEN;
+    			return new CommonToken(Token.EOF);
     		}
     		int i = p;
     		int n = 1;
@@ -305,7 +308,7 @@ public class XtextTokenStream extends CommonTokenStream {
     			n++;
     		}
     		if ( i>=tokens.size() ) {
-    			return Token.EOF_TOKEN;
+    			return new CommonToken(Token.EOF);
     		}
     		p = i; // adjust p to the valid pointer
             result = (Token)tokens.get(i);
