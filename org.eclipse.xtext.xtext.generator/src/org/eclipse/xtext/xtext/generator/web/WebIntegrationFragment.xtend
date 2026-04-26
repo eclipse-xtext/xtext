@@ -687,25 +687,25 @@ class WebIntegrationFragment extends AbstractXtextGeneratorFragment {
 					
 					def static void main(String[] args) {
 						val server = new «'org.eclipse.jetty.server.Server'.typeRef»(new «'java.net.InetSocketAddress'.typeRef»('localhost', 8080))
-						server.handler = new «'org.eclipse.jetty.webapp.WebAppContext'.typeRef» => [
-							resourceBase = '«projectConfig.web.assets.path.replace(projectConfig.web.root.path + "/", "")»'
+						server.handler = new «'org.eclipse.jetty.ee10.webapp.WebAppContext'.typeRef» => [
+							baseResource = «'org.eclipse.jetty.util.resource.ResourceFactory'.typeRef».of(it).newResource('«projectConfig.web.assets.path.replace(projectConfig.web.root.path + "/", "")»')
 							welcomeFiles = #["index.html"]
 							contextPath = "/"
 							configurations = #[
-								new «'org.eclipse.jetty.annotations.AnnotationConfiguration'.typeRef»,
-								new «'org.eclipse.jetty.webapp.WebXmlConfiguration'.typeRef»,
-								new «'org.eclipse.jetty.webapp.WebInfConfiguration'.typeRef»,
-								new «'org.eclipse.jetty.webapp.MetaInfConfiguration'.typeRef»,
-								new «'org.eclipse.jetty.webapp.WebAppConfiguration'.typeRef»
+								new «'org.eclipse.jetty.ee10.annotations.AnnotationConfiguration'.typeRef»,
+								new «'org.eclipse.jetty.ee10.webapp.WebXmlConfiguration'.typeRef»,
+								new «'org.eclipse.jetty.ee10.webapp.WebInfConfiguration'.typeRef»,
+								new «'org.eclipse.jetty.ee10.webapp.MetaInfConfiguration'.typeRef»,
+								new «'org.eclipse.jetty.ee10.webapp.WebAppConfiguration'.typeRef»
 							]
-							setAttribute(«'org.eclipse.jetty.webapp.MetaInfConfiguration'.typeRef».CONTAINER_JAR_PATTERN, '.*/«projectConfig.web.name.replace('.', '\\\\.')»/.*,.*\\.jar')
+							setAttribute(«'org.eclipse.jetty.ee10.webapp.MetaInfConfiguration'.typeRef».CONTAINER_JAR_PATTERN, '.*/«projectConfig.web.name.replace('.', '\\\\.')»/.*,.*\\.jar')
 							setInitParameter("org.eclipse.jetty.servlet.Default.useFileMappedBuffer", "false")
 						]
 						try {
 							server.start
 							LOG.info('Server started ' + server.getURI + '...')
 							new Thread[
-								log.info('Press enter to stop the server...')
+								LOG.info('Press enter to stop the server...')
 								val key = System.in.read
 								if (key != -1) {
 									server.stop
@@ -733,18 +733,18 @@ class WebIntegrationFragment extends AbstractXtextGeneratorFragment {
 					
 					public static void main(String[] args) {
 						«'org.eclipse.jetty.server.Server'.typeRef» server = new «'org.eclipse.jetty.server.Server'.typeRef»(new «'java.net.InetSocketAddress'.typeRef»("localhost", 8080));
-						«'org.eclipse.jetty.webapp.WebAppContext'.typeRef» ctx = new «'org.eclipse.jetty.webapp.WebAppContext'.typeRef»();
-						ctx.setResourceBase("WebRoot");
+						«'org.eclipse.jetty.ee10.webapp.WebAppContext'.typeRef» ctx = new «'org.eclipse.jetty.ee10.webapp.WebAppContext'.typeRef»();
+						ctx.setBaseResource(«'org.eclipse.jetty.util.resource.ResourceFactory'.typeRef».of(ctx).newResource("WebRoot"));
 						ctx.setWelcomeFiles(new String[] {"index.html"});
 						ctx.setContextPath("/");
-						ctx.setConfigurations(new «'org.eclipse.jetty.webapp.Configuration'.typeRef»[] {
-							new «'org.eclipse.jetty.annotations.AnnotationConfiguration'.typeRef»(),
-							new «'org.eclipse.jetty.webapp.WebXmlConfiguration'.typeRef»(),
-							new «'org.eclipse.jetty.webapp.WebInfConfiguration'.typeRef»(),
-							new «'org.eclipse.jetty.webapp.MetaInfConfiguration'.typeRef»(),
-							new «'org.eclipse.jetty.webapp.WebAppConfiguration'.typeRef»()
+						ctx.setConfigurations(new «'org.eclipse.jetty.ee10.webapp.Configuration'.typeRef»[] {
+							new «'org.eclipse.jetty.ee10.annotations.AnnotationConfiguration'.typeRef»(),
+							new «'org.eclipse.jetty.ee10.webapp.WebXmlConfiguration'.typeRef»(),
+							new «'org.eclipse.jetty.ee10.webapp.WebInfConfiguration'.typeRef»(),
+							new «'org.eclipse.jetty.ee10.webapp.MetaInfConfiguration'.typeRef»(),
+							new «'org.eclipse.jetty.ee10.webapp.WebAppConfiguration'.typeRef»()
 						});
-						ctx.setAttribute(«'org.eclipse.jetty.webapp.MetaInfConfiguration'.typeRef».CONTAINER_JAR_PATTERN,
+						ctx.setAttribute(«'org.eclipse.jetty.ee10.webapp.MetaInfConfiguration'.typeRef».CONTAINER_JAR_PATTERN,
 							".*/«projectConfig.web.name.replace('.', '\\\\.')»/.*,.*\\.jar");
 						ctx.setInitParameter("org.eclipse.jetty.servlet.Default.useFileMappedBuffer", "false");
 						server.setHandler(ctx);

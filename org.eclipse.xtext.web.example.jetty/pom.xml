@@ -10,7 +10,7 @@
 	<packaging>war</packaging>
 
 	<properties>
-		<jetty-version>11.0.26</jetty-version>
+		<jetty-version>12.1.8</jetty-version>
 	</properties>
 
 	<dependencies>
@@ -69,10 +69,10 @@
 			<artifactId>reload4j</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.eclipse.jetty</groupId>
-			<artifactId>jetty-annotations</artifactId>
-			<version>${jetty-version}</version>
-			<scope>provided</scope>
+		    <groupId>org.eclipse.jetty.ee10</groupId>
+		    <artifactId>jetty-ee10-annotations</artifactId>
+		    <version>${jetty-version}</version>
+		    <scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
