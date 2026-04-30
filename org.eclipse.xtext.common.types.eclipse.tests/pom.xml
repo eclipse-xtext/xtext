@@ -12,4 +12,30 @@
 	<groupId>org.eclipse.xtext</groupId>
 	<artifactId>org.eclipse.xtext.common.types.eclipse.tests</artifactId>
 
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-surefire-plugin</artifactId>
+				<configuration>
+					<bundleStartLevel>
+						<bundle>
+						<id>org.eclipse.xtext.ui.shared</id>
+						<level>6</level>
+						<autoStart>true</autoStart>
+						</bundle>
+					</bundleStartLevel>
+					<bundleStartLevel>
+						<bundle>
+						<id>org.eclipse.pde.core</id>
+						<level>6</level>
+						<autoStart>true</autoStart>
+						</bundle>
+					</bundleStartLevel>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+
 </project>
