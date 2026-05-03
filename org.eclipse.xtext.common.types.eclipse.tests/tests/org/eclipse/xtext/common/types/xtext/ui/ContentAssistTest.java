@@ -15,8 +15,6 @@ import org.eclipse.xtext.common.types.access.jdt.MockJavaProjectProvider;
 import org.eclipse.xtext.common.types.eclipse.tests.internal.TestsActivator;
 import org.eclipse.xtext.common.types.xtext.ui.ui.ContentAssistTestLanguageUiModule;
 import org.eclipse.xtext.testing.AbstractXtextTests;
-import org.eclipse.xtext.ui.editor.contentassist.antlr.DelegatingContentAssistContextFactoryWithSharedPool.SharedExecutorServiceAccess;
-import org.eclipse.xtext.ui.shared.Access;
 import org.eclipse.xtext.ui.shared.SharedStateModule;
 import org.eclipse.xtext.ui.testing.ContentAssistProcessorTestBuilder;
 import org.eclipse.xtext.ui.testing.util.ResourceLoadHelper;
@@ -26,7 +24,6 @@ import org.junit.Test;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.google.inject.Provider;
 
 /**
  * @author Sebastian Zarnekow - Initial contribution and API
@@ -58,11 +55,6 @@ public class ContentAssistTest extends AbstractXtextTests implements ResourceLoa
 							@Override
 							public Class<? extends IJavaProjectProvider> bindIJavaProjectProvider() {
 								return MockJavaProjectProvider.class;
-							}
-
-							@SuppressWarnings("unused")
-							public Provider<? extends SharedExecutorServiceAccess> provideSharedExecutorServiceAccess() {
-								return Access.provider(SharedExecutorServiceAccess.class);
 							}
 						}, 
 						new SharedStateModule()));
