@@ -26,6 +26,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaElement;
@@ -34,6 +35,8 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.ui.PreferenceConstants;
+import org.eclipse.pde.internal.core.ClasspathComputer;
+import org.eclipse.pde.internal.core.PluginModelManager;
 import org.eclipse.xtext.common.types.eclipse.tests.internal.TestsActivator;
 import org.eclipse.xtext.ui.testing.util.IResourcesSetupUtil;
 import org.eclipse.xtext.ui.testing.util.JavaProjectSetupUtil;
@@ -98,6 +101,8 @@ public class MockJavaProjectProvider implements IJavaProjectProvider {
 		}
 		createFile("ClassWithDefaultPackage.java", sourceFolder, "public class ClassWithDefaultPackage {}");
 		PreferenceConstants.getPreferenceStore().putValue(PreferenceConstants.TYPEFILTER_ENABLED, "*.javafx.*;");
+		Job.getJobManager().join(PluginModelManager.class, null);
+		Job.getJobManager().join(ClasspathComputer.class, null);
 		IResourcesSetupUtil.waitForBuild();
 	}
 
