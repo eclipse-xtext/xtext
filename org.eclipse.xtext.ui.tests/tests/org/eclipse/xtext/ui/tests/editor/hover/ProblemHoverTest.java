@@ -22,6 +22,7 @@ import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.text.Region;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.undo.CreateMarkersOperation;
@@ -83,6 +84,7 @@ public class ProblemHoverTest extends AbstractEditorTest {
 		for (Issue issue : issues) {
 			markerCreator.createMarker(issue, file, MarkerTypes.forCheckType(issue.getType()));
 		}
+		waitForAnnotations(1, issues.size());
 	}
 
 	@Override
@@ -169,5 +171,22 @@ public class ProblemHoverTest extends AbstractEditorTest {
 	private void assertHoverInfoContains(String hoverInfo, String contains) {
 		assertTrue("HOVER INFO: " + hoverInfo,
 			hoverInfo.contains(contains));
+	}
+
+	private void waitForAnnotations(int lineNumber, int expectedCount) {
+		Display display = Display.getDefault();
+		long end = System.currentTimeMillis() + 5000;
+		int annotationCount;
+		do {
+			waitForEventProcessing();
+			annotationCount = hover.getAnnotations(lineNumber, -1).size();
+			if (annotationCount >= expectedCount) {
+				return;
+			}
+			display.timerExec(10, () -> {
+			});
+			display.sleep();
+		} while (System.currentTimeMillis() < end);
+		fail("Expected at least " + expectedCount + " annotations on line " + lineNumber + " but found " + annotationCount);
 	}
 }
