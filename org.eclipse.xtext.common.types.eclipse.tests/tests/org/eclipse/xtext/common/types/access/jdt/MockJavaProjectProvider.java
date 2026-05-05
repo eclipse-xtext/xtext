@@ -25,6 +25,7 @@ import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -34,6 +35,15 @@ import org.eclipse.jdt.core.IJavaModel;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jdt.core.search.IJavaSearchConstants;
+import org.eclipse.jdt.core.search.IJavaSearchScope;
+import org.eclipse.jdt.core.search.SearchEngine;
+import org.eclipse.jdt.core.search.SearchPattern;
+import org.eclipse.jdt.core.search.TypeNameRequestor;
+import org.eclipse.jdt.launching.IVMInstall;
+import org.eclipse.jdt.launching.IVMInstallType;
+import org.eclipse.jdt.launching.JavaRuntime;
+import org.eclipse.jdt.launching.environments.IExecutionEnvironment;
 import org.eclipse.jdt.ui.PreferenceConstants;
 import org.eclipse.pde.internal.core.ClasspathComputer;
 import org.eclipse.pde.internal.core.PluginModelManager;
@@ -71,12 +81,15 @@ public class MockJavaProjectProvider implements IJavaProjectProvider {
 	public static void setUp() throws Exception {
 		if(javaProject != null)
 			return;
+		assertJREsAreAvailable();
 		javaProject = createJavaProject("projectWithoutSources",
 				new String[] {
 						JavaCore.NATURE_ID,
 						"org.eclipse.pde.PluginNature"
 				}
 		);
+		Job.getJobManager().join(PluginModelManager.class, null);
+		Job.getJobManager().join(ClasspathComputer.class, null);
 		String path = "/org/eclipse/xtext/common/types/testSetups";
 		String jarFileName = "/testData.jar";
 		IFile jarFile = PluginUtil.copyFileToWorkspace(TestsActivator.getInstance(), path + jarFileName, javaProject.getProject(), 
@@ -101,9 +114,63 @@ public class MockJavaProjectProvider implements IJavaProjectProvider {
 		}
 		createFile("ClassWithDefaultPackage.java", sourceFolder, "public class ClassWithDefaultPackage {}");
 		PreferenceConstants.getPreferenceStore().putValue(PreferenceConstants.TYPEFILTER_ENABLED, "*.javafx.*;");
+		waitForJavaSearch();
+	}
+
+	private static void waitForJavaSearch() throws Exception {
 		Job.getJobManager().join(PluginModelManager.class, null);
 		Job.getJobManager().join(ClasspathComputer.class, null);
 		IResourcesSetupUtil.waitForBuild();
+		IResourcesSetupUtil.waitForJdtIndex();
+		assertTypeIsSearchable(javaProject, "java.util", "ArrayList");
+	}
+
+	private static void assertJREsAreAvailable() {
+		IExecutionEnvironment preferredEnvironment = JavaRuntime.getExecutionEnvironmentsManager()
+				.getEnvironment(JREContainerProvider.PREFERRED_BREE);
+		if (preferredEnvironment == null) {
+			throw new AssertionError("JDT launching does not provide execution environment "
+					+ JREContainerProvider.PREFERRED_BREE + ". The ContentAssistTest mock Java projects require a "
+					+ "resolvable JRE container.");
+		}
+		IVMInstall[] compatibleVMs = preferredEnvironment.getCompatibleVMs();
+		if (preferredEnvironment.getDefaultVM() == null && compatibleVMs.length == 0 && JavaRuntime.getDefaultVMInstall() == null) {
+			throw new AssertionError("No JDT VM install is available for " + JREContainerProvider.PREFERRED_BREE
+					+ ". The ContentAssistTest mock Java projects need Java types from a resolved JRE container. "
+					+ "On macOS, make sure org.eclipse.jdt.launching.macosx is included in the PDE/Tycho test runtime. "
+					+ "Known VM install types: " + getVMInstallTypeIds());
+		}
+	}
+
+	private static void assertTypeIsSearchable(IJavaProject project, String packageName, String simpleTypeName)
+			throws JavaModelException {
+		final boolean[] found = new boolean[] { false };
+		IJavaSearchScope scope = SearchEngine.createJavaSearchScope(new IJavaElement[] { project });
+		new SearchEngine().searchAllTypeNames(
+				packageName.toCharArray(), SearchPattern.R_EXACT_MATCH | SearchPattern.R_CASE_SENSITIVE,
+				simpleTypeName.toCharArray(), SearchPattern.R_EXACT_MATCH | SearchPattern.R_CASE_SENSITIVE,
+				IJavaSearchConstants.TYPE, scope,
+				new TypeNameRequestor() {
+					@Override
+					public void acceptType(int modifiers, char[] packageName, char[] simpleTypeName,
+							char[][] enclosingTypeNames, String path) {
+						found[0] = true;
+					}
+				},
+				IJavaSearchConstants.WAIT_UNTIL_READY_TO_SEARCH, new NullProgressMonitor());
+		if (!found[0]) {
+			throw new AssertionError("JDT search cannot find " + packageName + "." + simpleTypeName + " in "
+					+ project.getElementName() + ". ContentAssistTest requires the mock Java project's JRE "
+					+ "classpath to be resolved and indexed.");
+		}
+	}
+
+	private static String getVMInstallTypeIds() {
+		List<String> result = new ArrayList<String>();
+		for (IVMInstallType installType : JavaRuntime.getVMInstallTypes()) {
+			result.add(installType.getId());
+		}
+		return result.toString();
 	}
 
 	protected static void createFolderRecursively(IFolder folder) throws CoreException {
