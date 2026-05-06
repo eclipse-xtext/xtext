@@ -33,6 +33,7 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaModel;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.search.IJavaSearchConstants;
@@ -159,10 +160,30 @@ public class MockJavaProjectProvider implements IJavaProjectProvider {
 				},
 				IJavaSearchConstants.WAIT_UNTIL_READY_TO_SEARCH, new NullProgressMonitor());
 		if (!found[0]) {
+			IType resolvedType = project.findType(packageName + "." + simpleTypeName);
 			throw new AssertionError("JDT search cannot find " + packageName + "." + simpleTypeName + " in "
 					+ project.getElementName() + ". ContentAssistTest requires the mock Java project's JRE "
-					+ "classpath to be resolved and indexed.");
+					+ "classpath to be resolved and indexed. project.findType result: "
+					+ (resolvedType == null ? "<null>" : resolvedType.getFullyQualifiedName()) + ". "
+					+ describeClasspath(project));
 		}
+	}
+
+	private static String describeClasspath(IJavaProject project) {
+		try {
+			return "Raw classpath: " + describeClasspath(project.getRawClasspath()) + ". Resolved classpath: "
+					+ describeClasspath(project.getResolvedClasspath(true));
+		} catch (JavaModelException e) {
+			return "Could not resolve classpath: " + e.getMessage();
+		}
+	}
+
+	private static String describeClasspath(IClasspathEntry[] entries) {
+		List<String> result = new ArrayList<String>();
+		for (IClasspathEntry entry : entries) {
+			result.add(entry.toString());
+		}
+		return result.toString();
 	}
 
 	private static String getVMInstallTypeIds() {
