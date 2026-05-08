@@ -256,7 +256,9 @@ public class JdtTypesProposalProvider extends AbstractTypesProposalProvider {
 			}
 			superTypeNames.remove(superType.getIdentifier());
 			IJavaSearchScope hierarchyScope = SearchEngine.createHierarchyScope(type);
-			IJavaSearchScope projectScope = SearchEngine.createJavaSearchScope(new IJavaElement[] { project });
+			IJavaSearchScope projectScope = SearchEngine.createJavaSearchScope(new IJavaElement[] { project },
+					IJavaSearchScope.SOURCES | IJavaSearchScope.APPLICATION_LIBRARIES
+							| IJavaSearchScope.SYSTEM_LIBRARIES | IJavaSearchScope.REFERENCED_PROJECTS);
 			IJavaSearchScope result = new IntersectingJavaSearchScope(projectScope, hierarchyScope);
 			return result;
 		}
@@ -504,7 +506,9 @@ public class JdtTypesProposalProvider extends AbstractTypesProposalProvider {
 	public void createTypeProposals(IJavaProject project, ICompletionProposalFactory proposalFactory, ContentAssistContext context,
 			EReference typeReference, Filter filter, IValueConverter<String> valueConverter, ICompletionProposalAcceptor acceptor) {
 		try {
-			IJavaSearchScope searchScope = SearchEngine.createJavaSearchScope(new IJavaElement[] { project });
+			IJavaSearchScope searchScope = SearchEngine.createJavaSearchScope(new IJavaElement[] { project },
+					IJavaSearchScope.SOURCES | IJavaSearchScope.APPLICATION_LIBRARIES
+							| IJavaSearchScope.SYSTEM_LIBRARIES | IJavaSearchScope.REFERENCED_PROJECTS);
 			searchAndCreateProposals(searchScope, proposalFactory, context, typeReference, filter, valueConverter, acceptor);
 		}
 		catch (JavaModelException e) {

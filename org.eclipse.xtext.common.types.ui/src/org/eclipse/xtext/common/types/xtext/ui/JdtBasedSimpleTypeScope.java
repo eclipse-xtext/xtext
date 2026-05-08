@@ -51,7 +51,9 @@ public class JdtBasedSimpleTypeScope extends AbstractTypeScope {
 			return Collections.emptyList();
 		final List<IEObjectDescription> allScopedElements = Lists.newArrayListWithExpectedSize(25000);
 		try {
-			IJavaSearchScope searchScope = SearchEngine.createJavaSearchScope(new IJavaElement[] { javaProject });
+			IJavaSearchScope searchScope = SearchEngine.createJavaSearchScope(new IJavaElement[] { javaProject },
+					IJavaSearchScope.SOURCES | IJavaSearchScope.APPLICATION_LIBRARIES
+							| IJavaSearchScope.SYSTEM_LIBRARIES | IJavaSearchScope.REFERENCED_PROJECTS);
 			for(Class<?> clazz: Primitives.ALL_PRIMITIVE_TYPES) {
 				IEObjectDescription primitive = createScopedElement(clazz.getName());
 				if (primitive != null)

@@ -146,7 +146,9 @@ public class MockJavaProjectProvider implements IJavaProjectProvider {
 	private static void assertTypeIsSearchable(IJavaProject project, String packageName, String simpleTypeName)
 			throws JavaModelException {
 		final boolean[] found = new boolean[] { false };
-		IJavaSearchScope scope = SearchEngine.createJavaSearchScope(new IJavaElement[] { project });
+		IJavaSearchScope scope = SearchEngine.createJavaSearchScope(new IJavaElement[] { project },
+				IJavaSearchScope.SOURCES | IJavaSearchScope.APPLICATION_LIBRARIES
+						| IJavaSearchScope.SYSTEM_LIBRARIES | IJavaSearchScope.REFERENCED_PROJECTS);
 		new SearchEngine().searchAllTypeNames(
 				packageName.toCharArray(), SearchPattern.R_EXACT_MATCH | SearchPattern.R_CASE_SENSITIVE,
 				simpleTypeName.toCharArray(), SearchPattern.R_EXACT_MATCH | SearchPattern.R_CASE_SENSITIVE,
