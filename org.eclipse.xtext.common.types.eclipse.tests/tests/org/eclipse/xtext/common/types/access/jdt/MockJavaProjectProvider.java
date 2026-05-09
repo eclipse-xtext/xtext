@@ -41,6 +41,7 @@ import org.eclipse.jdt.core.search.IJavaSearchScope;
 import org.eclipse.jdt.core.search.SearchEngine;
 import org.eclipse.jdt.core.search.SearchPattern;
 import org.eclipse.jdt.core.search.TypeNameRequestor;
+import org.eclipse.jdt.internal.core.JavaModelManager;
 import org.eclipse.jdt.launching.IVMInstall;
 import org.eclipse.jdt.launching.IVMInstallType;
 import org.eclipse.jdt.launching.JavaRuntime;
@@ -122,6 +123,8 @@ public class MockJavaProjectProvider implements IJavaProjectProvider {
 		Job.getJobManager().join(PluginModelManager.class, null);
 		Job.getJobManager().join(ClasspathComputer.class, null);
 		IResourcesSetupUtil.waitForBuild();
+		JavaModelManager.getIndexManager().indexAll(javaProject.getProject());
+		JavaModelManager.getIndexManager().indexAll(javaProjectWithSources.getProject());
 		IResourcesSetupUtil.waitForJdtIndex();
 		assertTypeIsSearchable(javaProject, "java.util", "ArrayList");
 	}
