@@ -33,6 +33,7 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaModel;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
@@ -67,6 +68,11 @@ public class MockJavaProjectProvider implements IJavaProjectProvider {
 	private static IJavaProject javaProject;
 	
 	private static IJavaProject javaProjectWithSources;
+
+	private static final int JAVA_SEARCH_SCOPE_MASK = IJavaSearchScope.SOURCES | IJavaSearchScope.APPLICATION_LIBRARIES
+			| IJavaSearchScope.SYSTEM_LIBRARIES | IJavaSearchScope.REFERENCED_PROJECTS;
+
+	private static final List<String> indexedLibraries = new ArrayList<String>();
 
 	private boolean useSources;
 	
@@ -137,6 +143,7 @@ public class MockJavaProjectProvider implements IJavaProjectProvider {
 			if (entry.getEntryKind() == IClasspathEntry.CPE_LIBRARY) {
 				JavaModelManager.getIndexManager().indexLibrary(entry.getPath(), project.getProject(),
 						((ClasspathEntry) entry).getLibraryIndexLocation(), true);
+				indexedLibraries.add(project.getElementName() + ": " + entry.getPath());
 			}
 		}
 	}
@@ -160,29 +167,94 @@ public class MockJavaProjectProvider implements IJavaProjectProvider {
 
 	private static void assertTypeIsSearchable(IJavaProject project, String packageName, String simpleTypeName)
 			throws JavaModelException {
-		final boolean[] found = new boolean[] { false };
-		IJavaSearchScope scope = SearchEngine.createJavaSearchScope(new IJavaElement[] { project },
-				IJavaSearchScope.SOURCES | IJavaSearchScope.APPLICATION_LIBRARIES
-						| IJavaSearchScope.SYSTEM_LIBRARIES | IJavaSearchScope.REFERENCED_PROJECTS);
-		new SearchEngine().searchAllTypeNames(
-				packageName.toCharArray(), SearchPattern.R_EXACT_MATCH | SearchPattern.R_CASE_SENSITIVE,
-				simpleTypeName.toCharArray(), SearchPattern.R_EXACT_MATCH | SearchPattern.R_CASE_SENSITIVE,
-				IJavaSearchConstants.TYPE, scope,
-				new TypeNameRequestor() {
-					@Override
-					public void acceptType(int modifiers, char[] packageName, char[] simpleTypeName,
-							char[][] enclosingTypeNames, String path) {
-						found[0] = true;
-					}
-				},
-				IJavaSearchConstants.WAIT_UNTIL_READY_TO_SEARCH, new NullProgressMonitor());
-		if (!found[0]) {
+		IJavaSearchScope scope = SearchEngine.createJavaSearchScope(new IJavaElement[] { project }, JAVA_SEARCH_SCOPE_MASK);
+		SearchDiagnostics diagnostics = searchForType(scope, packageName, simpleTypeName,
+				SearchPattern.R_EXACT_MATCH | SearchPattern.R_CASE_SENSITIVE);
+		if (!diagnostics.found()) {
 			IType resolvedType = project.findType(packageName + "." + simpleTypeName);
+			SearchDiagnostics prefixDiagnostics = searchForType(scope, packageName, simpleTypeName,
+					SearchPattern.R_PREFIX_MATCH | SearchPattern.R_CASE_SENSITIVE);
+			SearchDiagnostics workspaceDiagnostics = searchForType(SearchEngine.createWorkspaceScope(), packageName,
+					simpleTypeName, SearchPattern.R_EXACT_MATCH | SearchPattern.R_CASE_SENSITIVE);
 			throw new AssertionError("JDT search cannot find " + packageName + "." + simpleTypeName + " in "
 					+ project.getElementName() + ". ContentAssistTest requires the mock Java project's JRE "
 					+ "classpath to be resolved and indexed. project.findType result: "
-					+ (resolvedType == null ? "<null>" : resolvedType.getFullyQualifiedName()) + ". "
-					+ describeClasspath(project));
+					+ describeType(resolvedType) + ". Scope diagnostics: " + describeScope(scope, resolvedType)
+					+ ". Exact search diagnostics: " + diagnostics + ". Prefix search diagnostics: " + prefixDiagnostics
+					+ ". Workspace search diagnostics: " + workspaceDiagnostics + ". Indexed libraries: " + indexedLibraries
+					+ ". " + describePackageFragmentRoots(project) + ". " + describeClasspath(project));
+		}
+	}
+
+	private static SearchDiagnostics searchForType(IJavaSearchScope scope, String packageName, String simpleTypeName,
+			int typeMatchRule) throws JavaModelException {
+		SearchDiagnostics result = new SearchDiagnostics();
+		new SearchEngine().searchAllTypeNames(packageName.toCharArray(), SearchPattern.R_EXACT_MATCH,
+				simpleTypeName.toCharArray(), typeMatchRule, IJavaSearchConstants.TYPE, scope, new TypeNameRequestor() {
+					@Override
+					public void acceptType(int modifiers, char[] packageName, char[] simpleTypeName,
+							char[][] enclosingTypeNames, String path) {
+						result.accept(packageName, simpleTypeName, enclosingTypeNames, path);
+					}
+				}, IJavaSearchConstants.WAIT_UNTIL_READY_TO_SEARCH, new NullProgressMonitor());
+		return result;
+	}
+
+	private static String describeType(IType type) throws JavaModelException {
+		if (type == null) {
+			return "<null>";
+		}
+		return type.getFullyQualifiedName() + " exists=" + type.exists() + " path=" + type.getPath()
+				+ " resource=" + type.getResource() + " classFile=" + type.getClassFile();
+	}
+
+	private static String describeScope(IJavaSearchScope scope, IType resolvedType) {
+		List<String> enclosingPaths = new ArrayList<String>();
+		for (org.eclipse.core.runtime.IPath path : scope.enclosingProjectsAndJars()) {
+			enclosingPaths.add(path.toString());
+		}
+		boolean enclosesType = resolvedType != null && scope.encloses(resolvedType);
+		return "includesBinaries=" + scope.includesBinaries() + ", includesClasspaths=" + scope.includesClasspaths()
+				+ ", enclosesResolvedType=" + enclosesType + ", enclosingProjectsAndJars=" + enclosingPaths;
+	}
+
+	private static String describePackageFragmentRoots(IJavaProject project) {
+		try {
+			List<String> result = new ArrayList<String>();
+			for (IPackageFragmentRoot root : project.getAllPackageFragmentRoots()) {
+				result.add(root.getElementName() + " kind=" + root.getKind() + " path=" + root.getPath()
+						+ " exists=" + root.exists());
+			}
+			return "Package fragment roots: " + result;
+		} catch (JavaModelException e) {
+			return "Could not read package fragment roots: " + e.getMessage();
+		}
+	}
+
+	private static class SearchDiagnostics {
+		private final List<String> matches = new ArrayList<String>();
+
+		void accept(char[] packageName, char[] simpleTypeName, char[][] enclosingTypeNames, String path) {
+			StringBuilder name = new StringBuilder();
+			if (packageName.length != 0) {
+				name.append(packageName);
+				name.append('.');
+			}
+			for (char[] enclosingTypeName : enclosingTypeNames) {
+				name.append(enclosingTypeName);
+				name.append('$');
+			}
+			name.append(simpleTypeName);
+			matches.add(name + " path=" + path);
+		}
+
+		boolean found() {
+			return !matches.isEmpty();
+		}
+
+		@Override
+		public String toString() {
+			return matches.toString();
 		}
 	}
 
