@@ -41,6 +41,7 @@ import org.eclipse.jdt.core.search.IJavaSearchScope;
 import org.eclipse.jdt.core.search.SearchEngine;
 import org.eclipse.jdt.core.search.SearchPattern;
 import org.eclipse.jdt.core.search.TypeNameRequestor;
+import org.eclipse.jdt.internal.core.ClasspathEntry;
 import org.eclipse.jdt.internal.core.JavaModelManager;
 import org.eclipse.jdt.launching.IVMInstall;
 import org.eclipse.jdt.launching.IVMInstallType;
@@ -125,8 +126,19 @@ public class MockJavaProjectProvider implements IJavaProjectProvider {
 		IResourcesSetupUtil.waitForBuild();
 		JavaModelManager.getIndexManager().indexAll(javaProject.getProject());
 		JavaModelManager.getIndexManager().indexAll(javaProjectWithSources.getProject());
+		indexLibraries(javaProject);
+		indexLibraries(javaProjectWithSources);
 		IResourcesSetupUtil.waitForJdtIndex();
 		assertTypeIsSearchable(javaProject, "java.util", "ArrayList");
+	}
+
+	private static void indexLibraries(IJavaProject project) throws JavaModelException {
+		for (IClasspathEntry entry : project.getResolvedClasspath(true)) {
+			if (entry.getEntryKind() == IClasspathEntry.CPE_LIBRARY) {
+				JavaModelManager.getIndexManager().indexLibrary(entry.getPath(), project.getProject(),
+						((ClasspathEntry) entry).getLibraryIndexLocation(), true);
+			}
+		}
 	}
 
 	private static void assertJREsAreAvailable() {
