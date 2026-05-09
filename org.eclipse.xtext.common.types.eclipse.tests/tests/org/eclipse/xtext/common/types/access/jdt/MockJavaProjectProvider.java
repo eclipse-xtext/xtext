@@ -72,6 +72,8 @@ public class MockJavaProjectProvider implements IJavaProjectProvider {
 	private static final int JAVA_SEARCH_SCOPE_MASK = IJavaSearchScope.SOURCES | IJavaSearchScope.APPLICATION_LIBRARIES
 			| IJavaSearchScope.SYSTEM_LIBRARIES | IJavaSearchScope.REFERENCED_PROJECTS;
 
+	private static final long JAVA_SEARCH_TIMEOUT_MILLIS = 30000L;
+
 	private static final List<String> indexedLibraries = new ArrayList<String>();
 
 	private boolean useSources;
@@ -135,7 +137,7 @@ public class MockJavaProjectProvider implements IJavaProjectProvider {
 		indexLibraries(javaProject);
 		indexLibraries(javaProjectWithSources);
 		IResourcesSetupUtil.waitForJdtIndex();
-		assertTypeIsSearchable(javaProject, "java.util", "ArrayList");
+		waitUntilTypeIsSearchable(javaProject, "java.util", "ArrayList");
 	}
 
 	private static void indexLibraries(IJavaProject project) throws JavaModelException {
@@ -146,6 +148,24 @@ public class MockJavaProjectProvider implements IJavaProjectProvider {
 				indexedLibraries.add(project.getElementName() + ": " + entry.getPath());
 			}
 		}
+	}
+
+	private static void waitUntilTypeIsSearchable(IJavaProject project, String packageName, String simpleTypeName)
+			throws Exception {
+		long timeout = System.currentTimeMillis() + JAVA_SEARCH_TIMEOUT_MILLIS;
+		SearchDiagnostics diagnostics = null;
+		do {
+			diagnostics = searchForType(createJavaSearchScope(project), packageName, simpleTypeName,
+					SearchPattern.R_EXACT_MATCH | SearchPattern.R_CASE_SENSITIVE);
+			if (diagnostics.found()) {
+				return;
+			}
+			JavaModelManager.getIndexManager().indexAll(project.getProject());
+			indexLibraries(project);
+			IResourcesSetupUtil.waitForJdtIndex();
+			Thread.sleep(250L);
+		} while (System.currentTimeMillis() < timeout);
+		assertTypeIsSearchable(project, packageName, simpleTypeName, diagnostics);
 	}
 
 	private static void assertJREsAreAvailable() {
@@ -165,11 +185,14 @@ public class MockJavaProjectProvider implements IJavaProjectProvider {
 		}
 	}
 
-	private static void assertTypeIsSearchable(IJavaProject project, String packageName, String simpleTypeName)
+	private static IJavaSearchScope createJavaSearchScope(IJavaProject project) {
+		return SearchEngine.createJavaSearchScope(new IJavaElement[] { project }, JAVA_SEARCH_SCOPE_MASK);
+	}
+
+	private static void assertTypeIsSearchable(IJavaProject project, String packageName, String simpleTypeName,
+			SearchDiagnostics diagnostics)
 			throws JavaModelException {
-		IJavaSearchScope scope = SearchEngine.createJavaSearchScope(new IJavaElement[] { project }, JAVA_SEARCH_SCOPE_MASK);
-		SearchDiagnostics diagnostics = searchForType(scope, packageName, simpleTypeName,
-				SearchPattern.R_EXACT_MATCH | SearchPattern.R_CASE_SENSITIVE);
+		IJavaSearchScope scope = createJavaSearchScope(project);
 		if (!diagnostics.found()) {
 			IType resolvedType = project.findType(packageName + "." + simpleTypeName);
 			SearchDiagnostics prefixDiagnostics = searchForType(scope, packageName, simpleTypeName,
@@ -180,7 +203,8 @@ public class MockJavaProjectProvider implements IJavaProjectProvider {
 					+ project.getElementName() + ". ContentAssistTest requires the mock Java project's JRE "
 					+ "classpath to be resolved and indexed. project.findType result: "
 					+ describeType(resolvedType) + ". Scope diagnostics: " + describeScope(scope, resolvedType)
-					+ ". Exact search diagnostics: " + diagnostics + ". Prefix search diagnostics: " + prefixDiagnostics
+					+ ". Timeout millis: " + JAVA_SEARCH_TIMEOUT_MILLIS + ". Exact search diagnostics: " + diagnostics
+					+ ". Prefix search diagnostics: " + prefixDiagnostics
 					+ ". Workspace search diagnostics: " + workspaceDiagnostics + ". Indexed libraries: " + indexedLibraries
 					+ ". " + describePackageFragmentRoots(project) + ". " + describeClasspath(project));
 		}
