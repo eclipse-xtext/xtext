@@ -13,8 +13,10 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IContainer;
@@ -74,7 +76,7 @@ public class MockJavaProjectProvider implements IJavaProjectProvider {
 
 	private static final long JAVA_SEARCH_TIMEOUT_MILLIS = 30000L;
 
-	private static final List<String> indexedLibraries = new ArrayList<String>();
+	private static final Set<String> indexedLibraries = new LinkedHashSet<String>();
 
 	private boolean useSources;
 	
@@ -129,6 +131,7 @@ public class MockJavaProjectProvider implements IJavaProjectProvider {
 	}
 
 	private static void waitForJavaSearch() throws Exception {
+		indexedLibraries.clear();
 		Job.getJobManager().join(PluginModelManager.class, null);
 		Job.getJobManager().join(ClasspathComputer.class, null);
 		IResourcesSetupUtil.waitForBuild();
@@ -143,6 +146,7 @@ public class MockJavaProjectProvider implements IJavaProjectProvider {
 	private static void indexLibraries(IJavaProject project) throws JavaModelException {
 		for (IClasspathEntry entry : project.getResolvedClasspath(true)) {
 			if (entry.getEntryKind() == IClasspathEntry.CPE_LIBRARY) {
+				JavaModelManager.getIndexManager().removeIndex(entry.getPath());
 				JavaModelManager.getIndexManager().indexLibrary(entry.getPath(), project.getProject(),
 						((ClasspathEntry) entry).getLibraryIndexLocation(), true);
 				indexedLibraries.add(project.getElementName() + ": " + entry.getPath());
