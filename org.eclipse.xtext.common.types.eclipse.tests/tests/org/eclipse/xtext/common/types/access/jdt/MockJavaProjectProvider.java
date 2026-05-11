@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009, 2019 itemis AG (http://www.itemis.eu) and others.
+ * Copyright (c) 2009, 2025 itemis AG (http://www.itemis.eu) and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -65,6 +65,7 @@ import com.google.common.collect.Lists;
 /**
  * @author Sebastian Zarnekow - Initial contribution and API
  */
+@SuppressWarnings("restriction")
 public class MockJavaProjectProvider implements IJavaProjectProvider {
 
 	private static IJavaProject javaProject;
@@ -77,6 +78,8 @@ public class MockJavaProjectProvider implements IJavaProjectProvider {
 	private static final long JAVA_SEARCH_TIMEOUT_MILLIS = 30000L;
 
 	private static final Set<String> indexedLibraries = new LinkedHashSet<String>();
+
+	private static final int MAX_DIAGNOSTIC_ITEMS = 20;
 
 	private boolean useSources;
 	
@@ -209,7 +212,8 @@ public class MockJavaProjectProvider implements IJavaProjectProvider {
 					+ describeType(resolvedType) + ". Scope diagnostics: " + describeScope(scope, resolvedType)
 					+ ". Timeout millis: " + JAVA_SEARCH_TIMEOUT_MILLIS + ". Exact search diagnostics: " + diagnostics
 					+ ". Prefix search diagnostics: " + prefixDiagnostics
-					+ ". Workspace search diagnostics: " + workspaceDiagnostics + ". Indexed libraries: " + indexedLibraries
+					+ ". Workspace search diagnostics: " + workspaceDiagnostics + ". Indexed libraries: "
+					+ summarizeStrings(indexedLibraries, MAX_DIAGNOSTIC_ITEMS)
 					+ ". " + describePackageFragmentRoots(project) + ". " + describeClasspath(project));
 		}
 	}
@@ -242,8 +246,8 @@ public class MockJavaProjectProvider implements IJavaProjectProvider {
 			enclosingPaths.add(path.toString());
 		}
 		boolean enclosesType = resolvedType != null && scope.encloses(resolvedType);
-		return "includesBinaries=" + scope.includesBinaries() + ", includesClasspaths=" + scope.includesClasspaths()
-				+ ", enclosesResolvedType=" + enclosesType + ", enclosingProjectsAndJars=" + enclosingPaths;
+		return "enclosesResolvedType=" + enclosesType + ", enclosingProjectsAndJars="
+				+ summarizeStrings(enclosingPaths, MAX_DIAGNOSTIC_ITEMS);
 	}
 
 	private static String describePackageFragmentRoots(IJavaProject project) {
@@ -253,7 +257,7 @@ public class MockJavaProjectProvider implements IJavaProjectProvider {
 				result.add(root.getElementName() + " kind=" + root.getKind() + " path=" + root.getPath()
 						+ " exists=" + root.exists());
 			}
-			return "Package fragment roots: " + result;
+			return "Package fragment roots: " + summarizeStrings(result, MAX_DIAGNOSTIC_ITEMS);
 		} catch (JavaModelException e) {
 			return "Could not read package fragment roots: " + e.getMessage();
 		}
@@ -282,7 +286,7 @@ public class MockJavaProjectProvider implements IJavaProjectProvider {
 
 		@Override
 		public String toString() {
-			return matches.toString();
+			return summarizeStrings(matches, MAX_DIAGNOSTIC_ITEMS);
 		}
 	}
 
@@ -300,7 +304,22 @@ public class MockJavaProjectProvider implements IJavaProjectProvider {
 		for (IClasspathEntry entry : entries) {
 			result.add(entry.toString());
 		}
-		return result.toString();
+		return summarizeStrings(result, MAX_DIAGNOSTIC_ITEMS);
+	}
+
+	private static String summarizeStrings(Iterable<String> entries, int maxItems) {
+		List<String> preview = new ArrayList<String>();
+		int total = 0;
+		for (String entry : entries) {
+			total++;
+			if (preview.size() < maxItems) {
+				preview.add(entry);
+			}
+		}
+		if (total <= maxItems) {
+			return preview.toString();
+		}
+		return preview + " ... (" + (total - maxItems) + " more, total=" + total + ")";
 	}
 
 	private static String getVMInstallTypeIds() {
