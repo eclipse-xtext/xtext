@@ -59,9 +59,7 @@ public class JdtBasedConstructorScope extends AbstractConstructorScope {
 			return Collections.emptyList();
 		final List<IEObjectDescription> allScopedElements = Lists.newArrayListWithExpectedSize(25000);
 		try {
-			IJavaSearchScope searchScope = SearchEngine.createJavaSearchScope(new IJavaElement[] { javaProject },
-					IJavaSearchScope.SOURCES | IJavaSearchScope.APPLICATION_LIBRARIES
-							| IJavaSearchScope.SYSTEM_LIBRARIES | IJavaSearchScope.REFERENCED_PROJECTS);
+			IJavaSearchScope searchScope = SearchEngine.createJavaSearchScope(new IJavaElement[] { javaProject });
 			SearchRequestor searchRequestor = new SearchRequestor() {
 				@Override
 				public void acceptSearchMatch(SearchMatch match) throws CoreException {
