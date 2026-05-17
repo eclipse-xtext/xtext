@@ -5,6 +5,7 @@ pipeline {
     buildDiscarder(logRotator(numToKeepStr:'15'))
     disableConcurrentBuilds()
     timeout(time: 120, unit: 'MINUTES')
+    copyArtifactPermission('releng/xtext-api-diff/*,releng/xtext-api-diff/master,/releng/xtext-api-diff/*,/releng/xtext-api-diff/master, *')
   }
 
   environment {

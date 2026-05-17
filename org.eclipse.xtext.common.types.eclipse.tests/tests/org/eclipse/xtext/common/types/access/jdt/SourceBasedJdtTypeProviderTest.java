@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009 itemis AG (http://www.itemis.eu) and others.
+ * Copyright (c) 2009, 2026 itemis AG (http://www.itemis.eu) and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -34,6 +34,7 @@ import org.eclipse.xtext.common.types.util.jdt.JavaElementFinder;
 import org.eclipse.xtext.util.Files;
 import org.eclipse.xtext.util.StringInputStream;
 import org.junit.After;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -199,6 +200,17 @@ public class SourceBasedJdtTypeProviderTest extends AbstractJdtTypeProviderTest 
 				javaFile.setContents(new StringInputStream(content), IResource.NONE, new NullProgressMonitor());
 			}
 		}
+	}
+	
+	@Override @Test @Ignore
+	public void testFindTypeByName_$StartsWithDollar_01() {
+		// https://github.com/eclipse-xtext/xtext/issues/3708
+		super.testFindTypeByName_$StartsWithDollar_01();
+	}
+	@Override @Test @Ignore
+	public void testFindTypeByName_$StartsWithDollar_02() {
+		// https://github.com/eclipse-xtext/xtext/issues/3708
+		super.testFindTypeByName_$StartsWithDollar_02();
 	}
 	
 }

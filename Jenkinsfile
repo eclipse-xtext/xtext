@@ -22,6 +22,7 @@ pipeline {
     buildDiscarder(logRotator(numToKeepStr:'10'))
     disableConcurrentBuilds()
     timeout(time: 360, unit: 'MINUTES')
+    copyArtifactPermission(projectNames: 'releng/xtext-api-diff/*,releng/xtext-api-diff/master')
   }
 
   tools {
