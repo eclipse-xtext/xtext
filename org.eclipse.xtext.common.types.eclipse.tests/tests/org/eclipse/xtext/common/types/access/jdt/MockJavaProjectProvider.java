@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009, 2019 itemis AG (http://www.itemis.eu) and others.
+ * Copyright (c) 2009, 2025 itemis AG (http://www.itemis.eu) and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -13,8 +13,10 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IContainer;
@@ -25,6 +27,7 @@ import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -32,8 +35,21 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaModel;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.IPackageFragmentRoot;
+import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jdt.core.search.IJavaSearchConstants;
+import org.eclipse.jdt.core.search.IJavaSearchScope;
+import org.eclipse.jdt.core.search.SearchEngine;
+import org.eclipse.jdt.core.search.SearchPattern;
+import org.eclipse.jdt.core.search.TypeNameRequestor;
+import org.eclipse.jdt.internal.core.ClasspathEntry;
+import org.eclipse.jdt.internal.core.JavaModelManager;
+import org.eclipse.jdt.launching.IVMInstall;
+import org.eclipse.jdt.launching.IVMInstallType;
+import org.eclipse.jdt.launching.JavaRuntime;
+import org.eclipse.jdt.launching.environments.IExecutionEnvironment;
 import org.eclipse.jdt.ui.PreferenceConstants;
 import org.eclipse.pde.internal.core.ClasspathComputer;
 import org.eclipse.pde.internal.core.PluginModelManager;
@@ -49,11 +65,21 @@ import com.google.common.collect.Lists;
 /**
  * @author Sebastian Zarnekow - Initial contribution and API
  */
+@SuppressWarnings("restriction")
 public class MockJavaProjectProvider implements IJavaProjectProvider {
 
 	private static IJavaProject javaProject;
 	
 	private static IJavaProject javaProjectWithSources;
+
+	private static final int JAVA_SEARCH_SCOPE_MASK = IJavaSearchScope.SOURCES | IJavaSearchScope.APPLICATION_LIBRARIES
+			| IJavaSearchScope.SYSTEM_LIBRARIES | IJavaSearchScope.REFERENCED_PROJECTS;
+
+	private static final long JAVA_SEARCH_TIMEOUT_MILLIS = 30000L;
+
+	private static final Set<String> indexedLibraries = new LinkedHashSet<String>();
+
+	private static final int MAX_DIAGNOSTIC_ITEMS = 20;
 
 	private boolean useSources;
 	
@@ -71,12 +97,15 @@ public class MockJavaProjectProvider implements IJavaProjectProvider {
 	public static void setUp() throws Exception {
 		if(javaProject != null)
 			return;
+		assertJREsAreAvailable();
 		javaProject = createJavaProject("projectWithoutSources",
 				new String[] {
 						JavaCore.NATURE_ID,
 						"org.eclipse.pde.PluginNature"
 				}
 		);
+		Job.getJobManager().join(PluginModelManager.class, null);
+		Job.getJobManager().join(ClasspathComputer.class, null);
 		String path = "/org/eclipse/xtext/common/types/testSetups";
 		String jarFileName = "/testData.jar";
 		IFile jarFile = PluginUtil.copyFileToWorkspace(TestsActivator.getInstance(), path + jarFileName, javaProject.getProject(), 
@@ -101,9 +130,204 @@ public class MockJavaProjectProvider implements IJavaProjectProvider {
 		}
 		createFile("ClassWithDefaultPackage.java", sourceFolder, "public class ClassWithDefaultPackage {}");
 		PreferenceConstants.getPreferenceStore().putValue(PreferenceConstants.TYPEFILTER_ENABLED, "*.javafx.*;");
+		waitForJavaSearch();
+	}
+
+	private static void waitForJavaSearch() throws Exception {
+		indexedLibraries.clear();
 		Job.getJobManager().join(PluginModelManager.class, null);
 		Job.getJobManager().join(ClasspathComputer.class, null);
 		IResourcesSetupUtil.waitForBuild();
+		JavaModelManager.getIndexManager().indexAll(javaProject.getProject());
+		JavaModelManager.getIndexManager().indexAll(javaProjectWithSources.getProject());
+		indexLibraries(javaProject);
+		indexLibraries(javaProjectWithSources);
+		IResourcesSetupUtil.waitForJdtIndex();
+		waitUntilTypeIsSearchable(javaProject, "java.util", "ArrayList");
+	}
+
+	private static void indexLibraries(IJavaProject project) throws JavaModelException {
+		for (IClasspathEntry entry : project.getResolvedClasspath(true)) {
+			if (entry.getEntryKind() == IClasspathEntry.CPE_LIBRARY) {
+				JavaModelManager.getIndexManager().removeIndex(entry.getPath());
+				JavaModelManager.getIndexManager().indexLibrary(entry.getPath(), project.getProject(),
+						((ClasspathEntry) entry).getLibraryIndexLocation(), true);
+				indexedLibraries.add(project.getElementName() + ": " + entry.getPath());
+			}
+		}
+	}
+
+	private static void waitUntilTypeIsSearchable(IJavaProject project, String packageName, String simpleTypeName)
+			throws Exception {
+		long timeout = System.currentTimeMillis() + JAVA_SEARCH_TIMEOUT_MILLIS;
+		SearchDiagnostics diagnostics = null;
+		do {
+			diagnostics = searchForType(createJavaSearchScope(project), packageName, simpleTypeName,
+					SearchPattern.R_EXACT_MATCH | SearchPattern.R_CASE_SENSITIVE);
+			if (diagnostics.found()) {
+				return;
+			}
+			JavaModelManager.getIndexManager().indexAll(project.getProject());
+			indexLibraries(project);
+			IResourcesSetupUtil.waitForJdtIndex();
+			Thread.sleep(250L);
+		} while (System.currentTimeMillis() < timeout);
+		assertTypeIsSearchable(project, packageName, simpleTypeName, diagnostics);
+	}
+
+	private static void assertJREsAreAvailable() {
+		IExecutionEnvironment preferredEnvironment = JavaRuntime.getExecutionEnvironmentsManager()
+				.getEnvironment(JREContainerProvider.PREFERRED_BREE);
+		if (preferredEnvironment == null) {
+			throw new AssertionError("JDT launching does not provide execution environment "
+					+ JREContainerProvider.PREFERRED_BREE + ". The ContentAssistTest mock Java projects require a "
+					+ "resolvable JRE container.");
+		}
+		IVMInstall[] compatibleVMs = preferredEnvironment.getCompatibleVMs();
+		if (preferredEnvironment.getDefaultVM() == null && compatibleVMs.length == 0 && JavaRuntime.getDefaultVMInstall() == null) {
+			throw new AssertionError("No JDT VM install is available for " + JREContainerProvider.PREFERRED_BREE
+					+ ". The ContentAssistTest mock Java projects need Java types from a resolved JRE container. "
+					+ "On macOS, make sure org.eclipse.jdt.launching.macosx is included in the PDE/Tycho test runtime. "
+					+ "Known VM install types: " + getVMInstallTypeIds());
+		}
+	}
+
+	private static IJavaSearchScope createJavaSearchScope(IJavaProject project) {
+		return SearchEngine.createJavaSearchScope(new IJavaElement[] { project }, JAVA_SEARCH_SCOPE_MASK);
+	}
+
+	private static void assertTypeIsSearchable(IJavaProject project, String packageName, String simpleTypeName,
+			SearchDiagnostics diagnostics)
+			throws JavaModelException {
+		IJavaSearchScope scope = createJavaSearchScope(project);
+		if (!diagnostics.found()) {
+			IType resolvedType = project.findType(packageName + "." + simpleTypeName);
+			SearchDiagnostics prefixDiagnostics = searchForType(scope, packageName, simpleTypeName,
+					SearchPattern.R_PREFIX_MATCH | SearchPattern.R_CASE_SENSITIVE);
+			SearchDiagnostics workspaceDiagnostics = searchForType(SearchEngine.createWorkspaceScope(), packageName,
+					simpleTypeName, SearchPattern.R_EXACT_MATCH | SearchPattern.R_CASE_SENSITIVE);
+			throw new AssertionError("JDT search cannot find " + packageName + "." + simpleTypeName + " in "
+					+ project.getElementName() + ". ContentAssistTest requires the mock Java project's JRE "
+					+ "classpath to be resolved and indexed. project.findType result: "
+					+ describeType(resolvedType) + ". Scope diagnostics: " + describeScope(scope, resolvedType)
+					+ ". Timeout millis: " + JAVA_SEARCH_TIMEOUT_MILLIS + ". Exact search diagnostics: " + diagnostics
+					+ ". Prefix search diagnostics: " + prefixDiagnostics
+					+ ". Workspace search diagnostics: " + workspaceDiagnostics + ". Indexed libraries: "
+					+ summarizeStrings(indexedLibraries, MAX_DIAGNOSTIC_ITEMS)
+					+ ". " + describePackageFragmentRoots(project) + ". " + describeClasspath(project));
+		}
+	}
+
+	private static SearchDiagnostics searchForType(IJavaSearchScope scope, String packageName, String simpleTypeName,
+			int typeMatchRule) throws JavaModelException {
+		SearchDiagnostics result = new SearchDiagnostics();
+		new SearchEngine().searchAllTypeNames(packageName.toCharArray(), SearchPattern.R_EXACT_MATCH,
+				simpleTypeName.toCharArray(), typeMatchRule, IJavaSearchConstants.TYPE, scope, new TypeNameRequestor() {
+					@Override
+					public void acceptType(int modifiers, char[] packageName, char[] simpleTypeName,
+							char[][] enclosingTypeNames, String path) {
+						result.accept(packageName, simpleTypeName, enclosingTypeNames, path);
+					}
+				}, IJavaSearchConstants.WAIT_UNTIL_READY_TO_SEARCH, new NullProgressMonitor());
+		return result;
+	}
+
+	private static String describeType(IType type) throws JavaModelException {
+		if (type == null) {
+			return "<null>";
+		}
+		return type.getFullyQualifiedName() + " exists=" + type.exists() + " path=" + type.getPath()
+				+ " resource=" + type.getResource() + " classFile=" + type.getClassFile();
+	}
+
+	private static String describeScope(IJavaSearchScope scope, IType resolvedType) {
+		List<String> enclosingPaths = new ArrayList<String>();
+		for (org.eclipse.core.runtime.IPath path : scope.enclosingProjectsAndJars()) {
+			enclosingPaths.add(path.toString());
+		}
+		boolean enclosesType = resolvedType != null && scope.encloses(resolvedType);
+		return "enclosesResolvedType=" + enclosesType + ", enclosingProjectsAndJars="
+				+ summarizeStrings(enclosingPaths, MAX_DIAGNOSTIC_ITEMS);
+	}
+
+	private static String describePackageFragmentRoots(IJavaProject project) {
+		try {
+			List<String> result = new ArrayList<String>();
+			for (IPackageFragmentRoot root : project.getAllPackageFragmentRoots()) {
+				result.add(root.getElementName() + " kind=" + root.getKind() + " path=" + root.getPath()
+						+ " exists=" + root.exists());
+			}
+			return "Package fragment roots: " + summarizeStrings(result, MAX_DIAGNOSTIC_ITEMS);
+		} catch (JavaModelException e) {
+			return "Could not read package fragment roots: " + e.getMessage();
+		}
+	}
+
+	private static class SearchDiagnostics {
+		private final List<String> matches = new ArrayList<String>();
+
+		void accept(char[] packageName, char[] simpleTypeName, char[][] enclosingTypeNames, String path) {
+			StringBuilder name = new StringBuilder();
+			if (packageName.length != 0) {
+				name.append(packageName);
+				name.append('.');
+			}
+			for (char[] enclosingTypeName : enclosingTypeNames) {
+				name.append(enclosingTypeName);
+				name.append('$');
+			}
+			name.append(simpleTypeName);
+			matches.add(name + " path=" + path);
+		}
+
+		boolean found() {
+			return !matches.isEmpty();
+		}
+
+		@Override
+		public String toString() {
+			return summarizeStrings(matches, MAX_DIAGNOSTIC_ITEMS);
+		}
+	}
+
+	private static String describeClasspath(IJavaProject project) {
+		try {
+			return "Raw classpath: " + describeClasspath(project.getRawClasspath()) + ". Resolved classpath: "
+					+ describeClasspath(project.getResolvedClasspath(true));
+		} catch (JavaModelException e) {
+			return "Could not resolve classpath: " + e.getMessage();
+		}
+	}
+
+	private static String describeClasspath(IClasspathEntry[] entries) {
+		List<String> result = new ArrayList<String>();
+		for (IClasspathEntry entry : entries) {
+			result.add(entry.toString());
+		}
+		return summarizeStrings(result, MAX_DIAGNOSTIC_ITEMS);
+	}
+
+	private static String summarizeStrings(Iterable<String> entries, int maxItems) {
+		List<String> preview = new ArrayList<String>();
+		int total = 0;
+		for (String entry : entries) {
+			total++;
+			if (preview.size() < maxItems) {
+				preview.add(entry);
+			}
+		}
+		if (total <= maxItems) {
+			return preview.toString();
+		}
+		return preview + " ... (" + (total - maxItems) + " more, total=" + total + ")";
+	}
+
+	private static String getVMInstallTypeIds() {
+		List<String> result = new ArrayList<String>();
+		for (IVMInstallType installType : JavaRuntime.getVMInstallTypes()) {
+			result.add(installType.getId());
+		}
+		return result.toString();
 	}
 
 	protected static void createFolderRecursively(IFolder folder) throws CoreException {

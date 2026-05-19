@@ -13,6 +13,7 @@
 
 	<properties>
 		<os-jvm-flags />
+		<jdt-launching-jvm-flags>-DDetectVMInstallationsJob.disabled=true</jdt-launching-jvm-flags>
 		<memory-settings>-Xmx1500m</memory-settings>
 		<debug-settings>-Xdebug -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=y</debug-settings>
 	</properties>
@@ -105,7 +106,7 @@
 						<forkedProcessTimeoutInSeconds>2400</forkedProcessTimeoutInSeconds>
 						<useUIHarness>true</useUIHarness>
 						<useUIThread>true</useUIThread>
-						<argLine>${memory-settings} ${os-jvm-flags}</argLine>
+						<argLine>${memory-settings} ${os-jvm-flags} ${jdt-launching-jvm-flags}</argLine>
 						<includes>
 							<include>**/Test*.java</include>
 							<include>**/*Test.java</include>
