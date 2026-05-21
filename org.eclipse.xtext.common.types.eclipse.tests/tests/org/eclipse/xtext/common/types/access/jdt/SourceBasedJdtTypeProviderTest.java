@@ -34,7 +34,6 @@ import org.eclipse.xtext.common.types.util.jdt.JavaElementFinder;
 import org.eclipse.xtext.util.Files;
 import org.eclipse.xtext.util.StringInputStream;
 import org.junit.After;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -200,17 +199,6 @@ public class SourceBasedJdtTypeProviderTest extends AbstractJdtTypeProviderTest 
 				javaFile.setContents(new StringInputStream(content), IResource.NONE, new NullProgressMonitor());
 			}
 		}
-	}
-	
-	@Override @Test @Ignore
-	public void testFindTypeByName_$StartsWithDollar_01() {
-		// https://github.com/eclipse-xtext/xtext/issues/3708
-		super.testFindTypeByName_$StartsWithDollar_01();
-	}
-	@Override @Test @Ignore
-	public void testFindTypeByName_$StartsWithDollar_02() {
-		// https://github.com/eclipse-xtext/xtext/issues/3708
-		super.testFindTypeByName_$StartsWithDollar_02();
 	}
 	
 }
