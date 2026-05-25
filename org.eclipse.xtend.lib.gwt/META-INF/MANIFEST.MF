@@ -3,9 +3,9 @@ Bundle-ManifestVersion: 2
 Bundle-SymbolicName: org.eclipse.xtend.lib.gwt
 Bundle-Name: %Bundle-Name
 Bundle-Vendor: %Bundle-Vendor
-Bundle-Version: 2.43.0.qualifier
+Bundle-Version: 2.44.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-21
-Export-Package: org.eclipse.xtend.lib;version="2.43.0"
-Require-Bundle: org.eclipse.xtend.lib;bundle-version="2.43.0"
+Export-Package: org.eclipse.xtend.lib;version="2.44.0"
+Require-Bundle: org.eclipse.xtend.lib;bundle-version="2.44.0"
 Automatic-Module-Name: org.eclipse.xtend.lib.gwt
 Eclipse-SourceReferences: eclipseSourceReferences

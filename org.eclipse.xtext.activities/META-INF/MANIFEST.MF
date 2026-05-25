@@ -2,11 +2,11 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.xtext.activities;singleton:=true
-Bundle-Version: 2.43.0.qualifier
+Bundle-Version: 2.44.0.qualifier
 Bundle-Vendor: %providerName
 Bundle-RequiredExecutionEnvironment: JavaSE-21
 Bundle-Localization: plugin
 Bundle-Activator: org.eclipse.xtext.activities.Activator
 Require-Bundle: org.eclipse.core.runtime;bundle-version="3.34.100"
-Export-Package: org.eclipse.xtext.activities;version="2.43.0";x-internal:=true
+Export-Package: org.eclipse.xtext.activities;version="2.44.0";x-internal:=true
 Automatic-Module-Name: org.eclipse.xtext.activities

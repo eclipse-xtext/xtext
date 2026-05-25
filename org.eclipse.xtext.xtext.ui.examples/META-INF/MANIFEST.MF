@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.xtext.xtext.ui.examples;singleton:=true
-Bundle-Version: 2.43.0.qualifier
+Bundle-Version: 2.44.0.qualifier
 Require-Bundle: org.eclipse.ui;bundle-version="3.207.400",
  org.eclipse.core.runtime;bundle-version="3.34.100",
  org.eclipse.emf.common.ui;bundle-version="2.22.0",
@@ -12,5 +12,5 @@ Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-21
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Export-Package: org.eclipse.xtext.xtext.ui.examples;version="2.43.0";x-internal:=true
+Export-Package: org.eclipse.xtext.xtext.ui.examples;version="2.44.0";x-internal:=true
 Automatic-Module-Name: org.eclipse.xtext.xtext.ui.examples
