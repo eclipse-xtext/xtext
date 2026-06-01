@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2015, 20201 itemis AG (http://www.itemis.eu) and others.
+ * Copyright (c) 2015, 2026 itemis AG (http://www.itemis.eu) and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -375,83 +375,6 @@ class XtextGeneratorTemplates {
 		'''
 		file.markedAsGenerated = true
 		return file
-	}
-	
-	def JavaFileAccess createWebModule(IXtextGeneratorLanguage langConfig) {
-		val it = langConfig.grammar
-		if (codeConfig.preferXtendStubs) {
-			return fileAccessFactory.createXtendFile(webModule,'''
-				/**
-				 * Use this class to register additional components to be used within the web application.
-				 */
-				class «webModule.simpleName» extends «webGenModule» {
-				}
-			''')
-		} else {
-			return fileAccessFactory.createJavaFile(webModule,'''
-				/**
-				 * Use this class to register additional components to be used within the web application.
-				 */
-				public class «webModule.simpleName» extends «webGenModule» {
-				}
-			''')
-		}
-	}
-	
-	def JavaFileAccess createWebGenModule(IXtextGeneratorLanguage langConfig) {
-		val it = langConfig.grammar
-		val superClass = langConfig.webGenModule.superClass ?: webDefaultModule
-		val file = fileAccessFactory.createGeneratedJavaFile(webGenModule)
-		file.importNestedTypeThreshold = JavaFileAccess.DONT_IMPORT_NESTED_TYPES
-		file.typeComment = '''
-			/**
-			 * Manual modifications go to {@link «webModule.simpleName»}.
-			 */
-		'''
-		file.annotations += new SuppressWarningsAnnotation
-		file.content = '''
-			public abstract class «webGenModule.simpleName» extends «superClass» {
-			
-				«FOR binding : langConfig.webGenModule.bindings»
-					«binding.createBindingMethod»
-					
-				«ENDFOR»
-			}
-		'''
-		file.markedAsGenerated = true
-		return file
-	}
-	
-	def JavaFileAccess createWebSetup(IXtextGeneratorLanguage langConfig) {
-		val it = langConfig.grammar
-		if (codeConfig.preferXtendStubs) {
-			return fileAccessFactory.createXtendFile(webSetup, '''
-				/**
-				 * Initialization support for running Xtext languages in web applications.
-				 */
-				class «webSetup.simpleName» extends «runtimeSetup» {
-					
-					override «Injector» createInjector() {
-						return «Guice».createInjector(«Modules2».mixin(new «runtimeModule», new «genericIdeModule», new «webModule»))
-					}
-					
-				}
-			''')
-		} else {
-			return fileAccessFactory.createJavaFile(webSetup, '''
-				/**
-				 * Initialization support for running Xtext languages in web applications.
-				 */
-				public class «webSetup.simpleName» extends «runtimeSetup» {
-					
-					@Override
-					public «Injector» createInjector() {
-						return «Guice».createInjector(«Modules2».mixin(new «runtimeModule»(), new «genericIdeModule»(), new «webModule»()));
-					}
-					
-				}
-			''')
-		}
 	}
 
 	def JavaFileAccess createEclipsePluginExecutableExtensionFactory(IXtextGeneratorLanguage langConfig, IXtextGeneratorLanguage activatorLanguage) {

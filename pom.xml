@@ -590,21 +590,6 @@
 									org.eclipse.xtext.ui.tests
 								</excludeArtifact>
 								<excludeArtifact>
-									org.eclipse.xtext.web.example.entities
-								</excludeArtifact>
-								<excludeArtifact>
-									org.eclipse.xtext.web.example.entities.ide
-								</excludeArtifact>
-								<excludeArtifact>
-									org.eclipse.xtext.web.example.jetty
-								</excludeArtifact>
-								<excludeArtifact>
-									org.eclipse.xtext.web.example.statemachine
-								</excludeArtifact>
-								<excludeArtifact>
-									org.eclipse.xtext.web.example.statemachine.ide
-								</excludeArtifact>
-								<excludeArtifact>
 									org.eclipse.xtext.xbase.lib.tests
 								</excludeArtifact>
 								<excludeArtifact>

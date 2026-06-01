@@ -25,12 +25,4 @@ Workflow {
 	component = @org.eclipse.xtext.example.homeautomation.GenerateRuleEngine {
 		rootPath = "${rootPath}/homeautomation"
 	}
-	component = @org.eclipse.xtext.web.example.entities.GenerateEntities {
-		rootPath = ".."
-	}
-	component = @org.eclipse.xtext.web.example.statemachine.GenerateStatemachine {
-		rootPath = ".."
-	}
 }
-
-
