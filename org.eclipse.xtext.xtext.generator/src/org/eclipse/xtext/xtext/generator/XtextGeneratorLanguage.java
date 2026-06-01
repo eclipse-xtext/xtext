@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2015, 2020 itemis AG (http://www.itemis.eu) and others.
+ * Copyright (c) 2015, 2026 itemis AG (http://www.itemis.eu) and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -98,8 +98,6 @@ public class XtextGeneratorLanguage extends CompositeGeneratorFragment2 implemen
 	private final GuiceModuleAccess ideGenModule = new GuiceModuleAccess();
 
 	private final GuiceModuleAccess eclipsePluginGenModule = new GuiceModuleAccess();
-
-	private final GuiceModuleAccess webGenModule = new GuiceModuleAccess();
 
 	@Inject
 	private Provider<ResourceSet> resourceSetProvider;
@@ -379,8 +377,4 @@ public class XtextGeneratorLanguage extends CompositeGeneratorFragment2 implemen
 		return eclipsePluginGenModule;
 	}
 
-	@Override
-	public GuiceModuleAccess getWebGenModule() {
-		return webGenModule;
-	}
 }

@@ -24,7 +24,5 @@ This document describes the necessary steps to regenerate the test- and producti
 	org.eclipse.xtext.xtext.ui.examples/projects/homeautomation/org.eclipse.xtext.example.homeautomation/src/org/eclipse/xtext/example/homeautomation/GenerateRuleEngine.mwe2
 	org.eclipse.xtext.xtext.ui.tests/generator/org/eclipse/xtext/xtext/ui/ecore2xtext/GenerateEcore2XtextTestGrammar.mwe2
 	org.eclipse.xtext.xtext.ui.tests/src/org/eclipse/xtext/xtext/ui/GenerateTestLanguages.mwe2
-	org.eclipse.xtext.web.example.entities/src/org/eclipse/xtext/web/example/entities/GenerateEntities.mwe2
-	org.eclipse.xtext.web.example.statemachine/src/org/eclipse/xtext/web/example/statemachine/GenerateStatemachine.mwe2
 	org.eclipse.xtend.core/src/org/eclipse/xtend/core/GenerateXtend.mwe2
 	```

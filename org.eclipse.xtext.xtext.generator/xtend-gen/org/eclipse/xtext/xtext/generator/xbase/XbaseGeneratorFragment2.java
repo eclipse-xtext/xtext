@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2015, 2020 itemis AG (http://www.itemis.eu) and others.
+ * Copyright (c) 2015, 2026 itemis AG (http://www.itemis.eu) and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -119,8 +119,6 @@ public class XbaseGeneratorFragment2 extends AbstractXtextGeneratorFragment {
     }
     GuiceModuleAccess _ideGenModule = this.getLanguage().getIdeGenModule();
     _ideGenModule.setSuperClass(TypeReference.typeRef("org.eclipse.xtext.xbase.ide.DefaultXbaseIdeModule"));
-    GuiceModuleAccess _webGenModule = this.getLanguage().getWebGenModule();
-    _webGenModule.setSuperClass(TypeReference.typeRef("org.eclipse.xtext.xbase.web.DefaultXbaseWebModule"));
   }
 
   protected boolean contributeEditorStub() {
