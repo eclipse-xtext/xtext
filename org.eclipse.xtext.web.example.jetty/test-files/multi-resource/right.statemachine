@@ -1,8 +1,0 @@
-/*
- * A second State Machine resource.
- */
-output signal z
-
-state State2
-	if x == false and y == true goto State1
-end
