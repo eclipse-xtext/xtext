@@ -362,8 +362,7 @@ public class WizardConfigurationTest {
 
 	public List<? extends ProjectDescriptor> allJavaProjects() {
 		return Lists.newArrayList(config.getRuntimeProject(), config.getRuntimeProject().getTestProject(),
-				config.getUiProject(), config.getUiProject().getTestProject(), config.getIdeProject(),
-				config.getWebProject());
+				config.getUiProject(), config.getUiProject().getTestProject(), config.getIdeProject());
 	}
 
 	@Test

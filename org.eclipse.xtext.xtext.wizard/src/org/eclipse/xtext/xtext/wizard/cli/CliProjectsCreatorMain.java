@@ -40,7 +40,6 @@ public class CliProjectsCreatorMain {
 		UIProject,
 		RuntimeTest,
 		UITest,
-		Web,
 		P2Project;
 	}
 
@@ -140,9 +139,6 @@ public class CliProjectsCreatorMain {
 				break;
 			case GenericIDE:
 				cfg.getIdeProject().setEnabled(true);
-				break;
-			case Web:
-				cfg.getWebProject().setEnabled(true);
 				break;
 			case P2Project:
 				cfg.getP2Project().setEnabled(true);

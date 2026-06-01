@@ -127,7 +127,6 @@ public class CliWizardIntegrationTest {
 				project.setProjectLayout(ProjectLayout.HIERARCHICAL);
 				project.getRuntimeProject().getTestProject().setEnabled(true);
 				project.getIdeProject().setEnabled(true);
-				project.getWebProject().setEnabled(true);
 			}), CliWizardIntegrationTest.newProjectConfig(project -> {
 				project.setBaseName("mavenTycho");
 				project.setPreferredBuildSystem(BuildSystem.MAVEN);
@@ -137,7 +136,6 @@ public class CliWizardIntegrationTest {
 				project.getUiProject().setEnabled(true);
 				project.getUiProject().getTestProject().setEnabled(true);
 				project.getIdeProject().setEnabled(true);
-				project.getWebProject().setEnabled(true);
 			}), CliWizardIntegrationTest.newProjectConfig(project -> {
 				project.setBaseName("mavenTychoJUnit6");
 				project.setPreferredBuildSystem(BuildSystem.MAVEN);
@@ -147,7 +145,6 @@ public class CliWizardIntegrationTest {
 				project.getUiProject().setEnabled(true);
 				project.getUiProject().getTestProject().setEnabled(true);
 				project.getIdeProject().setEnabled(true);
-				project.getWebProject().setEnabled(true);
 				project.setJunitVersion(JUnitVersion.JUNIT_6);
 			}), CliWizardIntegrationTest.newProjectConfig(project -> {
 				project.setBaseName("gradle");
@@ -156,7 +153,6 @@ public class CliWizardIntegrationTest {
 				project.setProjectLayout(ProjectLayout.HIERARCHICAL);
 				project.getRuntimeProject().getTestProject().setEnabled(true);
 				project.getIdeProject().setEnabled(true);
-				project.getWebProject().setEnabled(true);
 				project.setJunitVersion(JUnitVersion.JUNIT_6);
 			}), CliWizardIntegrationTest.newProjectConfig(project -> {
 				project.setBaseName("eclipsePlugin");
@@ -186,7 +182,6 @@ public class CliWizardIntegrationTest {
 				project.getUiProject().setEnabled(true);
 				project.getUiProject().getTestProject().setEnabled(true);
 				project.getIdeProject().setEnabled(true);
-				project.getWebProject().setEnabled(true);
 				project.getP2Project().setEnabled(true);
 			}), CliWizardIntegrationTest.newProjectConfig(project -> {
 				project.setBaseName("mavenTychoP2J25");
@@ -198,7 +193,6 @@ public class CliWizardIntegrationTest {
 				project.getUiProject().setEnabled(true);
 				project.getUiProject().getTestProject().setEnabled(true);
 				project.getIdeProject().setEnabled(true);
-				project.getWebProject().setEnabled(true);
 				project.getP2Project().setEnabled(true);
 			}), CliWizardIntegrationTest.newProjectConfig(project -> {
 				project.setBaseName("full");
@@ -209,7 +203,6 @@ public class CliWizardIntegrationTest {
 				project.getUiProject().setEnabled(true);
 				project.getUiProject().getTestProject().setEnabled(true);
 				project.getIdeProject().setEnabled(true);
-				project.getWebProject().setEnabled(true);
 				project.getP2Project().setEnabled(true);
 			}), CliWizardIntegrationTest.newProjectConfig(project -> {
 				project.setBaseName("lsMavenFatjar");
@@ -220,7 +213,6 @@ public class CliWizardIntegrationTest {
 				project.getUiProject().setEnabled(false);
 				project.getUiProject().getTestProject().setEnabled(false);
 				project.getIdeProject().setEnabled(true);
-				project.getWebProject().setEnabled(false);
 				project.setLanguageServer(LanguageServer.FATJAR);
 			}), CliWizardIntegrationTest.newProjectConfig(project -> {
 				project.setBaseName("lsMavenTychoFatjar");
@@ -231,7 +223,6 @@ public class CliWizardIntegrationTest {
 				project.getUiProject().setEnabled(true);
 				project.getUiProject().getTestProject().setEnabled(false);
 				project.getIdeProject().setEnabled(true);
-				project.getWebProject().setEnabled(false);
 				project.setLanguageServer(LanguageServer.FATJAR);
 			}), CliWizardIntegrationTest.newProjectConfig(project -> {
 				project.setBaseName("lsGradleFatjar");
@@ -242,7 +233,6 @@ public class CliWizardIntegrationTest {
 				project.getUiProject().setEnabled(false);
 				project.getUiProject().getTestProject().setEnabled(false);
 				project.getIdeProject().setEnabled(true);
-				project.getWebProject().setEnabled(false);
 				project.setLanguageServer(LanguageServer.FATJAR);
 			}), CliWizardIntegrationTest.newProjectConfig(project -> {
 				project.setBaseName("lsMavenApp");
@@ -253,7 +243,6 @@ public class CliWizardIntegrationTest {
 				project.getUiProject().setEnabled(false);
 				project.getUiProject().getTestProject().setEnabled(false);
 				project.getIdeProject().setEnabled(true);
-				project.getWebProject().setEnabled(false);
 				project.setLanguageServer(LanguageServer.APP);
 			}), CliWizardIntegrationTest.newProjectConfig(project -> {
 				project.setBaseName("lsMavenTychoApp");
@@ -264,7 +253,6 @@ public class CliWizardIntegrationTest {
 				project.getUiProject().setEnabled(true);
 				project.getUiProject().getTestProject().setEnabled(false);
 				project.getIdeProject().setEnabled(true);
-				project.getWebProject().setEnabled(false);
 				project.setLanguageServer(LanguageServer.APP);
 			}), CliWizardIntegrationTest.newProjectConfig(project -> {
 				project.setBaseName("lsGradleApp");
@@ -275,7 +263,6 @@ public class CliWizardIntegrationTest {
 				project.getUiProject().setEnabled(false);
 				project.getUiProject().getTestProject().setEnabled(false);
 				project.getIdeProject().setEnabled(true);
-				project.getWebProject().setEnabled(false);
 				project.setLanguageServer(LanguageServer.APP);
 			}));
 

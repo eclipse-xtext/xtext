@@ -8,7 +8,7 @@
 <listAttribute key="tasks">
 <listEntry value="build"/>
 </listAttribute>
-<stringAttribute key="org.eclipse.debug.core.ATTR_REFRESH_SCOPE" value="${working_set:&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#10;&lt;resources&gt;&#10;&lt;item path=&quot;/gradle.parent&quot; type=&quot;4&quot;/&gt;&#10;&lt;item path=&quot;/gradle&quot; type=&quot;4&quot;/&gt;&#10;&lt;item path=&quot;/gradle.ide&quot; type=&quot;4&quot;/&gt;&#10;&lt;item path=&quot;/gradle.web&quot; type=&quot;4&quot;/&gt;&#10;&lt;item path=&quot;/gradle.tests&quot; type=&quot;4&quot;/&gt;&#10;;&lt;/resources&gt;}"/>
+<stringAttribute key="org.eclipse.debug.core.ATTR_REFRESH_SCOPE" value="${working_set:&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#10;&lt;resources&gt;&#10;&lt;item path=&quot;/gradle.parent&quot; type=&quot;4&quot;/&gt;&#10;&lt;item path=&quot;/gradle&quot; type=&quot;4&quot;/&gt;&#10;&lt;item path=&quot;/gradle.ide&quot; type=&quot;4&quot;/&gt;&#10;&lt;item path=&quot;/gradle.tests&quot; type=&quot;4&quot;/&gt;&#10;;&lt;/resources&gt;}"/>
 <booleanAttribute key="org.eclipse.jdt.launching.ATTR_USE_START_ON_FIRST_THREAD" value="true"/>
 <stringAttribute key="org.eclipse.jdt.launching.WORKING_DIRECTORY" value="${workspace_loc:/gradle}"/>
 </launchConfiguration>
