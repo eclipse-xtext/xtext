@@ -196,12 +196,6 @@ class ParentProjectDescriptor extends ProjectDescriptor {
 				attributes 'Bundle-SymbolicName': project.name
 			}
 		}
-
-		plugins.withId('war') {
-			war {
-				webAppDirectory = file("«Outlet.WEBAPP.sourceFolder»")
-			}
-		}
 	'''
 
 	@Deprecated

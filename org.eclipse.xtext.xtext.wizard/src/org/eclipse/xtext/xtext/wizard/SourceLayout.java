@@ -33,8 +33,6 @@ public enum SourceLayout {
 				return "src-gen";
 			case TEST_XTEND_GEN:
 				return "xtend-gen";
-			case WEBAPP:
-				return "WebRoot";
 			default:
 				throw new IllegalArgumentException("Unknown Outlet " + outlet);
 			}
@@ -65,8 +63,6 @@ public enum SourceLayout {
 				return "src/test/xtext-gen";
 			case TEST_XTEND_GEN:
 				return "src/test/xtend-gen";
-			case WEBAPP:
-				return "src/main/webapp";
 			default:
 				throw new IllegalArgumentException("Unknown Outlet " + outlet);
 			}

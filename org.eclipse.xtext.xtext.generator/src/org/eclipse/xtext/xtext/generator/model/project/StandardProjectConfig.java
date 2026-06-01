@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2015, 2020 itemis AG (http://www.itemis.eu) and others.
+ * Copyright (c) 2015, 2026 itemis AG (http://www.itemis.eu) and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -100,12 +100,6 @@ public class StandardProjectConfig extends XtextProjectConfig {
 					runtimeProjectConfig.setEcoreModel(computeEcoreModel(runtimeProjectConfig));
 				}
 			}
-			if (it instanceof WebProjectConfig) {
-				WebProjectConfig webProjectConfig = (WebProjectConfig) it;
-				if (webProjectConfig.getAssetsPath() == null) {
-					webProjectConfig.setAssets(computeAssets(webProjectConfig));
-				}
-			}
 		};
 	}
 
@@ -128,8 +122,6 @@ public class StandardProjectConfig extends XtextProjectConfig {
 			} else {
 				return baseName + ".ui";
 			}
-		} else if (Objects.equals(project, getWeb())) {
-			return baseName + ".web";
 		}
 		return null;
 	}
@@ -175,14 +167,6 @@ public class StandardProjectConfig extends XtextProjectConfig {
 
 	protected String computeEcoreModel(RuntimeProjectConfig project) {
 		return project.getRootPath() + "/" + "model/generated";
-	}
-
-	protected String computeAssets(WebProjectConfig project) {
-		if (mavenLayout) {
-			return project.getRootPath() + "/" + "src/"+ computeSourceSet(project) + "/webapp";
-		} else {
-			return project.getRootPath() + "/" + "WebRoot";
-		}
 	}
 
 	protected String computeSourceSet(SubProjectConfig project) {
