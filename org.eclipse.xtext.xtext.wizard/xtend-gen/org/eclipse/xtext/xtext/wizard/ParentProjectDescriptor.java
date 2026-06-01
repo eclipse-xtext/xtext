@@ -502,23 +502,6 @@ public class ParentProjectDescriptor extends ProjectDescriptor {
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
-    _builder.newLine();
-    _builder.append("plugins.withId(\'war\') {");
-    _builder.newLine();
-    _builder.append("\t");
-    _builder.append("war {");
-    _builder.newLine();
-    _builder.append("\t\t");
-    _builder.append("webAppDirectory = file(\"");
-    String _sourceFolder_18 = this.sourceFolder(Outlet.WEBAPP);
-    _builder.append(_sourceFolder_18, "\t\t");
-    _builder.append("\")");
-    _builder.newLineIfNotEmpty();
-    _builder.append("\t");
-    _builder.append("}");
-    _builder.newLine();
-    _builder.append("}");
-    _builder.newLine();
     return _builder;
   }
 

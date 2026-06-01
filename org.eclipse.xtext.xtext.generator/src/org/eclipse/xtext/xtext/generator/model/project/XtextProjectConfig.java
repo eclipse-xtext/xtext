@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2015, 2023 itemis AG (http://www.itemis.eu) and others.
+ * Copyright (c) 2015, 2026 itemis AG (http://www.itemis.eu) and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -40,8 +40,6 @@ public class XtextProjectConfig implements IXtextProjectConfig {
 
 	private BundleProjectConfig eclipsePluginTest = new BundleProjectConfig();
 
-	private WebProjectConfig web = new WebProjectConfig();
-
 	@Inject
 	private CodeConfig codeConfig;
 
@@ -52,7 +50,7 @@ public class XtextProjectConfig implements IXtextProjectConfig {
 	}
 
 	public List<? extends SubProjectConfig> getAllProjects() {
-		return Lists.newArrayList(runtime, runtimeTest, genericIde, eclipsePlugin, eclipsePluginTest, web);
+		return Lists.newArrayList(runtime, runtimeTest, genericIde, eclipsePlugin, eclipsePluginTest);
 	}
 
 	@Override
@@ -78,7 +76,7 @@ public class XtextProjectConfig implements IXtextProjectConfig {
 
 	public void setDefaults() {
 		runtime.setEnabled(true);
-		if (eclipsePlugin.isEnabled() || web.isEnabled()) {
+		if (eclipsePlugin.isEnabled()) {
 			genericIde.setEnabled(true);
 		}
 	}
@@ -135,14 +133,6 @@ public class XtextProjectConfig implements IXtextProjectConfig {
 
 	public void setEclipsePluginTest(BundleProjectConfig eclipsePluginTest) {
 		this.eclipsePluginTest = eclipsePluginTest;
-	}
-
-	public WebProjectConfig getWeb() {
-		return web;
-	}
-
-	public void setWeb(WebProjectConfig web) {
-		this.web = web;
 	}
 
 	public CodeConfig getCodeConfig() {

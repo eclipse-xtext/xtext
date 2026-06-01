@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2015, 2022 itemis AG (http://www.itemis.eu) and others.
+ * Copyright (c) 2015, 2026 itemis AG (http://www.itemis.eu) and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -196,7 +196,7 @@ class RuntimeProjectDescriptor extends TestedProjectDescriptor {
 								}
 							«ENDIF»
 							«IF config.ideProject.enabled 
-								&& !#[config.webProject, config.uiProject].exists[enabled]»
+								&& !#[config.uiProject].exists[enabled]»
 								genericIde = {
 									enabled = true
 								}
@@ -208,11 +208,6 @@ class RuntimeProjectDescriptor extends TestedProjectDescriptor {
 							«ENDIF»
 							«IF config.uiProject.testProject.enabled»
 								eclipsePluginTest = {
-									enabled = true
-								}
-							«ENDIF»
-							«IF config.webProject.enabled»
-								web = {
 									enabled = true
 								}
 							«ENDIF»
@@ -377,7 +372,7 @@ class RuntimeProjectDescriptor extends TestedProjectDescriptor {
 							<artifactId>maven-clean-plugin</artifactId>
 							<configuration>
 								<filesets combine.children="append">
-									«FOR p : #[this, config.ideProject, config.uiProject, config.webProject]»
+									«FOR p : #[this, config.ideProject, config.uiProject]»
 										«IF p.enabled»
 											<fileset>
 												<directory>${basedir}/../«p.name»/«Outlet.MAIN_SRC_GEN.sourceFolder»/</directory>

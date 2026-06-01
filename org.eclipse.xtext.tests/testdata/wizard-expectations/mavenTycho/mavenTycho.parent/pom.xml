@@ -23,7 +23,6 @@
 		<module>mavenTycho</module>
 		<module>mavenTycho.ide</module>
 		<module>mavenTycho.ui</module>
-		<module>mavenTycho.web</module>
 		<module>mavenTycho.target</module>
 		<module>mavenTycho.tests</module>
 		<module>mavenTycho.ui.tests</module>

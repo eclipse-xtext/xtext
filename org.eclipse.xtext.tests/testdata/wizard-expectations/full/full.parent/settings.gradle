@@ -1,4 +1,3 @@
 include 'full'
 include 'full.ide'
-include 'full.web'
 include 'full.tests'

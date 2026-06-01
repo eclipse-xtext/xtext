@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2015, 2018 itemis AG (http://www.itemis.eu) and others.
+ * Copyright (c) 2015, 2026 itemis AG (http://www.itemis.eu) and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -33,8 +33,6 @@ public enum SourceLayout {
 				return "src-gen";
 			case TEST_XTEND_GEN:
 				return "xtend-gen";
-			case WEBAPP:
-				return "WebRoot";
 			default:
 				throw new IllegalArgumentException("Unknown Outlet " + outlet);
 			}
@@ -65,8 +63,6 @@ public enum SourceLayout {
 				return "src/test/xtext-gen";
 			case TEST_XTEND_GEN:
 				return "src/test/xtend-gen";
-			case WEBAPP:
-				return "src/main/webapp";
 			default:
 				throw new IllegalArgumentException("Unknown Outlet " + outlet);
 			}

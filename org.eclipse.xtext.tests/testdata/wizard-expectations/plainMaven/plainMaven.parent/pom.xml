@@ -14,7 +14,6 @@
 	<modules>
 		<module>plainMaven</module>
 		<module>plainMaven.ide</module>
-		<module>plainMaven.web</module>
 	</modules>
 	<dependencyManagement>
 		<dependencies>

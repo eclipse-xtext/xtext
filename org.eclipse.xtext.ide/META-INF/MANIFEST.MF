@@ -38,7 +38,7 @@ Export-Package: org.eclipse.xtext.ide;version="2.44.0";
  org.eclipse.xtext.ide.editor.partialEditing;version="2.44.0",
  org.eclipse.xtext.ide.editor.quickfix;version="2.44.0",
  org.eclipse.xtext.ide.editor.syntaxcoloring;version="2.44.0",
- org.eclipse.xtext.ide.labels;version="2.44.0";x-friends:="org.eclipse.xtext.web,org.eclipse.xtext.xbase.ide",
+ org.eclipse.xtext.ide.labels;version="2.44.0";x-friends:="org.eclipse.xtext.xbase.ide",
  org.eclipse.xtext.ide.refactoring;version="2.44.0";x-friends:="org.eclipse.xtext.testlanguages.ide,org.eclipse.xtext.ui",
  org.eclipse.xtext.ide.serializer;version="2.44.0";x-friends:="org.eclipse.xtext.ide.tests,org.eclipse.xtext.ui",
  org.eclipse.xtext.ide.serializer.debug;version="2.44.0";x-friends:="org.eclipse.xtext.ide.tests,org.eclipse.xtext.testing",

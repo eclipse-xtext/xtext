@@ -23,7 +23,6 @@
 		<module>mavenTychoP2</module>
 		<module>mavenTychoP2.ide</module>
 		<module>mavenTychoP2.ui</module>
-		<module>mavenTychoP2.web</module>
 		<module>mavenTychoP2.target</module>
 		<module>mavenTychoP2.feature</module>
 		<module>mavenTychoP2.repository</module>

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2015, 2021 itemis AG (http://www.itemis.eu) and others.
+ * Copyright (c) 2015, 2026 itemis AG (http://www.itemis.eu) and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -255,7 +255,6 @@ public class XtextGenerator extends AbstractWorkflowComponent2 {
 		templates.createRuntimeGenSetup(language).writeTo(projectConfig.getRuntime().getSrcGen());
 		templates.createRuntimeSetup(language).writeTo(projectConfig.getRuntime().getSrc());
 		templates.createIdeSetup(language).writeTo(projectConfig.getGenericIde().getSrc());
-		templates.createWebSetup(language).writeTo(projectConfig.getWeb().getSrc());
 	}
 
 	protected void generateModules(IXtextGeneratorLanguage language) {
@@ -265,8 +264,6 @@ public class XtextGenerator extends AbstractWorkflowComponent2 {
 		templates.createIdeGenModule(language).writeTo(projectConfig.getGenericIde().getSrcGen());
 		templates.createEclipsePluginGenModule(language).writeTo(projectConfig.getEclipsePlugin().getSrcGen());
 		templates.createEclipsePluginModule(language).writeTo(projectConfig.getEclipsePlugin().getSrc());
-		templates.createWebGenModule(language).writeTo(projectConfig.getWeb().getSrcGen());
-		templates.createWebModule(language).writeTo(projectConfig.getWeb().getSrc());
 	}
 
 	protected void generateExecutableExtensionFactory(IXtextGeneratorLanguage language) {

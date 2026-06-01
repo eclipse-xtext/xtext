@@ -55,8 +55,6 @@ public class WizardConfiguration {
 
 	private final UiProjectDescriptor uiProject = new UiProjectDescriptor(this);
 
-	private final WebProjectDescriptor webProject = new WebProjectDescriptor(this);
-
 	private final ParentProjectDescriptor parentProject = new ParentProjectDescriptor(this);
 
 	private final TargetPlatformProject targetPlatformProject = new TargetPlatformProject(this);
@@ -68,7 +66,7 @@ public class WizardConfiguration {
 	public Set<ProjectDescriptor> getEnabledProjects() {
 		Iterable<ProjectDescriptor> productionProjects = Iterables.filter(
 				Lists.newArrayList(parentProject, runtimeProject, ideProject,
-						uiProject, webProject, targetPlatformProject, sdkProject, p2Project),
+						uiProject, targetPlatformProject, sdkProject, p2Project),
 				ProjectDescriptor::isEnabled);
 		Iterable<TestProjectDescriptor> testProjects = Iterables
 				.filter(Iterables.transform(
@@ -204,10 +202,6 @@ public class WizardConfiguration {
 
 	public UiProjectDescriptor getUiProject() {
 		return uiProject;
-	}
-
-	public WebProjectDescriptor getWebProject() {
-		return webProject;
 	}
 
 	public ParentProjectDescriptor getParentProject() {

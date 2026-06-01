@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2015, 2020 itemis AG (http://www.itemis.eu) and others.
+ * Copyright (c) 2015, 2026 itemis AG (http://www.itemis.eu) and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -48,8 +48,6 @@ public class AdvancedNewProjectPage extends WizardPage {
 
 	private Button createP2Project;
 
-	private Button createWebProject;
-
 	private Button createIdeProject;
 
 	private Button createTestProject;
@@ -90,10 +88,6 @@ public class AdvancedNewProjectPage extends WizardPage {
 			createUiProjectSubGroup = Group(group, (subGroup) -> {
 				createSDKProject = CheckBox(subGroup, (button) -> button.setText(Messages.AdvancedNewProjectPage_projEclipseSDKFeature));
 				createP2Project = CheckBox(subGroup, (button) -> button.setText(Messages.AdvancedNewProjectPage_projEclipseP2));
-			});
-			createWebProject = CheckBox(group, (button) -> {
-				button.setText(Messages.AdvancedNewProjectPage_projWeb);
-				button.setEnabled(true);
 			});
 			createIdeProject = CheckBox(group, (button) -> {
 				button.setText(Messages.AdvancedNewProjectPage_projIde);
@@ -157,7 +151,7 @@ public class AdvancedNewProjectPage extends WizardPage {
 		statusWidget = new StatusWidget(control, SWT.NONE);
 		statusWidget.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
 
-		List<Button> uiButtons = Arrays.asList(createUiProject, createWebProject);
+		List<Button> uiButtons = Arrays.asList(createUiProject);
 
 		SelectionAdapter selectionControlUi = new SelectionAdapter() {
 			@Override
@@ -253,7 +247,6 @@ public class AdvancedNewProjectPage extends WizardPage {
 
 		sourceLayout.addSelectionListener(selectionControl);
 		createUiProject.addSelectionListener(selectionControlUi);
-		createWebProject.addSelectionListener(selectionControlUi);
 		createIdeProject.addSelectionListener(selectionControl);
 		createSDKProject.addSelectionListener(selectionControl);
 		createP2Project.addSelectionListener(selectionControlUpdateSite);
@@ -272,7 +265,7 @@ public class AdvancedNewProjectPage extends WizardPage {
 	}
 
 	public void checkWidgets(SelectionEvent e) {
-		List<Button> uiButtons = Arrays.asList(createUiProject, createWebProject);
+		List<Button> uiButtons = Arrays.asList(createUiProject);
 
 		if (isSelected(preferredBuildSystem, BuildSystem.MAVEN) && !isBundleResolved("org.eclipse.m2e.maven.runtime")) {
 			reportIssue(WARNING, Messages.AdvancedNewProjectPage_noM2e);
@@ -313,19 +306,6 @@ public class AdvancedNewProjectPage extends WizardPage {
 			} else {
 				String message = "Maven/Gradle source layout is only supported when using Maven or Gradle build system. " //
 						+ "You need to choose Maven or Gradle as build system. Select <a>Gradle</a> build.";
-				reportIssue(ERROR, message, () -> select(preferredBuildSystem, BuildSystem.GRADLE));
-			}
-		}
-
-		if (createWebProject.getSelection() && isSelected(preferredBuildSystem, BuildSystem.NONE)) {
-			if (preferredBuildSystem == source) {
-				String message = "The '" + createWebProject.getText() + "' project can not be build without a build system. " //
-						+ "Please <a>deselect '" + createWebProject.getText() + "'</a>.";
-				reportIssue(ERROR, message, () -> createWebProject.setSelection(false));
-			} else {
-				String message = "To build the '" + createWebProject.getText() + "' " //
-						+ "project, you need to choose Maven or Gradle as build system." //
-						+ "Select <a>Gradle</a> build.";
 				reportIssue(ERROR, message, () -> select(preferredBuildSystem, BuildSystem.GRADLE));
 			}
 		}
@@ -432,7 +412,6 @@ public class AdvancedNewProjectPage extends WizardPage {
 		createUiProject.setSelection(true);
 		createIdeProject.setSelection(true);
 		createTestProject.setSelection(true);
-		createWebProject.setSelection(false);
 		createSDKProject.setSelection(false);
 		createP2Project.setSelection(false);
 
@@ -451,10 +430,6 @@ public class AdvancedNewProjectPage extends WizardPage {
 
 	public boolean isCreateIdeProject() {
 		return createIdeProject.getSelection();
-	}
-
-	public boolean isCreateWebProject() {
-		return createWebProject.getSelection();
 	}
 
 	public boolean isCreateSdkProject() {

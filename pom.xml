@@ -8,7 +8,7 @@
 	<packaging>pom</packaging>
 
 	<name>Xtext Parent POM</name>
-	<description>Xtext is a framework for development of programming languages and domain-specific languages. With Xtext you define your language using a powerful grammar language. As a result you get a full infrastructure, including parser, linker, typechecker, compiler as well as editing support for Eclipse, LSP and your favorite web browser.</description>
+	<description>Xtext is a framework for development of programming languages and domain-specific languages. With Xtext you define your language using a powerful grammar language. As a result you get a full infrastructure, including parser, linker, typechecker, compiler as well as editing support for Eclipse and LSP (Language Server Protocol).</description>
 
 	<url>https://www.eclipse.org/Xtext/</url>
 	<licenses>
@@ -588,21 +588,6 @@
 								</excludeArtifact>
 								<excludeArtifact>
 									org.eclipse.xtext.ui.tests
-								</excludeArtifact>
-								<excludeArtifact>
-									org.eclipse.xtext.web.example.entities
-								</excludeArtifact>
-								<excludeArtifact>
-									org.eclipse.xtext.web.example.entities.ide
-								</excludeArtifact>
-								<excludeArtifact>
-									org.eclipse.xtext.web.example.jetty
-								</excludeArtifact>
-								<excludeArtifact>
-									org.eclipse.xtext.web.example.statemachine
-								</excludeArtifact>
-								<excludeArtifact>
-									org.eclipse.xtext.web.example.statemachine.ide
 								</excludeArtifact>
 								<excludeArtifact>
 									org.eclipse.xtext.xbase.lib.tests

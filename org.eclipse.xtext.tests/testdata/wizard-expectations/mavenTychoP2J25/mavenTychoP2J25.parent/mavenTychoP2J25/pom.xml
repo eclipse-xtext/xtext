@@ -85,12 +85,6 @@
 							</includes>
 						</fileset>
 						<fileset>
-							<directory>${basedir}/../mavenTychoP2J25.web/src-gen/</directory>
-							<includes>
-								<include>**/*</include>
-							</includes>
-						</fileset>
-						<fileset>
 							<directory>${basedir}/model/generated/</directory>
 						</fileset>
 					</filesets>

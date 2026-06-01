@@ -22,9 +22,3 @@ jar {
 		attributes 'Bundle-SymbolicName': project.name
 	}
 }
-
-plugins.withId('war') {
-	war {
-		webAppDirectory = file("src/main/webapp")
-	}
-}

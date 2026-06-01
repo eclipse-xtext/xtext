@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2015, 2022 itemis AG (http://www.itemis.eu) and others.
+ * Copyright (c) 2015, 2026 itemis AG (http://www.itemis.eu) and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -338,7 +338,7 @@ public class RuntimeProjectDescriptor extends TestedProjectDescriptor {
       }
     }
     {
-      if ((this.getConfig().getIdeProject().isEnabled() && (!IterableExtensions.exists(Collections.<ProjectDescriptor>unmodifiableList(CollectionLiterals.<ProjectDescriptor>newArrayList(this.getConfig().getWebProject(), this.getConfig().getUiProject())), ((Function1<ProjectDescriptor, Boolean>) (ProjectDescriptor it) -> {
+      if ((this.getConfig().getIdeProject().isEnabled() && (!IterableExtensions.<UiProjectDescriptor>exists(Collections.<UiProjectDescriptor>unmodifiableList(CollectionLiterals.<UiProjectDescriptor>newArrayList(this.getConfig().getUiProject())), ((Function1<UiProjectDescriptor, Boolean>) (UiProjectDescriptor it) -> {
         return Boolean.valueOf(it.isEnabled());
       }))))) {
         _builder.append("\t\t\t\t");
@@ -373,21 +373,6 @@ public class RuntimeProjectDescriptor extends TestedProjectDescriptor {
       if (_isEnabled_2) {
         _builder.append("\t\t\t\t");
         _builder.append("eclipsePluginTest = {");
-        _builder.newLine();
-        _builder.append("\t\t\t\t");
-        _builder.append("\t");
-        _builder.append("enabled = true");
-        _builder.newLine();
-        _builder.append("\t\t\t\t");
-        _builder.append("}");
-        _builder.newLine();
-      }
-    }
-    {
-      boolean _isEnabled_3 = this.getConfig().getWebProject().isEnabled();
-      if (_isEnabled_3) {
-        _builder.append("\t\t\t\t");
-        _builder.append("web = {");
         _builder.newLine();
         _builder.append("\t\t\t\t");
         _builder.append("\t");
@@ -899,8 +884,7 @@ public class RuntimeProjectDescriptor extends TestedProjectDescriptor {
       {
         IdeProjectDescriptor _ideProject = this.getConfig().getIdeProject();
         UiProjectDescriptor _uiProject = this.getConfig().getUiProject();
-        WebProjectDescriptor _webProject = this.getConfig().getWebProject();
-        for(final ProjectDescriptor p : Collections.<ProjectDescriptor>unmodifiableList(CollectionLiterals.<ProjectDescriptor>newArrayList(this, _ideProject, _uiProject, _webProject))) {
+        for(final ProjectDescriptor p : Collections.<ProjectDescriptor>unmodifiableList(CollectionLiterals.<ProjectDescriptor>newArrayList(this, _ideProject, _uiProject))) {
           {
             boolean _isEnabled = p.isEnabled();
             if (_isEnabled) {

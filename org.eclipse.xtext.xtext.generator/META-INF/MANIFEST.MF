@@ -63,7 +63,6 @@ Export-Package: org.eclipse.xtext.xtext.generator;version="2.44.0",
  org.eclipse.xtext.xtext.generator.ui.templates;version="2.44.0",
  org.eclipse.xtext.xtext.generator.util;version="2.44.0",
  org.eclipse.xtext.xtext.generator.validation;version="2.44.0",
- org.eclipse.xtext.xtext.generator.web;version="2.44.0",
  org.eclipse.xtext.xtext.generator.xbase;version="2.44.0"
 Automatic-Module-Name: org.eclipse.xtext.xtext.generator
 Eclipse-SourceReferences: eclipseSourceReferences

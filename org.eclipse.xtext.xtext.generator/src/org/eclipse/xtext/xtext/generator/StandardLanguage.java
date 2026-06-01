@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2015, 2020 itemis AG (http://www.itemis.eu) and others.
+ * Copyright (c) 2015, 2026 itemis AG (http://www.itemis.eu) and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -36,7 +36,6 @@ import org.eclipse.xtext.xtext.generator.ui.quickfix.QuickfixProviderFragment2;
 import org.eclipse.xtext.xtext.generator.ui.refactoring.RefactorElementNameFragment2;
 import org.eclipse.xtext.xtext.generator.ui.templates.CodetemplatesGeneratorFragment2;
 import org.eclipse.xtext.xtext.generator.validation.ValidatorFragment2;
-import org.eclipse.xtext.xtext.generator.web.WebIntegrationFragment;
 import org.eclipse.xtext.xtext.generator.xbase.XbaseGeneratorFragment2;
 import org.eclipse.xtext.xtext.generator.xbase.XtypeGeneratorFragment2;
 
@@ -48,9 +47,7 @@ import com.google.inject.Injector;
  * eliminates the need to list all these fragments explicitly in the workflow
  * file. More fragments can be added as required, but the standard fragments
  * cannot be removed. However, most of these fragments disable themselves
- * automatically if they are not applicable, e.g. the
- * {@link WebIntegrationFragment} does not generate anything if the web project
- * is disabled in the project configuration.
+ * automatically if they are not applicable.
  * 
  * <p>
  * The configuration for individual fragments can be made with the corresponding
@@ -126,8 +123,6 @@ public class StandardLanguage extends XtextGeneratorLanguage {
 
 	private CompareFragment2 compareEditor = new CompareFragment2();
 
-	private WebIntegrationFragment webSupport = new WebIntegrationFragment();
-
 	@Deprecated
 	private org.eclipse.xtext.xtext.generator.ui.projectWizard.SimpleProjectWizardFragment2 newProjectWizardForEclipse = new org.eclipse.xtext.xtext.generator.ui.projectWizard.SimpleProjectWizardFragment2();
 
@@ -151,18 +146,6 @@ public class StandardLanguage extends XtextGeneratorLanguage {
 		}
 		if (!commonTypesSupport.getOnlyEnabledIfGrammarIsUsed().isSet()) {
 			commonTypesSupport.setOnlyEnabledIfGrammarIsUsed(true);
-		}
-		if (!webSupport.getFramework().isSet()) {
-			webSupport.setFramework("Ace");
-		}
-		if (!webSupport.getGenerateServlet().isSet()) {
-			webSupport.setGenerateServlet(true);
-		}
-		if (!webSupport.getGenerateJettyLauncher().isSet()) {
-			webSupport.setGenerateJettyLauncher(true);
-		}
-		if (!webSupport.getGenerateHtmlExample().isSet()) {
-			webSupport.setGenerateHtmlExample(true);
 		}
 		super.initialize(injector);
 	}
@@ -197,7 +180,6 @@ public class StandardLanguage extends XtextGeneratorLanguage {
 		nullSafeAdd(fragments, xtypeSupport);
 		nullSafeAdd(fragments, codeTemplates);
 		nullSafeAdd(fragments, compareEditor);
-		nullSafeAdd(fragments, webSupport);
 		nullSafeAdd(fragments, newProjectWizardForEclipse);
 		nullSafeAdd(fragments, projectWizard);
 		nullSafeAdd(fragments, fileWizard);
@@ -428,14 +410,6 @@ public class StandardLanguage extends XtextGeneratorLanguage {
 
 	public void setCompareEditor(CompareFragment2 compareEditor) {
 		this.compareEditor = compareEditor;
-	}
-
-	protected WebIntegrationFragment getWebSupport() {
-		return webSupport;
-	}
-
-	public void setWebSupport(WebIntegrationFragment webSupport) {
-		this.webSupport = webSupport;
 	}
 
 	@SuppressWarnings("deprecation")

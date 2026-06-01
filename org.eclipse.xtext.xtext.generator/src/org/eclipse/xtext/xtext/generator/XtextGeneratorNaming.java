@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2015, 2020 itemis AG (http://www.itemis.eu) and others.
+ * Copyright (c) 2015, 2026 itemis AG (http://www.itemis.eu) and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -134,24 +134,4 @@ public class XtextGeneratorNaming {
 		return new TypeReference(pluginName + ".internal", activatorName);
 	}
 
-	public String getWebBasePackage(Grammar grammar) {
-		return GrammarUtil.getNamespace(grammar) + ".web";
-	}
-
-	public TypeReference getWebModule(Grammar grammar) {
-		return new TypeReference(getWebBasePackage(grammar), GrammarUtil.getSimpleName(grammar) + "WebModule");
-	}
-
-	public TypeReference getWebDefaultModule(Grammar grammar) {
-		return new TypeReference("org.eclipse.xtext.web.server.DefaultWebModule");
-	}
-
-	public TypeReference getWebGenModule(Grammar grammar) {
-		return new TypeReference(getWebBasePackage(grammar),
-				"Abstract" + GrammarUtil.getSimpleName(grammar) + "WebModule");
-	}
-
-	public TypeReference getWebSetup(Grammar grammar) {
-		return new TypeReference(getWebBasePackage(grammar), GrammarUtil.getSimpleName(grammar) + "WebSetup");
-	}
 }
