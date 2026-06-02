@@ -78,11 +78,7 @@ Google Guice / Inject Core API (7.0.0)
 
 * License: Apache License, 2.0
 
-Gradle Wrapper (8)
-
-* License: Apache License, 2.0
-
-guava gwt (33.3.x)
+Gradle Wrapper (9)
 
 * License: Apache License, 2.0
 

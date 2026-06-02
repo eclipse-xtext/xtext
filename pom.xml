@@ -416,9 +416,6 @@
 									org.eclipse.xtend.ide.tests.data
 								</excludeArtifact>
 								<excludeArtifact>
-									org.eclipse.xtend.lib.gwt.test
-								</excludeArtifact>
-								<excludeArtifact>
 									org.eclipse.xtend.lib.tests
 								</excludeArtifact>
 								<excludeArtifact>

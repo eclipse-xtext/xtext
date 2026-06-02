@@ -18,16 +18,13 @@
 		<module>../org.eclipse.xtext.dev-bom</module>
 		<module>../org.eclipse.xtext.relengutil</module>
 		<module>../org.eclipse.xtext.xbase.lib</module>
-		<module>../org.eclipse.xtext.xbase.lib.gwt</module>
 		<module>../org.eclipse.xtend.lib.macro</module>
 		<module>../org.eclipse.xtend.lib</module>
-		<module>../org.eclipse.xtend.lib.gwt</module>
 
 		<module>../org.eclipse.xtext.xbase.lib.feature</module>
 		<module>../org.eclipse.xtext.xbase.lib.tests</module>
 		<module>../org.eclipse.xtend.lib.feature</module>
 		<module>../org.eclipse.xtend.lib.tests</module>
-		<module>../org.eclipse.xtend.lib.gwt.test</module>
 
 		<!-- xtext-core -->
 		<module>../org.eclipse.xtext</module>
