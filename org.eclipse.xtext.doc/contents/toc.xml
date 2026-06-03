@@ -295,36 +295,6 @@
 			<topic href="contents/310_eclipse_support.html#ui-testing" label="UI Testing">
 			</topic>
 		</topic>
-		<topic href="contents/330_web_support.html" label="Web Editor Support">
-			<topic href="contents/330_web_support.html#client" label="The Client">
-				<topic href="contents/330_web_support.html#javascript-api" label="JavaScript API">
-				</topic>
-				<topic href="contents/330_web_support.html#options" label="Options">
-				</topic>
-				<topic href="contents/330_web_support.html#getting-text-content" label="Getting the Text Content">
-				</topic>
-				<topic href="contents/330_web_support.html#operation-modes" label="Operation Modes">
-				</topic>
-				<topic href="contents/330_web_support.html#syntax-highlighting" label="Syntax Highlighting">
-				</topic>
-				<topic href="contents/330_web_support.html#invoking-services" label="Invoking Services">
-				</topic>
-				<topic href="contents/330_web_support.html#options-reference" label="Full List of Options">
-				</topic>
-			</topic>
-			<topic href="contents/330_web_support.html#server" label="The Server">
-				<topic href="contents/330_web_support.html#content-assist" label="Content Assist">
-				</topic>
-				<topic href="contents/330_web_support.html#semantic-highlighting" label="Semantic Highlighting">
-				</topic>
-				<topic href="contents/330_web_support.html#mark-occurrences" label="Mark Occurrences">
-				</topic>
-				<topic href="contents/330_web_support.html#hover-info" label="Hover Information">
-				</topic>
-				<topic href="contents/330_web_support.html#persistence" label="Persistence">
-				</topic>
-			</topic>
-		</topic>
 		<topic href="contents/340_lsp_support.html" label="LSP Support">
 			<topic href="contents/340_lsp_support.html#getting-started-eclipse" label="Getting Started in Eclipse">
 			</topic>
