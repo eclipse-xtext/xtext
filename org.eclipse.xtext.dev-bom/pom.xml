@@ -157,11 +157,6 @@
 			</dependency>
 			<dependency>
 				<groupId>com.google.guava</groupId>
-				<artifactId>guava-gwt</artifactId>
-				<version>33.6.0-jre</version>
-			</dependency>
-			<dependency>
-				<groupId>com.google.guava</groupId>
 				<artifactId>guava-testlib</artifactId>
 				<version>33.6.0-jre</version>
 			</dependency>

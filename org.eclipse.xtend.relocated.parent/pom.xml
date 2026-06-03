@@ -132,7 +132,6 @@
 		<module>org.eclipse.xtend.maven.plugin.relocated</module>
 		<module>org.eclipse.xtend.maven.archetype.relocated</module>
 		<module>org.eclipse.xtend.ide.common.relocated</module>
-		<module>org.eclipse.xtend.lib.gwt.relocated</module>
 		<module>org.eclipse.xtend.core.relocated</module>
 		<module>org.eclipse.xtend.lib.relocated</module>
 		<module>org.eclipse.xtend.lib.macro.relocated</module>
