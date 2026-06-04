@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2015, 2024 itemis AG (http://www.itemis.eu) and others.
+ * Copyright (c) 2015, 2026 itemis AG (http://www.itemis.eu) and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -61,6 +61,7 @@ class JavaVersionSettingTest extends Assert {
 	@Test def void testCompileWithJava8() {
 		workbenchTestHelper.tearDown
 		WorkbenchTestHelper.createPluginProject(WorkbenchTestHelper.TESTPROJECT_NAME, JavaVersion.JAVA8)
+		waitForJdtIndex()
 		val xtendFile = workbenchTestHelper.createFile('mypackage/OverrideTest.xtend', '''
 			package mypackage
 			class B implements A {

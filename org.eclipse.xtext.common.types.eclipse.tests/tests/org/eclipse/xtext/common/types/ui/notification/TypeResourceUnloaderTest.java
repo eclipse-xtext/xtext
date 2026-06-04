@@ -32,6 +32,7 @@ import org.eclipse.xtext.common.types.eclipse.tests.internal.TestsActivator;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.ui.notification.IStateChangeEventBroker;
+import org.eclipse.xtext.ui.testing.util.IResourcesSetupUtil;
 import org.eclipse.xtext.xbase.lib.Procedures;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure0;
 import org.junit.After;
@@ -78,8 +79,14 @@ public class TypeResourceUnloaderTest extends Assert implements IResourceDescrip
 		projectProvider = new MockJavaProjectProvider();
 		projectProvider.setUseSource(true);
 		project = projectProvider.getJavaProject(null);
+		// Ensure the JDT incremental builder state is fully populated before the test starts.
+		// Without this, JavaBuilderState.getDefinedTypeNamesFor(typeLocator) may return null
+		// and convertRemovedTypes(...) will only emit a delta for the primary type, causing
+		// e.g. testRenameClass to see 4 deltas instead of the expected 6.
+		IResourcesSetupUtil.waitForBuild();
 		type = project.findType(NESTED_TYPES);
 		compilationUnit = type.getCompilationUnit();
+		assertBuilderStateContainsNestedTypes();
 		compilationUnit.becomeWorkingCopy(null);
 		
 		// wait until the BackgroundThread for the reconciler was started
@@ -105,12 +112,32 @@ public class TypeResourceUnloaderTest extends Assert implements IResourceDescrip
 		eventBroker = null;
 		projectProvider = null;
 		compilationUnit.discardWorkingCopy();
+		// Make sure the rebuild triggered by doSave above is finished before the next
+		// @Before runs, so that JavaBuilderState is consistent for the following test.
+		IResourcesSetupUtil.waitForBuild();
 		compilationUnit = null;
 		editor = null;
 		type = null;
 		project = null;
 		event = null;
 		subsequentEvents = null;
+	}
+
+	/**
+	 * Sanity check that the JDT builder state knows about all three nested types defined in
+	 * {@code NestedTypes.java}. If this fails, the test environment is racing with the Java
+	 * builder and the actual test assertions would be misleading.
+	 */
+	private void assertBuilderStateContainsNestedTypes() {
+		JavaBuilderState builderState = JavaBuilderState.getLastBuiltState(project.getProject());
+		assertNotNull("No JDT builder state available for project " + project.getElementName(), builderState);
+		TypeNames typeNames = builderState.getQualifiedTypeNames(compilationUnit);
+		Collection<String> names = typeNames.getTypeNames();
+		assertTrue("Builder state is missing " + NESTED_TYPES + ", was: " + names, names.contains(NESTED_TYPES));
+		assertTrue("Builder state is missing " + NESTED_TYPES + "$Outer, was: " + names,
+				names.contains(NESTED_TYPES + "$Outer"));
+		assertTrue("Builder state is missing " + NESTED_TYPES + "$Outer$Inner, was: " + names,
+				names.contains(NESTED_TYPES + "$Outer$Inner"));
 	}
 	
 	@Test public void testNullChange() throws BadLocationException, InterruptedException {
