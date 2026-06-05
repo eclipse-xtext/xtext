@@ -63,44 +63,7 @@ public class JavaRuntimeVersion {
 	}
 
 	private static int determineJavaVersion() {
-		String javaVersion = System.getProperty("java.version");
-		if (javaVersion == null) {
-			// fallback
-			return 8;
-		}
-		return determineJavaVersion(javaVersion);
-	}
-
-	static int determineJavaVersion(String javaVersion) {
-		if (javaVersion.startsWith("1.")) {
-			try {
-				Pattern p = Pattern.compile("1\\.(\\d+)(.)*");
-				Matcher matcher = p.matcher(javaVersion);
-				if (matcher.matches()) {
-					String first = matcher.group(1);
-					int version = Integer.parseInt(first);
-					return version;
-				}
-			} catch (NumberFormatException e) {
-				// ok
-			}
-			// fallback
-			return 8;
-		} else {
-			try {
-				Pattern p = Pattern.compile("(\\d+)(.)*");
-				Matcher matcher = p.matcher(javaVersion);
-				if (matcher.matches()) {
-					String first = matcher.group(1);
-					int version = Integer.parseInt(first);
-					return version;
-				}
-			} catch (NumberFormatException e) {
-				// ok
-			}
-			// fallback
-			return 17;
-		}
+		return Runtime.version().feature();
 	}
 
 }
