@@ -154,7 +154,7 @@ def javaVersion() {
 def eclipseVersion() {
   def targetPlatform = params.TARGET_PLATFORM
   if (targetPlatform == 'latest') {
-    return "4.40"
+    return "4.41"
   } else {
     def baseDate = java.time.LocalDate.parse("2018-06-01") // 4.8 Photon
     def df = java.time.format.DateTimeFormatter.ofPattern("yyyyMMdd")
