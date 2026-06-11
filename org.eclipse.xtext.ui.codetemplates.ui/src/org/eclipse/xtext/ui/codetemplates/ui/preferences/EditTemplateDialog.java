@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2010 itemis AG (http://www.itemis.eu) and others.
+ * Copyright (c) 2010, 2026 itemis AG (http://www.itemis.eu) and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -8,6 +8,10 @@
  *******************************************************************************/
 package org.eclipse.xtext.ui.codetemplates.ui.preferences;
 
+import java.text.Collator;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -46,9 +50,6 @@ import org.eclipse.xtext.ui.editor.embedded.EmbeddedEditorModelAccess;
 import org.eclipse.xtext.ui.editor.embedded.IEditedResourceProvider;
 import org.eclipse.xtext.ui.editor.validation.IValidationIssueProcessor;
 import org.eclipse.xtext.validation.Issue;
-
-import com.google.common.collect.Iterators;
-import com.google.common.collect.Lists;
 
 /**
  * @author Sebastian Zarnekow - Initial contribution and API
@@ -92,11 +93,18 @@ public class EditTemplateDialog extends StatusDialog implements IEditTemplateDia
 		this.fTemplate= template;
 		fIsNameModifiable= isNameModifiable;
 
-		List<String[]> contexts= Lists.newArrayList();
-		for (Iterator<TemplateContextType> it= Iterators.filter(registry.contextTypes(), TemplateContextType.class); it.hasNext();) {
+		List<String[]> contexts= new ArrayList<>();
+		for (Iterator<TemplateContextType> it= registry.contextTypes(); it.hasNext();) {
 			TemplateContextType type= it.next();
 			contexts.add(new String[] { type.getId(), type.getName() });
 		}
+		Collections.sort(contexts, new Comparator<String[]>() {
+			Collator fCollator= Collator.getInstance();
+			@Override
+			public int compare(String[] o1, String[] o2) {
+				return fCollator.compare(o1[1], o2[1]);
+			}
+		});
 		fContextTypes= contexts.toArray(new String[contexts.size()][]);
 		fContextTypeRegistry= registry;
 	}
