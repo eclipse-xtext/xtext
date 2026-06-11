@@ -16,7 +16,7 @@
 			<unit id="org.eclipse.emf.mwe2.runtime"/>
 		</location>
 		<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-			<repository location="https://download.eclipse.org/releases/2026-06/"/>
+			<repository location="https://download.eclipse.org/releases/2026-09/"/>
 			<unit id="org.eclipse.draw2d.feature.group"/>
 			<unit id="org.eclipse.m2e.feature.feature.group"/>
 			<unit id="org.eclipse.buildship.feature.group"/>
