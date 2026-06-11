@@ -41,7 +41,7 @@
 			<unit id="org.opentest4j"/>
 			<unit id="org.objectweb.asm"/>
 			<unit id="io.github.classgraph.classgraph"/>
-			<repository location="https://download.eclipse.org/tools/orbit/simrel/orbit-aggregation/2026-06"/>
+			<repository location="https://download.eclipse.org/tools/orbit/simrel/orbit-aggregation/2026-09"/>
 		</location>
 	</locations>
 </target>
