@@ -89,11 +89,6 @@
 									</requirement>
 									<requirement>
 										<type>eclipse-plugin</type>
-										<id>org.eclipse.xtext.common.types.shared.jdt38</id>
-										<versionRange>1.0.0</versionRange>
-									</requirement>
-									<requirement>
-										<type>eclipse-plugin</type>
 										<id>org.eclipse.xtext.logging</id>
 										<versionRange>0.0.0</versionRange>
 									</requirement>
