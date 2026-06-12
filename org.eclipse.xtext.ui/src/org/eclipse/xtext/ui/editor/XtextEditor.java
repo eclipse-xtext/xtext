@@ -364,7 +364,7 @@ public class XtextEditor extends TextEditor implements IDirtyStateEditorSupportC
 	@Override
 	public void doRevertToSaved() {
 		super.doRevertToSaved();
-		callback.afterSave(this);
+		callback.afterRevert(this);
 	}
 	
 	/**
