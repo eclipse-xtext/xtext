@@ -32,7 +32,7 @@ class FlexerBasedTemplateBodyHighlighter extends TemplateBodyHighlighter {
 	override doProvideHighlightingFor(String body, IHighlightedPositionAcceptor acceptor) {
 		val tokenSource = createTokenSource(new StringReader(body))
 		var token = tokenSource.nextToken
-		while (token != Token.EOF_TOKEN) {
+		while (token.type !== Token.EOF) {
 			val id = token.type.id
 			val offset = token.offset
 			val length = token.length
