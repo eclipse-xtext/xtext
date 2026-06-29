@@ -69,7 +69,7 @@ class ParentProjectDescriptor extends ProjectDescriptor {
 	}
 
 	def String getTychoVersion() {
-		'5.0.2'
+		'5.0.3'
 	}
 
 	def private CharSequence loadResource(String resourcePath) {
