@@ -305,22 +305,6 @@
 			<id>useJenkinsSnapshots</id>
 			<repositories>
 				<repository>
-					<id>lsp4j-from-jenkins</id>
-					<url>https://ci.eclipse.org/xtext/job/lsp4j/lastStableBuild/artifact/build/maven-repository</url>
-				</repository>
-				<!-- Disable main snapshots -->
-				<repository>
-					<name>Central Portal Snapshots</name>
-					<id>central-portal-snapshots</id>
-					<url>https://central.sonatype.com/repository/maven-snapshots/</url>
-					<releases>
-						<enabled>false</enabled>
-					</releases>
-					<snapshots>
-						<enabled>false</enabled>
-					</snapshots>
-				</repository>
-				<repository>
 					<id>sonatype-snapshots</id>
 					<url>https://oss.sonatype.org/content/repositories/snapshots</url>
 					<snapshots>
