@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.XMLResource;
@@ -83,14 +82,14 @@ public class ChangeConverter2 implements IAcceptor<IEmfResourceChange> {
 			String uri = uriExtensions.toUriString(change.getResource().getURI());
 			change.getResource().save(outputStream, null);
 			String newContent = new String(outputStream.toByteArray(), getCharset(change.getResource()));
-			access.doRead(uri, (ILanguageServerAccess.Context context) -> {
+			access.doSyncRead(uri, (ILanguageServerAccess.Context context) -> {
 				Document document = context.getDocument();
 				Range range = new Range(document.getPosition(0), document.getPosition(document.getContents().length()));
 				TextEdit textEdit = new TextEdit(range, newContent);
 				addTextEdit(uri, document, textEdit);
 				return null;
-			}).get();
-		} catch (InterruptedException | ExecutionException | IOException e) {
+			});
+		} catch (IOException e) {
 			throw Exceptions.sneakyThrow(e);
 		}
 	}
@@ -110,24 +109,20 @@ public class ChangeConverter2 implements IAcceptor<IEmfResourceChange> {
 	}
 
 	protected void _handleReplacements(ITextDocumentChange change) {
-		try {
-			if (change.getReplacements().size() > 0) {
-				String uri = uriExtensions.toUriString(change.getNewURI());
-				access.doRead(uri, (ILanguageServerAccess.Context context) -> {
-					Document document = context.getDocument();
-					List<TextEdit> textEdits = Lists.transform(change.getReplacements(),
-							(ITextReplacement replacement) -> {
-								Position start = document.getPosition(replacement.getOffset());
-								Position end = document.getPosition(replacement.getEndOffset());
-								Range range = new Range(start, end);
-								return new TextEdit(range, replacement.getReplacementText());
-							});
-					addTextEdit(uri, document, textEdits.toArray(new TextEdit[textEdits.size()]));
-					return null;
-				}).get();
-			}
-		} catch (InterruptedException | ExecutionException e) {
-			throw Exceptions.sneakyThrow(e);
+		if (change.getReplacements().size() > 0) {
+			String uri = uriExtensions.toUriString(change.getNewURI());
+			access.doSyncRead(uri, (ILanguageServerAccess.Context context) -> {
+				Document document = context.getDocument();
+				List<TextEdit> textEdits = Lists.transform(change.getReplacements(),
+						(ITextReplacement replacement) -> {
+							Position start = document.getPosition(replacement.getOffset());
+							Position end = document.getPosition(replacement.getEndOffset());
+							Range range = new Range(start, end);
+							return new TextEdit(range, replacement.getReplacementText());
+						});
+				addTextEdit(uri, document, textEdits.toArray(new TextEdit[textEdits.size()]));
+				return null;
+			});
 		}
 	}
 
