@@ -303,6 +303,11 @@ class ParentProjectDescriptor extends ProjectDescriptor {
 											<arch>x86_64</arch>
 										</environment>
 										<environment>
+											<os>macosx</os>
+											<ws>cocoa</ws>
+											<arch>aarch64</arch>
+										</environment>
+										<environment>
 											<os>win32</os>
 											<ws>win32</ws>
 											<arch>x86_64</arch>
@@ -311,6 +316,11 @@ class ParentProjectDescriptor extends ProjectDescriptor {
 											<os>linux</os>
 											<ws>gtk</ws>
 											<arch>x86_64</arch>
+										</environment>
+										<environment>
+											<os>linux</os>
+											<ws>gtk</ws>
+											<arch>aarch64</arch>
 										</environment>
 									</environments>
 									<dependency-resolution>
