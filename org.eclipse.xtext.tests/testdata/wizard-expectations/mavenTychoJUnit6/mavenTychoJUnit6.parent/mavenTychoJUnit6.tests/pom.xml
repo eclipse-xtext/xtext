@@ -15,6 +15,13 @@
 				<groupId>org.eclipse.xtext</groupId>
 				<artifactId>xtend-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-surefire-plugin</artifactId>
+				<configuration>
+					<providerHint>junit6</providerHint>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2015, 2022 itemis AG (http://www.itemis.eu) and others.
+ * Copyright (c) 2015, 2026 itemis AG (http://www.itemis.eu) and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -112,6 +112,18 @@ abstract class TestProjectDescriptor extends ProjectDescriptor {
 								<artifactId>tycho-surefire-plugin</artifactId>
 								<configuration>
 									<useUIHarness>true</useUIHarness>
+									«IF config.junitVersion == JUnitVersion.JUNIT_6»
+										<providerHint>junit6</providerHint>
+									«ENDIF»
+								</configuration>
+							</plugin>
+						«ENDIF»
+						«IF isEclipsePluginProject && !needsUiHarness && config.junitVersion == JUnitVersion.JUNIT_6»
+							<plugin>
+								<groupId>org.eclipse.tycho</groupId>
+								<artifactId>tycho-surefire-plugin</artifactId>
+								<configuration>
+									<providerHint>junit6</providerHint>
 								</configuration>
 							</plugin>
 						«ENDIF»

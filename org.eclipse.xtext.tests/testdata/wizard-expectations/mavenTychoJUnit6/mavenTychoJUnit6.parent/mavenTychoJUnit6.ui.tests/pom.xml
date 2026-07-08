@@ -20,6 +20,7 @@
 				<artifactId>tycho-surefire-plugin</artifactId>
 				<configuration>
 					<useUIHarness>true</useUIHarness>
+					<providerHint>junit6</providerHint>
 				</configuration>
 			</plugin>
 		</plugins>
