@@ -18,6 +18,7 @@ import java.util.Objects;
 import java.util.Set;
 import org.eclipse.xtend.lib.annotations.FinalFieldsConstructor;
 import org.eclipse.xtend2.lib.StringConcatenation;
+import org.eclipse.xtext.util.JUnitVersion;
 import org.eclipse.xtext.util.XtextVersion;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Exceptions;
@@ -1330,6 +1331,16 @@ public class ParentProjectDescriptor extends ProjectDescriptor {
           _builder.append("\t\t");
           _builder.append("<useUIHarness>false</useUIHarness>");
           _builder.newLine();
+          {
+            JUnitVersion _junitVersion = this.getConfig().getJunitVersion();
+            boolean _equals_1 = Objects.equals(_junitVersion, JUnitVersion.JUNIT_6);
+            if (_equals_1) {
+              _builder.append("\t\t\t");
+              _builder.append("\t\t");
+              _builder.append("<providerHint>junit6</providerHint>");
+              _builder.newLine();
+            }
+          }
           _builder.append("\t\t\t");
           _builder.append("\t");
           _builder.append("</configuration>");

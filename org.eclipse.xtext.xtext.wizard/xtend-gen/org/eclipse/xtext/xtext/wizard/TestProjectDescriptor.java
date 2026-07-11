@@ -243,46 +243,6 @@ public abstract class TestProjectDescriptor extends ProjectDescriptor {
           _builder.append("\t\t");
           _builder.append("<useUIHarness>true</useUIHarness>");
           _builder.newLine();
-          {
-            JUnitVersion _junitVersion = this.getConfig().getJunitVersion();
-            boolean _equals = Objects.equals(_junitVersion, JUnitVersion.JUNIT_6);
-            if (_equals) {
-              _builder.append("\t\t");
-              _builder.append("\t\t");
-              _builder.append("<providerHint>junit6</providerHint>");
-              _builder.newLine();
-            }
-          }
-          _builder.append("\t\t");
-          _builder.append("\t");
-          _builder.append("</configuration>");
-          _builder.newLine();
-          _builder.append("\t\t");
-          _builder.append("</plugin>");
-          _builder.newLine();
-        }
-      }
-      {
-        if (((this.isEclipsePluginProject() && (!this.needsUiHarness())) && Objects.equals(this.getConfig().getJunitVersion(), JUnitVersion.JUNIT_6))) {
-          _builder.append("\t\t");
-          _builder.append("<plugin>");
-          _builder.newLine();
-          _builder.append("\t\t");
-          _builder.append("\t");
-          _builder.append("<groupId>org.eclipse.tycho</groupId>");
-          _builder.newLine();
-          _builder.append("\t\t");
-          _builder.append("\t");
-          _builder.append("<artifactId>tycho-surefire-plugin</artifactId>");
-          _builder.newLine();
-          _builder.append("\t\t");
-          _builder.append("\t");
-          _builder.append("<configuration>");
-          _builder.newLine();
-          _builder.append("\t\t");
-          _builder.append("\t\t");
-          _builder.append("<providerHint>junit6</providerHint>");
-          _builder.newLine();
           _builder.append("\t\t");
           _builder.append("\t");
           _builder.append("</configuration>");
