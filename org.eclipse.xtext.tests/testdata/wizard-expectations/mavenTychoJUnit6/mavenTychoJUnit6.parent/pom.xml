@@ -167,6 +167,7 @@
 						<argLine>${platformSystemProperties} ${systemProperties} ${moduleProperties} ${additionalTestArguments}</argLine>
 						<failIfNoTests>false</failIfNoTests>
 						<useUIHarness>false</useUIHarness>
+						<providerHint>junit6</providerHint>
 					</configuration>
 				</plugin>
 			</plugins>

@@ -112,18 +112,6 @@ abstract class TestProjectDescriptor extends ProjectDescriptor {
 								<artifactId>tycho-surefire-plugin</artifactId>
 								<configuration>
 									<useUIHarness>true</useUIHarness>
-									«IF config.junitVersion == JUnitVersion.JUNIT_6»
-										<providerHint>junit6</providerHint>
-									«ENDIF»
-								</configuration>
-							</plugin>
-						«ENDIF»
-						«IF isEclipsePluginProject && !needsUiHarness && config.junitVersion == JUnitVersion.JUNIT_6»
-							<plugin>
-								<groupId>org.eclipse.tycho</groupId>
-								<artifactId>tycho-surefire-plugin</artifactId>
-								<configuration>
-									<providerHint>junit6</providerHint>
 								</configuration>
 							</plugin>
 						«ENDIF»

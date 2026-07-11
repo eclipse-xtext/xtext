@@ -11,6 +11,7 @@ package org.eclipse.xtext.xtext.wizard
 import com.google.common.io.Resources
 import java.nio.charset.StandardCharsets
 import org.eclipse.xtend.lib.annotations.FinalFieldsConstructor
+import org.eclipse.xtext.util.JUnitVersion
 
 @FinalFieldsConstructor
 class ParentProjectDescriptor extends ProjectDescriptor {
@@ -416,6 +417,9 @@ class ParentProjectDescriptor extends ProjectDescriptor {
 										<argLine>${platformSystemProperties} ${systemProperties} ${moduleProperties} ${additionalTestArguments}</argLine>
 										<failIfNoTests>false</failIfNoTests>
 										<useUIHarness>false</useUIHarness>
+										«IF config.junitVersion == JUnitVersion.JUNIT_6»
+										<providerHint>junit6</providerHint>
+										«ENDIF»
 									</configuration>
 								</plugin>
 							«ENDIF»
