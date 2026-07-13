@@ -43,7 +43,7 @@ public interface IXtextDocument extends IDocument, IDocumentExtension3, IReadAcc
 		}
 		if (IFile.class.equals(adapterType) || IResource.class.equals(adapterType)) {
 			URI resourceURI = getResourceURI();
-			if (resourceURI.isPlatformResource()) {
+			if (resourceURI != null && resourceURI.isPlatformResource()) {
 				return adapterType.cast(ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(resourceURI.toPlatformString(true))));
 			}
 		}
@@ -56,7 +56,7 @@ public interface IXtextDocument extends IDocument, IDocumentExtension3, IReadAcc
 	default public URI getResourceURI() {
 		return tryReadOnly(r -> r.getURI());
 	}
-	
+
 	public void addModelListener(IXtextModelListener listener);
 
 	public void removeModelListener(IXtextModelListener listener);
