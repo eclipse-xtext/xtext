@@ -8,10 +8,8 @@
  *******************************************************************************/
 package org.eclipse.xtext.ide.editor.quickfix;
 
-import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.lsp4j.Diagnostic;
 import org.eclipse.lsp4j.WorkspaceEdit;
 import org.eclipse.xtext.ide.editor.quickfix.DiagnosticModificationContext.Factory;
@@ -20,6 +18,7 @@ import org.eclipse.xtext.ide.serializer.IChangeSerializer.IModification;
 import org.eclipse.xtext.ide.server.Document;
 import org.eclipse.xtext.ide.server.ILanguageServerAccess;
 import org.eclipse.xtext.ide.server.TextEditAcceptor;
+import org.eclipse.xtext.ide.server.UriExtensions;
 import org.eclipse.xtext.ide.server.codeActions.ICodeActionService2.Options;
 import org.eclipse.xtext.ide.server.rename.ChangeConverter2;
 import org.eclipse.xtext.resource.EObjectAtOffsetHelper;
@@ -43,23 +42,23 @@ public class DiagnosticResolution {
 	private int relevance;
 
 	private URI uri;
-	
+
 	private Document document;
-	
+
 	private ILanguageServerAccess access;
 
 	private Diagnostic diagnostic;
 
-	private static Logger log = Logger.getLogger(DiagnosticResolution.class);
+	private final UriExtensions uriExtensions = new UriExtensions();
 
-
-	@Deprecated(forRemoval=true,since="2.27")
-	public DiagnosticResolution(String label, Factory modificationContextFactory,  IModification<EObject> modification) {
+	@Deprecated(forRemoval = true, since = "2.27")
+	public DiagnosticResolution(String label, Factory modificationContextFactory, IModification<EObject> modification) {
 		this(label, modificationContextFactory, (diagnostic, object) -> modification, 0);
 	}
 
-	@Deprecated(forRemoval=true,since="2.27")
-	public DiagnosticResolution(String label, Factory modificationContextFactory,  IModification<EObject> modification, int relevance) {
+	@Deprecated(forRemoval = true, since = "2.27")
+	public DiagnosticResolution(String label, Factory modificationContextFactory, IModification<EObject> modification,
+			int relevance) {
 		this(label, modificationContextFactory, (diagnostic, object) -> modification, relevance);
 	}
 
@@ -73,7 +72,8 @@ public class DiagnosticResolution {
 	/**
 	 * @since 2.27
 	 */
-	public DiagnosticResolution(String label, Factory modificationContextFactory, ITextModification textModification, int relevance) {
+	public DiagnosticResolution(String label, Factory modificationContextFactory, ITextModification textModification,
+			int relevance) {
 		this.label = label;
 		this.factory = modificationContextFactory;
 		this.modification = null;
@@ -108,24 +108,29 @@ public class DiagnosticResolution {
 		return label;
 	}
 
-	private EObject getContextObject() {
-		ResourceSet resourceSet = access.newLiveScopeResourceSet(uri);
-		XtextResource tmpResource = (XtextResource) resourceSet.getResource(uri, true);
-		EObjectAtOffsetHelper eObjectAtOffsetHelper = tmpResource.getResourceServiceProvider().get(EObjectAtOffsetHelper.class);
-		if (eObjectAtOffsetHelper == null) {
-			return null;
-		}
-		int offset = document.getOffSet(diagnostic.getRange().getStart());
-		return eObjectAtOffsetHelper.resolveContainedElementAt(tmpResource, offset);		
+	/**
+	 * @since 2.44
+	 */
+	public URI getUri() {
+		return uri;
 	}
 
+	/**
+	 * @since 2.44
+	 */
 	public WorkspaceEdit apply() {
-		try {
-			EObject obj = getContextObject();
-			if (obj == null) {
-				return null;
-			}
+		return access.doSyncRead(uriExtensions.toUriString(uri), context -> {
+			XtextResource resource = (XtextResource) context.getResource();
+			EObjectAtOffsetHelper helper = resource.getResourceServiceProvider().get(EObjectAtOffsetHelper.class);
 			WorkspaceEdit edit = new WorkspaceEdit();
+			if (helper == null) {
+				return edit;
+			}
+			int offset = document.getOffSet(diagnostic.getRange().getStart());
+			EObject obj = helper.resolveContainedElementAt(resource, offset);
+			if (obj == null) {
+				return edit;
+			}
 			if (modification != null) {
 				DiagnosticModificationContext modificationContext = factory.createModificationContext();
 				ChangeConverter2 changeConverter = modificationContext.getConverterFactory().create(edit, access);
@@ -137,10 +142,7 @@ public class DiagnosticResolution {
 				textEditAcceptor.accept(uri.toString(), document, textModification.apply(diagnostic, obj, document));
 			}
 			return edit;
-		} catch (Exception exc) {
-			log.error("Creation of WorkspaceEdit failed.", exc);
-			return null;
-		}
+		});
 	}
 
 	void configure(Options options, Diagnostic diagnostic) {
