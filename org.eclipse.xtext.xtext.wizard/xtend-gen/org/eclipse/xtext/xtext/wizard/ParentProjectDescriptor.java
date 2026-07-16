@@ -1704,44 +1704,6 @@ public class ParentProjectDescriptor extends ProjectDescriptor {
           _builder.append("\t");
           _builder.append("</pluginRepository>");
           _builder.newLine();
-          _builder.append("\t");
-          _builder.append("<pluginRepository>");
-          _builder.newLine();
-          _builder.append("\t");
-          _builder.append("\t");
-          _builder.append("<id>sonatype-snapshots</id>");
-          _builder.newLine();
-          _builder.append("\t");
-          _builder.append("\t");
-          _builder.append("<url>https://oss.sonatype.org/content/repositories/snapshots</url>");
-          _builder.newLine();
-          _builder.append("\t");
-          _builder.append("\t");
-          _builder.append("<releases>");
-          _builder.newLine();
-          _builder.append("\t");
-          _builder.append("\t\t");
-          _builder.append("<enabled>false</enabled>");
-          _builder.newLine();
-          _builder.append("\t");
-          _builder.append("\t");
-          _builder.append("</releases>");
-          _builder.newLine();
-          _builder.append("\t");
-          _builder.append("\t");
-          _builder.append("<snapshots>");
-          _builder.newLine();
-          _builder.append("\t");
-          _builder.append("\t\t");
-          _builder.append("<enabled>true</enabled>");
-          _builder.newLine();
-          _builder.append("\t");
-          _builder.append("\t");
-          _builder.append("</snapshots>");
-          _builder.newLine();
-          _builder.append("\t");
-          _builder.append("</pluginRepository>");
-          _builder.newLine();
         }
       }
       {
