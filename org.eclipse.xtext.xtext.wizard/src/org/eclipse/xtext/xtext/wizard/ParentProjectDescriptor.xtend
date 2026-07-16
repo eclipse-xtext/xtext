@@ -98,9 +98,6 @@ class ParentProjectDescriptor extends ProjectDescriptor {
 							maven {
 								url = 'https://central.sonatype.com/repository/maven-snapshots'
 							}
-							maven {
-								url = 'https://oss.sonatype.org/content/repositories/snapshots'
-							}
 ллл							maven {
 ллл								url = 'https://ci.eclipse.org/xtext/job/xtext/job/<branch>/lastSuccessfulBuild/artifact/build/maven-repository/'
 ллл							}
