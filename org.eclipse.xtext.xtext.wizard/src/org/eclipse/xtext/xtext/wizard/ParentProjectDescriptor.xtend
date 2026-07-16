@@ -475,16 +475,6 @@ class ParentProjectDescriptor extends ProjectDescriptor {
 								<enabled>true</enabled>
 							</snapshots>
 						</repository>
-						<repository>
-							<id>sonatype-snapshots</id>
-							<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-							<releases>
-								<enabled>false</enabled>
-							</releases>
-							<snapshots>
-								<enabled>true</enabled>
-							</snapshots>
-						</repository>
 ллл						<repository>
 ллл							<id>xtext</id>
 ллл							<url>https://ci.eclipse.org/xtext/job/xtext/job/<branch>/lastSuccessfulBuild/artifact/build/maven-repository/</url>
