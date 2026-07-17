@@ -293,7 +293,7 @@ public class AnnotationWithQuickFixesHover extends AbstractProblemHover {
 
 		private void createAnnotationInformation(Composite parent, final Annotation annotation) {
 			Composite composite= new Composite(parent, SWT.NONE);
-			composite.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
+			composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 			GridLayout layout= new GridLayout(2, false);
 			layout.marginHeight= 2;
 			layout.marginWidth= 2;
@@ -313,17 +313,19 @@ public class AnnotationWithQuickFixesHover extends AbstractProblemHover {
 				}
 			});
 
-			StyledText text= new StyledText(composite, SWT.MULTI | SWT.WRAP | SWT.READ_ONLY);
-			GridData data= new GridData(SWT.FILL, SWT.FILL, true, true);
+			StyledText text = new StyledText(composite, SWT.V_SCROLL| SWT.MULTI | SWT.WRAP | SWT.READ_ONLY);
+
+			GridData data = new GridData(SWT.FILL, SWT.FILL, true, true);
 			text.setLayoutData(data);
-			String annotationText= annotation.getText();
-			if (annotationText != null)
+			String annotationText = annotation.getText();
+			if (annotationText != null){
 				text.setText(annotationText);
+			}
 		}
 
 		private void createCompletionProposalsControl(Composite parent, ICompletionProposal[] proposals) {
 			Composite composite= new Composite(parent, SWT.NONE);
-			composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+			composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
 			GridLayout layout2= new GridLayout(1, false);
 			layout2.marginHeight= 0;
 			layout2.marginWidth= 0;
