@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2010 itemis AG (http://www.itemis.eu) and others.
+ * Copyright (c) 2010, 2024 itemis AG (http://www.itemis.eu) and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -9,6 +9,7 @@
 package org.eclipse.xtext.resource.containers;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -19,7 +20,6 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Multimaps;
 import com.google.common.collect.SetMultimap;
-import com.google.common.collect.Sets;
 
 /**
  * This implementation {@link IAllContainersState} associates resource (e.g. their URIs) to containers. It assumes that
@@ -38,7 +38,7 @@ public class ResourceSetBasedAllContainersState implements IAllContainersState {
 	public void configure(List<String> containers, Multimap<String, URI> container2Uris) {
 		this.containers = containers;
 		this.container2URIs = HashMultimap.create(container2Uris);
-		this.uri2container = Multimaps.invertFrom(HashMultimap.create(container2Uris), HashMultimap.<URI, String>create());
+		this.uri2container = Multimaps.invertFrom(this.container2URIs, HashMultimap.create());
 	}
 
 	@Override
@@ -69,11 +69,11 @@ public class ResourceSetBasedAllContainersState implements IAllContainersState {
 		StringBuilder result = new StringBuilder();
 		result.append("[");
 		result.append(getClass().getSimpleName());
-		Set<String> invisibleContainers = Sets.newHashSet(container2URIs.keySet());
+		Set<String> invisibleContainers = new HashSet<>(container2URIs.keySet());
 		invisibleContainers.removeAll(containers);
 		if (!invisibleContainers.isEmpty()) {
 			result.append("\n  WARNING: invisible containers: ");
-			result.append(Joiner.on(", ").join(invisibleContainers));
+			result.append(String.join(", ", invisibleContainers));
 		}
 		for (String container : containers) {
 			Collection<URI> uris = container2URIs.get(container);
