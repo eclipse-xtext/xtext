@@ -213,7 +213,7 @@ public class WizardConfigurationTest {
 		config.setPreferredBuildSystem(BuildSystem.GRADLE);
 		config.getUiProject().setEnabled(true);
 		config.setXtextVersion(new XtextVersion("2.9.0-SNAPSHOT"));
-		String snapshotsRepo = "repositories/snapshots";
+		String snapshotsRepo = "central.sonatype.com/repository/maven-snapshots";
 		assertTrue(config.getParentProject().pom().getContent().contains(snapshotsRepo));
 		assertTrue(config.getParentProject().buildGradle().getContent().contains(snapshotsRepo));
 		String nightlyUpdateSite = "xtext/updates/nightly";

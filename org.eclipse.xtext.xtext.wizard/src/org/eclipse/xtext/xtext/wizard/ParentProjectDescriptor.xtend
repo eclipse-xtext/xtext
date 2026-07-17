@@ -98,9 +98,6 @@ class ParentProjectDescriptor extends ProjectDescriptor {
 							maven {
 								url = 'https://central.sonatype.com/repository/maven-snapshots'
 							}
-							maven {
-								url = 'https://oss.sonatype.org/content/repositories/snapshots'
-							}
 ллл							maven {
 ллл								url = 'https://ci.eclipse.org/xtext/job/xtext/job/<branch>/lastSuccessfulBuild/artifact/build/maven-repository/'
 ллл							}
@@ -478,16 +475,6 @@ class ParentProjectDescriptor extends ProjectDescriptor {
 								<enabled>true</enabled>
 							</snapshots>
 						</repository>
-						<repository>
-							<id>sonatype-snapshots</id>
-							<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-							<releases>
-								<enabled>false</enabled>
-							</releases>
-							<snapshots>
-								<enabled>true</enabled>
-							</snapshots>
-						</repository>
 ллл						<repository>
 ллл							<id>xtext</id>
 ллл							<url>https://ci.eclipse.org/xtext/job/xtext/job/<branch>/lastSuccessfulBuild/artifact/build/maven-repository/</url>
@@ -541,16 +528,6 @@ class ParentProjectDescriptor extends ProjectDescriptor {
 							<name>Central Portal Snapshots</name>
 							<id>central-portal-snapshots</id>
 							<url>https://central.sonatype.com/repository/maven-snapshots/</url>
-							<releases>
-								<enabled>false</enabled>
-							</releases>
-							<snapshots>
-								<enabled>true</enabled>
-							</snapshots>
-						</pluginRepository>
-						<pluginRepository>
-							<id>sonatype-snapshots</id>
-							<url>https://oss.sonatype.org/content/repositories/snapshots</url>
 							<releases>
 								<enabled>false</enabled>
 							</releases>
