@@ -66,15 +66,8 @@ pipeline {
       steps {
         xvnc(useXauthority: true) {
           sh """
-            jdkEnvVar='JAVA_${javaVersion()}_HOME'
-            if [ "${JAVA_HOME}" = "\${JAVA_${javaVersion()}_HOME}" ]; then
-              # Workaround for https://github.com/apache/maven-toolchains-plugin/pull/148
-              # clear the structured variable and require JAVA_HOME instead
-              export JAVA_${javaVersion()}_HOME=''
-              jdkEnvVar='JAVA_HOME'
-            fi
             ./full-build.sh --tp=${params.TARGET_PLATFORM} \
-              -Pstrict-jdk-${javaVersion()} -Dtoolchain.jdk.env=\${jdkEnvVar}
+              -Pstrict-jdk-${javaVersion()} -Dtoolchain.jdk.env=JAVA_${javaVersion()}_HOME
           """
         }
       }// END steps
