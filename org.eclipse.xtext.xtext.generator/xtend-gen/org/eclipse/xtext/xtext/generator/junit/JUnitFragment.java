@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2015, 2022 itemis AG (http://www.itemis.eu) and others.
+ * Copyright (c) 2015, 2026 itemis AG (http://www.itemis.eu) and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -411,8 +411,9 @@ public class JUnitFragment extends AbstractStubGeneratingFragment {
         _builder.append("public void loadModel() throws Exception {");
         _builder.newLine();
         _builder.append("\t\t");
-        _builder.append("Model result = parseHelper.parse(\"Hello Xtext!\");");
-        _builder.newLine();
+        _builder.append(rootType, "\t\t");
+        _builder.append(" result = parseHelper.parse(\"Hello Xtext!\");");
+        _builder.newLineIfNotEmpty();
         _builder.append("\t\t");
         _builder.append(assert_, "\t\t");
         _builder.append(".assertNotNull(result);");
