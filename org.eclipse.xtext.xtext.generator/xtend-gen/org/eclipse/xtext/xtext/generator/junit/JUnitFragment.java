@@ -411,7 +411,8 @@ public class JUnitFragment extends AbstractStubGeneratingFragment {
         _builder.append("public void loadModel() throws Exception {");
         _builder.newLine();
         _builder.append("\t\t");
-        _builder.append("Model result = parseHelper.parse(\"Hello Xtext!\");");
+        _builder.append(rootType, "\t");
+        _builder.append(" result = parseHelper.parse(\"Hello Xtext!\");");
         _builder.newLine();
         _builder.append("\t\t");
         _builder.append(assert_, "\t\t");
