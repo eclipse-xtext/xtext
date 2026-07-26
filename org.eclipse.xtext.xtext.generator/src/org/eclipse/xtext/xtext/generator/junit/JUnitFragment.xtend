@@ -186,7 +186,7 @@ class JUnitFragment extends AbstractStubGeneratingFragment {
 				
 				@«test»
 				public void loadModel() throws Exception {
-					Model result = parseHelper.parse("Hello Xtext!");
+					«rootType» result = parseHelper.parse("Hello Xtext!");
 					«assert».assertNotNull(result);
 					«list»<«diagnostic»> errors = result.eResource().getErrors();
 					«IF junitVersion==JUnitVersion.JUNIT_4»
