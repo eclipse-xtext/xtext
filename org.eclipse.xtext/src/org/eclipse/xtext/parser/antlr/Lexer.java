@@ -57,7 +57,7 @@ public abstract class Lexer extends org.antlr.runtime.Lexer {
 			this.state.tokenStartLine = input.getLine();
 			this.state.text = null;
 			if (input.LA(1) == CharStream.EOF) {
-				return Token.EOF_TOKEN;
+				return new CommonToken(Token.EOF);
 			}
 			try {
 				mTokens();

@@ -80,7 +80,7 @@ public class XtextTokenStreamTest extends Assert implements TokenSource {
 	@Override
 	public Token nextToken() {
 		if (tokenCount == 0)
-			return Token.EOF_TOKEN;
+			return new CommonToken(Token.EOF);
 		return new CommonToken(tokenCount--, "Text");
 	}
 	
