@@ -133,13 +133,13 @@ public class PerformanceTestProjectSetup {
 			project.open(null);
 			project.setDescription(projectDescription, null);
 
-			classpathEntries.add(JavaCore.newContainerEntry(new Path("org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5")));
+			classpathEntries.add(JavaCore.newContainerEntry(new Path("org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-21")));
 			classpathEntries.add(JavaCore.newContainerEntry(new Path("org.eclipse.pde.core.requiredPlugins")));
 
 			javaProject.setRawClasspath(classpathEntries.toArray(new IClasspathEntry[classpathEntries.size()]),
 					null);
 			
-			makeJava8Compliant(javaProject);
+			makeJava21Compliant(javaProject);
 
 			javaProject.setOutputLocation(new Path("/" + projectName + "/bin"), null);
 			createManifest(projectName, project);
@@ -153,11 +153,11 @@ public class PerformanceTestProjectSetup {
 		return javaProject ;
 	}
 
-	public static void makeJava8Compliant(IJavaProject javaProject) {
+	public static void makeJava21Compliant(IJavaProject javaProject) {
 		Map<String, String> options= javaProject.getOptions(false);
-		options.put(JavaCore.COMPILER_COMPLIANCE, JavaCore.VERSION_1_8);
-		options.put(JavaCore.COMPILER_SOURCE, JavaCore.VERSION_1_8);
-		options.put(JavaCore.COMPILER_CODEGEN_TARGET_PLATFORM, JavaCore.VERSION_1_8);
+		options.put(JavaCore.COMPILER_COMPLIANCE, JavaCore.VERSION_21);
+		options.put(JavaCore.COMPILER_SOURCE, JavaCore.VERSION_21);
+		options.put(JavaCore.COMPILER_CODEGEN_TARGET_PLATFORM, JavaCore.VERSION_21);
 		options.put(JavaCore.COMPILER_PB_ASSERT_IDENTIFIER, JavaCore.ERROR);
 		options.put(JavaCore.COMPILER_PB_ENUM_IDENTIFIER, JavaCore.ERROR);
 		options.put(JavaCore.COMPILER_LOCAL_VARIABLE_ATTR, JavaCore.GENERATE);
