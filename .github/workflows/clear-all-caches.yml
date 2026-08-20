@@ -20,8 +20,7 @@ jobs:
               {
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-              },
-              (response) => response.data.actions_caches
+              }
             )
             for (const cache of caches) {
               console.log(cache)
