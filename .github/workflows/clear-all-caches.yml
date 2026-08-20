@@ -15,10 +15,14 @@ jobs:
         with:
           script: |
             console.log("About to clear")
-            const caches = await github.paginate(github.rest.actions.getActionsCacheList, {
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-            })
+            const caches = await github.paginate(
+              github.rest.actions.getActionsCacheList,
+              {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+              },
+              (response) => response.data.actions_caches
+            )
             for (const cache of caches) {
               console.log(cache)
               await github.rest.actions.deleteActionsCacheById({
