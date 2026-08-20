@@ -5,6 +5,9 @@ on:
     workflows: ["Build"]
     types:
       - completed
+
+permissions: {}
+
 jobs:
   unit-test-results:
     name: Publish Test Results
