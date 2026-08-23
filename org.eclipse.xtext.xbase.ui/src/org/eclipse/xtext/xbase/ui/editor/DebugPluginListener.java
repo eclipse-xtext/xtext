@@ -6,8 +6,10 @@
  *
  * SPDX-License-Identifier: EPL-2.0
  *******************************************************************************/
-package org.eclipse.xtext.common.types.shared.jdt38;
+package org.eclipse.xtext.xbase.ui.editor;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -21,13 +23,12 @@ import org.eclipse.jdt.debug.core.IJavaStackFrame;
 import org.eclipse.jdt.debug.core.IJavaThread;
 import org.eclipse.xtext.util.Strings;
 
-import com.google.common.collect.Lists;
 import com.google.inject.Singleton;
 
 @Singleton
 public class DebugPluginListener implements IDebugEventSetListener {
 
-	private static Logger log = Logger.getLogger(DebugPluginListener.class);
+	private static final Logger log = Logger.getLogger(DebugPluginListener.class);
 
 	public DebugPluginListener() {
 		DebugPlugin.getDefault().addDebugEventListener(this);
@@ -37,6 +38,7 @@ public class DebugPluginListener implements IDebugEventSetListener {
 
 	private IStackFrame lastFrame;
 
+	@Override
 	public void handleDebugEvents(DebugEvent[] events) {
 		for (DebugEvent event : events) {
 			Object source = event.getSource();
@@ -66,11 +68,11 @@ public class DebugPluginListener implements IDebugEventSetListener {
 		String typename = simpleFileName.substring(0, simpleFileName.length() - ".class".length());
 		synchronized (this) {
 			try {
-				List<IStackFrame> frames = Lists.newArrayList();
+				List<IStackFrame> frames = new ArrayList<>();
 				if (lastFrame != null)
 					frames.add(lastFrame);
 				if (lastThread != null)
-					frames.addAll(Lists.newArrayList(lastThread.getStackFrames()));
+					frames.addAll(Arrays.asList(lastThread.getStackFrames()));
 				for (IStackFrame frame : frames)
 					if (frame instanceof IJavaStackFrame) {
 						IJavaStackFrame jsf = (IJavaStackFrame) frame;

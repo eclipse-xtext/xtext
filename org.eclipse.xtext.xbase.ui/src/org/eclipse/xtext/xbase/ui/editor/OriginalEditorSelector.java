@@ -6,10 +6,9 @@
  *
  * SPDX-License-Identifier: EPL-2.0
  *******************************************************************************/
-package org.eclipse.xtext.common.types.shared.jdt38;
+package org.eclipse.xtext.xbase.ui.editor;
 
-import static com.google.common.collect.Lists.newArrayList;
-
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -42,7 +41,6 @@ import org.eclipse.xtext.ui.editor.XtextEditorInfo;
 import org.eclipse.xtext.ui.generator.trace.IEclipseTrace;
 import org.eclipse.xtext.ui.generator.trace.ILocationInEclipseResource;
 import org.eclipse.xtext.ui.generator.trace.ITraceForStorageProvider;
-import org.eclipse.xtext.xbase.ui.editor.StacktraceBasedEditorDecider;
 import org.eclipse.xtext.xbase.ui.editor.StacktraceBasedEditorDecider.Decision;
 
 import com.google.common.collect.Lists;
@@ -52,7 +50,6 @@ import com.google.inject.Inject;
  * @author Sebastian Zarnekow - Initial contribution and API
  * @author Moritz Eysholdt
  */
-@SuppressWarnings("restriction")
 public class OriginalEditorSelector implements IEditorAssociationOverride {
 
 	private static final Logger logger = Logger.getLogger(OriginalEditorSelector.class);
@@ -75,24 +72,27 @@ public class OriginalEditorSelector implements IEditorAssociationOverride {
 	@Inject
 	private ITraceForTypeRootProvider traceForTypeRootProvider;
 
+	@Override
 	public IEditorDescriptor[] overrideEditors(IEditorInput editorInput, IContentType contentType, IEditorDescriptor[] editorDescriptors) {
 		IEditorDescriptor xbaseEditor = findXbaseEditor(editorInput, true);
 		if (xbaseEditor != null) {
 			List<IEditorDescriptor> result = Lists.asList(xbaseEditor, editorDescriptors);
-			return (IEditorDescriptor[]) result.toArray(new IEditorDescriptor[result.size()]);
+			return result.toArray(IEditorDescriptor[]::new);
 		}
 		return editorDescriptors;
 	}
 
+	@Override
 	public IEditorDescriptor[] overrideEditors(String fileName, IContentType contentType, IEditorDescriptor[] editorDescriptors) {
 		IEditorDescriptor xbaseEditor = findXbaseEditor(fileName, true);
 		if (xbaseEditor != null) {
 			List<IEditorDescriptor> result = Lists.asList(xbaseEditor, editorDescriptors);
-			return (IEditorDescriptor[]) result.toArray(new IEditorDescriptor[result.size()]);
+			return result.toArray(IEditorDescriptor[]::new);
 		}
 		return editorDescriptors;
 	}
 
+	@Override
 	public IEditorDescriptor overrideDefaultEditor(IEditorInput editorInput, IContentType contentType, IEditorDescriptor editorDescriptor) {
 		IEditorDescriptor result = findXbaseEditor(editorInput, false);
 		if (result != null)
@@ -100,6 +100,7 @@ public class OriginalEditorSelector implements IEditorAssociationOverride {
 		return editorDescriptor;
 	}
 
+	@Override
 	public IEditorDescriptor overrideDefaultEditor(String fileName, IContentType contentType, IEditorDescriptor editorDescriptor) {
 		IEditorDescriptor result = findXbaseEditor(fileName, false);
 		if (result != null)
@@ -222,22 +223,22 @@ public class OriginalEditorSelector implements IEditorAssociationOverride {
 			}
 		}
 	}
-	
+
 	static class SearchResult {
-		public List<IType> foundTypes = newArrayList();
+		public List<IType> foundTypes = new ArrayList<>();
+
 		public IType getExactMatch() {
 			if (hasExactMatch()) {
 				return foundTypes.get(0);
 			}
 			return null;
 		}
-		
+
 		public boolean hasExactMatch() {
 			return foundTypes.size()==1;
 		}
 	}
-	
-	
+
 	private SearchResult findTypesBySimpleName(String simpleTypeName, final boolean searchForSources) {
 		final SearchResult result = new SearchResult();
 		try {
@@ -261,7 +262,7 @@ public class OriginalEditorSelector implements IEditorAssociationOverride {
 		}
 		return result;
 	}
-	
+
 	protected IEditorDescriptor getXtextEditor(URI uri) {
 		IResourceServiceProvider serviceProvider = resourceServiceProviderRegistry.getResourceServiceProvider(uri);
 		if (serviceProvider != null) {

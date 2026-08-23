@@ -85,7 +85,6 @@
 		<module>../org.eclipse.xtext.common.types.ui</module>
 		<module>../org.eclipse.xtext.common.types.edit</module>
 		<module>../org.eclipse.xtext.common.types.shared</module>
-		<module>../org.eclipse.xtext.common.types.shared.jdt38</module>
 		<module>../org.eclipse.xtext.m2e</module>
 		<module>../org.eclipse.xtext.ui.shared</module>
 		<module>../org.eclipse.xtext.xbase.ui</module>

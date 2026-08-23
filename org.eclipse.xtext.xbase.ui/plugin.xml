@@ -174,4 +174,11 @@
 			</enablement>
 		</detailFactories>
 	</extension>
+	<extension
+			point="org.eclipse.ui.ide.editorAssociationOverride">
+		<editorAssociationOverride
+				class="org.eclipse.xtext.xbase.ui.XbaseExecutableExtensionFactory:org.eclipse.xtext.xbase.ui.editor.OriginalEditorSelector"
+				id="xtext.common.types.originalEditorSelector">
+		</editorAssociationOverride>
+	</extension>
 </plugin>
