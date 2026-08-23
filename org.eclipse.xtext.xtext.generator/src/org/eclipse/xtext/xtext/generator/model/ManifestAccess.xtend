@@ -15,6 +15,7 @@ import java.util.Set
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.eclipse.xtend2.lib.StringConcatenationClient
 import org.eclipse.xtext.generator.IFileSystemAccess2
+import org.eclipse.xtext.util.JavaVersion
 import org.eclipse.xtext.util.MergeableManifest2
 import org.eclipse.xtext.util.Strings
 import org.eclipse.xtext.xtext.generator.IGuiceAwareGeneratorComponent
@@ -112,7 +113,7 @@ class ManifestAccess extends TextFileAccess implements IGuiceAwareGeneratorCompo
 		«IF !version.nullOrEmpty»
 			Bundle-Version: «version»
 		«ENDIF»
-		Bundle-RequiredExecutionEnvironment: JavaSE-21
+		Bundle-RequiredExecutionEnvironment: «JavaVersion.DEFAULT.bree»
 		Bundle-ActivationPolicy: lazy
 		«IF !exportedPackages.empty»
 			Export-Package: «FOR pack : exportedPackages.sort SEPARATOR ',\n '»«pack»«ENDFOR»

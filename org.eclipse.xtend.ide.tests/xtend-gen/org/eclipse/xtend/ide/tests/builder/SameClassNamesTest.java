@@ -26,7 +26,6 @@ import org.eclipse.xtext.ui.testing.util.IResourcesSetupUtil;
 import org.eclipse.xtext.ui.testing.util.JavaProjectSetupUtil;
 import org.eclipse.xtext.ui.util.JREContainerProvider;
 import org.eclipse.xtext.ui.util.PluginProjectFactory;
-import org.eclipse.xtext.util.JavaVersion;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Exceptions;
@@ -169,7 +168,7 @@ public class SameClassNamesTest extends AbstractXtendUITestCase {
     NullProgressMonitor _nullProgressMonitor = new NullProgressMonitor();
     final IProject result = projectFactory.createProject(_nullProgressMonitor, null);
     final IJavaProject javaProject = JavaCore.create(result);
-    WorkbenchTestHelper.makeCompliantFor(javaProject, JavaVersion.JAVA8);
+    JavaProjectSetupUtil.makeDefaultCompliant(javaProject);
     JavaProjectSetupUtil.addJreClasspathEntry(javaProject);
     return result;
   }

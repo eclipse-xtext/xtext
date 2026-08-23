@@ -52,7 +52,7 @@ public class Bug456868Test extends AbstractXtendUITestCase {
   public void testProjectWithWhitespaceInNameWorks() {
     try {
       this.project = JavaProjectSetupUtil.createJavaProject("my project");
-      JavaProjectSetupUtil.makeJava8Compliant(this.project);
+      JavaProjectSetupUtil.makeDefaultCompliant(this.project);
       NullProgressMonitor _nullProgressMonitor = new NullProgressMonitor();
       this.libAdder.addLibsToClasspath(this.project, _nullProgressMonitor);
       this.natureAdder.toggleNature(this.project.getProject());
