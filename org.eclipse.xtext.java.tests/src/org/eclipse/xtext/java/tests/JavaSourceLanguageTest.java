@@ -193,7 +193,7 @@ public class JavaSourceLanguageTest {
 					+ "\n"
 					+ "}\n"
 				+ "").build();
-		XtextResourceSet rs = this.resourceSet(files, JavaVersion.JAVA21);
+		XtextResourceSet rs = this.resourceSet(files, JavaVersion.DEFAULT);
 		Resource r1 = IterableExtensions.findFirst(rs.getResources(),
 				it -> it.getURI().toString().endsWith("MyRecord.java"));
 		Assert.assertEquals(1, r1.getContents().size());
