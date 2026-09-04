@@ -355,7 +355,7 @@ public class FixedScopedPreferenceStore extends EventManager implements IPersist
 				Assert
 						.isTrue(
 								false,
-								org.eclipse.ui.internal.WorkbenchMessages.ScopedPreferenceStore_DefaultAddedError);
+								"Do not add the default to the search contexts");
 			}
 		}
 	}
