@@ -16,6 +16,9 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.function.Predicate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import org.eclipse.xtext.Grammar;
@@ -23,6 +26,7 @@ import org.eclipse.xtext.GrammarUtil;
 import org.eclipse.xtext.TerminalRule;
 
 import com.google.common.base.Joiner;
+import com.google.common.collect.Iterables;
 import com.google.gson.annotations.Expose;
 
 /**
@@ -34,6 +38,8 @@ import com.google.gson.annotations.Expose;
  * @since 2.35
  */
 public class TextMateGrammar {
+
+	private static final String ANY_OTHER = "ANY_OTHER";
 
 	@Expose	private final List<TextMateRule> patterns;
 	@Expose private String scopeName;
@@ -125,8 +131,7 @@ public class TextMateGrammar {
 		}
 		TextMateGrammar result = new TextMateGrammar();
 		result.setScopeName(scopeName);
-		TextMateRule keywords = getKeywordControlRule(grammar, ignoreCase);
-		result.addRule(keywords);
+		result.addRule(getKeywordControlRule(grammar, ignoreCase));
 		
 		Set<String> seenTerminalRules = new HashSet<>();
 		for(TextMateRule pattern: patterns) {
@@ -143,7 +148,7 @@ public class TextMateGrammar {
 		if (inferPatterns) {
 			List<TerminalRule> terminals = GrammarUtil.allTerminalRules(grammar)
 					.stream()
-					.filter(r -> !r.isFragment())
+					.filter(r -> !r.isFragment() && !r.getName().equals(ANY_OTHER))
 					.collect(Collectors.toList());
 			for(TerminalRule terminal: terminals) {
 				if (!seenTerminalRules.add(terminal.getName())) {
@@ -153,6 +158,14 @@ public class TextMateGrammar {
 				auto.setTerminalRule(terminal.getName());
 				auto.init(grammar, ignoreCase, generator).ifPresent(result::addRule);
 			}
+		}
+
+		result.addRule(getPunctuationRule(grammar, ignoreCase));
+		// invalid rule must be last, otherwise it prevents other rules from matching
+		if (inferPatterns && GrammarUtil.findRuleForName(grammar, ANY_OTHER) != null) {
+			AutoRule auto = newAutoRule();
+			auto.setTerminalRule(ANY_OTHER);
+			auto.init(grammar, ignoreCase, generator).ifPresent(result::addRule);
 		}
 		return result;
 	}
@@ -164,24 +177,52 @@ public class TextMateGrammar {
 	protected String getLanguageName(Grammar grammar) {
 		return GrammarUtil.getSimpleName(grammar).toLowerCase(Locale.ROOT);
 	}
-	
+
 	protected TextMateRule getKeywordControlRule(Grammar grammar, boolean ignoreCase) {
+		return createKeywordRule(grammar, "keyword.control", keyword -> keyword.matches("\\w+"), ignoreCase);
+	}
+
+	protected TextMateRule getPunctuationRule(Grammar grammar, boolean ignoreCase) {
+		return createKeywordRule(grammar, "punctuation", keyword -> !keyword.matches("\\w+"), ignoreCase);
+	}
+
+	protected TextMateRule createKeywordRule(Grammar grammar, String namePrefix, Predicate<String> filter, boolean ignoreCase) {
 		StringBuilder matchBuilder = new StringBuilder();
 		if (ignoreCase) {
 			matchBuilder.append("(?i)");
 		}
-		matchBuilder.append("\\b(");
+		matchBuilder.append("(");
 		List<String> allKeywords = GrammarUtil.getAllKeywords(grammar)
 				.stream()
-				.filter(s->s.matches("\\w+"))
-				.sorted(Comparator.naturalOrder())
-				.collect(Collectors.toList());
-		matchBuilder.append(Joiner.on("|").join(allKeywords));
-		matchBuilder.append(")\\b");
+				.filter(filter)
+				.sorted()
+				.toList();
+		Joiner.on("|").appendTo(matchBuilder, Iterables.transform(allKeywords, this::escapeAndAddWordBoundaries));
+		matchBuilder.append(")");
 		MatchRule result = new MatchRule();
-		result.setName("keyword.control." + getLanguageName(grammar));
+		result.setName(namePrefix + "." + getLanguageName(grammar));
 		result.setMatch(matchBuilder.toString());
 		return result;
+	}
+
+	private static final Pattern START_IS_LETTER = Pattern.compile("^\\w");
+	private static final Pattern END_IS_LETTER = Pattern.compile("\\w$");
+	protected String escapeAndAddWordBoundaries(String token) {
+		StringBuilder result = new StringBuilder();
+		if (START_IS_LETTER.matcher(token).find()) {
+			result.append("\\b");
+		}
+		result.append(escapeForRegex(token));
+		if (END_IS_LETTER.matcher(token).find()) {
+			result.append("\\b");
+		}
+		return result.toString();
+	}
+
+	private static final Pattern REGEX_CONTROL_CHARS = Pattern.compile("[\\\\^$.*+?()\\[\\]{}|]");
+	private static String escapeForRegex(String input) {
+		Matcher matcher = REGEX_CONTROL_CHARS.matcher(input);
+		return matcher.replaceAll(match -> Matcher.quoteReplacement("\\" + match.group()));
 	}
 
 }
