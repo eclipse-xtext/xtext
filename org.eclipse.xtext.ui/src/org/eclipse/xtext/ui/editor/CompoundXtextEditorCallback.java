@@ -67,6 +67,17 @@ public class CompoundXtextEditorCallback implements IXtextEditorCallback {
 	}
 
 	@Override
+	public void afterRevert(XtextEditor xtextEditor) {
+		for (IXtextEditorCallback xtextEditorCallback : editorCallbacks) {
+			try {
+				xtextEditorCallback.afterRevert(xtextEditor);
+			} catch (Exception e) {
+				handle(e);
+			}
+		}
+	}
+
+	@Override
 	public void beforeDispose(XtextEditor xtextEditor) {
 		for (IXtextEditorCallback xtextEditorCallback : editorCallbacks) {
 			try {
