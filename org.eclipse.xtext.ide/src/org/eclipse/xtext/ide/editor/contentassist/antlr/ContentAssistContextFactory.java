@@ -285,10 +285,10 @@ public class ContentAssistContextFactory implements Function<ContentAssistContex
 		if (!Strings.isEmpty(currentNodePrefix) && !currentNode.getText().equals(currentNodePrefix)) {
 			lexer.setCharStream(new ANTLRStringStream(currentNodePrefix));
 			Token token = lexer.nextToken();
-			if (token == Token.EOF_TOKEN) { // error case - nothing could be parsed
+			if (token.getType() == Token.EOF) { // error case - nothing could be parsed
 				return;
 			}
-			while(token != Token.EOF_TOKEN) {
+			while(token.getType() != Token.EOF) {
 				if (isErrorToken(token))
 					return;
 				token = lexer.nextToken();

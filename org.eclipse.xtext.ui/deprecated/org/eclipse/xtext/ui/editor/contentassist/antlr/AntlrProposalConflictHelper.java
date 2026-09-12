@@ -25,7 +25,7 @@ import com.google.inject.name.Named;
  * with the input in the document.</p>
  * <p>A proposal is considered to be conflicting if the lexer would not produce
  * two distinct tokens for the previous sibling and the proposal itself but consume
- * parts of the proposal as part of the first token. 
+ * parts of the proposal as part of the first token.
  * Example:</p>
  * <code>
  * === Grammar:<br/>
@@ -36,8 +36,8 @@ import com.google.inject.name.Named;
  * <p>where <code>|</code> denotes the cursor position. A valid follow
  * token for the parser is the ID of the cross reference. However, since
  * <code>MyIdSomethingElse</code> would be consumed as a single ID by the lexer,
- * the proposal <code>SomethingElse</code> is invalid.</p> 
- * 
+ * the proposal <code>SomethingElse</code> is invalid.</p>
+ *
  * @author Sebastian Zarnekow - Initial contribution and API
  */
 public class AntlrProposalConflictHelper extends ProposalConflictHelper {
@@ -49,7 +49,7 @@ public class AntlrProposalConflictHelper extends ProposalConflictHelper {
 	@Inject
 	@Named(LexerBindings.RUNTIME)
 	private Lexer lastCompleteLexer;
-	
+
 	@Inject
 	@Named(LexerBindings.RUNTIME)
 	private Lexer combinedLexer;
@@ -62,16 +62,14 @@ public class AntlrProposalConflictHelper extends ProposalConflictHelper {
 		if (!equalTokenSequence(getProposalLexer(), getCombinedLexer()))
 			return true;
 		Token lastToken = getProposalLexer().nextToken();
-		if (!lastToken.equals(Token.EOF_TOKEN))
-			return true;
-		return false;
+		return lastToken.getType() != Token.EOF;
 	}
 
 	protected boolean equalTokenSequence(TokenSource first, TokenSource second) {
 		Token token = null;
-		while(!(token = first.nextToken()).equals(Token.EOF_TOKEN)) {
+		while ((token = first.nextToken()).getType() != Token.EOF) {
 			Token otherToken = second.nextToken();
-			if (otherToken.equals(Token.EOF_TOKEN)) {
+			if (otherToken.getType() == Token.EOF) {
 				return false;
 			}
 			if (!token.getText().equals(otherToken.getText())) {
@@ -80,7 +78,7 @@ public class AntlrProposalConflictHelper extends ProposalConflictHelper {
 		}
 		return true;
 	}
-	
+
 	protected void initTokenSources(String lastCompleteText, String proposal, ContentAssistContext context) {
 		String combinedText = lastCompleteText.concat(proposal);
 		initTokenSource(combinedText, getCombinedLexer(), context);
