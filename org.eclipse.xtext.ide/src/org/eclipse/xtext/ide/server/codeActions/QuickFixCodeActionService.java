@@ -20,6 +20,7 @@ import org.eclipse.lsp4j.Diagnostic;
 import org.eclipse.lsp4j.jsonrpc.messages.Either;
 import org.eclipse.xtext.ide.editor.quickfix.AbstractDeclarativeIdeQuickfixProvider;
 import org.eclipse.xtext.ide.editor.quickfix.DiagnosticResolution;
+import org.eclipse.xtext.ide.editor.quickfix.DiagnosticResolutionInfo;
 import org.eclipse.xtext.ide.editor.quickfix.IQuickFixProvider;
 import org.eclipse.xtext.ide.editor.quickfix.QuickFix;
 import org.eclipse.xtext.ide.server.ILanguageServerAccess;
@@ -42,7 +43,7 @@ public class QuickFixCodeActionService implements ICodeActionService2 {
 
 	@Inject
 	private IQuickFixProvider quickfixes;
-
+	
 	@Override
 	public List<Either<Command, CodeAction>> getCodeActions(Options options) {
 		boolean handleQuickfixes = options.getCodeActionParams().getContext().getOnly() == null
@@ -55,9 +56,12 @@ public class QuickFixCodeActionService implements ICodeActionService2 {
 
 		List<Either<Command, CodeAction>> result = new ArrayList<>();
 		for (Diagnostic diagnostic : options.getCodeActionParams().getContext().getDiagnostics()) {
+			if (options.getCancelIndicator().isCanceled()) {
+				break;
+			}
 			if (handlesDiagnostic(diagnostic)) {
-				result.addAll(options.getLanguageServerAccess()
-						.doSyncRead(options.getURI(), (ILanguageServerAccess.Context context) -> {
+				result.addAll(options.getLanguageServerAccess().doSyncRead(options.getURI(),
+						(ILanguageServerAccess.Context context) -> {
 							options.setDocument(context.getDocument());
 							options.setResource(context.getResource());
 							return getCodeActions(options, diagnostic);
@@ -80,20 +84,29 @@ public class QuickFixCodeActionService implements ICodeActionService2 {
 	protected List<Either<Command, CodeAction>> getCodeActions(Options options, Diagnostic diagnostic) {
 		List<Either<Command, CodeAction>> codeActions = new ArrayList<>();
 		quickfixes.getResolutions(options, diagnostic).stream()
-				.sorted(Comparator
-						.nullsLast(Comparator.comparing(DiagnosticResolution::getLabel)))
+				.sorted(Comparator.nullsLast(Comparator.comparing(DiagnosticResolution::getLabel)))
 				.forEach(r -> codeActions.add(Either.forRight(createFix(r, diagnostic))));
 		return codeActions;
 	}
-	
+
+	/**
+	 * @since 2.28 Creates a new quick-fix without applying the modification. The textual edit can be composed by calling
+	 *        DiagnosticResolution#apply().
+	 */
 	private CodeAction createFix(DiagnosticResolution resolution, Diagnostic diagnostic) {
 		CodeAction codeAction = new CodeAction();
 		codeAction.setDiagnostics(Collections.singletonList(diagnostic));
 		codeAction.setTitle(resolution.getLabel());
-		codeAction.setEdit(resolution.apply());
 		codeAction.setKind(CodeActionKind.QuickFix);
-
+		codeAction.setData(createResolutionInfo(resolution));
 		return codeAction;
+	}
+
+	private DiagnosticResolutionInfo createResolutionInfo(DiagnosticResolution resolution) {
+		DiagnosticResolutionInfo info = new DiagnosticResolutionInfo();
+		info.setResolutionId(quickfixes.cacheResolution(resolution));
+		info.setDocumentUri(resolution.getUri().toString());
+		return info;
 	}
 
 }
