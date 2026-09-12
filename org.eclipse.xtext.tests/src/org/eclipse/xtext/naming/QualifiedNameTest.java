@@ -12,6 +12,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.function.Function;
 
 import org.eclipse.emf.ecore.resource.impl.BinaryResourceImpl;
 import org.eclipse.emf.ecore.resource.impl.BinaryResourceImpl.EObjectInputStream;
@@ -20,8 +21,6 @@ import org.eclipse.xtext.naming.IQualifiedNameConverter.DefaultImpl;
 import org.eclipse.xtext.scoping.impl.ImportNormalizer;
 import org.junit.Assert;
 import org.junit.Test;
-
-import com.google.common.base.Function;
 
 /**
  * @author Jan Koehnlein - Initial contribution and API
@@ -93,7 +92,7 @@ public class QualifiedNameTest extends Assert {
 		assertTrue(qn.startsWithIgnoreCase(qn2));
 		assertFalse(qn2.startsWithIgnoreCase(qn));
 		
-		assertThrows(IllegalArgumentException.class, ()->qn1.startsWith(null));
+		assertThrows(NullPointerException.class, () -> qn1.startsWith(null));
 	}
 	
 	@Test public void testSkip() throws Exception {
@@ -213,12 +212,7 @@ public class QualifiedNameTest extends Assert {
 	}
 	
 	@Test public void testWrapper() throws Exception {
-		Function<String, String> identity = new Function<String, String>() {
-			@Override
-			public String apply(String from) {
-				return from;
-			}
-		};
+		Function<String, String> identity = from -> from;
 		Function<String, QualifiedName> wrapper = QualifiedName.wrapper(identity);
 		assertEquals(QualifiedName.create(""), wrapper.apply(""));
 		assertEquals(null, wrapper.apply(null));
