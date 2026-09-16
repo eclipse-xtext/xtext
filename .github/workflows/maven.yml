@@ -22,10 +22,6 @@ jobs:
         additional-label: ['']
         include:
         - os: ubuntu-22.04
-          java: 21
-          additional-maven-args: -Pstrict-jdk-21
-          additional-label: -strict
-        - os: ubuntu-22.04
           java: 25
           additional-maven-args: -Pstrict-jdk-25
           additional-label: -strict
