@@ -6,7 +6,7 @@ pipeline {
   }
 
   parameters {
-    choice(name: 'TARGET_PLATFORM', choices: ['r202512', 'r202603', 'r202606', 'latest'], description: 'Which Target Platform should be used?')
+    choice(name: 'TARGET_PLATFORM', choices: ['r202512', 'r202603', 'r202606', 'r202609', 'latest'], description: 'Which Target Platform should be used?')
     // see https://wiki.eclipse.org/Jenkins#JDK
     choice(name: 'JDK_VERSION', choices: [ '21', '25' ], description: 'Which JDK version should be used?')
   }
@@ -147,7 +147,7 @@ def javaVersion() {
 def eclipseVersion() {
   def targetPlatform = params.TARGET_PLATFORM
   if (targetPlatform == 'latest') {
-    return "4.41"
+    return "4.42"
   } else {
     def baseDate = java.time.LocalDate.parse("2018-06-01") // 4.8 Photon
     def df = java.time.format.DateTimeFormatter.ofPattern("yyyyMMdd")
