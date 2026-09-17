@@ -171,6 +171,7 @@
 				<artifactId>maven-plugin-plugin</artifactId>
 				<configuration>
 					<goalPrefix>xtend</goalPrefix>
+					<requiredJavaVersion>${maven.compiler.release}</requiredJavaVersion>
 				</configuration>
 			</plugin>
 			<plugin>
