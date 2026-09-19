@@ -9,6 +9,7 @@
 package org.eclipse.xtext.ui.editor.contentassist.antlr.internal;
 
 import org.antlr.runtime.CharStream;
+import org.antlr.runtime.CommonToken;
 import org.antlr.runtime.FailedPredicateException;
 import org.antlr.runtime.NoViableAltException;
 import org.antlr.runtime.RecognitionException;
@@ -45,7 +46,7 @@ public abstract class Lexer extends org.antlr.runtime.Lexer {
 			state.tokenStartLine = input.getLine();
 			state.text = null;
 			if ( input.LA(1)==CharStream.EOF ) {
-				return Token.EOF_TOKEN;
+				return new CommonToken(Token.EOF);
 			}
 			try {
 				mTokens();

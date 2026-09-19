@@ -39,7 +39,7 @@ public class FlexTokenSource implements TokenSource {
 		try {
 			int type = flexer.advance();
 			if (type == Token.EOF) {
-				return Token.EOF_TOKEN;
+				return new CommonToken(Token.EOF);
 			}
 			int length = flexer.getTokenLength();
 			final String tokenText = flexer.getTokenText();

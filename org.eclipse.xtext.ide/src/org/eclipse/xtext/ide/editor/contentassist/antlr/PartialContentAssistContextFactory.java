@@ -15,6 +15,7 @@ import org.antlr.runtime.Token;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.nodemodel.ILeafNode;
 import org.eclipse.xtext.nodemodel.INode;
+import org.eclipse.xtext.parser.antlr.Lexer;
 import org.eclipse.xtext.util.Strings;
 
 /**
@@ -27,10 +28,10 @@ public class PartialContentAssistContextFactory extends ContentAssistContextFact
 		if (!Strings.isEmpty(currentNodePrefix) && !currentNode.getText().equals(currentNodePrefix)) {
 			lexer.setCharStream(new ANTLRStringStream(currentNodePrefix));
 			Token token = lexer.nextToken();
-			if (token == Token.EOF_TOKEN) {
+			if (token.getType() == Token.EOF) {
 				return;
 			}
-			while (token != Token.EOF_TOKEN) {
+			while (token.getType() != Token.EOF) {
 				if (isErrorToken(token)) {
 					return;
 				}
