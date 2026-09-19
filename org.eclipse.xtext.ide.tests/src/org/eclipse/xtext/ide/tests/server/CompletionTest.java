@@ -21,6 +21,7 @@ public class CompletionTest extends AbstractTestLangLanguageServerTest {
 		testCompletion((TestCompletionConfiguration it) -> {
 			it.setModel("");
 			String expectedCompletionItems =
+					"type declaration template (Add type declaration) -> type ${1:name} {\n  $0\n}\n [[0, 0] .. [0, 0]]\n" +
 					"package -> package [[0, 0] .. [0, 0]]\n" +
 					"type -> type [[0, 0] .. [0, 0]]\n" +
 					"Sample Snippet -> type ${1|A,B,C|} {\n" +
@@ -117,6 +118,7 @@ public class CompletionTest extends AbstractTestLangLanguageServerTest {
 			it.setLine(1);
 			it.setColumn(0);
 			String expectedCompletionItems =
+					"(Snippet|Snippet) type declaration template (Add type declaration) -> type ${1:name} {\n  $0\n}\n [[1, 0] .. [1, 0]]\n" +
 					"(Keyword) package -> package [[1, 0] .. [1, 0]]\n" +
 					"(Keyword) type -> type [[1, 0] .. [1, 0]]\n" +
 					"(Snippet|Snippet) Sample Snippet -> type ${1|A,B,C|} {\n" +
