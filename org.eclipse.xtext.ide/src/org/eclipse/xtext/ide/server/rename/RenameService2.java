@@ -10,7 +10,6 @@ package org.eclipse.xtext.ide.server.rename;
 
 import java.io.FileNotFoundException;
 import java.util.Objects;
-import java.util.concurrent.ExecutionException;
 
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.EAttribute;
@@ -87,13 +86,15 @@ public class RenameService2 implements IRenameService2 {
 
 	@Override
 	public WorkspaceEdit rename(IRenameService2.Options options) {
+		boolean shouldPrepareRename = false;
 		try {
 			TextDocumentIdentifier textDocument = options.getRenameParams().getTextDocument();
 			String uri = textDocument.getUri();
 			ServerRefactoringIssueAcceptor issueAcceptor = issueProvider.get();
-			boolean shouldPrepareRename = shouldPrepareRename(options.getLanguageServerAccess());
-			return options.getLanguageServerAccess().doRead(uri, (ILanguageServerAccess.Context context) -> {
-				if (shouldPrepareRename) {
+			shouldPrepareRename = shouldPrepareRename(options.getLanguageServerAccess());
+			boolean prepareRename = shouldPrepareRename;
+			return options.getLanguageServerAccess().doSyncRead(uri, (ILanguageServerAccess.Context context) -> {
+				if (prepareRename) {
 					TextDocumentIdentifier identifier = new TextDocumentIdentifier(textDocument.getUri());
 					Position position = options.getRenameParams().getPosition();
 					PrepareRenameParams positionParams = new PrepareRenameParams(identifier, position);
@@ -131,21 +132,9 @@ public class RenameService2 implements IRenameService2 {
 				}
 				issueAcceptor.checkSeverity();
 				return workspaceEdit;
-			}).exceptionally((Throwable exception) -> {
-				try {
-					Throwable rootCause = Throwables.getRootCause(exception);
-					if (rootCause instanceof FileNotFoundException) {
-						if (shouldPrepareRename) {
-							return null;
-						}
-					}
-					throw exception;
-				} catch (Throwable e) {
-					throw Exceptions.sneakyThrow(e);
-				}
-			}).get();
-		} catch (InterruptedException | ExecutionException e) {
-			throw Exceptions.sneakyThrow(e);
+			});
+		} catch (Throwable exception) {
+			return handleReadException(exception, shouldPrepareRename);
 		}
 	}
 	
@@ -193,11 +182,13 @@ public class RenameService2 implements IRenameService2 {
 
 	@Override
 	public Either3<Range, PrepareRenameResult, PrepareRenameDefaultBehavior> prepareRename(IRenameService2.PrepareRenameOptions options) {
+		boolean shouldPrepareRename = false;
 		try {
 			String uri = options.getParams().getTextDocument().getUri();
-			boolean shouldPrepareRename = shouldPrepareRename(options.getLanguageServerAccess());
-			return options.getLanguageServerAccess().doRead(uri, (ILanguageServerAccess.Context context) -> {
-				if (!shouldPrepareRename) {
+			shouldPrepareRename = shouldPrepareRename(options.getLanguageServerAccess());
+			boolean prepareRename = shouldPrepareRename;
+			return options.getLanguageServerAccess().doSyncRead(uri, (ILanguageServerAccess.Context context) -> {
+				if (!prepareRename) {
 					return null;
 				}
 				Resource resource = context.getResource();
@@ -205,22 +196,20 @@ public class RenameService2 implements IRenameService2 {
 				PrepareRenameParams params = options.getParams();
 				CancelIndicator cancelIndicator = options.getCancelIndicator();
 				return doPrepareRename(resource, document, params, cancelIndicator);
-			}).exceptionally((Throwable exception) -> {
-				try {
-					Throwable rootCause = Throwables.getRootCause(exception);
-					if (rootCause instanceof FileNotFoundException) {
-						if (shouldPrepareRename) {
-							return null;
-						}
-					}
-					throw exception;
-				} catch (Throwable e) {
-					throw Exceptions.sneakyThrow(e);
-				}
-			}).get();
-		} catch (InterruptedException | ExecutionException e) {
-			throw Exceptions.sneakyThrow(e);
+			});
+		} catch (Throwable exception) {
+			return handleReadException(exception, shouldPrepareRename);
 		}
+	}
+
+	private <T> T handleReadException(Throwable exception, boolean shouldPrepareRename) {
+		Throwable rootCause = Throwables.getRootCause(exception);
+		if (rootCause instanceof FileNotFoundException) {
+			if (shouldPrepareRename) {
+				return null;
+			}
+		}
+		throw Exceptions.sneakyThrow(exception);
 	}
 
 	protected Either3<Range, PrepareRenameResult, PrepareRenameDefaultBehavior> doPrepareRename(Resource resource, Document document,
