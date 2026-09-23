@@ -26,11 +26,14 @@ import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.eclipse.jface.text.source.Annotation;
 import org.eclipse.jface.text.source.AnnotationRulerColumn;
 import org.eclipse.jface.text.source.CompositeRuler;
+import org.eclipse.jface.text.source.IAnnotationAccess;
 import org.eclipse.jface.text.source.IAnnotationAccessExtension;
 import org.eclipse.jface.text.source.IAnnotationModel;
 import org.eclipse.jface.text.source.ICharacterPairMatcher;
+import org.eclipse.jface.text.source.IOverviewRuler;
 import org.eclipse.jface.text.source.ISharedTextColors;
 import org.eclipse.jface.text.source.LineNumberRulerColumn;
+import org.eclipse.jface.text.source.OverviewRuler;
 import org.eclipse.jface.text.source.SourceViewer;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
@@ -160,6 +163,9 @@ public class EmbeddedEditorFactory {
 		protected boolean editorBuild;
 		protected IValidationIssueProcessor issueProcessor;
 		
+		protected IOverviewRuler overviewRuler;
+		protected boolean showsAnnotationOverview;
+
 		/**
 		 * @since 2.13
 		 */
@@ -203,6 +209,22 @@ public class EmbeddedEditorFactory {
 			return this;
 		}
 
+		/**
+		 * Enables the overview ruler to display errors/warnings/info marker beside the code.
+		 * 
+		 * @since 2.45
+		 */
+		public Builder showOverviewRuler() {
+			if (overviewRuler != null) {
+				throw new IllegalStateException();
+			}
+
+			this.overviewRuler = new OverviewRuler(createAnnotationAccess(), VERTICAL_RULER_WIDTH, getSharedColors());
+			showsAnnotationOverview = true;
+
+			return this;
+		}
+
 		public Builder processIssuesBy(IValidationIssueProcessor issueProcessor) {
 			if (this.issueProcessor != null)
 				throw new IllegalStateException();
@@ -241,8 +263,8 @@ public class EmbeddedEditorFactory {
 			final XtextSourceViewer viewer = this.sourceViewerFactory.createSourceViewer(
 					parent, 
 					verticalRuler, 
-					null, // overviewRuler
-					false, // showAnnotationOverview 
+					overviewRuler,
+					showsAnnotationOverview,
 					style); // SWT styling
 			final XtextSourceViewerConfiguration viewerConfiguration = this.sourceViewerConfigurationProvider.get();
 			viewer.configure(viewerConfiguration);
@@ -250,16 +272,8 @@ public class EmbeddedEditorFactory {
 			// squiggles for markers and other decorations
 			final SourceViewerDecorationSupport viewerDecorationSupport = new SourceViewerDecorationSupport(
 					viewer, 
-					null, // overviewRuler 
-					new DefaultMarkerAnnotationAccess() {
-						@Override
-						public int getLayer(Annotation annotation) {
-							if (annotation.isMarkedDeleted()) {
-								return IAnnotationAccessExtension.DEFAULT_LAYER;
-							}
-							return super.getLayer(annotation);
-						}
-					}, 
+					overviewRuler,
+					createAnnotationAccess(),
 					getSharedColors());
 			MarkerAnnotationPreferences annotationPreferences = new MarkerAnnotationPreferences();
 			Iterator<AnnotationPreference> e = Iterators.filter(annotationPreferences.getAnnotationPreferences().iterator(), AnnotationPreference.class);
@@ -400,15 +414,7 @@ public class EmbeddedEditorFactory {
 				final EmbeddedEditorActions actions) {
 			int rulerColumnCounter = 1;
 			if (verticalRuler != null && annotationTypes != null && annotationTypes.length > 0) {
-				AnnotationRulerColumn annotationRulerColumn = new AnnotationRulerColumn(viewer.getAnnotationModel(), VERTICAL_RULER_WIDTH, new DefaultMarkerAnnotationAccess() {
-					@Override
-					public int getLayer(Annotation annotation) {
-						if (annotation.isMarkedDeleted()) {
-							return IAnnotationAccessExtension.DEFAULT_LAYER;
-						}
-						return super.getLayer(annotation);
-					}
-				});
+				AnnotationRulerColumn annotationRulerColumn = new AnnotationRulerColumn(viewer.getAnnotationModel(), VERTICAL_RULER_WIDTH, createAnnotationAccess());
 				for(String annotationType: annotationTypes)
 					annotationRulerColumn.addAnnotationType(annotationType);
 				verticalRuler.addDecorator(rulerColumnCounter++, annotationRulerColumn);
@@ -470,6 +476,18 @@ public class EmbeddedEditorFactory {
 			});
 			operationHistory.addOperationHistoryListener(operationHistoryListener);
 			return operationHistoryListener;
+		}
+
+		protected IAnnotationAccess createAnnotationAccess() {
+			return new DefaultMarkerAnnotationAccess() {
+				@Override
+				public int getLayer(Annotation annotation) {
+					if (annotation.isMarkedDeleted()) {
+						return IAnnotationAccessExtension.DEFAULT_LAYER;
+					}
+					return super.getLayer(annotation);
+				}
+			};
 		}
 
 		protected void setResourceProvider(IEditedResourceProvider resourceProvider) {
