@@ -58,7 +58,7 @@ Workflow {
 				// composedCheck = "org.eclipse.xtext.validation.NamesAreUniqueValidator"
 				generateDeprecationValidation = false
 			}
-			fragment = CodeMiningFragment {
+			codeMining = {
 				generateStub = true
 				generateXtendStub = false
 			}
