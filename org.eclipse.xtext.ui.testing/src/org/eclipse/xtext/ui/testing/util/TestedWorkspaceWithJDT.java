@@ -150,6 +150,7 @@ public class TestedWorkspaceWithJDT extends TestedWorkspace {
 			if (joinMe != null) {
 				joinMe.join();
 			}
+			IResourcesSetupUtil.waitForPdeClasspathUpdate();
 		} catch (Exception e) {
 			Exceptions.throwUncheckedException(e);
 		}

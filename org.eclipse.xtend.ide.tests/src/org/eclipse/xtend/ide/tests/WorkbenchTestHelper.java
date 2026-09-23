@@ -289,6 +289,7 @@ public class WorkbenchTestHelper extends Assert {
 		else
 			makeCompliantFor(javaProject, javaVersion);
 		JavaProjectSetupUtil.addJreClasspathEntry(javaProject);
+		IResourcesSetupUtil.waitForPdeClasspathUpdate();
 		return result;
 	}
 	
