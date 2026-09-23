@@ -132,7 +132,7 @@ public class TokenRegionProviderTest extends AbstractXtextTests {
 			currentToken = (CommonToken) lexer.nextToken();
 //			System.out.println(currentToken);
 			tokens.add(currentToken);
-		} while(currentToken != Token.EOF_TOKEN);
+		} while (currentToken.getType() != Token.EOF);
 		return tokens;
 	}
 }

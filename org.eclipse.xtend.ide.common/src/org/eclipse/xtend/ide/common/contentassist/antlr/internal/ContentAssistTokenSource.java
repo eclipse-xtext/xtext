@@ -39,7 +39,7 @@ public class ContentAssistTokenSource implements TokenSource {
 		try {
 			int type = flexer.advance();
 			if (type == Token.EOF) {
-				return Token.EOF_TOKEN;
+				return new CommonToken(Token.EOF);
 			}
 			int length = flexer.getTokenLength();
 			CommonToken result = new CommonTokenWithoutText(type, Token.DEFAULT_CHANNEL, offset, length);
