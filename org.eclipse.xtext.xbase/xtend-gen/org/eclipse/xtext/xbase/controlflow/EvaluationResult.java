@@ -195,6 +195,9 @@ class EvaluationResult implements IConstantEvaluationResult<Object> {
     } else if (myValue instanceof JvmFormalParameter
          && otherValue instanceof JvmFormalParameter) {
       return _equalValue((JvmFormalParameter)myValue, (JvmFormalParameter)otherValue);
+    } else if (myValue instanceof List
+         && otherValue instanceof List) {
+      return _equalValue((List<?>)myValue, (List<?>)otherValue);
     } else if (myValue instanceof JvmType
          && otherValue instanceof XTypeLiteral) {
       return _equalValue((JvmType)myValue, (XTypeLiteral)otherValue);
@@ -207,6 +210,9 @@ class EvaluationResult implements IConstantEvaluationResult<Object> {
     } else if (myValue instanceof JvmType
          && otherValue instanceof JvmIdentifiableElement) {
       return _equalValue((JvmType)myValue, (JvmIdentifiableElement)otherValue);
+    } else if (myValue instanceof List
+         && otherValue == null) {
+      return _equalValue((List<?>)myValue, (Void)null);
     } else if (myValue instanceof JvmType
          && otherValue == null) {
       return _equalValue((JvmType)myValue, (Void)null);
@@ -216,30 +222,27 @@ class EvaluationResult implements IConstantEvaluationResult<Object> {
     } else if (myValue instanceof XTypeLiteral
          && otherValue instanceof ThisReference) {
       return _equalValue((XTypeLiteral)myValue, (ThisReference)otherValue);
+    } else if (myValue instanceof List
+         && otherValue != null) {
+      return _equalValue((List<?>)myValue, otherValue);
     } else if (myValue instanceof JvmIdentifiableElement
          && otherValue instanceof JvmEnumerationLiteral) {
       return _equalValue((JvmIdentifiableElement)myValue, (JvmEnumerationLiteral)otherValue);
     } else if (myValue instanceof JvmIdentifiableElement
          && otherValue instanceof JvmType) {
       return _equalValue((JvmIdentifiableElement)myValue, (JvmType)otherValue);
-    } else if (myValue instanceof List
-         && otherValue instanceof List) {
-      return _equalValue((List<?>)myValue, (List<?>)otherValue);
     } else if (myValue instanceof JvmIdentifiableElement
          && otherValue instanceof JvmIdentifiableElement) {
       return _equalValue((JvmIdentifiableElement)myValue, (JvmIdentifiableElement)otherValue);
-    } else if (myValue instanceof List
-         && otherValue == null) {
-      return _equalValue((List<?>)myValue, (Void)null);
     } else if (myValue instanceof JvmIdentifiableElement
          && otherValue == null) {
       return _equalValue((JvmIdentifiableElement)myValue, (Void)null);
-    } else if (myValue instanceof List
-         && otherValue != null) {
-      return _equalValue((List<?>)myValue, otherValue);
     } else if (myValue instanceof JvmIdentifiableElement
          && otherValue != null) {
       return _equalValue((JvmIdentifiableElement)myValue, otherValue);
+    } else if (myValue == null
+         && otherValue instanceof List) {
+      return _equalValue((Void)null, (List<?>)otherValue);
     } else if (myValue == null
          && otherValue instanceof JvmType) {
       return _equalValue((Void)null, (JvmType)otherValue);
@@ -249,9 +252,6 @@ class EvaluationResult implements IConstantEvaluationResult<Object> {
     } else if (myValue instanceof ThisReference
          && otherValue instanceof XTypeLiteral) {
       return _equalValue((ThisReference)myValue, (XTypeLiteral)otherValue);
-    } else if (myValue == null
-         && otherValue instanceof List) {
-      return _equalValue((Void)null, (List<?>)otherValue);
     } else if (myValue == null
          && otherValue instanceof JvmIdentifiableElement) {
       return _equalValue((Void)null, (JvmIdentifiableElement)otherValue);
