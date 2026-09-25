@@ -16,7 +16,6 @@ import org.junit.Test
 import org.eclipse.xtend.lib.macro.declaration.MutableClassDeclaration
 import org.eclipse.xtend.lib.macro.TransformationContext
 import org.eclipse.xtend.lib.macro.declaration.MutableInterfaceDeclaration
-import org.eclipse.xtext.util.JavaVersion
 
 /**
  * @author Christian Dietrich - Initial contribution and API
@@ -49,7 +48,7 @@ class Bug467063Test extends AbstractActiveAnnotationTest {
 			  }
 			}
 
-		''', JavaVersion.JAVA8)
+		''')
 	}
 	
 }

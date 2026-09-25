@@ -19,6 +19,7 @@ import org.eclipse.xtend.lib.annotations.Accessors;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtend2.lib.StringConcatenationClient;
 import org.eclipse.xtext.generator.IFileSystemAccess2;
+import org.eclipse.xtext.util.JavaVersion;
 import org.eclipse.xtext.util.MergeableManifest2;
 import org.eclipse.xtext.util.Strings;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
@@ -168,8 +169,10 @@ public class ManifestAccess extends TextFileAccess implements IGuiceAwareGenerat
         _builder.newLineIfNotEmpty();
       }
     }
-    _builder.append("Bundle-RequiredExecutionEnvironment: JavaSE-21");
-    _builder.newLine();
+    _builder.append("Bundle-RequiredExecutionEnvironment: ");
+    String _bree = JavaVersion.DEFAULT.getBree();
+    _builder.append(_bree);
+    _builder.newLineIfNotEmpty();
     _builder.append("Bundle-ActivationPolicy: lazy");
     _builder.newLine();
     {

@@ -70,7 +70,7 @@ public class XbaseBuilderPreferenceAccess {
 			store.setDefault(USE_XBASE_GENERATED, true);
 			store.setDefault(PREF_GENERATE_GENERATED, false);
 			store.setDefault(PREF_DATE_IN_GENERATED, false);
-			store.setDefault(PREF_JAVA_VERSION, JavaVersion.JAVA8.toString());
+			store.setDefault(PREF_JAVA_VERSION, JavaVersion.DEFAULT.toString());
 			store.setDefault(PREF_USE_COMPILER_SOURCE, true);
 		}
 
@@ -110,7 +110,7 @@ public class XbaseBuilderPreferenceAccess {
 				// Fall back to default value
 			}
 		}
-		return JavaVersion.JAVA8;
+		return JavaVersion.DEFAULT;
 	}
 	
 	public void setJavaVersion(Object context, JavaVersion version) {
@@ -122,7 +122,7 @@ public class XbaseBuilderPreferenceAccess {
 	public JavaVersion fromCompilerSourceLevel(String compilerSource) {
 		JavaVersion javaVersion = JavaVersion.fromQualifier(compilerSource);
 		if (javaVersion == null)
-			javaVersion = JavaVersion.JAVA8;
+			javaVersion = JavaVersion.DEFAULT;
 		return javaVersion;
 	}
 

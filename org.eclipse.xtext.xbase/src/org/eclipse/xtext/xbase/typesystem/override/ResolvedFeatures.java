@@ -49,13 +49,16 @@ public class ResolvedFeatures extends AbstractResolvedFeatures {
 	private List<IResolvedOperation> declaredOperations;
 	private ListMultimap<String, IResolvedOperation> allOperationsPerErasure;
 	private ListMultimap<String, IResolvedOperation> declaredOperationsPerErasure;
-	private JavaVersion targetVersion = JavaVersion.JAVA8;
-	
+
+	/**
+	 * @deprecated the {@code targetVersion} parameter is unused - every supported {@link JavaVersion} is
+	 *             at least Java 8, use {@link #ResolvedFeatures(LightweightTypeReference, OverrideTester)} instead
+	 */
+	@Deprecated
 	public ResolvedFeatures(LightweightTypeReference type, OverrideTester overrideTester, JavaVersion targetVersion) {
 		super(type, overrideTester);
-		this.targetVersion = targetVersion;
 	}
-	
+
 	public ResolvedFeatures(LightweightTypeReference type, OverrideTester overrideTester) {
 		super(type, overrideTester);
 	}
@@ -129,12 +132,7 @@ public class ResolvedFeatures extends AbstractResolvedFeatures {
 		for (IResolvedOperation resolvedOperation : getDeclaredOperations()) {
 			processedOperations.put(resolvedOperation.getDeclaration().getSimpleName(), (AbstractResolvedOperation) resolvedOperation);
 		}
-		if (targetVersion.isAtLeast(JavaVersion.JAVA8)) {
-			computeAllOperationsFromSortedSuperTypes((JvmDeclaredType) rawType, processedOperations);
-		} else {
-			Set<JvmType> processedTypes = Sets.newHashSet(rawType);
-			computeAllOperationsFromSuperTypes((JvmDeclaredType) rawType, processedOperations, processedTypes);
-		}
+		computeAllOperationsFromSortedSuperTypes((JvmDeclaredType) rawType, processedOperations);
 		// make sure the declared operations are the first in the list
 		List<IResolvedOperation> result = new ArrayList<IResolvedOperation>(processedOperations.size());
 		result.addAll(getDeclaredOperations());
@@ -148,15 +146,7 @@ public class ResolvedFeatures extends AbstractResolvedFeatures {
 
 	protected void computeAllOperations(JvmDeclaredType type, Multimap<String, AbstractResolvedOperation> processedOperations) {
 		for (JvmOperation operation: type.getDeclaredOperations()) {
-			boolean addToResult = true;
-			if (targetVersion.isAtLeast(JavaVersion.JAVA8)) {
-				addToResult = handleOverridesAndConflicts(operation, processedOperations);
-			} else {
-				String simpleName = operation.getSimpleName();
-				if (processedOperations.containsKey(simpleName)) {
-					addToResult = !isOverridden(operation, processedOperations.get(simpleName));
-				}
-			}
+			boolean addToResult = handleOverridesAndConflicts(operation, processedOperations);
 			if (addToResult) {
 				BottomResolvedOperation resolvedOperation = createResolvedOperation(operation);
 				processedOperations.put(operation.getSimpleName(), resolvedOperation);
@@ -164,17 +154,6 @@ public class ResolvedFeatures extends AbstractResolvedFeatures {
 		}
 	}
 
-	protected void computeAllOperationsFromSuperTypes(JvmDeclaredType type, Multimap<String, AbstractResolvedOperation> processedOperations,
-			Set<JvmType> processedTypes) {
-		for (JvmTypeReference superType: type.getSuperTypes()) {
-			JvmType rawSuperType = superType.getType();
-			if (rawSuperType instanceof JvmDeclaredType && !rawSuperType.eIsProxy() && processedTypes.add(rawSuperType)) {
-				computeAllOperations((JvmDeclaredType) rawSuperType, processedOperations);
-				computeAllOperationsFromSuperTypes((JvmDeclaredType) rawSuperType, processedOperations, processedTypes);
-			}
-		}
-	}
-	
 	protected void computeAllOperationsFromSortedSuperTypes(JvmDeclaredType rootType,
 			final Multimap<String, AbstractResolvedOperation> processedOperations) {
 		class SuperTypes extends TypesSwitch<Boolean> {

@@ -9,7 +9,6 @@
 package org.eclipse.xtend.core.tests.macro;
 
 import org.eclipse.xtend2.lib.StringConcatenation;
-import org.eclipse.xtext.util.JavaVersion;
 import org.junit.Test;
 
 /**
@@ -63,6 +62,6 @@ public class Bug467063Test extends AbstractActiveAnnotationTest {
     _builder_1.append("}");
     _builder_1.newLine();
     _builder_1.newLine();
-    this._xtendCompilerTester.assertCompilesTo(_builder, _builder_1, JavaVersion.JAVA8);
+    this._xtendCompilerTester.assertCompilesTo(_builder, _builder_1);
   }
 }

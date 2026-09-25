@@ -44,12 +44,14 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.internal.core.ClasspathEntry;
 import org.eclipse.jdt.internal.core.JavaModelManager;
 import org.eclipse.jdt.internal.launching.StandardVMType;
+import org.eclipse.jdt.internal.ui.wizards.buildpaths.BuildPathSupport;
 import org.eclipse.jdt.launching.IVMInstall;
 import org.eclipse.jdt.launching.IVMInstall2;
 import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.jdt.launching.environments.IExecutionEnvironment;
 import org.eclipse.jdt.launching.environments.IExecutionEnvironmentsManager;
 import org.eclipse.xtext.ui.util.JREContainerProvider;
+import org.eclipse.xtext.util.JavaVersion;
 import org.eclipse.xtext.util.RuntimeIOException;
 import org.eclipse.xtext.util.Wrapper;
 import org.eclipse.xtext.xbase.lib.Pair;
@@ -357,8 +359,6 @@ public class JavaProjectSetupUtil {
 	 * @since 2.17
 	 */
 	public static void addJreClasspathEntry(IJavaProject javaProject, boolean build) throws JavaModelException {
-		// init default mappings
-		makeJava7Default();
 		IClasspathEntry existingJreContainerClasspathEntry = getJreContainerClasspathEntry(javaProject);
 		if (existingJreContainerClasspathEntry == null) {
 			addToClasspath(javaProject, JREContainerProvider.getDefaultJREContainerEntry(), build);
@@ -422,13 +422,26 @@ public class JavaProjectSetupUtil {
 	}
 	
 	/**
+	 * @deprecated use {@link #makeDefaultCompliant(IJavaProject)} instead, which derives the compliance
+	 *             level from the project's JRE container instead of pinning it to Java 8
 	 * @since 2.21
 	 */
+	@Deprecated
 	public static void makeJava8Compliant(IJavaProject javaProject) {
+		makeCompliantFor(javaProject, JavaVersion.JAVA8);
+	}
+
+	/**
+	 * Sets the JDT compiler compliance/source/target options for the given {@code javaVersion}.
+	 *
+	 * @since 2.45
+	 */
+	public static void makeCompliantFor(IJavaProject javaProject, JavaVersion javaVersion) {
 		Map<String, String> options= javaProject.getOptions(false);
-		options.put(JavaCore.COMPILER_COMPLIANCE, JavaCore.VERSION_1_8);
-		options.put(JavaCore.COMPILER_SOURCE, JavaCore.VERSION_1_8);
-		options.put(JavaCore.COMPILER_CODEGEN_TARGET_PLATFORM, JavaCore.VERSION_1_8);
+		String jreLevel = javaVersion.getQualifier();
+		options.put(JavaCore.COMPILER_COMPLIANCE, jreLevel);
+		options.put(JavaCore.COMPILER_SOURCE, jreLevel);
+		options.put(JavaCore.COMPILER_CODEGEN_TARGET_PLATFORM, jreLevel);
 		options.put(JavaCore.COMPILER_PB_ASSERT_IDENTIFIER, JavaCore.ERROR);
 		options.put(JavaCore.COMPILER_PB_ENUM_IDENTIFIER, JavaCore.ERROR);
 		options.put(JavaCore.COMPILER_LOCAL_VARIABLE_ATTR, JavaCore.GENERATE);
@@ -436,6 +449,24 @@ public class JavaProjectSetupUtil {
 		options.put(JavaCore.COMPILER_SOURCE_FILE_ATTR, JavaCore.GENERATE);
 		options.put(JavaCore.COMPILER_CODEGEN_UNUSED_LOCAL, JavaCore.PRESERVE);
 		javaProject.setOptions(options);
+	}
+
+	/**
+	 * Makes the given project compliant with the execution environment of its JRE container entry,
+	 * falling back to {@link JREContainerProvider#PREFERRED_BREE} if none can be determined.
+	 *
+	 * @since 2.45
+	 */
+	public static void makeDefaultCompliant(IJavaProject javaProject) throws JavaModelException {
+		String executionEnvironmentId = null;
+		IClasspathEntry jreContainerEntry = getJreContainerClasspathEntry(javaProject);
+		if (jreContainerEntry != null) {
+			executionEnvironmentId = JavaRuntime.getExecutionEnvironmentId(jreContainerEntry.getPath());
+		}
+		if (executionEnvironmentId == null) {
+			executionEnvironmentId = JREContainerProvider.PREFERRED_BREE;
+		}
+		BuildPathSupport.setEEComplianceOptions(javaProject, executionEnvironmentId, null);
 	}
 
 	public static IClasspathEntry getJreContainerClasspathEntry(IJavaProject javaProject) throws JavaModelException {

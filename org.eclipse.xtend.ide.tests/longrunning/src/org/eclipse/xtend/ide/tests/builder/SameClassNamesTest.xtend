@@ -20,7 +20,6 @@ import org.eclipse.xtext.ui.testing.util.JavaProjectSetupUtil
 import org.eclipse.xtext.ui.XtextProjectHelper
 import org.eclipse.xtext.ui.util.JREContainerProvider
 import org.eclipse.xtext.ui.util.PluginProjectFactory
-import org.eclipse.xtext.util.JavaVersion
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -127,7 +126,7 @@ class SameClassNamesTest extends AbstractXtendUITestCase {
 		projectFactory.addExportedPackages(#['com.acme'])
 		val result = projectFactory.createProject(new NullProgressMonitor(), null);
 		val javaProject = JavaCore.create(result);
-		WorkbenchTestHelper.makeCompliantFor(javaProject, JavaVersion.JAVA8);
+		JavaProjectSetupUtil.makeDefaultCompliant(javaProject);
 		JavaProjectSetupUtil.addJreClasspathEntry(javaProject);
 		return result;
 	}

@@ -606,12 +606,16 @@ public class JvmModelGeneratorTest extends AbstractXbaseTestCase {
 			}));
 			it.setAbstract(true);
 		});
-		Class<?> compiled = compile(expression.eResource(), clazz);
+		String code = generate(expression.eResource(), clazz);
+		// since Java 17 (JEP 306), javac/ecj no longer emit the ACC_STRICT class file flag, so
+		// strictfp can only be verified in the generated source, not via Modifier.isStrict(..)
+		Assert.assertTrue(code, code.contains("strictfp"));
+		Class<?> compiled = compileToClass(expression.eResource(), clazz, code);
 		Assert.assertTrue(Modifier.isStatic(compiled.getMethod("staticMethod").getModifiers()));
 		Assert.assertTrue(Modifier.isFinal(compiled.getMethod("finalMethod").getModifiers()));
 		Assert.assertTrue(Modifier.isAbstract(compiled.getMethod("abstractMethod").getModifiers()));
 		Assert.assertTrue(Modifier.isSynchronized(compiled.getMethod("synchronizedMethod").getModifiers()));
-		Assert.assertTrue(Modifier.isStrict(compiled.getMethod("strictFpMethod").getModifiers()));
+		Assert.assertNotNull(compiled.getMethod("strictFpMethod"));
 		Assert.assertTrue(Modifier.isNative(compiled.getMethod("nativeMethod").getModifiers()));
 	}
 
