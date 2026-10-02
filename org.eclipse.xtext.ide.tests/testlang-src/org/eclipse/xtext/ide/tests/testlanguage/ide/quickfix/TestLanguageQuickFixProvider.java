@@ -15,6 +15,9 @@ import org.eclipse.xtext.ide.tests.testlanguage.testLanguage.TypeDeclaration;
 import org.eclipse.xtext.ide.tests.testlanguage.validation.TestLanguageValidator;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
 
+import jakarta.inject.Singleton;
+
+@Singleton
 public class TestLanguageQuickFixProvider extends AbstractDeclarativeIdeQuickfixProvider {
 
 	public static String EMF_QF_LABEL = "Change element name to first upper using object modification";
