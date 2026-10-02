@@ -38,6 +38,8 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jdt.internal.core.JavaModelManager;
+import org.eclipse.pde.internal.core.ClasspathComputer;
+import org.eclipse.pde.internal.core.PluginModelManager;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.ui.texteditor.MarkerUtilities;
 import org.eclipse.xtext.util.StringInputStream;
@@ -484,5 +486,25 @@ public class IResourcesSetupUtil {
 	@SuppressWarnings("restriction")
 	public static void waitForJdtIndex(IProgressMonitor monitor) {
 		JavaModelManager.getIndexManager().waitForIndex(true, monitor);
+	}
+
+	/**
+	 * Waits until PDE has computed the "Plug-in Dependencies" classpath container of plug-in projects.
+	 *
+	 * @since 2.45
+	 */
+	@SuppressWarnings("restriction")
+	public static void waitForPdeClasspathUpdate() {
+		if (Job.getJobManager().currentRule() != null) {
+			return;
+		}
+		try {
+			Job.getJobManager().join(ClasspathComputer.class, null);
+			Job.getJobManager().join(PluginModelManager.class, null);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
+		} catch (NoClassDefFoundError e) {
+			// org.eclipse.pde.core is optional dependency
+		}
 	}
 }
