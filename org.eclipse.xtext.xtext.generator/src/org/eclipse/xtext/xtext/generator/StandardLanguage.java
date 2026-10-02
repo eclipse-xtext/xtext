@@ -25,6 +25,7 @@ import org.eclipse.xtext.xtext.generator.resourceFactory.ResourceFactoryFragment
 import org.eclipse.xtext.xtext.generator.scoping.ImportNamespacesScopingFragment2;
 import org.eclipse.xtext.xtext.generator.serializer.SerializerFragment2;
 import org.eclipse.xtext.xtext.generator.types.TypesGeneratorFragment2;
+import org.eclipse.xtext.xtext.generator.ui.codemining.CodeMiningFragment;
 import org.eclipse.xtext.xtext.generator.ui.compare.CompareFragment2;
 import org.eclipse.xtext.xtext.generator.ui.contentAssist.ContentAssistFragment2;
 import org.eclipse.xtext.xtext.generator.ui.fileWizard.TemplateFileWizardFragment;
@@ -130,6 +131,8 @@ public class StandardLanguage extends XtextGeneratorLanguage {
 
 	private TemplateFileWizardFragment fileWizard = new TemplateFileWizardFragment();
 
+	private CodeMiningFragment codeMining = null;
+	
 	public StandardLanguage() {
 		try {
 			getClass().getClassLoader().loadClass("org.eclipse.xtext.xbase.XbaseRuntimeModule");
@@ -183,6 +186,7 @@ public class StandardLanguage extends XtextGeneratorLanguage {
 		nullSafeAdd(fragments, newProjectWizardForEclipse);
 		nullSafeAdd(fragments, projectWizard);
 		nullSafeAdd(fragments, fileWizard);
+		nullSafeAdd(fragments, codeMining);
 		return fragments;
 	}
 
@@ -218,6 +222,10 @@ public class StandardLanguage extends XtextGeneratorLanguage {
 	 */
 	public TemplateFileWizardFragment setFileWizard(TemplateFileWizardFragment fragment) {
 		return fileWizard = fragment;
+	}
+
+	public CodeMiningFragment setCodeMining(CodeMiningFragment fragment) {
+		return codeMining = fragment;
 	}
 
 	protected GrammarAccessFragment2 getGrammarAccess() {
@@ -423,6 +431,10 @@ public class StandardLanguage extends XtextGeneratorLanguage {
 
 	protected TemplateFileWizardFragment getFileWizard() {
 		return fileWizard;
+	}
+	
+	protected CodeMiningFragment getCodeMining() {
+		return codeMining;
 	}
 
 }
