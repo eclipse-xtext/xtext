@@ -18,6 +18,7 @@ import static org.junit.Assert.*;
 import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
 
+import org.antlr.runtime.CommonToken;
 import org.antlr.runtime.Token;
 import org.antlr.runtime.TokenSource;
 import org.eclipse.core.resources.IFile;
@@ -54,7 +55,7 @@ public class IXtextDocumentAdapterTest {
 			return new org.antlr.runtime.TokenSource() {
 				@Override
 				public Token nextToken() {
-					return Token.EOF_TOKEN;
+					return new CommonToken(Token.EOF);
 				}
 
 				@Override

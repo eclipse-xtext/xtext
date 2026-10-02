@@ -40,7 +40,7 @@ public class DFA extends org.antlr.runtime.DFA {
 	
 	@Override
 	protected void error(NoViableAltException nvae) {
-		if (nvae.token == Token.EOF_TOKEN) {
+		if (nvae.token.getType() == Token.EOF) {
 			int lookAheadAddOn = getRecognizer().lookAheadAddOn;
 			int lookAhead = ((XtextTokenStream)nvae.input).getCurrentLookAhead();
 			if ((lookAhead >= lookAheadAddOn && lookAheadAddOn > 0) || (lookAhead == 0 && lookAheadAddOn > 0) || lookAhead == -1)
