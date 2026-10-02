@@ -29,6 +29,10 @@ public interface IXtextEditorCallback {
 	 */
 	void afterSave(XtextEditor editor);
 	
+	default void afterRevert(XtextEditor editor) {
+		afterSave(editor);
+	}
+	
 	void beforeDispose(XtextEditor editor);
 	
 	boolean onValidateEditorInputState(XtextEditor editor);
