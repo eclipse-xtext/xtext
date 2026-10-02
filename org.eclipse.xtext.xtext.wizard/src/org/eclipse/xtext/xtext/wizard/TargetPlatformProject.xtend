@@ -66,7 +66,7 @@ class TargetPlatformProject extends ProjectDescriptor {
 					<unit id="org.eclipse.pde.feature.group"/>
 					<unit id="org.eclipse.draw2d.feature.group"/>
 					<unit id="org.eclipse.emf.sdk.feature.group"/>
-					<repository location="https://download.eclipse.org/releases/2026-09"/>
+					<repository location="https://download.eclipse.org/releases/2026-12"/>
 				</location>
 				<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 					<unit id="org.eclipse.emf.mwe2.launcher.feature.group"/>
@@ -110,7 +110,7 @@ class TargetPlatformProject extends ProjectDescriptor {
 					«ENDIF»
 					<unit id="org.objectweb.asm"/>
 					<unit id="io.github.classgraph.classgraph"/>
-					<repository location="https://download.eclipse.org/tools/orbit/simrel/orbit-aggregation/2026-09"/>
+					<repository location="https://download.eclipse.org/tools/orbit/simrel/orbit-aggregation/2026-12"/>
 				</location>
 			</locations>
 		</target>
