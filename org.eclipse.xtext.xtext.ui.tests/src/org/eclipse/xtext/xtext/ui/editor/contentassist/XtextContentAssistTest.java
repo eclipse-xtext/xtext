@@ -27,6 +27,7 @@ import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider;
 import org.eclipse.xtext.ui.refactoring.ui.SyncUtil;
 import org.eclipse.xtext.ui.shared.SharedStateModule;
 import org.eclipse.xtext.ui.testing.ContentAssistProcessorTestBuilder;
+import org.eclipse.xtext.ui.testing.util.IResourcesSetupUtil;
 import org.eclipse.xtext.ui.testing.util.ResourceLoadHelper;
 import org.eclipse.xtext.ui.util.PluginProjectFactory;
 import org.eclipse.xtext.util.Modules2;
@@ -72,6 +73,7 @@ public class XtextContentAssistTest extends AbstractXtextTests implements Resour
 					XtextProjectHelper.NATURE_ID, JavaCore.NATURE_ID, "org.eclipse.pde.PluginNature");
 			projectFactory.addRequiredBundles(Lists.newArrayList("org.eclipse.xtext"));
 			project = projectFactory.createProject(new NullProgressMonitor(), null);
+			IResourcesSetupUtil.waitForPdeClasspathUpdate();
 			get(SyncUtil.class).waitForBuild(new NullProgressMonitor());
 		}
 	}
@@ -80,6 +82,7 @@ public class XtextContentAssistTest extends AbstractXtextTests implements Resour
 	public static void doDeleteProject() throws CoreException {
 		if(project != null && project.exists())
 			project.delete(true, new NullProgressMonitor());
+		project = null;
 	}
 	
 	public ISetup doGetSetup() {
