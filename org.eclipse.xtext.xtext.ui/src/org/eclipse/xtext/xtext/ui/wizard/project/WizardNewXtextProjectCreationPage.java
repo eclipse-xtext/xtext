@@ -142,7 +142,7 @@ public class WizardNewXtextProjectCreationPage extends WizardNewProjectCreationP
 			availableBrees.add(ee.getId());
 		}
 		for (JavaVersion supportedVersion : JavaVersion.values()) {
-			if (supportedVersion.isAtLeast(JavaVersion.JAVA21)) {
+			if (supportedVersion.isAtLeast(JavaVersion.DEFAULT)) {
 				String bree = supportedVersion.getBree();
 				if (availableBrees.contains(bree))
 					brees.add(bree);
@@ -230,7 +230,7 @@ public class WizardNewXtextProjectCreationPage extends WizardNewProjectCreationP
 		}
 		JavaVersion javaVersion = JavaVersion.fromBree(breeCombo.getText());
 		if (javaVersion != null) {
-			if (!javaVersion.isAtLeast(JavaVersion.JAVA21)) {
+			if (!javaVersion.isAtLeast(JavaVersion.DEFAULT)) {
 				setErrorMessage(Messages.WizardNewXtextProjectCreationPage_MessageAtLeastJava21);
 				return false;
 			}
@@ -247,7 +247,7 @@ public class WizardNewXtextProjectCreationPage extends WizardNewProjectCreationP
 
 	private IStatus validateProjectName() {
 		String projectName = getProjectName();
-		IStatus status = JavaConventions.validatePackageName(projectName, JavaCore.VERSION_1_5, JavaCore.VERSION_1_5);
+		IStatus status = JavaConventions.validatePackageName(projectName, JavaCore.VERSION_11, JavaCore.VERSION_11);
 		if (status.isOK()) {
 			// https://docs.oracle.com/javase/specs/jls/se8/html/jls-3.html#jls-3.8
 			// for historical reasons only underscore and $ are accepted as package name, but not for Xtext projects  

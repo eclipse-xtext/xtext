@@ -37,7 +37,6 @@ import org.eclipse.xtext.ui.editor.hover.html.IEObjectHoverDocumentationProvider
 import org.eclipse.xtext.ui.resource.XtextResourceSetProvider;
 import org.eclipse.xtext.ui.testing.util.IResourcesSetupUtil;
 import org.eclipse.xtext.util.CancelIndicator;
-import org.eclipse.xtext.util.JavaVersion;
 import org.eclipse.xtext.util.StringInputStream;
 import org.eclipse.xtext.validation.CheckMode;
 import org.eclipse.xtext.validation.IResourceValidator;
@@ -196,9 +195,9 @@ public class ActiveAnnotationsProcessingInIDETest extends AbstractReusableActive
   @BeforeClass
   public static void createProjects() {
     try {
-      ActiveAnnotationsProcessingInIDETest.macroProject = JavaCore.create(WorkbenchTestHelper.createPluginProject("macroProject", JavaVersion.JAVA8));
+      ActiveAnnotationsProcessingInIDETest.macroProject = JavaCore.create(WorkbenchTestHelper.createPluginProject("macroProject"));
       ActiveAnnotationsProcessingInIDETest.userProject = JavaCore.create(
-        WorkbenchTestHelper.createPluginProject("userProject", JavaVersion.JAVA8, "com.google.inject", "org.eclipse.xtend.lib", 
+        WorkbenchTestHelper.createPluginProject("userProject", "com.google.inject", "org.eclipse.xtend.lib",
           "org.eclipse.xtext.xbase.lib", "org.eclipse.xtend.ide.tests.data", "org.junit", "macroProject"));
       WorkbenchTestHelper.addExportedPackages(ActiveAnnotationsProcessingInIDETest.macroProject.getProject(), "myannotation");
     } catch (Throwable _e) {

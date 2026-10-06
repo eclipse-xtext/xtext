@@ -68,7 +68,7 @@ public class XtendLibClasspathAdderTest extends AbstractXtendUITestCase {
 		javaProjectFactory.addProjectNatures(JavaCore.NATURE_ID, XtextProjectHelper.NATURE_ID);
 		IProject project = javaProjectFactory.createProject(null, null);
 		IJavaProject javaProject = JavaCore.create(project);
-		JavaProjectSetupUtil.makeJava8Compliant(javaProject);
+		JavaProjectSetupUtil.makeDefaultCompliant(javaProject);
 		IFile file = project.getFile("src/Foo.xtend");
 		file.create(new StringInputStream("import org.eclipse.xtend.lib.annotations.Accessors class Foo { @Accessors int bar }"),
 				true, null);
@@ -90,7 +90,7 @@ public class XtendLibClasspathAdderTest extends AbstractXtendUITestCase {
 				XtextProjectHelper.NATURE_ID);
 		IProject project = pluginProjectFactory.createProject(null, null);
 		IJavaProject javaProject = JavaCore.create(project);
-		JavaProjectSetupUtil.makeJava8Compliant(javaProject);
+		JavaProjectSetupUtil.makeDefaultCompliant(javaProject);
 		IFile file = project.getFile("src/Foo.xtend");
 		file.create(new StringInputStream("import org.eclipse.xtend.lib.annotations.Accessors class Foo { @Accessors int bar }"),
 				true, null);
@@ -111,7 +111,7 @@ public class XtendLibClasspathAdderTest extends AbstractXtendUITestCase {
 				XtextProjectHelper.NATURE_ID);
 		IProject project = pluginProjectFactory.createProject(null, null);
 		IJavaProject javaProject = JavaCore.create(project);
-		JavaProjectSetupUtil.makeJava8Compliant(javaProject);
+		JavaProjectSetupUtil.makeDefaultCompliant(javaProject);
 		project.findMember("META-INF").delete(true, null);
 		IFile file = project.getFile("src/Foo.xtend");
 		file.create(new StringInputStream("import org.eclipse.xtend.lib.annotations.Accessors class Foo { @Accessors int bar }"),

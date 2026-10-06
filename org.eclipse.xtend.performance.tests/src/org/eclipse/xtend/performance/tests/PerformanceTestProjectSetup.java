@@ -14,7 +14,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IContainer;
@@ -37,6 +36,7 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.xtext.builder.nature.ToggleXtextNatureCommand;
 import org.eclipse.xtext.ui.testing.util.IResourcesSetupUtil;
 import org.eclipse.xtext.ui.testing.util.JavaProjectSetupUtil;
+import org.eclipse.xtext.ui.util.JREContainerProvider;
 import org.eclipse.xtext.util.Strings;
 
 import com.google.common.collect.Lists;
@@ -133,13 +133,13 @@ public class PerformanceTestProjectSetup {
 			project.open(null);
 			project.setDescription(projectDescription, null);
 
-			classpathEntries.add(JavaCore.newContainerEntry(new Path("org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-21")));
+			classpathEntries.add(JREContainerProvider.getDefaultJREContainerEntry());
 			classpathEntries.add(JavaCore.newContainerEntry(new Path("org.eclipse.pde.core.requiredPlugins")));
 
 			javaProject.setRawClasspath(classpathEntries.toArray(new IClasspathEntry[classpathEntries.size()]),
 					null);
-			
-			makeJava21Compliant(javaProject);
+
+			JavaProjectSetupUtil.makeDefaultCompliant(javaProject);
 
 			javaProject.setOutputLocation(new Path("/" + projectName + "/bin"), null);
 			createManifest(projectName, project);
@@ -153,20 +153,6 @@ public class PerformanceTestProjectSetup {
 		return javaProject ;
 	}
 
-	public static void makeJava21Compliant(IJavaProject javaProject) {
-		Map<String, String> options= javaProject.getOptions(false);
-		options.put(JavaCore.COMPILER_COMPLIANCE, JavaCore.VERSION_21);
-		options.put(JavaCore.COMPILER_SOURCE, JavaCore.VERSION_21);
-		options.put(JavaCore.COMPILER_CODEGEN_TARGET_PLATFORM, JavaCore.VERSION_21);
-		options.put(JavaCore.COMPILER_PB_ASSERT_IDENTIFIER, JavaCore.ERROR);
-		options.put(JavaCore.COMPILER_PB_ENUM_IDENTIFIER, JavaCore.ERROR);
-		options.put(JavaCore.COMPILER_LOCAL_VARIABLE_ATTR, JavaCore.GENERATE);
-		options.put(JavaCore.COMPILER_LINE_NUMBER_ATTR, JavaCore.GENERATE);
-		options.put(JavaCore.COMPILER_SOURCE_FILE_ATTR, JavaCore.GENERATE);
-		options.put(JavaCore.COMPILER_CODEGEN_UNUSED_LOCAL, JavaCore.PRESERVE);
-		javaProject.setOptions(options);
-	}
-	
 	protected static void refreshExternalArchives(IJavaProject p) throws JavaModelException {
 		IResourcesSetupUtil.waitForBuild(); // ensure that the auto-build job doesn't interfere with external jar refreshing
 		getJavaModel().refreshExternalArchives(new IJavaElement[] {p}, null);
@@ -213,7 +199,7 @@ public class PerformanceTestProjectSetup {
 		mainContent.append("Bundle-Version: 1.0.0\n");
 		mainContent.append("Bundle-SymbolicName: " + projectName.toLowerCase() + "; singleton:=true\n");
 		mainContent.append("Bundle-ActivationPolicy: lazy\n");
-		mainContent.append("Bundle-RequiredExecutionEnvironment: JavaSE-1.8\n");
+		mainContent.append("Bundle-RequiredExecutionEnvironment: " + JREContainerProvider.PREFERRED_BREE + "\n");
 		mainContent.append("Require-Bundle: com.google.guava,\n");
 		mainContent.append("  org.apache.log4j,\n");
 		mainContent.append("  org.eclipse.xtend.lib,\n");

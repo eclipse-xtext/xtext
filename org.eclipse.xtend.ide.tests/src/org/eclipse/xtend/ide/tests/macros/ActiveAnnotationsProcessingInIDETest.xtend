@@ -31,7 +31,6 @@ import org.eclipse.xtext.testing.XtextRunner
 import org.eclipse.xtext.ui.editor.hover.html.IEObjectHoverDocumentationProvider
 import org.eclipse.xtext.ui.resource.XtextResourceSetProvider
 import org.eclipse.xtext.util.CancelIndicator
-import org.eclipse.xtext.util.JavaVersion
 import org.eclipse.xtext.util.StringInputStream
 import org.eclipse.xtext.validation.CheckMode
 import org.eclipse.xtext.validation.IResourceValidator
@@ -127,9 +126,9 @@ class ActiveAnnotationsProcessingInIDETest extends AbstractReusableActiveAnnotat
 	
 	@BeforeClass
 	static def void createProjects() {
-		macroProject = JavaCore.create(createPluginProject("macroProject", JavaVersion.JAVA8))
+		macroProject = JavaCore.create(createPluginProject("macroProject"))
 		userProject = JavaCore::create(
-			createPluginProject("userProject", JavaVersion.JAVA8, "com.google.inject", "org.eclipse.xtend.lib",
+			createPluginProject("userProject", "com.google.inject", "org.eclipse.xtend.lib",
 				"org.eclipse.xtext.xbase.lib", "org.eclipse.xtend.ide.tests.data", "org.junit", "macroProject"))
 		macroProject.project.addExportedPackages("myannotation")
 	}

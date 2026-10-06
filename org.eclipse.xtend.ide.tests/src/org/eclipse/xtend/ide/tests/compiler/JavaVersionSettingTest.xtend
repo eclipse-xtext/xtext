@@ -20,7 +20,6 @@ import org.eclipse.ui.texteditor.MarkerUtilities
 import org.eclipse.xtend.ide.internal.XtendActivator
 import org.eclipse.xtend.ide.tests.WorkbenchTestHelper
 import org.eclipse.xtext.ui.testing.util.IResourcesSetupUtil
-import org.eclipse.xtext.util.JavaVersion
 import org.junit.After
 import org.junit.AfterClass
 import org.junit.Assert
@@ -58,9 +57,9 @@ class JavaVersionSettingTest extends Assert {
 		workbenchTestHelper.tearDown
 	}
 	
-	@Test def void testCompileWithJava8() {
+	@Test def void testOverrideAnnotationIsGenerated() {
 		workbenchTestHelper.tearDown
-		WorkbenchTestHelper.createPluginProject(WorkbenchTestHelper.TESTPROJECT_NAME, JavaVersion.JAVA8)
+		WorkbenchTestHelper.createPluginProject(WorkbenchTestHelper.TESTPROJECT_NAME)
 		waitForJdtIndex()
 		val xtendFile = workbenchTestHelper.createFile('mypackage/OverrideTest.xtend', '''
 			package mypackage

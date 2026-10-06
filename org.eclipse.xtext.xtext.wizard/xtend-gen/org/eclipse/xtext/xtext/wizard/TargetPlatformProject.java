@@ -16,7 +16,6 @@ import java.util.Set;
 import org.eclipse.xtend.lib.annotations.FinalFieldsConstructor;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.util.JUnitVersion;
-import org.eclipse.xtext.util.JavaVersion;
 import org.eclipse.xtext.util.XtextVersion;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
@@ -87,18 +86,12 @@ public class TargetPlatformProject extends ProjectDescriptor {
     _builder.append(_name);
     _builder.append("\">");
     _builder.newLineIfNotEmpty();
-    {
-      boolean _isAtLeast = this.getConfig().getJavaVersion().isAtLeast(JavaVersion.JAVA25);
-      if (_isAtLeast) {
-        _builder.append("\t");
-        _builder.append("<targetJRE path=\"org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-25\"/>");
-        _builder.newLine();
-      } else {
-        _builder.append("\t");
-        _builder.append("<targetJRE path=\"org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-21\"/>");
-        _builder.newLine();
-      }
-    }
+    _builder.append("\t");
+    _builder.append("<targetJRE path=\"org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/");
+    String _bree = this.getConfig().getJavaVersion().getBree();
+    _builder.append(_bree, "\t");
+    _builder.append("\"/>");
+    _builder.newLineIfNotEmpty();
     _builder.append("\t");
     _builder.append("<locations>");
     _builder.newLine();

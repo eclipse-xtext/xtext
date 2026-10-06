@@ -27,7 +27,6 @@ import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.testing.Flaky;
 import org.eclipse.xtext.ui.testing.util.IResourcesSetupUtil;
 import org.eclipse.xtext.ui.testing.util.JavaProjectSetupUtil;
-import org.eclipse.xtext.util.JavaVersion;
 import org.eclipse.xtext.util.StringInputStream;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Conversions;
@@ -394,7 +393,7 @@ public class RebuildAffectedResourcesTest extends AbstractXtendUITestCase {
   @Test
   public void testChangeInResourceReadFromAnnotationProcessor() {
     try {
-      final IJavaProject macroProject = JavaCore.create(this.<IProject>registerForCleanUp(WorkbenchTestHelper.createPluginProject((WorkbenchTestHelper.TESTPROJECT_NAME + "-anno"), JavaVersion.JAVA8)));
+      final IJavaProject macroProject = JavaCore.create(this.<IProject>registerForCleanUp(WorkbenchTestHelper.createPluginProject((WorkbenchTestHelper.TESTPROJECT_NAME + "-anno"))));
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("package anno");
       _builder.newLine();
@@ -460,7 +459,7 @@ public class RebuildAffectedResourcesTest extends AbstractXtendUITestCase {
       _builder.newLine();
       this.createFile(macroProject, "src/anno/Anno.xtend", _builder.toString());
       WorkbenchTestHelper.addExportedPackages(macroProject.getProject(), "anno");
-      final IJavaProject clientProject = JavaCore.create(this.<IProject>registerForCleanUp(WorkbenchTestHelper.createPluginProject((WorkbenchTestHelper.TESTPROJECT_NAME + "-client"), JavaVersion.JAVA8)));
+      final IJavaProject clientProject = JavaCore.create(this.<IProject>registerForCleanUp(WorkbenchTestHelper.createPluginProject((WorkbenchTestHelper.TESTPROJECT_NAME + "-client"))));
       JavaProjectSetupUtil.addProjectReference(clientProject, macroProject);
       StringConcatenation _builder_1 = new StringConcatenation();
       _builder_1.append("A");

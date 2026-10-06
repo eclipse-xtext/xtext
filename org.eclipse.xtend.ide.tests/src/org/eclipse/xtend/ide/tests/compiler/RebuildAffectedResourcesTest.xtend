@@ -28,7 +28,6 @@ import org.junit.Test
 import static org.eclipse.xtext.ui.testing.util.IResourcesSetupUtil.*
 
 import static extension org.eclipse.ui.texteditor.MarkerUtilities.*
-import org.eclipse.xtext.util.JavaVersion
 import org.eclipse.xtext.testing.Flaky
 
 class RebuildAffectedResourcesTest extends AbstractXtendUITestCase {
@@ -244,7 +243,7 @@ class RebuildAffectedResourcesTest extends AbstractXtendUITestCase {
 	
 	@Test
 	def void testChangeInResourceReadFromAnnotationProcessor() {
-		val macroProject = JavaCore.create(WorkbenchTestHelper.createPluginProject(WorkbenchTestHelper.TESTPROJECT_NAME + "-anno", JavaVersion.JAVA8).registerForCleanUp)
+		val macroProject = JavaCore.create(WorkbenchTestHelper.createPluginProject(WorkbenchTestHelper.TESTPROJECT_NAME + "-anno").registerForCleanUp)
 		macroProject.createFile('src/anno/Anno.xtend', '''
 			package anno
 			import com.google.common.base.Splitter
@@ -275,7 +274,7 @@ class RebuildAffectedResourcesTest extends AbstractXtendUITestCase {
 		''')
 		WorkbenchTestHelper.addExportedPackages(macroProject.project, "anno")
 		
-		val clientProject = JavaCore.create(WorkbenchTestHelper.createPluginProject(WorkbenchTestHelper.TESTPROJECT_NAME + "-client", JavaVersion.JAVA8).registerForCleanUp)
+		val clientProject = JavaCore.create(WorkbenchTestHelper.createPluginProject(WorkbenchTestHelper.TESTPROJECT_NAME + "-client").registerForCleanUp)
 		JavaProjectSetupUtil.addProjectReference(clientProject, macroProject)
 		val constants = clientProject.createFile('src/constants.txt', '''
 			A

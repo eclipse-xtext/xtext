@@ -43,7 +43,7 @@ public class JREContainerProvider {
 	/**
 	 * @since 2.7
 	 */
-	public static final String PREFERRED_BREE = "JavaSE-21";
+	public static final String PREFERRED_BREE = JavaVersion.DEFAULT.getBree();
 	private static IVMInstall defaultVMInstall = null;
 	private static boolean defaultVMinitialized = false;
 
@@ -99,7 +99,7 @@ public class JREContainerProvider {
 
 	/**
 	 * @since 2.8
-	 * @return JRE container path {@link IPath} for standard VM {@value #PREFERRED_BREE}
+	 * @return JRE container path {@link IPath} for standard VM {@link #PREFERRED_BREE}
 	 */
 	protected static IPath newPreferredContainerPath() {
 		return newJREContainerPath(StandardVMType.ID_STANDARD_VM_TYPE, PREFERRED_BREE);
