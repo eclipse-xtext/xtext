@@ -18,7 +18,7 @@
 	</dependencyManagement>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.release>21</maven.compiler.release>
+		<maven.compiler.release>25</maven.compiler.release>
 		<!-- Tycho settings -->
 		<tycho-version>5.0.3</tycho-version>
 		<targetplatform.groupId>${project.groupId}</targetplatform.groupId>
