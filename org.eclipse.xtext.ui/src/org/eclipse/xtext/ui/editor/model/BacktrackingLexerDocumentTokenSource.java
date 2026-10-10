@@ -12,11 +12,12 @@ import org.antlr.runtime.CommonToken;
 import org.antlr.runtime.Token;
 import org.antlr.runtime.TokenSource;
 import org.eclipse.jface.text.DocumentEvent;
+import org.eclipse.xtext.parser.antlr.Lexer;
 
 /**
  * The old version of the {@link DocumentTokenSource}. It assumes that all tokens before the damaged region can change
- * with a {@link DocumentEvent} therefore the entire document is being lexed. 
- * 
+ * with a {@link DocumentEvent} therefore the entire document is being lexed.
+ *
  * @author koehnlein - Initial contribution and API
  * @since 2.4
  */
@@ -33,7 +34,7 @@ public class BacktrackingLexerDocumentTokenSource extends DocumentTokenSource {
 		CommonToken token = (CommonToken) source.nextToken();
 		// find start idx
 		while (true) {
-			if (token == Token.EOF_TOKEN) {
+			if (token.getType() == Token.EOF) {
 				break;
 			}
 			if (tokenInfoIdx >= getInternalModifyableTokenInfos().size())
