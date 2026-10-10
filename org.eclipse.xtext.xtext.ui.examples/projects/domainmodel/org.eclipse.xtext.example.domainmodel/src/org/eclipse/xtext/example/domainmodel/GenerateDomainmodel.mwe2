@@ -64,7 +64,7 @@ Workflow {
 			generator = {
 				generateStub = false
 			}
-	 		fragment = CodeMiningFragment {
+	 		codeMining = {
 				generateStub = true
 				generateXtendStub = false
 			}
