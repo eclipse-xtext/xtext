@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2015, 2022 itemis AG (http://www.itemis.eu) and others.
+ * Copyright (c) 2015, 2026 itemis AG (http://www.itemis.eu) and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -11,11 +11,11 @@ package org.eclipse.xtext.common.types.descriptions;
 import static java.util.stream.Collectors.*;
 
 import java.net.URI;
+import java.time.Duration;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
 
 import org.eclipse.xtext.xbase.lib.util.ToStringBuilder;
 
@@ -117,7 +117,7 @@ public class ClasspathScanner {
 			.initialCapacity(8)
 			.concurrencyLevel(2)
 			.maximumSize(32)
-			.expireAfterAccess(5, TimeUnit.MINUTES)
+			.expireAfterAccess(Duration.ofMinutes(5))
 			.build();
 	}
 
