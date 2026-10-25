@@ -149,8 +149,10 @@ public class ClasspathScanner {
 			return systemClasspath;
 		}
 		ClassGraph classGraph = classGraphProvider.get()
-			.enableSystemJarsAndModules()
-			.addClassLoader(ClassLoader.getSystemClassLoader());
+			.enableClassLoaders(ClassLoader.getSystemClassLoader())
+			.enableClasspath()
+			.enableSystemJars()
+			.enableSystemModules();
 		try (ScanResult scanResult = classGraph.scan()) {
 			List<URI> classpathURIs = scanResult.getClasspathURIs();
 			systemClasspath = classpathURIs.stream()
@@ -170,12 +172,13 @@ public class ClasspathScanner {
 	protected Iterable<ITypeDescriptor> loadDescriptors(ClassLoader classLoader, boolean bootstrap,
 			Collection<String> packagePrefixes) {
 		ClassGraph classGraph = classGraphProvider.get()
-			.ignoreClassVisibility()
+			.enableClassLoaders(classLoader)
+			.enableClasspath()
 			.enableClassInfo()
-			.acceptPackages(packagePrefixes.toArray(new String[packagePrefixes.size()]))
-			.addClassLoader(classLoader);
+			.ignoreClassVisibility()
+			.acceptPackages(packagePrefixes.toArray(new String[packagePrefixes.size()]));
 		if (bootstrap) {
-			classGraph.enableSystemJarsAndModules();
+			classGraph.enableSystemJars().enableSystemModules();
 		}
 		try (ScanResult scanResult = classGraph.scan()) {
 			return loadDescriptors(scanResult);

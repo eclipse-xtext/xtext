@@ -53,7 +53,7 @@
 			<unit id="org.opentest4j"/>
 			<unit id="org.apiguardian.api"/>
 			<unit id="org.objectweb.asm"/>
-			<unit id="io.github.classgraph.classgraph"/>
+			<unit id="io.github.classgraph.classgraph" version="[5.0.0,6.0.0)"/>
 			<unit id="slf4j.api"/>
 			<unit id="slf4j.simple"/>
 			<unit id="org.junit"/>
