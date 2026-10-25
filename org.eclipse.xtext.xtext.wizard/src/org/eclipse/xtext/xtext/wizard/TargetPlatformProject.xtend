@@ -114,6 +114,9 @@ class TargetPlatformProject extends ProjectDescriptor {
 					«ENDIF»
 					<unit id="org.objectweb.asm"/>
 					<unit id="io.github.classgraph.classgraph" version="[5.0.0,6.0.0)"/>
+					<unit id="io.github.classgraph.classgraph-base" version="[5.0.0,6.0.0)"/>
+					<unit id="io.github.classgraph.classgraph-classpath" version="[5.0.0,6.0.0)"/>
+					<unit id="io.github.classgraph.classgraph-vfs" version="[5.0.0,6.0.0)"/>
 					<repository location="https://download.eclipse.org/tools/orbit/simrel/orbit-aggregation/2026-12"/>
 				</location>
 			</locations>

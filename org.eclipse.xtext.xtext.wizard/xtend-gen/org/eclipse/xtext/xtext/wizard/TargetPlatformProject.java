@@ -266,6 +266,15 @@ public class TargetPlatformProject extends ProjectDescriptor {
     _builder.append("<unit id=\"io.github.classgraph.classgraph\" version=\"[5.0.0,6.0.0)\"/>");
     _builder.newLine();
     _builder.append("\t\t\t");
+    _builder.append("<unit id=\"io.github.classgraph.classgraph-base\" version=\"[5.0.0,6.0.0)\"/>");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("<unit id=\"io.github.classgraph.classgraph-classpath\" version=\"[5.0.0,6.0.0)\"/>");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("<unit id=\"io.github.classgraph.classgraph-vfs\" version=\"[5.0.0,6.0.0)\"/>");
+    _builder.newLine();
+    _builder.append("\t\t\t");
     _builder.append("<repository location=\"https://download.eclipse.org/tools/orbit/simrel/orbit-aggregation/2026-12\"/>");
     _builder.newLine();
     _builder.append("\t\t");
