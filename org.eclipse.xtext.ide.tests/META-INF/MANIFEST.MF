@@ -21,5 +21,5 @@ Require-Bundle: org.eclipse.xtext;bundle-version="2.45.0";visibility:=reexport,
  org.eclipse.emf.mwe2.lib;bundle-version="2.25.0",
  org.aopalliance;bundle-version="1.0.0",
  com.google.gson;bundle-version="2.10.1"
-Import-Package: org.apache.log4j;version="1.2.26"
+Import-Package: org.apache.log4j;version="1.2.27"
 Automatic-Module-Name: org.eclipse.xtext.ide.tests

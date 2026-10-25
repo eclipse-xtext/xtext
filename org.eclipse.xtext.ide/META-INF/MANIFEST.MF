@@ -15,7 +15,7 @@ Require-Bundle: org.eclipse.xtext;bundle-version="2.45.0";visibility:=reexport,
  org.eclipse.lsp4j;bundle-version="[1.0.0,1.1.0)";resolution:=optional,
  org.eclipse.lsp4j.jsonrpc;bundle-version="[1.0.0,1.1.0)";resolution:=optional,
  org.eclipse.emf.ecore.change;bundle-version="2.16.0"
-Import-Package: org.apache.log4j;version="1.2.26"
+Import-Package: org.apache.log4j;version="1.2.27"
 Export-Package: org.eclipse.xtext.ide;version="2.45.0";
   x-friends:="org.eclipse.xtend.ide,
    org.eclipse.xtext.ui,

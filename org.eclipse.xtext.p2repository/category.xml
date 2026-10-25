@@ -20,8 +20,8 @@
    <bundle id="jakarta.inject.jakarta.inject-api.source" version="2.0.1.qualifier"/>
    <bundle id="org.antlr.runtime" version="3.2.0.qualifier"/>
    <bundle id="org.antlr.runtime.source" version="3.2.0.qualifier"/>
-   <bundle id="org.apache.log4j" version="1.2.26.qualifier"/>
-   <bundle id="org.apache.log4j.source" version="1.2.26.qualifier"/>
+   <bundle id="org.apache.log4j" version="1.2.27.qualifier"/>
+   <bundle id="org.apache.log4j.source" version="1.2.27.qualifier"/>
    <bundle id="org.aopalliance" version="1.0.0.qualifier"/>
    <bundle id="org.aopalliance.source" version="1.0.0.qualifier"/>
    <bundle id="org.junit" version="4.13.2.qualifier"/>

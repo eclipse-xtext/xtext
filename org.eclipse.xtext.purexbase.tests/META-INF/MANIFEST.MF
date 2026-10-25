@@ -15,7 +15,7 @@ Require-Bundle: org.eclipse.xtext.purexbase;bundle-version="2.45.0",
  org.eclipse.xtext.xbase.testing;bundle-version="2.45.0",
  org.junit;bundle-version="4.13.2"
 Import-Package: org.apache.commons.logging,
- org.apache.log4j;version="1.2.26"
+ org.apache.log4j;version="1.2.27"
 Bundle-RequiredExecutionEnvironment: JavaSE-21
 Export-Package: org.eclipse.xtext.purexbase.tests;version="2.45.0";x-internal=true,
  org.eclipse.xtext.purexbase.tests.data;version="2.45.0"
