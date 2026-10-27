@@ -18,7 +18,8 @@ Require-Bundle: org.eclipse.xtext;bundle-version="2.45.0",
  org.eclipse.xtend.lib;bundle-version="2.45.0",
  org.eclipse.ui.workbench;bundle-version="3.137.0";resolution:=optional,
  org.eclipse.xtext.xbase.lib;bundle-version="2.45.0",
- org.eclipse.xtext.xtext.wizard;bundle-version="2.45.0"
+ org.eclipse.xtext.xtext.wizard;bundle-version="2.45.0",
+ junit-vintage-engine;bundle-version="[6.0.0,7.0.0)"
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .
 Import-Package: org.apache.log4j;version="1.2.27",

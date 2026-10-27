@@ -642,6 +642,13 @@
 							<exclude />
 						</excludes>
 						<failIfNoTests>true</failIfNoTests>
+						<!--
+						The target platform uses JUnit 6. JUnit 4 tests are executed by the
+						JUnit Platform provider using the JUnit Vintage engine, so the JUnit 6
+						provider is used for all test bundles. JUnit 4 test bundles therefore
+						require junit-vintage-engine 6.x (see their MANIFEST.MF files).
+						-->
+						<providerHint>junit6</providerHint>
 						<systemProperties>
 							<!-- https://github.com/eclipse-xtext/xtext/issues/3057 -->
 							<DetectVMInstallationsJob.disabled>true</DetectVMInstallationsJob.disabled>
