@@ -84,7 +84,7 @@ public class WizardConfigurationTest {
 		assertTrue(config.needsTychoBuild());
 		assertTrue(config.getParentProject().pom().getContent().contains("tycho-source-plugin"));
 		assertFalse(config.getParentProject().pom().getContent().contains("tycho-source-feature-plugin"));
-		assertTrue(config.getParentProject().pom().getContent().contains("<goal>feature-source</goal>"));
+		assertFalse(config.getParentProject().pom().getContent().contains("<goal>feature-source</goal>"));
 	}
 
 	@Test
