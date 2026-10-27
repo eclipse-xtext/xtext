@@ -53,11 +53,7 @@ class P2RepositoryProject extends ProjectDescriptor {
 			<feature id="«config.sdkProject.name»" version="0.0.0">
 				<category name="main"/>
 			</feature>
-			<feature id="«config.sdkProject.name».source" version="0.0.0">
-				<category name="main.source"/>
-			</feature>
 			<category-def name="main" label="«config.language.simpleName»"/>
-			<category-def name="main.source" label="«config.language.simpleName» (Sources)"/>
 		</site>
 	'''
 

@@ -3,9 +3,5 @@
 	<feature id="full.feature" version="0.0.0">
 		<category name="main"/>
 	</feature>
-	<feature id="full.feature.source" version="0.0.0">
-		<category name="main.source"/>
-	</feature>
 	<category-def name="main" label="MyDsl"/>
-	<category-def name="main.source" label="MyDsl (Sources)"/>
 </site>
