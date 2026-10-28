@@ -647,6 +647,10 @@
 						JUnit Platform provider using the JUnit Vintage engine, so the JUnit 6
 						provider is used for all test bundles. JUnit 4 test bundles therefore
 						require junit-vintage-engine 6.x (see their MANIFEST.MF files).
+
+						This only applies to the bundles that are still run by
+						tycho-surefire, i.e. the UI tests. The non-UI test bundles are run by
+						the tycho-test-plugin (see their pom.xml files).
 						-->
 						<providerHint>junit6</providerHint>
 						<systemProperties>

@@ -12,4 +12,59 @@
 	<name>Xtext Standalone Builder Tests</name>
 	<description>Builder infrastructure for Xtext Tests.</description>
 
+	<properties>
+		<junit-platform-version>6.1.3</junit-platform-version>
+	</properties>
+
+	<dependencies>
+		<!--
+		These tests are not UI tests, so they are executed by the
+		tycho-test-plugin instead of tycho-surefire. The JUnit Platform Console
+		Launcher and the engine are installed as OSGi bundles from the test
+		classpath.
+		-->
+		<dependency>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-console</artifactId>
+			<version>${junit-platform-version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.vintage</groupId>
+			<artifactId>junit-vintage-engine</artifactId>
+			<version>${junit-platform-version}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-surefire-plugin</artifactId>
+				<configuration>
+					<!-- The tests are run by the tycho-test-plugin below. -->
+					<skipTests>true</skipTests>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-test-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<executions>
+					<execution>
+						<id>execute-tests</id>
+						<goals>
+							<goal>junit-platform</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<includeEngine>
+						<engine>junit-vintage</engine>
+					</includeEngine>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

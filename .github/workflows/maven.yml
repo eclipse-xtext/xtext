@@ -60,7 +60,11 @@ jobs:
         if: always()
         with:
           name: test-results-${{ runner.os }}-${{ matrix.java }}${{ matrix.additional-label }}
-          path: '**/*.tests/target/surefire-reports'
+          # tycho-test-plugin writes the JUnit Platform reports to
+          # target/testReports, tycho-surefire to target/surefire-reports.
+          path: |
+            '**/*.tests/target/surefire-reports'
+            '**/*.tests/target/testReports'
       - name: Archive Logs
         uses: actions/upload-artifact@v7.0.1
         if: ${{ failure() || cancelled() }}
