@@ -115,7 +115,7 @@ public class Stopwatches {
 	
 	public static Map<String, NumbersForTask> allNumbers() {
 		synchronized (data) {
-			return unmodifiableMap(data);
+			return unmodifiableMap(newLinkedHashMap(data));
 		}
 	}
 	
