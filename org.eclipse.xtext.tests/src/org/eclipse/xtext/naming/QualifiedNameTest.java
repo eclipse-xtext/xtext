@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2010, 2021 itemis AG (http://www.itemis.eu) and others.
+ * Copyright (c) 2010, 2024 itemis AG (http://www.itemis.eu) and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -12,6 +12,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.function.Function;
 
 import org.eclipse.emf.ecore.resource.impl.BinaryResourceImpl;
 import org.eclipse.emf.ecore.resource.impl.BinaryResourceImpl.EObjectInputStream;
@@ -20,8 +21,6 @@ import org.eclipse.xtext.naming.IQualifiedNameConverter.DefaultImpl;
 import org.eclipse.xtext.scoping.impl.ImportNormalizer;
 import org.junit.Assert;
 import org.junit.Test;
-
-import com.google.common.base.Function;
 
 /**
  * @author Jan Koehnlein - Initial contribution and API
@@ -213,13 +212,7 @@ public class QualifiedNameTest extends Assert {
 	}
 	
 	@Test public void testWrapper() throws Exception {
-		Function<String, String> identity = new Function<String, String>() {
-			@Override
-			public String apply(String from) {
-				return from;
-			}
-		};
-		Function<String, QualifiedName> wrapper = QualifiedName.wrapper(identity);
+		Function<String, QualifiedName> wrapper = QualifiedName.wrapper(from -> from);
 		assertEquals(QualifiedName.create(""), wrapper.apply(""));
 		assertEquals(null, wrapper.apply(null));
 		assertEquals("foo", wrapper.apply("foo").getLastSegment());
