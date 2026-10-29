@@ -250,6 +250,9 @@ public class WorkspaceManager {
 			ProjectManager projectManager = projectName2ProjectManager.remove(deletedProject);
 			projectManager.aboutToRemoveFromWorkspace();
 			fullIndex.remove(deletedProject);
+			for (ProjectManager remainingProject : projectName2ProjectManager.values()) {
+				remainingProject.notifyProjectRemoved(deletedProject);
+			}
 		}
 		afterBuild(buildManager.doInitialBuild(newProjects, cancelIndicator));
 	}
