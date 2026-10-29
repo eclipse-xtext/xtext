@@ -64,6 +64,20 @@ class P2RepositoryProject extends ProjectDescriptor {
 	override pom() {
 		super.pom => [
 			packaging = "eclipse-repository"
+			buildSection = '''
+				<build>
+					<plugins>
+						<plugin>
+							<groupId>org.eclipse.tycho</groupId>
+							<artifactId>tycho-p2-repository-plugin</artifactId>
+							<version>${tycho-version}</version>
+							<configuration>
+								<includeAllSources>true</includeAllSources>
+							</configuration>
+						</plugin>
+					</plugins>
+				</build>
+			'''
 		]
 	}
 
