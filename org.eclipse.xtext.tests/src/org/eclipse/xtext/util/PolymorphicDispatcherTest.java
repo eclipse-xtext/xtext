@@ -263,6 +263,70 @@ public class PolymorphicDispatcherTest extends Assert {
 		assertEquals(CharSequence.class.getSimpleName(), dispatcher.invoke(null, null));
 	}
 
+	@Test public void testNullDefaultClass() throws Exception {
+		Object o1 = new Object() {
+			String label(String s) {
+				return String.class.getSimpleName();
+			}
+		};
+		PolymorphicDispatcher<String> dispatcher = new PolymorphicDispatcher<String>("label", Lists.newArrayList(o1)) {
+			@Override
+			protected Class<?> getDefaultClass(int paramIndex) {
+				return null;
+			}
+		};
+		assertEquals(String.class.getSimpleName(), dispatcher.invoke((Object) null));
+		assertEquals(String.class.getSimpleName(), dispatcher.invoke((Object) null));
+	}
+
+	class SuperArg {}
+	class SubArg extends SuperArg {}
+
+	@Test public void testSubclassAfterSuperclass() throws Exception {
+		Object o1 = new Object() {
+			String label(Object o) {
+				return "Object";
+			}
+			String label(SuperArg a) {
+				return "SuperArg";
+			}
+			String label(SubArg a) {
+				return "SubArg";
+			}
+		};
+		PolymorphicDispatcher<String> dispatcher = new PolymorphicDispatcher<String>("label", Lists.newArrayList(o1));
+		assertEquals("SuperArg", dispatcher.invoke(new SuperArg()));
+		assertEquals("SubArg", dispatcher.invoke(new SubArg()));
+		assertEquals("SuperArg", dispatcher.invoke(new SuperArg() {}));
+		assertEquals("SubArg", dispatcher.invoke(new SubArg() {}));
+		assertEquals("Object", dispatcher.invoke("Foo"));
+	}
+
+	@Test public void testCachedAcrossGc() throws Exception {
+		Object o1 = new Object() {
+			String label(Object o) {
+				return Object.class.getSimpleName();
+			}
+			String label(String s) {
+				return String.class.getSimpleName();
+			}
+		};
+		int[] compared = new int[1];
+		PolymorphicDispatcher<String> dispatcher = new PolymorphicDispatcher<String>("label", Lists.newArrayList(o1)) {
+			@Override
+			protected int compare(MethodDesc o1, MethodDesc o2) {
+				compared[0]++;
+				return super.compare(o1, o2);
+			}
+		};
+		assertEquals(String.class.getSimpleName(), dispatcher.invoke("Foo"));
+		int comparedOnFirstCall = compared[0];
+		assertTrue(comparedOnFirstCall > 0);
+		System.gc();
+		assertEquals(String.class.getSimpleName(), dispatcher.invoke("Bar"));
+		assertEquals(comparedOnFirstCall, compared[0]);
+	}
+
 	@Test public void testPrivateMethodAccess() {
 		Object o1 = new Object() {
 			private String label(Integer i) {
