@@ -82,10 +82,10 @@ From the repository root, select a test project's artifact ID in the full reacto
   verify
 ```
 
-Replace `org.eclipse.xtext.tests` with the desired project. As an alternative, use `single-test.sh`, which runs the same command:
+Replace `org.eclipse.xtext.tests` with the desired project. As an alternative, use `run-test-project.sh`, which runs the same command:
 
 ```sh
-./single-test.sh org.eclipse.xtext.tests
+./run-test-project.sh org.eclipse.xtext.tests
 ```
 
 In Eclipse, each test project also has a Maven launch configuration for running this command. For example, use `org.eclipse.xtext.tests/mvn verify org.eclipse.xtext.tests.launch` for the `org.eclipse.xtext.tests` project.
@@ -95,9 +95,11 @@ Generate the MWE2 and Xtend sources first (for example, as part of the workspace
 To run a single test class or method, pass the Maven `-Dtest` option after the project artifact ID:
 
 ```sh
-./single-test.sh org.eclipse.xtext.tests -Dtest=MyTest
-./single-test.sh org.eclipse.xtext.tests -Dtest=MyTest#myTest
+./run-test-project.sh org.eclipse.xtext.tests -Dtest=MyTest
+./run-test-project.sh org.eclipse.xtext.tests -Dtest=MyTest#myTest
 ```
+
+When invoking Maven with `-Dtest` in the multi-project reactor, also pass `-DfailIfNoTests=false -Dsurefire.failIfNoSpecifiedTests=false`. This allows prerequisite projects without a matching test to succeed; `run-test-project.sh` adds these options automatically when it detects `-Dtest`.
 
 ## Create a Release Locally
  1. Run the Maven build locally by calling the shell script [`full-build.sh`](https://github.com/eclipse-xtext/xtext/blob/main/full-build.sh). You may want to pass `--no-tests` to the script to skip all tests (keep in mind that with tests the build might take more than 1 hour).
