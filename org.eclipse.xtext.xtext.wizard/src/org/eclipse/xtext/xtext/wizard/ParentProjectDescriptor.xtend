@@ -259,12 +259,6 @@ class ParentProjectDescriptor extends ProjectDescriptor {
 											<goal>plugin-source</goal>
 										</goals>
 									</execution>
-									<execution>
-										<id>feature-source</id>
-										<goals>
-											<goal>feature-source</goal>
-										</goals>
-									</execution>
 								</executions>
 							</plugin>
 							<plugin>

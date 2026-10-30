@@ -53,11 +53,7 @@ class P2RepositoryProject extends ProjectDescriptor {
 			<feature id="«config.sdkProject.name»" version="0.0.0">
 				<category name="main"/>
 			</feature>
-			<feature id="«config.sdkProject.name».source" version="0.0.0">
-				<category name="main.source"/>
-			</feature>
 			<category-def name="main" label="«config.language.simpleName»"/>
-			<category-def name="main.source" label="«config.language.simpleName» (Sources)"/>
 		</site>
 	'''
 
@@ -68,6 +64,20 @@ class P2RepositoryProject extends ProjectDescriptor {
 	override pom() {
 		super.pom => [
 			packaging = "eclipse-repository"
+			buildSection = '''
+				<build>
+					<plugins>
+						<plugin>
+							<groupId>org.eclipse.tycho</groupId>
+							<artifactId>tycho-p2-repository-plugin</artifactId>
+							<version>${tycho-version}</version>
+							<configuration>
+								<includeAllSources>true</includeAllSources>
+							</configuration>
+						</plugin>
+					</plugins>
+				</build>
+			'''
 		]
 	}
 

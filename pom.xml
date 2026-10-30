@@ -746,19 +746,9 @@
 							<goal>plugin-source</goal>
 						</goals>
 					</execution>
-					<execution>
-						<id>feature-source</id>
-						<goals>
-							<goal>feature-source</goal>
-						</goals>
-					</execution>
 				</executions>
 			</plugin>
 			<plugin>
-				<!--
-				Required if the generated source-feature is used in an update-site or another feature.
-				It must be after tycho-source-plugin
-				-->
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-p2-plugin</artifactId>
 				<executions>
