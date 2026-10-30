@@ -72,10 +72,6 @@ You're a committer if you have write-access to the Xtext git-repositories.
  9. If, and only if, all tests have passed, create a pull request and ask somebody who is familiar with the code you modified to review it. Note that pull requests from this repository will not be built: only external pull requests are built, so please make sure your branch is up-to-date with the main branch.
  10. If the reviewer approves, merge.
 
-## Create a Release Locally
- 1. Run the Maven build locally by calling the shell script [`full-build.sh`](https://github.com/eclipse-xtext/xtext/blob/main/full-build.sh). You may want to pass `--no-tests` to the script to skip all tests (keep in mind that with tests the build might take more than 1 hour).
- 2. Find the artifacts at `build/maven-repository` or `build/p2-repository` in a folder relative to the repository root.
-
 ## Run Tests in a Single Test Project
 
 From the repository root, select a test project's artifact ID in the full reactor and run Maven directly:
@@ -102,6 +98,10 @@ To run a single test class or method, pass the Maven `-Dtest` option after the p
 ./single-test.sh org.eclipse.xtext.tests -Dtest=MyTest
 ./single-test.sh org.eclipse.xtext.tests -Dtest=MyTest#myTest
 ```
+
+## Create a Release Locally
+ 1. Run the Maven build locally by calling the shell script [`full-build.sh`](https://github.com/eclipse-xtext/xtext/blob/main/full-build.sh). You may want to pass `--no-tests` to the script to skip all tests (keep in mind that with tests the build might take more than 1 hour).
+ 2. Find the artifacts at `build/maven-repository` or `build/p2-repository` in a folder relative to the repository root.
 
 ## Consume the Latest Artifacts
 There are two ways/sources: 
