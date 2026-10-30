@@ -10,16 +10,19 @@
 	<packaging>eclipse-plugin</packaging>
 	<artifactId>org.eclipse.xtext.ui.shared</artifactId>
 
+	<!-- Required so that -pl/-am builds include these prerequisites; they are not used for compilation. -->
 	<dependencies>
 		<dependency>
 			<groupId>org.eclipse.xtext</groupId>
 			<artifactId>org.eclipse.xtext.builder</artifactId>
 			<version>${project.version}</version>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.xtext</groupId>
 			<artifactId>org.eclipse.xtext.common.types.ui</artifactId>
 			<version>${project.version}</version>
+			<optional>true</optional>
 		</dependency>
 	</dependencies>
 

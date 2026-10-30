@@ -11,11 +11,13 @@
 	<name>Xtext Eclipse tests plugins parent</name>
 	<packaging>pom</packaging>
 
+	<!-- Required so that -pl/-am builds include these prerequisites; they are not used for compilation. -->
 	<dependencies>
 		<dependency>
 			<groupId>org.eclipse.xtext</groupId>
 			<artifactId>org.eclipse.xtext.logging</artifactId>
 			<version>${project.version}</version>
+			<optional>true</optional>
 		</dependency>
 	</dependencies>
 

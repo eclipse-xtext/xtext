@@ -13,6 +13,7 @@
 	<description>Core language services for Xtend.</description>
 
 	<dependencies>
+		<!-- Required so that -pl/-am builds include these prerequisites; they are not used for compilation. -->
 		<dependency>
 			<groupId>org.eclipse.xtext</groupId>
 			<artifactId>org.eclipse.xtext.xtext.generator.dependencies</artifactId>

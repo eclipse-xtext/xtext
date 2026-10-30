@@ -15,10 +15,12 @@
 	<description>Common Xtext Testlanguages for UI and Runtime - Runtime</description>
 
 	<dependencies>
+		<!-- Required so that -pl/-am builds include these prerequisites; they are not used for compilation. -->
 		<dependency>
 			<groupId>org.eclipse.xtext</groupId>
 			<artifactId>org.eclipse.xtext.common.types</artifactId>
 			<version>${project.version}</version>
+			<optional>true</optional>
 		</dependency>
 		<!-- Since this project is used by IT projects in xtext-maven-plugin,
 			we specify this Maven dependency explicitly -->

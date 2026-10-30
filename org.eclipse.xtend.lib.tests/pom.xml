@@ -13,10 +13,12 @@
 	<description>The runtime library for Xtend languages.</description>
 
 	<dependencies>
+		<!-- Required so that -pl/-am builds include these prerequisites; they are not used for compilation. -->
 		<dependency>
 			<groupId>org.eclipse.xtext</groupId>
 			<artifactId>org.eclipse.xtend.lib</artifactId>
 			<version>${project.version}</version>
+			<optional>true</optional>
 		</dependency>
 		<!-- That's require to let maven-surefire-plugin
 		auto detect provider org.apache.maven.surefire.junit4.JUnit4Provider-->

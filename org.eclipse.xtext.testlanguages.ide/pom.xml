@@ -12,16 +12,19 @@
 	<name>Common Xtext Testlanguages - IDE Features</name>
 	<description>Common Xtext Testlanguages for UI and Runtime - IDE Features</description>
 
+	<!-- Required so that -pl/-am builds include these prerequisites; they are not used for compilation. -->
 	<dependencies>
 		<dependency>
 			<groupId>org.eclipse.xtext</groupId>
 			<artifactId>org.eclipse.xtext.testlanguages</artifactId>
 			<version>${project.version}</version>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.xtext</groupId>
 			<artifactId>org.eclipse.xtext.ide</artifactId>
 			<version>${project.version}</version>
+			<optional>true</optional>
 		</dependency>
 	</dependencies>
 

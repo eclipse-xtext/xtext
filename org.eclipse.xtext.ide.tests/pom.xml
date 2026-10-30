@@ -20,16 +20,19 @@
 	Moreover, the packaging type must be "eclipse-plugin".
 	-->
 
+	<!-- Required so that -pl/-am builds include these prerequisites; they are not used for compilation. -->
 	<dependencies>
 		<dependency>
 			<groupId>org.eclipse.xtext</groupId>
 			<artifactId>org.eclipse.xtext.testlanguages.ide</artifactId>
 			<version>${project.version}</version>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.xtext</groupId>
 			<artifactId>org.eclipse.xtext.xtext.generator</artifactId>
 			<version>${project.version}</version>
+			<optional>true</optional>
 		</dependency>
 	</dependencies>
 
