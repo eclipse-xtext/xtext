@@ -11,6 +11,14 @@
 	<name>Xtext Eclipse tests plugins parent</name>
 	<packaging>pom</packaging>
 
+	<dependencies>
+		<dependency>
+			<groupId>org.eclipse.xtext</groupId>
+			<artifactId>org.eclipse.xtext.logging</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
+
 	<properties>
 		<os-jvm-flags />
 		<jdt-launching-jvm-flags>-DDetectVMInstallationsJob.disabled=true</jdt-launching-jvm-flags>

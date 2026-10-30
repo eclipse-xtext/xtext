@@ -10,4 +10,12 @@
 	<packaging>eclipse-plugin</packaging>
 	<artifactId>org.eclipse.xtext.common.types.shared.jdt38</artifactId>
 
+	<dependencies>
+		<dependency>
+			<groupId>org.eclipse.xtext</groupId>
+			<artifactId>org.eclipse.xtext.xbase.ui</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
+
 </project>

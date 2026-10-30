@@ -13,6 +13,19 @@
 
 	<name>Xtend IDE</name>
 
+	<dependencies>
+		<dependency>
+			<groupId>org.eclipse.xtext</groupId>
+			<artifactId>org.eclipse.xtend.ide.common</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.xtext</groupId>
+			<artifactId>org.eclipse.xtext.xbase.ui</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
+
 	<properties>
 		<maven.build.timestamp.format>yyyyMMdd-HHmm</maven.build.timestamp.format>
 		<buildId>${maven.build.timestamp}</buildId>

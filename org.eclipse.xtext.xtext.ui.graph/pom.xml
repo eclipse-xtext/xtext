@@ -10,4 +10,12 @@
 	<packaging>eclipse-plugin</packaging>
 	<artifactId>org.eclipse.xtext.xtext.ui.graph</artifactId>
 
+	<dependencies>
+		<dependency>
+			<groupId>org.eclipse.xtext</groupId>
+			<artifactId>org.eclipse.xtext.ui.shared</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
+
 </project>

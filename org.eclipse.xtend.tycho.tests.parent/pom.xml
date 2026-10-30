@@ -10,6 +10,19 @@
 	<artifactId>org.eclipse.xtend.tycho.tests.parent</artifactId>
 	<packaging>pom</packaging>
 
+	<dependencies>
+		<dependency>
+			<groupId>org.eclipse.xtext</groupId>
+			<artifactId>org.eclipse.xtext.common.types.shared.jdt38</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.xtext</groupId>
+			<artifactId>org.eclipse.xtext.logging</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
+
 	<properties>
 		<os-jvm-flags />
 		<memory-settings>-Xmx1500m</memory-settings>
