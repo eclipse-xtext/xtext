@@ -44,7 +44,9 @@
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-engine</artifactId>
-			<optional>true</optional>
+			<!-- Only needed to run this bundle's own tests, must not leak into the
+			     runtime classpath of bundles that consume org.eclipse.xtext.testing. -->
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
