@@ -55,19 +55,35 @@ public class SimpleAttributeResolverTest extends Assert {
 	@Test public void testGetNameValueTwice() {
 		EClass clazz = factory.createEClass();
 		clazz.setName("ClassName");
-		assertEquals(0, clazz.eAdapters().size());
 		String name = nameResolver.getValue(clazz);
-		assertEquals(1, clazz.eAdapters().size());
-		clazz.setName("ClassName2");
+		assertEquals("ClassName", name);
 		assertEquals(0, clazz.eAdapters().size());
+		clazz.setName("ClassName2");
 		name = nameResolver.getValue(clazz);
 		assertEquals("ClassName2", name);
+	}
+
+	@Test public void testGetVolatileValueTwice() {
+		SimpleAttributeResolver<EObject, String> instanceClassNameResolver = SimpleAttributeResolver.newResolver(String.class, "instanceClassName");
+		EClass clazz = factory.createEClass();
+		clazz.setInstanceClassName("java.lang.String");
+		assertEquals(0, clazz.eAdapters().size());
+		String name = instanceClassNameResolver.getValue(clazz);
+		assertEquals("java.lang.String", name);
+		assertEquals(1, clazz.eAdapters().size());
+		clazz.setInstanceClassName("java.lang.Integer");
+		assertEquals(0, clazz.eAdapters().size());
+		name = instanceClassNameResolver.getValue(clazz);
+		assertEquals("java.lang.Integer", name);
 	}
 	
 	@Test public void testGetUnknownValue() {
 		EFactory fact = factory.createEFactory();
 		String name = nameResolver.getValue(fact);
 		assertNull(name);
+		assertNull(nameResolver.getValue(factory.createEFactory()));
+		assertNull(nameResolver.getAttribute(fact));
+		assertEquals(0, fact.eAdapters().size());
 	}
 	
 	@Test public void testGetNameMatches() {
