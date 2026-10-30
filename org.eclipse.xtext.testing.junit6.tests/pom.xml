@@ -27,7 +27,7 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
-					<failIfNoTests>${failIfNoTests}</failIfNoTests>
+					<failIfNoTests>${xtext.failIfNoTests}</failIfNoTests>
 				</configuration>
 				<dependencies>
 					<!-- force to run with JUnit6 -->

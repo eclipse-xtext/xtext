@@ -213,7 +213,7 @@
 							<goal>test</goal>
 						</goals>
 						<configuration>
-							<failIfNoTests>${failIfNoTests}</failIfNoTests>
+							<failIfNoTests>${xtext.failIfNoTests}</failIfNoTests>
 							<excludes>
 								<exclude>**/*Test.java</exclude>
 							</excludes>

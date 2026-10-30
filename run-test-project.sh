@@ -32,7 +32,7 @@ for arg in "$@"; do
 done
 
 if [ "$RUNNING_SPECIFIED_TESTS" = true ]; then
-  set -- "$@" -DfailIfNoTests=false -Dsurefire.failIfNoSpecifiedTests=false
+  set -- "$@" -DfailIfNoTests=false -Dxtext.failIfNoTests=false -Dsurefire.failIfNoSpecifiedTests=false
 fi
 
 ./mvnw -f org.eclipse.xtext.full.releng \
