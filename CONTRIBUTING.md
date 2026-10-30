@@ -99,7 +99,7 @@ To run a single test class or method, pass the Maven `-Dtest` option after the p
 ./run-test-project.sh org.eclipse.xtext.tests -Dtest=MyTest#myTest
 ```
 
-When invoking Maven with `-Dtest` in the multi-project reactor, also pass `-DfailIfNoTests=false -Dxtext.failIfNoTests=false -Dsurefire.failIfNoSpecifiedTests=false`. This allows prerequisite projects without a matching test to succeed; `run-test-project.sh` adds these options automatically when it detects `-Dtest`.
+When invoking Maven with `-Dtest` in the multi-project reactor, also pass `-Dxtext.failIfNoTests=false`. This allows prerequisite projects without a matching test to succeed; `run-test-project.sh` adds this option automatically when it detects `-Dtest`.
 
 ## Create a Release Locally
  1. Run the Maven build locally by calling the shell script [`full-build.sh`](https://github.com/eclipse-xtext/xtext/blob/main/full-build.sh). You may want to pass `--no-tests` to the script to skip all tests (keep in mind that with tests the build might take more than 1 hour).
