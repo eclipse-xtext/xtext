@@ -2,7 +2,7 @@
 <launchConfiguration type="org.eclipse.m2e.Maven2LaunchConfigurationType">
     <intAttribute key="M2_COLORS" value="0"/>
     <booleanAttribute key="M2_DEBUG_OUTPUT" value="false"/>
-    <stringAttribute key="M2_GOALS" value="verify -pl :org.eclipse.xtext.tests -am -DskipXtend -Dtycho.localArtifacts=ignore -Djgit.dirtyWorkingTree=ignore"/>
+    <stringAttribute key="M2_GOALS" value="verify -pl :org.eclipse.xtext.tests -am -DskipXtend -Dtycho.localArtifacts=ignore"/>
     <booleanAttribute key="M2_NON_RECURSIVE" value="false"/>
     <booleanAttribute key="M2_OFFLINE" value="false"/>
     <stringAttribute key="M2_PROFILES" value=""/>

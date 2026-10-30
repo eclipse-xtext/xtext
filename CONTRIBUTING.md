@@ -83,7 +83,7 @@ From the repository root, select a test project's artifact ID in the full reacto
 ```sh
 ./mvnw -f org.eclipse.xtext.full.releng -pl :org.eclipse.xtext.tests -am \
   -DskipXtend -Dtycho.localArtifacts=ignore \
-  -Djgit.dirtyWorkingTree=ignore verify
+  verify
 ```
 
 Replace `org.eclipse.xtext.tests` with the desired project. Generate the MWE2 and Xtend sources first (for example, as part of the workspace setup); the skip options reuse those generated sources, so do not run `clean` with this command. The build also runs tests in any prerequisite test projects. Eclipse UI tests require a graphical display.
