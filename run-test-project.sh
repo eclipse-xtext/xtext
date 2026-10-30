@@ -16,6 +16,8 @@ if [ "$#" -eq 0 ] || [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
   exit 0
 fi
 
+cd "$(dirname "$0")" || exit
+
 TEST_PROJECT=$1
 shift
 
