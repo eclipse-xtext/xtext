@@ -82,7 +82,7 @@ From the repository root, select a test project's artifact ID in the full reacto
 
 ```sh
 ./mvnw -f org.eclipse.xtext.full.releng -pl :org.eclipse.xtext.tests -am \
-  -DskipMWE2 -DskipXtend -Dtycho.localArtifacts=ignore \
+  -DskipXtend -Dtycho.localArtifacts=ignore \
   -Djgit.dirtyWorkingTree=ignore verify
 ```
 
