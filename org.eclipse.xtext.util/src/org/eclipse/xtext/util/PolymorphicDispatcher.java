@@ -18,6 +18,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.log4j.Logger;
 
@@ -247,8 +249,36 @@ public class PolymorphicDispatcher<RT> {
 		return compareTo;
 	}
 
-	private final SimpleCache<List<Class<?>>, List<MethodDesc>> cache =
-		new SimpleCache<List<Class<?>>, List<MethodDesc>>(
+	/** Trie over the parameter classes, one level per parameter. */
+	private class DispatchNode {
+		private final Map<Class<?>, DispatchNode> children = new ConcurrentHashMap<>();
+		private volatile List<MethodDesc> methods;
+
+		private DispatchNode getChild(Class<?> type) {
+			// isInvokeable treats a null type like Void, and the map does not accept null keys
+			Class<?> key = type != null ? type : Void.class;
+			// get first: computeIfAbsent locks the bin even on a hit unless the key is its first node
+			DispatchNode child = children.get(key);
+			return child != null ? child : children.computeIfAbsent(key, k -> new DispatchNode());
+		}
+	}
+
+	private final DispatchNode cache = new DispatchNode();
+
+	private List<MethodDesc> getMethods(Object[] params) {
+		DispatchNode node = cache;
+		for (int i = 0; i < params.length; i++) {
+			node = node.getChild(params[i] != null ? params[i].getClass() : getDefaultClass(i));
+		}
+		List<MethodDesc> result = node.methods;
+		if (result == null) {
+			result = findMethods.apply(getTypes(params));
+			node.methods = result;
+		}
+		return result;
+	}
+
+	private final Function<List<Class<?>>, List<MethodDesc>> findMethods =
 			new Function<List<Class<?>>, List<MethodDesc>>() {
 				@Override
 				public List<MethodDesc> apply(List<Class<?>> paramTypes) {
@@ -278,8 +308,7 @@ public class PolymorphicDispatcher<RT> {
 					}
 					return result;
 				}
-			}
-		);
+			};
 
 	@SuppressWarnings("unchecked")
 	public RT invoke(Object... params) {
@@ -289,7 +318,7 @@ public class PolymorphicDispatcher<RT> {
 				throw new IllegalArgumentException("Wrong number of arguments. Expected "+filter.getMinParams()+" to "+filter.getMaxParams()+".");
 			}
 		}
-		List<MethodDesc> result = cache.get(getTypes(params));
+		List<MethodDesc> result = getMethods(params);
 		// check if ambiguous
 		if (result.size()>1)
 			return handleAmbigousMethods(result, params);
