@@ -13,6 +13,7 @@ import java.io.FileWriter;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.lsp4j.ClientCapabilities;
 import org.eclipse.lsp4j.DidChangeWorkspaceFoldersParams;
 import org.eclipse.lsp4j.InitializeParams;
@@ -24,6 +25,7 @@ import org.eclipse.xtext.ide.server.ILanguageServerAccess;
 import org.eclipse.xtext.ide.server.UriExtensions;
 import org.eclipse.xtext.ide.server.WorkspaceManager;
 import org.eclipse.xtext.resource.IResourceDescription;
+import org.eclipse.xtext.resource.impl.ChunkedResourceDescriptions;
 import org.eclipse.xtext.util.Modules2;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure0;
 import org.junit.Assert;
@@ -98,6 +100,44 @@ public class WorkspaceFoldersTest extends AbstractTestLangLanguageServerTest {
 			languageServer.didChangeWorkspaceFolders(didChangeWorkspaceFoldersParams);
 		});
 		Assert.assertEquals(1, getDiagnostics().get(twoUri).size());
+	}
+
+	@Test
+	public void testRemovedWorkspaceFolderIsDroppedFromTheIndexOfTheOtherProjects() throws Exception {
+		File rootFolder1 = temporaryFolder.newFolder("root1");
+		File rootFolder2 = temporaryFolder.newFolder("root2");
+		String oneUri = writeFile(rootFolder1, "one.testlang", "type Foo { Bar bar }");
+		URI twoUri = URI.createURI(writeFile(rootFolder2, "two.testlang", "type Bar { Foo foo }"));
+		initialize((InitializeParams it) -> {
+			ClientCapabilities clientCapabilities = new ClientCapabilities();
+			WorkspaceClientCapabilities workspaceClientCapabilities = new WorkspaceClientCapabilities();
+			workspaceClientCapabilities.setWorkspaceFolders(true);
+			clientCapabilities.setWorkspace(workspaceClientCapabilities);
+			it.setCapabilities(clientCapabilities);
+			it.setWorkspaceFolders(
+					Lists.newArrayList(new WorkspaceFolder(uriExtensions.toUriString(rootFolder1.toURI()), "root1"),
+							new WorkspaceFolder(uriExtensions.toUriString(rootFolder2.toURI()), "root2")));
+		});
+		// rebuild root1 after root2 has been indexed, so that its resource set holds the index of root2
+		withBuild(() -> open(oneUri, "type Foo { Bar bar }"));
+		Assert.assertNotNull(getIndex("root1").getContainer("root2"));
+		Assert.assertNotNull(getIndex("root1").getResourceDescription(twoUri));
+
+		withBuild(() -> {
+			DidChangeWorkspaceFoldersParams didChangeWorkspaceFoldersParams = new DidChangeWorkspaceFoldersParams();
+			WorkspaceFoldersChangeEvent workspaceFoldersChangeEvent = new WorkspaceFoldersChangeEvent();
+			workspaceFoldersChangeEvent.setRemoved(
+					Lists.newArrayList(new WorkspaceFolder(uriExtensions.toUriString(rootFolder2.toURI()), "root2")));
+			didChangeWorkspaceFoldersParams.setEvent(workspaceFoldersChangeEvent);
+			languageServer.didChangeWorkspaceFolders(didChangeWorkspaceFoldersParams);
+		});
+
+		Assert.assertNull(getIndex("root1").getContainer("root2"));
+		Assert.assertNull(getIndex("root1").getResourceDescription(twoUri));
+	}
+
+	private ChunkedResourceDescriptions getIndex(String projectName) {
+		return ChunkedResourceDescriptions.findInEmfObject(workspaceManager.getProjectManager(projectName).getResourceSet());
 	}
 
 	protected void withBuild(Procedure0 lambda) throws Exception {
