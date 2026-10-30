@@ -72,6 +72,35 @@ You're a committer if you have write-access to the Xtext git-repositories.
  9. If, and only if, all tests have passed, create a pull request and ask somebody who is familiar with the code you modified to review it. Note that pull requests from this repository will not be built: only external pull requests are built, so please make sure your branch is up-to-date with the main branch.
  10. If the reviewer approves, merge.
 
+## Run Tests in a Single Test Project
+
+From the repository root, select a test project's artifact ID in the full reactor and run Maven directly:
+
+```sh
+./mvnw -f org.eclipse.xtext.full.releng -pl :org.eclipse.xtext.tests -am \
+  -DskipXtend -Dtycho.localArtifacts=ignore \
+  verify
+```
+
+Replace `org.eclipse.xtext.tests` with the desired project. As an alternative, use `run-test-project.sh`, which runs the same command:
+
+```sh
+./run-test-project.sh org.eclipse.xtext.tests
+```
+
+In Eclipse, each test project also has a Maven launch configuration for running this command. For example, use `org.eclipse.xtext.tests/org.eclipse.xtext.tests (mvn verify).launch` for the `org.eclipse.xtext.tests` project.
+
+Generate the MWE2 and Xtend sources first (for example, as part of the workspace setup); the skip options reuse those generated sources, so do not run `clean` with either command. Maven also builds prerequisite projects, and may run tests in prerequisite test projects. Eclipse UI tests require a graphical display.
+
+To run a single test class or method, pass the Maven `-Dtest` option after the project artifact ID:
+
+```sh
+./run-test-project.sh org.eclipse.xtext.tests -Dtest=MyTest
+./run-test-project.sh org.eclipse.xtext.tests -Dtest=MyTest#myTest
+```
+
+When invoking Maven with `-Dtest` in the multi-project reactor, also pass `-Dxtext.failIfNoTests=false -Dsurefire.failIfNoSpecifiedTests=false`. These allow prerequisite projects without a matching test to succeed; `run-test-project.sh` adds these options automatically when it detects `-Dtest`.
+
 ## Create a Release Locally
  1. Run the Maven build locally by calling the shell script [`full-build.sh`](https://github.com/eclipse-xtext/xtext/blob/main/full-build.sh). You may want to pass `--no-tests` to the script to skip all tests (keep in mind that with tests the build might take more than 1 hour).
  2. Find the artifacts at `build/maven-repository` or `build/p2-repository` in a folder relative to the repository root.

@@ -12,6 +12,40 @@
 
 	<name>Xtend Core Library Tests</name>
 
+	<!-- Required so that -pl/-am builds include these prerequisites; they are not used for compilation. -->
+	<dependencies>
+		<dependency>
+			<groupId>org.eclipse.xtext</groupId>
+			<artifactId>org.eclipse.xtend.core</artifactId>
+			<version>${project.version}</version>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.xtext</groupId>
+			<artifactId>org.eclipse.xtext.xbase.ui</artifactId>
+			<version>${project.version}</version>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.xtext</groupId>
+			<artifactId>org.eclipse.xtext.builder</artifactId>
+			<version>${project.version}</version>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.xtext</groupId>
+			<artifactId>org.eclipse.xtext.builder.standalone</artifactId>
+			<version>${project.version}</version>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.xtext</groupId>
+			<artifactId>org.eclipse.xtext.java</artifactId>
+			<version>${project.version}</version>
+			<optional>true</optional>
+		</dependency>
+	</dependencies>
+
 	<build>
 		<plugins>
 			<plugin>

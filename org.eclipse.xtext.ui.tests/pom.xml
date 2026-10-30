@@ -11,6 +11,28 @@
 	<artifactId>org.eclipse.xtext.ui.tests</artifactId>
 	<packaging>eclipse-test-plugin</packaging>
 
+	<!-- Required so that -pl/-am builds include these prerequisites; they are not used for compilation. -->
+	<dependencies>
+		<dependency>
+			<groupId>org.eclipse.xtext</groupId>
+			<artifactId>org.eclipse.xtext.xtext.ui</artifactId>
+			<version>${project.version}</version>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.xtext</groupId>
+			<artifactId>org.eclipse.xtext.ui.ecore</artifactId>
+			<version>${project.version}</version>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.xtext</groupId>
+			<artifactId>org.eclipse.xtext.testlanguages.ui</artifactId>
+			<version>${project.version}</version>
+			<optional>true</optional>
+		</dependency>
+	</dependencies>
+
 	<build>
 		<plugins>
 			<plugin>
