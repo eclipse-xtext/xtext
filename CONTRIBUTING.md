@@ -76,9 +76,9 @@ You're a committer if you have write-access to the Xtext git-repositories.
  1. Run the Maven build locally by calling the shell script [`full-build.sh`](https://github.com/eclipse-xtext/xtext/blob/main/full-build.sh). You may want to pass `--no-tests` to the script to skip all tests (keep in mind that with tests the build might take more than 1 hour).
  2. Find the artifacts at `build/maven-repository` or `build/p2-repository` in a folder relative to the repository root.
 
-## Run a Single Test Project
+## Run Tests in a Single Test Project
 
-From the repository root, select a test project's artifact ID in the full reactor:
+From the repository root, select a test project's artifact ID in the full reactor and run Maven directly:
 
 ```sh
 ./mvnw -f org.eclipse.xtext.full.releng -pl :org.eclipse.xtext.tests -am \
@@ -86,7 +86,20 @@ From the repository root, select a test project's artifact ID in the full reacto
   verify
 ```
 
-Replace `org.eclipse.xtext.tests` with the desired project. Generate the MWE2 and Xtend sources first (for example, as part of the workspace setup); the skip options reuse those generated sources, so do not run `clean` with this command. The build also runs tests in any prerequisite test projects. Eclipse UI tests require a graphical display.
+Replace `org.eclipse.xtext.tests` with the desired project. As an alternative, use `single-test.sh`, which runs the same command:
+
+```sh
+./single-test.sh org.eclipse.xtext.tests
+```
+
+Generate the MWE2 and Xtend sources first (for example, as part of the workspace setup); the skip options reuse those generated sources, so do not run `clean` with either command. Maven also builds prerequisite projects, and may run tests in prerequisite test projects. Eclipse UI tests require a graphical display.
+
+To run a single test class or method, pass the Maven `-Dtest` option after the project artifact ID:
+
+```sh
+./single-test.sh org.eclipse.xtext.tests -Dtest=MyTest
+./single-test.sh org.eclipse.xtext.tests -Dtest=MyTest#myTest
+```
 
 ## Consume the Latest Artifacts
 There are two ways/sources: 
