@@ -88,7 +88,7 @@ Replace `org.eclipse.xtext.tests` with the desired project. As an alternative, u
 ./run-test-project.sh org.eclipse.xtext.tests
 ```
 
-In Eclipse, each test project also has a Maven launch configuration for running this command. For example, use `org.eclipse.xtext.tests/mvn verify org.eclipse.xtext.tests.launch` for the `org.eclipse.xtext.tests` project.
+In Eclipse, each test project also has a Maven launch configuration for running this command. For example, use `org.eclipse.xtext.tests/org.eclipse.xtext.tests (mvn verify).launch` for the `org.eclipse.xtext.tests` project.
 
 Generate the MWE2 and Xtend sources first (for example, as part of the workspace setup); the skip options reuse those generated sources, so do not run `clean` with either command. Maven also builds prerequisite projects, and may run tests in prerequisite test projects. Eclipse UI tests require a graphical display.
 
