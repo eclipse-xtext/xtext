@@ -11,6 +11,7 @@ package org.eclipse.xtext.ide.editor.quickfix;
 import java.util.List;
 
 import org.eclipse.lsp4j.Diagnostic;
+import org.eclipse.lsp4j.WorkspaceEdit;
 import org.eclipse.xtext.ide.server.codeActions.ICodeActionService2.Options;
 
 import com.google.common.annotations.Beta;
@@ -24,8 +25,7 @@ import com.google.common.annotations.Beta;
  *
  * @since 2.24
  * 
- * Contributors: 
- *   Rubén Porras Campo (Avaloq Evolution AG) - Add method to get fix methods.
+ *        Contributors: Rubén Porras Campo (Avaloq Evolution AG) - Add method to get fix methods.
  */
 @Beta
 public interface IQuickFixProvider {
@@ -42,7 +42,6 @@ public interface IQuickFixProvider {
 	 */
 	List<DiagnosticResolution> getResolutions(Options options, Diagnostic diagnostic);
 
-	
 	/**
 	 *
 	 * If the provider handles (it has code to produce resolutions for) the given diagnostic.
@@ -56,4 +55,33 @@ public interface IQuickFixProvider {
 	default boolean handlesDiagnostic(Diagnostic diagnostic) {
 		return true;
 	}
+
+	/**
+	 * Resolves the given resolution and returns the resulting workspace edit. If the resolution is unknown, an empty
+	 * WorkspaceEdit is returned. This method is meant to be called once for each unique ID as the cached resolution is
+	 * un-cached by calling this method, so subsequent calls to this method with the same ID will yield an empty result.
+	 * 
+	 * @param resolutionInfo
+	 *            Unique resolution retrieved from calling {@link #cacheResolution(DiagnosticResolution)}
+	 * 
+	 * @return The workspace edit for the given resolution, or an empty workspace edit if the resolution is unknown
+	 * 
+	 * @since 2.44
+	 */
+	WorkspaceEdit resolveResolution(DiagnosticResolutionInfo resolutionInfo);
+
+	/**
+	 * Creates a pending diagnostic resolution without applying the workspace edit
+	 * 
+	 * @see org.eclipse.xtext.ide.server.LanguageServerImpl#resolveCodeAction
+	 * 
+	 * @param resolution
+	 *            A resolution for a quickfix
+	 * 
+	 * @return Resolution info that can be used to resolve the resolution later on (contains a unique ID for the
+	 *         resolution and the document URI)
+	 * 
+	 * @since 2.44
+	 */
+	DiagnosticResolutionInfo cacheResolution(DiagnosticResolution resolution);
 }
