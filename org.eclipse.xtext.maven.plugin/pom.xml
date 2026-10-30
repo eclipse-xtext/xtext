@@ -200,7 +200,7 @@
 							<goal>test</goal>
 						</goals>
 						<configuration>
-							<failIfNoTests>true</failIfNoTests>
+							<failIfNoTests>${failIfNoTests}</failIfNoTests>
 							<excludes>
 								<exclude>**/*Test.java</exclude>
 							</excludes>

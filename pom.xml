@@ -129,6 +129,7 @@
 
 		<maven.compiler.release>21</maven.compiler.release>
 		<maven.javadoc.failOnError>false</maven.javadoc.failOnError>
+		<failIfNoTests>true</failIfNoTests>
 
 		<build-helper-maven-plugin-version>3.3.0</build-helper-maven-plugin-version>
 		<maven-surefire-version>3.0.0</maven-surefire-version>
@@ -641,7 +642,7 @@
 						<excludes>
 							<exclude />
 						</excludes>
-						<failIfNoTests>true</failIfNoTests>
+						<failIfNoTests>${failIfNoTests}</failIfNoTests>
 						<systemProperties>
 							<!-- https://github.com/eclipse-xtext/xtext/issues/3057 -->
 							<DetectVMInstallationsJob.disabled>true</DetectVMInstallationsJob.disabled>
