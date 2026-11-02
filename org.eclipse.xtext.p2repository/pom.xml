@@ -27,6 +27,7 @@
 				<configuration>
 					<finalName>${zipFinalName}</finalName>
 					<repositoryName>Xtext</repositoryName>
+					<includeAllSources>true</includeAllSources>
 				</configuration>
 			</plugin>
 			<plugin>
