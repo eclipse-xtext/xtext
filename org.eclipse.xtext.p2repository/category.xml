@@ -19,7 +19,6 @@
    <bundle id="org.aopalliance" version="1.0.0.qualifier"/>
    <bundle id="org.junit" version="4.13.2.qualifier"/>
    <bundle id="org.hamcrest" version="2.2.0.qualifier"/>
-   <bundle id="org.hamcrest.core" version="2.2.0.qualifier"/>
    <bundle id="org.kohsuke.args4j" version="2.37.0.qualifier"/>
    <bundle id="org.objectweb.asm" version="9.11.1.qualifier"/>
    <bundle id="io.github.classgraph.classgraph" version="5.0.1.qualifier"/>

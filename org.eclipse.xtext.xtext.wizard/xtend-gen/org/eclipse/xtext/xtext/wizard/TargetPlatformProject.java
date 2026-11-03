@@ -215,9 +215,6 @@ public class TargetPlatformProject extends ProjectDescriptor {
     _builder.append("<unit id=\"org.hamcrest\" version=\"[2,3)\"/>");
     _builder.newLine();
     _builder.append("\t\t\t");
-    _builder.append("<unit id=\"org.hamcrest.core\" version=\"[2,3)\"/>");
-    _builder.newLine();
-    _builder.append("\t\t\t");
     _builder.append("<unit id=\"org.apache.commons.commons-logging\"/>");
     _builder.newLine();
     {
