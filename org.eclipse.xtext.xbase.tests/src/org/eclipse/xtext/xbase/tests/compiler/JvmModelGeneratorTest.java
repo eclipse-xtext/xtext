@@ -611,7 +611,8 @@ public class JvmModelGeneratorTest extends AbstractXbaseTestCase {
 		Assert.assertTrue(Modifier.isFinal(compiled.getMethod("finalMethod").getModifiers()));
 		Assert.assertTrue(Modifier.isAbstract(compiled.getMethod("abstractMethod").getModifiers()));
 		Assert.assertTrue(Modifier.isSynchronized(compiled.getMethod("synchronizedMethod").getModifiers()));
-		Assert.assertTrue(Modifier.isStrict(compiled.getMethod("strictFpMethod").getModifiers()));
+		// "strictfp" was removed in Java 17 (see https://openjdk.org/jeps/306)
+		Assert.assertFalse(Modifier.isStrict(compiled.getMethod("strictFpMethod").getModifiers()));
 		Assert.assertTrue(Modifier.isNative(compiled.getMethod("nativeMethod").getModifiers()));
 	}
 
