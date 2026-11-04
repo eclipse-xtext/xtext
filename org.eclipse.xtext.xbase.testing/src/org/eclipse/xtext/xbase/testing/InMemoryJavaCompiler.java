@@ -250,7 +250,7 @@ public class InMemoryJavaCompiler {
 	}
 
 	/**
-	 * Sets the Java version that this compiler works with. Defaults to Java8 and attempts to set older versions are ignored.
+	 * Sets the Java version that this compiler works with. Attempts to set versions older than Java 8 are ignored.
 	 * 
 	 * @since 2.11
 	 */

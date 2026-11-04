@@ -49,7 +49,7 @@ public class ResolvedFeatures extends AbstractResolvedFeatures {
 	private List<IResolvedOperation> declaredOperations;
 	private ListMultimap<String, IResolvedOperation> allOperationsPerErasure;
 	private ListMultimap<String, IResolvedOperation> declaredOperationsPerErasure;
-	private JavaVersion targetVersion = JavaVersion.JAVA8;
+	private JavaVersion targetVersion = JavaVersion.JAVA21;
 	
 	public ResolvedFeatures(LightweightTypeReference type, OverrideTester overrideTester, JavaVersion targetVersion) {
 		super(type, overrideTester);
