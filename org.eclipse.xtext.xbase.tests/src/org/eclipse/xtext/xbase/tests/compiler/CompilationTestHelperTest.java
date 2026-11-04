@@ -11,7 +11,6 @@ package org.eclipse.xtext.xbase.tests.compiler;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.xtext.resource.FileExtensionProvider;
 import org.eclipse.xtext.testing.TemporaryFolder;
-import org.eclipse.xtext.util.JavaVersion;
 import org.eclipse.xtext.util.Strings;
 import org.eclipse.xtext.xbase.compiler.GeneratorConfig;
 import org.eclipse.xtext.xbase.compiler.GeneratorConfigProvider;
@@ -85,7 +84,6 @@ public class CompilationTestHelperTest extends AbstractJvmModelTest {
 
 	@Test
 	public void testLambdaJavaVersion8() throws Exception {
-		compilationTestHelper.setJavaVersion(JavaVersion.JAVA8);
 		String source =
 				"{\n" +
 				"	val f = [ int i | i + 1 ]\n" +
@@ -111,7 +109,6 @@ public class CompilationTestHelperTest extends AbstractJvmModelTest {
 
 	@Test
 	public void testCustomConfigIsNotLost() throws Exception {
-		compilationTestHelper.setJavaVersion(JavaVersion.JAVA8);
 		String model =
 				"{\n" +
 				"	val f = [ int i | i + 1 ]\n" +

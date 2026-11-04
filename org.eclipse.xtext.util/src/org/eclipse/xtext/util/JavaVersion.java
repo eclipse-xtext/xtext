@@ -85,7 +85,7 @@ public enum JavaVersion {
 	private static final class Constants {
 		private static final int MAJOR_VERSION_1_5 = 49;
 		private static final int MINOR_VERSION_0 = 0;
-		
+
 		private static final long JAVA8 = ((long)(MAJOR_VERSION_1_5 + 3) << 16) + MINOR_VERSION_0;
 		private static final long JAVA9 = ((long)(MAJOR_VERSION_1_5 + 4) << 16) + MINOR_VERSION_0;
 		private static final long JAVA10 = ((long)(MAJOR_VERSION_1_5 + 5) << 16) + MINOR_VERSION_0;
@@ -94,6 +94,25 @@ public enum JavaVersion {
 		private static final long JAVA21 = ((long)(MAJOR_VERSION_1_5 + 16) << 16) + MINOR_VERSION_0;
 		private static final long JAVA25 = ((long)(MAJOR_VERSION_1_5 + 20) << 16) + MINOR_VERSION_0;
 	}
+
+	/**
+	 * The Java version that Xtext targets and requires by default, i.e. when no other version has been
+	 * configured. This is the single place to change when Xtext's default/minimum supported Java version
+	 * is raised.
+	 *
+	 * @since 2.45
+	 */
+	public static final JavaVersion DEFAULT = JAVA21;
+
+	/**
+	 * The {@link #getQualifier() qualifier} of {@link #DEFAULT}, duplicated as a compile-time constant so
+	 * that it can be used as the {@code defaultValue} of a Maven {@code @Parameter} annotation, which
+	 * cannot reference {@link #DEFAULT} directly since that is not a constant expression. Keep in sync
+	 * with {@link #DEFAULT}.
+	 *
+	 * @since 2.45
+	 */
+	public static final String DEFAULT_QUALIFIER = "21";
 
 	//	 if you introduce a new JavaVersion don't forget to adapt
 	//	 - JavaVersionTest

@@ -29,6 +29,7 @@ import org.eclipse.xtext.builder.standalone.compiler.CompilerConfiguration;
 import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.resource.persistence.IResourceStorageFacade;
 import org.eclipse.xtext.resource.persistence.StorageAwareResource;
+import org.eclipse.xtext.util.JavaVersion;
 import org.eclipse.xtext.util.Strings;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 
@@ -95,10 +96,10 @@ public abstract class AbstractXtextGeneratorMojo extends AbstractXtextMojo {
 	@Parameter(defaultValue = "true")
 	private boolean failOnValidationError = true;
 
-	@Parameter(property = "maven.compiler.source", defaultValue = "21")
+	@Parameter(property = "maven.compiler.source", defaultValue = JavaVersion.DEFAULT_QUALIFIER)
 	private String compilerSourceLevel;
 
-	@Parameter(property = "maven.compiler.target", defaultValue = "21")
+	@Parameter(property = "maven.compiler.target", defaultValue = JavaVersion.DEFAULT_QUALIFIER)
 	private String compilerTargetLevel;
 	/**
 	 * Create Java Source Code that is compatible to this Java release.

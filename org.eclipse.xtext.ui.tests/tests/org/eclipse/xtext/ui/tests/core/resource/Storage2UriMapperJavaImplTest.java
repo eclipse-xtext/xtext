@@ -190,7 +190,7 @@ public class Storage2UriMapperJavaImplTest extends Assert {
 				result.set(javaProject);
 				addNature(project, JavaCore.NATURE_ID);
 				JavaProjectSetupUtil.addSourceFolder(javaProject, "src", false);
-				JavaProjectSetupUtil.addJreClasspathEntry(javaProject, JavaVersion.JAVA11.getBree());
+				JavaProjectSetupUtil.addJreClasspathEntry(javaProject, JavaVersion.DEFAULT.getBree());
 				
 				IClasspathEntry defaultEntry = JavaProjectSetupUtil.getJreContainerClasspathEntry(javaProject);
 				if (isModular(defaultEntry)) {

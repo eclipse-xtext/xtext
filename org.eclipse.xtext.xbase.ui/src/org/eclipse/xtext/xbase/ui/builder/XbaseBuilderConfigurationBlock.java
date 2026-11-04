@@ -47,11 +47,15 @@ public class XbaseBuilderConfigurationBlock extends BuilderConfigurationBlock {
 				"Use source compatibility level from Java settings",
 				PREF_USE_COMPILER_SOURCE, BOOLEAN_VALUES, 0);
 		
-		int valueCount = JavaVersion.values().length;
-		String[] values = new String[valueCount];
-		String[] valueLabels = new String[valueCount];
-		for (int i = 0; i < valueCount; i++) {
-			JavaVersion v = JavaVersion.values()[i];
+		// JAVA5/6/7 are deprecated aliases of JAVA8 (kept only so that later constants keep their ordinal);
+		// they must not be offered here, or the combo would show "Java 8" four times and could persist a
+		// deprecated qualifier that - unlike its label suggests - does not behave like Java 8 (see
+		// JavaVersion.isAtLeast).
+		JavaVersion[] supportedVersions = getSupportedJavaVersions();
+		String[] values = new String[supportedVersions.length];
+		String[] valueLabels = new String[supportedVersions.length];
+		for (int i = 0; i < supportedVersions.length; i++) {
+			JavaVersion v = supportedVersions[i];
 			values[i] = v.toString();
 			valueLabels[i] = v.getLabel();
 		}
@@ -104,11 +108,37 @@ public class XbaseBuilderConfigurationBlock extends BuilderConfigurationBlock {
 		if (useCompliance) {
 			String javaSourceOption = javaValue(JavaCore.COMPILER_SOURCE);
 			JavaVersion javaVersion = preferenceAccess.fromCompilerSourceLevel(javaSourceOption);
-			JavaVersion selectedVersion = JavaVersion.values()[versionCombo.getSelectionIndex()];
+			JavaVersion[] supportedVersions = getSupportedJavaVersions();
+			JavaVersion selectedVersion = supportedVersions[versionCombo.getSelectionIndex()];
 			if (javaVersion != selectedVersion) {
-				versionCombo.select(javaVersion.ordinal());
+				int index = indexOf(supportedVersions, javaVersion);
+				if (index >= 0) {
+					versionCombo.select(index);
+				}
 			}
 		}
+	}
+
+	/**
+	 * The subset of {@link JavaVersion#values()} that should actually be offered to users. This excludes the
+	 * deprecated {@code JAVA5}/{@code JAVA6}/{@code JAVA7} aliases, which only exist to keep the ordinal of
+	 * later constants stable.
+	 */
+	private JavaVersion[] getSupportedJavaVersions() {
+		JavaVersion[] allVersions = JavaVersion.values();
+		int firstSupportedOrdinal = JavaVersion.JAVA8.ordinal();
+		JavaVersion[] result = new JavaVersion[allVersions.length - firstSupportedOrdinal];
+		System.arraycopy(allVersions, firstSupportedOrdinal, result, 0, result.length);
+		return result;
+	}
+
+	private int indexOf(JavaVersion[] versions, JavaVersion version) {
+		for (int i = 0; i < versions.length; i++) {
+			if (versions[i] == version) {
+				return i;
+			}
+		}
+		return -1;
 	}
 
 	protected String javaValue(final String javaPreference) {

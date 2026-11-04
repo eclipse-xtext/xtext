@@ -467,7 +467,7 @@ public class ContentAssistTest extends AbstractXbaseContentAssistInBlockTest {
 				"org.eclipse.xtext.xbase.lib",
 				"org.eclipse.xtend.lib"));
 		IProject result = projectFactory.createProject(new NullProgressMonitor(), null);
-		JavaProjectSetupUtil.makeJava8Compliant(JavaCore.create(result));
+		JavaProjectSetupUtil.makeDefaultCompliant(JavaCore.create(result));
 		return result;
 	}
 }

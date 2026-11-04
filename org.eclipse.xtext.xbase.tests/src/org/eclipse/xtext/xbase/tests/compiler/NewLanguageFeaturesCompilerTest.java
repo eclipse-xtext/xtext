@@ -8,7 +8,6 @@
  */
 package org.eclipse.xtext.xbase.tests.compiler;
 
-import org.eclipse.xtext.util.JavaVersion;
 import org.eclipse.xtext.xbase.compiler.output.FakeTreeAppendable;
 import org.junit.Test;
 
@@ -33,7 +32,7 @@ public class NewLanguageFeaturesCompilerTest extends AbstractOutputComparingComp
 				"  }\n" + 
 				"};\n" + 
 				"final com.google.common.base.AbstractIterator<String> x = _function;";
-		compilesTo(xbaseCode, result, JavaVersion.JAVA8);
+		compilesTo(xbaseCode, result);
 	}
 
 	@Test
@@ -45,7 +44,7 @@ public class NewLanguageFeaturesCompilerTest extends AbstractOutputComparingComp
 				"  return Boolean.valueOf((!_isEmpty));\n" + 
 				"};\n" + 
 				"final Iterable<String> x = org.eclipse.xtext.xbase.lib.IterableExtensions.<String>filter(java.util.Collections.<String>unmodifiableList(org.eclipse.xtext.xbase.lib.CollectionLiterals.<String>newArrayList(\"a\", \"\", \"c\")), _function);";
-		compilesTo(xbaseCode, result, JavaVersion.JAVA8);
+		compilesTo(xbaseCode, result);
 	}
 
 	@Test
@@ -77,7 +76,7 @@ public class NewLanguageFeaturesCompilerTest extends AbstractOutputComparingComp
 				"  _switchResult = 3;\n" +
 				"}\n" +
 				"final int x = _switchResult;\n";
-		compilesTo(xbaseCode, result, JavaVersion.JAVA8);
+		compilesTo(xbaseCode, result);
 	}
 
 	@Test
@@ -87,7 +86,7 @@ public class NewLanguageFeaturesCompilerTest extends AbstractOutputComparingComp
 				"	val x = 123_456_789\n" +
 				"}\n";
 		String result = "final int x = 123_456_789;\n";
-		compilesTo(xbaseCode, result, JavaVersion.JAVA8);
+		compilesTo(xbaseCode, result);
 	}
 
 	@Test
@@ -98,7 +97,7 @@ public class NewLanguageFeaturesCompilerTest extends AbstractOutputComparingComp
 				"};\n" +
 				"Thread _thread = new Thread(_function);\n" +
 				"return _thread;\n";
-		compilesTo(xbaseCode, result, JavaVersion.JAVA8);
+		compilesTo(xbaseCode, result);
 	}
 
 	@Test
@@ -113,7 +112,7 @@ public class NewLanguageFeaturesCompilerTest extends AbstractOutputComparingComp
 				"  }\n" +
 				"};\n" +
 				"return _function;\n";
-		compilesTo(xbaseCode, result, JavaVersion.JAVA8);
+		compilesTo(xbaseCode, result);
 	}
 
 	@Test
@@ -133,7 +132,7 @@ public class NewLanguageFeaturesCompilerTest extends AbstractOutputComparingComp
 				"  return Integer.valueOf(i);\n" +
 				"}).apply(); (i < 10);) {\n" +
 				"}\n";
-		compilesTo(xbaseCode, result, JavaVersion.JAVA8);
+		compilesTo(xbaseCode, result);
 	}
 
 	@Test
@@ -146,7 +145,7 @@ public class NewLanguageFeaturesCompilerTest extends AbstractOutputComparingComp
 				"};\n" +
 				"final boolean bug = (boolean) org.eclipse.xtext.xbase.lib.IterableExtensions.<Boolean>reduce(java.util.Collections.<Boolean>unmodifiableList(org.eclipse.xtext.xbase.lib.CollectionLiterals.<Boolean>newArrayList(Boolean.valueOf(true), Boolean.valueOf(false), Boolean.valueOf(true))), _function);\n" +
 				"";
-		compilesTo(xbaseCode, result, JavaVersion.JAVA8);
+		compilesTo(xbaseCode, result);
 	}
 
 	@Test
@@ -156,7 +155,7 @@ public class NewLanguageFeaturesCompilerTest extends AbstractOutputComparingComp
 				"  it.size();\n" +
 				"};\n" +
 				"com.google.common.collect.Iterables.<java.util.Collection<Object>>concat(((Iterable<java.util.List<Object>>) null), ((Iterable<java.util.Set<Object>>) null)).forEach(_function);\n";
-		compilesTo(xbaseCode, result, JavaVersion.JAVA8);
+		compilesTo(xbaseCode, result);
 	}
 
 	@Test
@@ -167,7 +166,7 @@ public class NewLanguageFeaturesCompilerTest extends AbstractOutputComparingComp
 				"  org.eclipse.xtext.xbase.lib.ListExtensions.<String>reverse(((java.util.List<String>)org.eclipse.xtext.xbase.lib.Conversions.doWrapArray(it)));\n" +
 				"};\n" +
 				"((Iterable<String[]>) null).forEach(_function);\n";
-		compilesTo(xbaseCode, result, JavaVersion.JAVA8);
+		compilesTo(xbaseCode, result);
 	}
 
 	@Test
@@ -179,7 +178,7 @@ public class NewLanguageFeaturesCompilerTest extends AbstractOutputComparingComp
 				"  new Object();\n" +
 				"};\n" +
 				"org.eclipse.xtext.xbase.lib.Procedures.Procedure1<? super Integer> fun = _function;\n";
-		compilesTo(xbaseCode, result, JavaVersion.JAVA8);
+		compilesTo(xbaseCode, result);
 	}
 
 	@Test
@@ -189,6 +188,6 @@ public class NewLanguageFeaturesCompilerTest extends AbstractOutputComparingComp
 				"final java.beans.VetoableChangeListener _function = (java.beans.PropertyChangeEvent it) -> {\n" +
 				"};\n" +
 				"final java.beans.VetoableChangeListener x = _function;\n";
-		compilesTo(xbaseCode, result, JavaVersion.JAVA8);
+		compilesTo(xbaseCode, result);
 	}
 }

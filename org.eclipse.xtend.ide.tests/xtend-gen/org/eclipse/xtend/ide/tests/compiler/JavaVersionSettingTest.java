@@ -22,7 +22,6 @@ import org.eclipse.xtend.ide.internal.XtendActivator;
 import org.eclipse.xtend.ide.tests.WorkbenchTestHelper;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.ui.testing.util.IResourcesSetupUtil;
-import org.eclipse.xtext.util.JavaVersion;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -64,10 +63,10 @@ public class JavaVersionSettingTest extends Assert {
   }
 
   @Test
-  public void testCompileWithJava8() {
+  public void testOverrideAnnotationIsGenerated() {
     try {
       this.workbenchTestHelper.tearDown();
-      WorkbenchTestHelper.createPluginProject(WorkbenchTestHelper.TESTPROJECT_NAME, JavaVersion.JAVA8);
+      WorkbenchTestHelper.createPluginProject(WorkbenchTestHelper.TESTPROJECT_NAME);
       IResourcesSetupUtil.waitForJdtIndex();
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("package mypackage");

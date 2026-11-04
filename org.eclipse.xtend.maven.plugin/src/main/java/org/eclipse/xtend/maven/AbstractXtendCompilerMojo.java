@@ -24,6 +24,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.eclipse.xtend.core.compiler.batch.XtendBatchCompiler;
+import org.eclipse.xtext.util.JavaVersion;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 
 import com.google.common.base.Predicate;
@@ -47,7 +48,7 @@ public abstract class AbstractXtendCompilerMojo extends AbstractXtendMojo {
 	 *
 	 * Supported values: 11, 17, 21 and so forth
 	 */
-	@Parameter(property="maven.compiler.source", defaultValue="21")
+	@Parameter(property="maven.compiler.source", defaultValue=JavaVersion.DEFAULT_QUALIFIER)
 	private String javaSourceVersion;
 
 	/**

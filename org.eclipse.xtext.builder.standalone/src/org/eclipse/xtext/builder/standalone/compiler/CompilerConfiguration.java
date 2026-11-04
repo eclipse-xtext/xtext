@@ -11,14 +11,15 @@ package org.eclipse.xtext.builder.standalone.compiler;
 import java.io.File;
 
 import org.eclipse.xtext.resource.IResourceDescription;
+import org.eclipse.xtext.util.JavaVersion;
 
 /**
  * @author Dennis Huebner - Initial contribution and API
  */
 public class CompilerConfiguration {
-	private String sourceLevel = "8";
+	private String sourceLevel = JavaVersion.DEFAULT.getQualifier();
 
-	private String targetLevel = "8";
+	private String targetLevel = JavaVersion.DEFAULT.getQualifier();
 
 	private boolean verbose;
 
