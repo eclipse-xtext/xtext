@@ -25,10 +25,12 @@ import org.eclipse.xtext.util.EmfFormatter;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
 /**
  * @author Moritz Eysholdt - Initial contribution and API
  */
+@Singleton
 public class TokenDiagnosticProvider implements ITokenDiagnosticProvider {
 
 	@Inject

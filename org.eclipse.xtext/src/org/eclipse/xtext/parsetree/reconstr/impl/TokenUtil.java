@@ -26,10 +26,12 @@ import org.eclipse.xtext.util.Tuples;
 
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
 /**
  * @author Moritz Eysholdt - Initial contribution and API
  */
+@Singleton
 public class TokenUtil {
 	@Inject
 	protected IHiddenTokenHelper hiddenTokenHelper;
