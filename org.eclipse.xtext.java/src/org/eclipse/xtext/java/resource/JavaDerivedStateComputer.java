@@ -263,8 +263,8 @@ public class JavaDerivedStateComputer {
 	}
 
 	protected CompilerOptions getCompilerOptions(JavaConfig javaConfig) {
-		JavaVersion sourceVersion = JavaVersion.JAVA8;
-		JavaVersion targetVersion = JavaVersion.JAVA8;
+		JavaVersion sourceVersion = JavaVersion.JAVA21;
+		JavaVersion targetVersion = JavaVersion.JAVA21;
 		if (javaConfig != null) {
 			if (javaConfig.getJavaSourceLevel() != null) {
 				sourceVersion = javaConfig.getJavaSourceLevel();
