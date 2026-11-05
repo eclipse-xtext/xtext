@@ -61,7 +61,6 @@
 			<unit id="slf4j.simple"/>
 			<unit id="org.junit"/>
 			<unit id="org.hamcrest" version="[2,3)"/>
-			<unit id="org.hamcrest.core" version="[2,3)"/>
 			<unit id="org.apache.commons.commons-logging"/>
 			<unit id="junit-jupiter-api" version="[6.0.0,7.0.0)"/>
 			<unit id="junit-jupiter-engine" version="[6.0.0,7.0.0)"/>

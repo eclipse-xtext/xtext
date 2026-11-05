@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="org.eclipse.pde.ui.JunitLaunchConfig">
+    <booleanAttribute key="add_console" value="false"/>
     <setAttribute key="additional_plugins">
-        <setEntry value="org.eclipse.jdt.junit.runtime:3.7.200.v20230627-0107:default:false:default:default"/>
-        <setEntry value="org.eclipse.jdt.junit4.runtime:1.3.0.v20220609-1843:default:true:default:default"/>
-        <setEntry value="org.eclipse.jdt.junit:3.16.100.v20230728-0612:default:false:default:default"/>
-        <setEntry value="org.eclipse.xtext.builder.tests:2.32.0.qualifier:default:true:default:default"/>
-        <setEntry value="org.hamcrest.core:1.3.0.v20230721-0740:default:true:default:default"/>
-        <setEntry value="org.junit:4.13.2.v20230725-0701:default:true:default:default"/>
+        <setEntry value="org.eclipse.jdt.junit.runtime:3.8.200.v20261014-0604:default:false:default:default"/>
+        <setEntry value="org.eclipse.jdt.junit4.runtime:1.4.100.v20260507-0922:default:true:default:default"/>
+        <setEntry value="org.eclipse.jdt.junit:3.18.0.v20261102-2043:default:false:default:default"/>
+        <setEntry value="org.eclipse.xtext.builder.tests:2.45.0.qualifier:default:true:default:default"/>
+        <setEntry value="org.hamcrest:2.2.0:default:true:default:default"/>
+        <setEntry value="org.junit:4.13.2.v20240929-1000:default:true:default:default"/>
     </setAttribute>
     <booleanAttribute key="append.args" value="true"/>
     <booleanAttribute key="askclear" value="false"/>
