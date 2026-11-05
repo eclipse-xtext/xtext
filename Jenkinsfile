@@ -12,7 +12,11 @@ pipeline {
   }
 
   triggers {
-    parameterizedCron(env.BRANCH_NAME == 'main' ? '''
+    // Nightly builds only for main of the upstream repository, not for forks
+    // (e.g. a private fork used for security fixes). This runs before checkout, so the
+    // URL comes from the job's SCM configuration (same check as IS_UPSTREAM in Initialize).
+    // The repo check comes first so that every build evaluates it, not only main builds.
+    parameterizedCron((scm.userRemoteConfigs[0]?.url ==~ /(https:\/\/|git@)github\.com[\/:]eclipse(-xtext)?\/xtext(\.git)?\/?/) && env.BRANCH_NAME == 'main' ? '''
       H H(0-1) * * * %TARGET_PLATFORM=r202512;JDK_VERSION=21
       H H(3-4) * * * %TARGET_PLATFORM=latest;JDK_VERSION=25
       ''' : '')
@@ -43,6 +47,7 @@ pipeline {
           def gitUrl = scmVars.GIT_URL ?: ''
           env.IS_UPSTREAM = (gitUrl ==~ /(https:\/\/|git@)github\.com[\/:]eclipse(-xtext)?\/xtext(\.git)?\/?/) ? 'true' : 'false'
           echo "GIT_URL='${gitUrl}', BRANCH_NAME='${env.BRANCH_NAME}' => IS_UPSTREAM=${env.IS_UPSTREAM}"
+          echo "SCM URL used for the cron trigger: '${scm.userRemoteConfigs[0]?.url}'"
 
           currentBuild.displayName = String.format("#%s(JDK%s,Eclipse%s)", BUILD_NUMBER, javaVersion(), eclipseVersion())
         }
