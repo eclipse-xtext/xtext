@@ -12,9 +12,9 @@ pipeline {
   }
 
   triggers {
-    // Nightly builds only for main of the upstream repository, not for forks
-    // (e.g. a private fork used for security fixes). This runs before checkout, so the
-    // URL comes from the job's SCM configuration (same check as IS_UPSTREAM in Initialize).
+    // Nightly builds only for main of the upstream repository, not for private copies
+    // of it (e.g. one used for security fixes). This runs before checkout, so the URL
+    // comes from the job's SCM configuration (same pattern as IS_UPSTREAM in Initialize).
     // The repo check comes first so that every build evaluates it, not only main builds.
     parameterizedCron((scm.userRemoteConfigs[0]?.url ==~ /(https:\/\/|git@)github\.com[\/:]eclipse(-xtext)?\/xtext(\.git)?\/?/) && env.BRANCH_NAME == 'main' ? '''
       H H(0-1) * * * %TARGET_PLATFORM=r202512;JDK_VERSION=21
@@ -40,7 +40,7 @@ pipeline {
       steps {
         script {
           def scmVars = checkout scm
-          // Builds from forks (e.g. a private fork used for security fixes) must not
+          // Builds from private copies of this repository (e.g. one used for security fixes) must not
           // trigger the nightly deployment or notify the public Matrix room.
           // eclipse/xtext is the old name, which GitHub redirects to eclipse-xtext/xtext.
           // If detection fails (GIT_URL missing or unexpected), they are skipped.
