@@ -208,6 +208,7 @@
 								<include>**/*IT.java</include>
 							</includes>
 							<systemPropertyVariables>
+								<testSettingsXML>${project.basedir}/src/test/resources/settings.xml</testSettingsXML>
 								<testMavenRepo>${localMavenRepositoryPath}</testMavenRepo>
 								<maven.test.tmpdir>${maven.test.tmpdir}</maven.test.tmpdir>
 							</systemPropertyVariables>
