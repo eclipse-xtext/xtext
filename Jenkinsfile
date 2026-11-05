@@ -34,9 +34,16 @@ pipeline {
   stages {
     stage('Initialize') {
       steps {
-        checkout scm
-
         script {
+          def scmVars = checkout scm
+          // Builds from forks (e.g. a private fork used for security fixes) must not
+          // trigger the nightly deployment or notify the public Matrix room.
+          // eclipse/xtext is the old name, which GitHub redirects to eclipse-xtext/xtext.
+          // If detection fails (GIT_URL missing or unexpected), they are skipped.
+          def gitUrl = scmVars.GIT_URL ?: ''
+          env.IS_UPSTREAM = (gitUrl ==~ /(https:\/\/|git@)github\.com[\/:]eclipse(-xtext)?\/xtext(\.git)?\/?/) ? 'true' : 'false'
+          echo "GIT_URL='${gitUrl}', BRANCH_NAME='${env.BRANCH_NAME}' => IS_UPSTREAM=${env.IS_UPSTREAM}"
+
           currentBuild.displayName = String.format("#%s(JDK%s,Eclipse%s)", BUILD_NUMBER, javaVersion(), eclipseVersion())
         }
 
@@ -80,6 +87,7 @@ pipeline {
             currentBuild.getBuildCauses().toString().contains('Push event to branch')
           }
           branch 'main'
+          expression { env.IS_UPSTREAM == 'true' }
         }
       }
       steps {
@@ -107,7 +115,10 @@ pipeline {
           lastResult = currentBuild.previousBuild.result
         }
 
-        if (curResult != 'SUCCESS' || lastResult != 'SUCCESS') {
+        // Only notify the public Matrix room for builds of the upstream repository.
+        if (env.IS_UPSTREAM != 'true') {
+          echo "IS_UPSTREAM='${env.IS_UPSTREAM}' => skipping Matrix notification"
+        } else if (curResult != 'SUCCESS' || lastResult != 'SUCCESS') {
           def color = ''
           switch (curResult) {
             case 'SUCCESS':
