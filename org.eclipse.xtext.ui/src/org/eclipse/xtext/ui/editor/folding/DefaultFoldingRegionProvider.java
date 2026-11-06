@@ -41,6 +41,8 @@ import com.google.common.collect.Sets;
 import com.google.inject.Inject;
 
 /**
+ * Calculate the folding regions from the EObject tree and the comments. 
+ * 
  * @author Michael Clay - Initial contribution and API
  * @author Sebastian Zarnekow - Introduced FoldedRegion, use ILocationInFileProvider
  */
