@@ -15,8 +15,8 @@ permissions:
 jobs:
   build:
     strategy:
-      matrix: # 'macos-14' is arm64
-        os: ['ubuntu-22.04', 'macos-14', 'windows-2022']
+      matrix: # 'macos-15' is arm64
+        os: ['ubuntu-22.04', 'macos-15', 'windows-2022']
         java: [ 25 ]
         additional-maven-args: ['']
         additional-label: ['']
