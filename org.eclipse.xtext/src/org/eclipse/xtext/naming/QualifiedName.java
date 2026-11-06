@@ -12,14 +12,13 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
+import java.util.function.Function;
 
 import org.eclipse.emf.common.util.CommonUtil;
 import org.eclipse.emf.ecore.resource.impl.BinaryResourceImpl.EObjectInputStream;
 import org.eclipse.emf.ecore.resource.impl.BinaryResourceImpl.EObjectOutputStream;
 import org.eclipse.xtext.util.Strings;
-
-import com.google.common.base.Function;
-import com.google.common.base.Preconditions;
 
 /**
  * A datatype for dealing with qualified names.
@@ -241,16 +240,24 @@ public class QualifiedName implements Comparable<QualifiedName> {
 
 	/**
 	 * Wraps a name function to return a qualified name. Returns null if the name function returns null.
+	 * @deprecated Instead use {@link #wrapper(Function)}
+	 */
+	@Deprecated(since = "2.35.0", forRemoval = true)
+	public static <F> com.google.common.base.Function<F, QualifiedName> wrapper(
+			com.google.common.base.Function<F, String> nameFunction) {
+		return wrapper((Function<F, String>) nameFunction)::apply;
+	}
+
+	/**
+	 * Wraps a name function to return a qualified name. Returns null if the name function returns null.
 	 */
 	public static <F> Function<F, QualifiedName> wrapper(final Function<F, String> nameFunction) {
-		return new Function<F, QualifiedName>() {
-			@Override
-			public QualifiedName apply(F from) {
-				String name = nameFunction.apply(from);
-				if (name == null)
-					return null;
-				return QualifiedName.create(name);
+		return from -> {
+			String name = nameFunction.apply(from);
+			if (name == null) {
+				return null;
 			}
+			return QualifiedName.create(name);
 		};
 	}
 
@@ -486,7 +493,7 @@ public class QualifiedName implements Comparable<QualifiedName> {
 	}
 
 	protected boolean startsWith(QualifiedName prefix, boolean ignoreCase) {
-		Preconditions.checkArgument(prefix != null, "prefix must not be null");
+		Objects.requireNonNull(prefix, "prefix must not be null");
 		
 		if (prefix.getSegmentCount() > getSegmentCount()) {
 			return false;
