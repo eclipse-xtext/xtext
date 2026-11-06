@@ -1,0 +1,32 @@
+<settings xmlns="http://maven.apache.org/SETTINGS/1.2.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.2.0
+                          https://maven.apache.org/xsd/settings-1.2.0.xsd">
+      <localRepository/>
+      <interactiveMode/>
+      <usePluginRegistry/>
+      <offline/>
+      <pluginGroups/>
+      <servers/>
+      <mirrors>
+        <!-- ITs must use the Xtext snapshot artifacts built from the current
+             sources and installed in the local test repository. Remote
+             snapshots may not contain the current sources, so prevent them
+             from overriding the locally installed artifacts. -->
+        <mirror>
+          <id>disable-central-portal-snapshots</id>
+          <mirrorOf>central-portal-snapshots</mirrorOf>
+          <url>https://central.sonatype.com/repository/maven-snapshots/</url>
+          <blocked>true</blocked>
+        </mirror>
+        <mirror>
+          <id>disable-sonatype-snapshots</id>
+          <mirrorOf>sonatype-snapshots</mirrorOf>
+          <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+          <blocked>true</blocked>
+        </mirror>
+      </mirrors>
+      <proxies/>
+      <profiles/>
+      <activeProfiles/>
+</settings>

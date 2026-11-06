@@ -379,6 +379,12 @@ public class XtextGeneratorIT {
 			testMavenRepo);
 		verifier.setLocalRepo(testMavenRepo);
 		verifier.setSystemProperty("local-central", localRepoDir.toString());
+
+		String testSettingsXML = System.getProperty("testSettingsXML");
+		if (testSettingsXML != null) {
+			verifier.addCliOption("-s");
+			verifier.addCliOption(testSettingsXML);
+		}
 		return verifier;
 	}
 
