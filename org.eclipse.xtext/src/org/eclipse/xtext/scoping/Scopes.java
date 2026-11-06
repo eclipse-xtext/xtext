@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009 itemis AG (http://www.itemis.eu) and others.
+ * Copyright (c) 2009, 2024 itemis AG (http://www.itemis.eu) and others.
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -10,6 +10,8 @@
 package org.eclipse.xtext.scoping;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -23,29 +25,21 @@ import org.eclipse.xtext.scoping.impl.SimpleScope;
 import org.eclipse.xtext.util.SimpleAttributeResolver;
 
 import com.google.common.base.Function;
-import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.LinkedHashMultimap;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
 
 /**
  * This class contains static utility functions to create and work on {@link IScope} and {@link IEObjectDescription}
- * 
+ *
  * @author Sven Efftinge - Initial contribution and API
  * @author Jan Koehnlein - introduced QualifiedName
  */
 public class Scopes {
 
 	public static Iterable<IEObjectDescription> selectCompatible(Iterable<IEObjectDescription> exportedObjects, final EClass clazz) {
-		return Iterables.filter(exportedObjects, new Predicate<IEObjectDescription>() {
-			@Override
-			public boolean apply(IEObjectDescription input) {
-				return EcoreUtil2.isAssignableFrom(clazz,input.getEClass());
-			}
-		});
+		return Iterables.filter(exportedObjects, input -> EcoreUtil2.isAssignableFrom(clazz,input.getEClass()));
 	}
 
 	/**
@@ -86,46 +80,38 @@ public class Scopes {
 	 * filtered out.
 	 */
 	public static <T extends EObject> Iterable<IEObjectDescription> scopedElementsFor(Iterable<? extends T> elements,
-			final Function<T, QualifiedName> nameComputation) {
-		Iterable<IEObjectDescription> transformed = Iterables.transform(elements,
-				new Function<T, IEObjectDescription>() {
-					@Override
-					public IEObjectDescription apply(T from) {
-						final QualifiedName qualifiedName = nameComputation.apply(from);
-						if (qualifiedName != null)
-							return new EObjectDescription(qualifiedName, from, null);
-						return null;
-					}
-				});
+			Function<T, QualifiedName> nameComputation) {
+		Iterable<IEObjectDescription> transformed = Iterables.transform(elements, from -> {
+			QualifiedName qualifiedName = nameComputation.apply(from);
+			if (qualifiedName != null)
+				return new EObjectDescription(qualifiedName, from, null);
+			return null;
+		});
 		return Iterables.filter(transformed, Predicates.notNull());
 	}
-	
+
 	/**
 	 * indexes the IEObject description using the given
 	 */
 	public static <T> Multimap<T,IEObjectDescription> index(Iterable<IEObjectDescription> descriptions, Function<IEObjectDescription,T> indexer) {
-		ArrayList<IEObjectDescription> list = Lists.newArrayList(descriptions);
+		List<IEObjectDescription> list = new ArrayList<>();
+		descriptions.forEach(list::add);
 		LinkedHashMultimap<T, IEObjectDescription> multimap = LinkedHashMultimap.create(list.size(),1);
 		for (IEObjectDescription desc : list) {
 			multimap.put(indexer.apply(desc), desc);
 		}
 		return multimap;
 	}
-	
+
 	/**
 	 * indexes the IEObject description using the given
 	 */
 	public static Multimap<QualifiedName,IEObjectDescription> index(Iterable<IEObjectDescription> descriptions) {
-		return index(descriptions, new Function<IEObjectDescription, QualifiedName>() {
-			@Override
-			public QualifiedName apply(IEObjectDescription from) {
-				return from.getName().toLowerCase();
-			}
-		});
+		return index(descriptions, from -> from.getName().toLowerCase());
 	}
 
 	public static Iterable<IEObjectDescription> filterDuplicates(Iterable<IEObjectDescription> filtered) {
-		Map<QualifiedName, IEObjectDescription> result = Maps.newLinkedHashMap();
+		Map<QualifiedName, IEObjectDescription> result = new LinkedHashMap<>();
 		for (IEObjectDescription e : filtered) {
 			QualifiedName qualifiedName = e.getName();
 			if (result.containsKey(qualifiedName)) {
