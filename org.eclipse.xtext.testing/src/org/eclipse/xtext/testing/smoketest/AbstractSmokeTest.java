@@ -26,9 +26,9 @@ import com.google.inject.Provider;
 
 /**
  * Base class for smoke tests.
- * 
+ *
  * Clients may want to use the {@link XtextSmokeTestRunner} instead.
- * 
+ *
  * @author Sebastian Zarnekow - Initial contribution and API
  * @author Sven Efftinge
  */
@@ -83,7 +83,7 @@ public abstract class AbstractSmokeTest {
 				Lexer lexer = lexerProvider.get();
 				lexer.setCharStream(new ANTLRStringStream(string));
 				Token token = lexer.nextToken();
-				while (token != Token.EOF_TOKEN) {
+				while (token.getType() != Token.EOF) {
 					tokenList.add((CommonToken) token);
 					token = lexer.nextToken();
 				}
@@ -157,7 +157,7 @@ public abstract class AbstractSmokeTest {
 				Lexer lexer = lexerProvider.get();
 				lexer.setCharStream(new ANTLRStringStream(string));
 				Token token = lexer.nextToken();
-				while (token != Token.EOF_TOKEN) {
+				while (token.getType() != Token.EOF) {
 					tokenList.add((CommonToken) token);
 					token = lexer.nextToken();
 				}
