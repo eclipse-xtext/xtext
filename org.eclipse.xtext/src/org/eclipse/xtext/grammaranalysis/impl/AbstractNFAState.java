@@ -170,7 +170,7 @@ public class AbstractNFAState<S extends INFAState<S, T>, T extends INFATransitio
 					} else {
 						AbstractElement next = siblings.get(i + 1);
 						addOutgoing(next, visited, isRuleCall, loopCenter);
-						if (GrammarUtil.isOptionalCardinality(next))
+						if (GrammarUtil.isOptionalCardinality(next) || container instanceof UnorderedGroup)
 							collectOutgoingByContainer(next, visited, isRuleCall, loopCenter);
 					}
 					break;
@@ -182,7 +182,7 @@ public class AbstractNFAState<S extends INFAState<S, T>, T extends INFATransitio
 					} else {
 						AbstractElement next = siblings.get(i - 1);
 						addOutgoing(next, visited, isRuleCall, loopCenter);
-						if (GrammarUtil.isOptionalCardinality(next))
+						if (GrammarUtil.isOptionalCardinality(next) || container instanceof UnorderedGroup)
 							collectOutgoingByContainer(next, visited, isRuleCall, loopCenter);
 					}
 					break;
