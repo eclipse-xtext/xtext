@@ -33,10 +33,11 @@ public class OnTheFlyJavaCompiler2Test extends AbstractJvmModelTest {
 	@Inject
 	private OnTheFlyJavaCompiler2 javaCompiler;
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testDefaultJavaVersionWithJava17Feature() {
-		Assume.assumeTrue("Active only on Java 17 and later", JavaRuntimeVersion.isJava17OrLater());
-		assertJavaCompilation("record Hello(String s) {}", null);
+	@Test
+	public void testDefaultJavaVersion() {
+		OnTheFlyJavaCompiler2 defaultCompiler = new OnTheFlyJavaCompiler2(getClass().getClassLoader());
+		assertEquals(JavaVersion.JAVA21, defaultCompiler.getJavaVersion());
+		defaultCompiler.compileToClass("tests.Main", "package tests; public class Main { record Hello(String s) {} }");
 	}
 
 	@Test

@@ -41,11 +41,11 @@ public class OnTheFlyJavaCompiler2 {
 	private JavaVersion javaVersion;
 
 	/**
-	 * Creates a new OnTheFlyCompiler that accepts Java8 compliant code.
+	 * Creates a new OnTheFlyCompiler that accepts Java 21 compliant code.
 	 */
 	@Inject
 	public OnTheFlyJavaCompiler2(ClassLoader scope) {
-		this(scope, JavaVersion.JAVA8);
+		this(scope, JavaVersion.JAVA21);
 	}
 
 	public OnTheFlyJavaCompiler2(ClassLoader scope, JavaVersion version) {
@@ -54,7 +54,7 @@ public class OnTheFlyJavaCompiler2 {
 	}
 
 	/**
-	 * Sets the Java version that this compiler works with. Defaults to Java8 and attempts to set older versions are ignored. 
+	 * Sets the Java version that this compiler works with. Defaults to Java 21 and attempts to set versions older than Java 8 are ignored.
 	 * 
 	 * @since 2.11
 	 */
