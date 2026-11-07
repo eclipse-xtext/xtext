@@ -154,7 +154,7 @@ public final class MavenExecutorUtil {
 			verifyFilePresent(path);
 			String content = Files.readString(Path.of(path), StandardCharsets.UTF_8);
 			Assert.assertTrue("Content of " + path + " does not match regex '" + regex + "' but was:\n" + content,
-					Pattern.compile(regex, Pattern.DOTALL).matcher(content).find());
+					Pattern.compile(regex, Pattern.DOTALL).matcher(content).matches());
 		}
 	}
 
