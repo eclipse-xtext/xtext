@@ -1115,7 +1115,7 @@ public class ParentProjectDescriptor extends ProjectDescriptor {
       _builder.append("<artifactId>maven-clean-plugin</artifactId>");
       _builder.newLine();
       _builder.append("\t\t\t\t");
-      _builder.append("<version>3.2.0</version>");
+      _builder.append("<version>3.5.0</version>");
       _builder.newLine();
       _builder.append("\t\t\t\t");
       _builder.append("<configuration>");
@@ -1181,7 +1181,7 @@ public class ParentProjectDescriptor extends ProjectDescriptor {
           _builder.newLine();
           _builder.append("\t\t\t");
           _builder.append("\t");
-          _builder.append("<version>3.0.0</version>");
+          _builder.append("<version>3.6.1</version>");
           _builder.newLine();
           _builder.append("\t\t\t");
           _builder.append("</plugin>");

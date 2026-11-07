@@ -194,7 +194,7 @@ public class IdeProjectDescriptor extends ProjectDescriptor {
           _builder.newLine();
           _builder.append("\t\t");
           _builder.append("\t");
-          _builder.append("<version>3.3.0</version>");
+          _builder.append("<version>3.7.0</version>");
           _builder.newLine();
           _builder.append("\t\t");
           _builder.append("\t");
@@ -353,7 +353,7 @@ public class IdeProjectDescriptor extends ProjectDescriptor {
               _builder.newLine();
               _builder.append("\t\t");
               _builder.append("\t");
-              _builder.append("<version>3.5.0</version>");
+              _builder.append("<version>3.11.0</version>");
               _builder.newLine();
               _builder.append("\t\t");
               _builder.append("\t");
@@ -627,7 +627,7 @@ public class IdeProjectDescriptor extends ProjectDescriptor {
               _builder.newLine();
               _builder.append("\t\t");
               _builder.append("\t");
-              _builder.append("<version>3.4.1</version>");
+              _builder.append("<version>3.6.2</version>");
               _builder.newLine();
               _builder.append("\t\t");
               _builder.append("\t");
@@ -1094,7 +1094,7 @@ public class IdeProjectDescriptor extends ProjectDescriptor {
           _builder.append("plugins {");
           _builder.newLine();
           _builder.append("\t");
-          _builder.append("id \'com.gradleup.shadow\' version \'9.3.1\'");
+          _builder.append("id \'com.gradleup.shadow\' version \'9.6.1\'");
           _builder.newLine();
           _builder.append("}");
           _builder.newLine();

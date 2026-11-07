@@ -330,7 +330,7 @@ class RuntimeProjectDescriptor extends TestedProjectDescriptor {
 						<plugin>
 							<groupId>org.codehaus.mojo</groupId>
 							<artifactId>exec-maven-plugin</artifactId>
-							<version>3.0.0</version>
+							<version>3.6.4</version>
 							<executions>
 								<execution>
 									<?m2e ignore?>
@@ -402,7 +402,7 @@ class RuntimeProjectDescriptor extends TestedProjectDescriptor {
 							<plugin>
 								<groupId>org.codehaus.mojo</groupId>
 								<artifactId>build-helper-maven-plugin</artifactId>
-								<version>3.3.0</version>
+								<version>3.7.0</version>
 								<executions>
 									<execution>
 										<?m2e ignore?>
@@ -455,7 +455,7 @@ class RuntimeProjectDescriptor extends TestedProjectDescriptor {
 							«IF isPlainMavenBuild»
 								<plugin>
 									<artifactId>maven-assembly-plugin</artifactId>
-									<version>3.4.1</version>
+									<version>3.8.0</version>
 									<configuration>
 										<descriptors>
 											<descriptor>jar-with-ecore-model.xml</descriptor>
