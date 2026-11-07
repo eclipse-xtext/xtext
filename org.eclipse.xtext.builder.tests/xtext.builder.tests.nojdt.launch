@@ -6,7 +6,7 @@
         <setEntry value="org.eclipse.jdt.junit4.runtime:1.4.100.v20260507-0922:default:true:default:default"/>
         <setEntry value="org.eclipse.jdt.junit:3.18.0.v20261102-2043:default:false:default:default"/>
         <setEntry value="org.eclipse.xtext.builder.tests:2.45.0.qualifier:default:true:default:default"/>
-        <setEntry value="org.hamcrest:2.2.0:default:true:default:default"/>
+        <setEntry value="org.hamcrest:3.0.0:default:true:default:default"/>
         <setEntry value="org.junit:4.13.2.v20240929-1000:default:true:default:default"/>
     </setAttribute>
     <booleanAttribute key="append.args" value="true"/>
