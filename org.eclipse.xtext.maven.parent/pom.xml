@@ -18,7 +18,8 @@
 
 	<properties>
 		<root-dir>${basedir}/..</root-dir>
-		<maven.version>3.6.0</maven.version>
+		<maven.version>3.9.16</maven.version>
+		<maven-plugin-annotations.version>3.16.0</maven-plugin-annotations.version>
 
 		<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>ISO-8859-1</project.reporting.outputEncoding>
