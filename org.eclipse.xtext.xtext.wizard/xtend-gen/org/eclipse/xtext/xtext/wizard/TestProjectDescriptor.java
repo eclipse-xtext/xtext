@@ -269,7 +269,7 @@ public abstract class TestProjectDescriptor extends ProjectDescriptor {
           _builder.newLine();
           _builder.append("\t\t");
           _builder.append("\t");
-          _builder.append("<version>3.3.0</version>");
+          _builder.append("<version>3.7.0</version>");
           _builder.newLine();
           _builder.append("\t\t");
           _builder.append("\t");

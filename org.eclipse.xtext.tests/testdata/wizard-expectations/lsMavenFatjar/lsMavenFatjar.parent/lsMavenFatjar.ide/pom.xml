@@ -28,7 +28,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>build-helper-maven-plugin</artifactId>
-				<version>3.3.0</version>
+				<version>3.7.0</version>
 				<executions>
 					<execution>
 						<?m2e ignore?>
@@ -58,7 +58,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
-				<version>3.4.1</version>
+				<version>3.6.2</version>
 				<configuration>
 					<transformers>
 						<transformer
