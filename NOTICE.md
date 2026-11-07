@@ -52,11 +52,11 @@ Apache Log4j / Reload4j (1.2.27)
 
 * License: Apache License 2.0
 
-args4j (2.33)
+args4j (2.37)
 
 * License: MIT License
 
-ASM (9.7.x)
+ASM (9.x)
 
 * License: BSD-3-Clause
 
