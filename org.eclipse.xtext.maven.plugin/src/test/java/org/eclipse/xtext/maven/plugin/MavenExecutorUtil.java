@@ -37,6 +37,8 @@ public final class MavenExecutorUtil {
 
 	static final boolean debug = Boolean.getBoolean("xtext.it.tests.debug");
 
+	static final Pattern ANSI_ESCAPES = Pattern.compile("\\u001B\\[[;\\d]*m");
+
 	static final String ROOT = "/it/generate";
 
 	private static File localRepoDir;
@@ -91,7 +93,8 @@ public final class MavenExecutorUtil {
 		}
 
 		private void run(List<String> args) throws IOException {
-			Path mavenHome = resolveMavenHome();
+			// absolute: the executor runs with cwd=basedir, so a relative home would resolve elsewhere
+			Path mavenHome = resolveMavenHome().toAbsolutePath();
 			ExecutorRequest.Builder builder = ExecutorRequest.mavenBuilder()
 					.cwd(basedir.toPath())
 					.arguments(args)
@@ -102,8 +105,8 @@ public final class MavenExecutorUtil {
 			}
 			try (ForkedMavenExecutor executor = new ForkedMavenExecutor(mavenHome)) {
 				ExecutorResult result = executor.execute(builder.build());
-				stdOut = result.stdOutString().orElse("");
-				stdErr = result.stdErrString().orElse("");
+				stdOut = stripAnsi(result.stdOutString().orElse(""));
+				stdErr = stripAnsi(result.stdErrString().orElse(""));
 				succeeded = result.success();
 				executed = true;
 			} catch (Exception e) {
@@ -112,6 +115,11 @@ public final class MavenExecutorUtil {
 			if (debug) {
 				System.out.println("Maven output for " + basedir + ":\n" + getLog());
 			}
+		}
+
+		/** Maven only emits SGR color sequences, and only when color is forced on a pipe. */
+		private static String stripAnsi(String text) {
+			return ANSI_ESCAPES.matcher(text).replaceAll("");
 		}
 
 		/** Asserts the last invocation succeeded and neither stream contains {@code [ERROR]}. */
