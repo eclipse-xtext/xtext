@@ -14,117 +14,49 @@ import static org.junit.Assert.assertFalse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.PrintStream;
-import java.util.List;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.regex.Pattern;
 
-import org.apache.maven.it.VerificationException;
-import org.apache.maven.it.Verifier;
-import org.apache.maven.it.util.ResourceExtractor;
-import org.apache.maven.shared.utils.cli.CommandLineUtils;
-import org.apache.maven.shared.utils.io.FileUtils;
 import org.eclipse.xtext.generator.trace.AbstractTraceRegion;
 import org.eclipse.xtext.generator.trace.TraceRegionSerializer;
 import org.eclipse.xtext.maven.trace.ClassFileDebugSourceExtractor;
 import org.eclipse.xtext.util.JavaRuntimeVersion;
+import org.eclipse.xtext.maven.plugin.MavenExecutorUtil.MavenExecution;
 import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.google.common.base.Joiner;
-
 public class XtextGeneratorIT {
 
-	private final static boolean debug = Boolean.getBoolean("xtext.it.tests.debug");
-	private final static boolean fork = !debug;
-
-	private static String ROOT = "/it/generate";
 	private static File testDir;
 
-	/**
-	 * As soon as a {@link Verifier} object is created System.out and System.err are
-	 * captured by the verifier; we save the original System.out here so that we can
-	 * print information to the console later.
-	 */
-	private static PrintStream systemOut;
-
-	/**
-	 * This is the local Maven repository (typically ~/.m2/repository) that we
-	 * will pass to the parent POM of IT projects through the property "local-central".
-	 * The idea is to use our local Maven repository cache that we filled up to now as a
-	 * "remote" Maven repository when building our IT projects, to speed-up the tests.
-	 * Inspired by https://maven.apache.org/plugins/maven-invoker-plugin/examples/fast-use.html
-	 */
-	private static File localRepoDir;
-
 	@BeforeClass
-	static public void setUpOnce() throws IOException, VerificationException {
-		systemOut = System.out;
-		testDir = extractTestRoot();
-		if (fork) {
-			systemOut.println("Current maven.home=" + System.getProperty("maven.home"));
-			File mvnExecutable = new File(new Verifier(testDir.getAbsolutePath()).getExecutable());
-			if (!mvnExecutable.exists()) {
-				String mavenHome = findMaven();
-				if (mavenHome != null) {
-					System.setProperty("maven.home", mavenHome);
-					systemOut.println("Detected maven.home=" + System.getProperty("maven.home"));
-				} else {
-					Assert.fail("Maven home not found. Tried to call '" + mvnExecutable
-							+ "'.\nConsider to set the envVar 'M2_HOME' or System property 'maven.home'.\n"
-							+ "Current settings are: maven.home=" + System.getProperty("maven.home") + " M2_HOME="
-							+ CommandLineUtils.getSystemEnvVars().getProperty("M2_HOME"));
-				}
-			} else {
-				systemOut.println("Maven executable: " + mvnExecutable);
-			}
+	static public void setUpOnce() throws IOException {
+		testDir = MavenExecutorUtil.extractTestRoot();
+		Path mavenHome = MavenExecutorUtil.resolveMavenHome();
+		if (!MavenExecutorUtil.isMavenHome(mavenHome)) {
+			Assert.fail("Maven home not found: '" + mavenHome + "'.\n"
+					+ "Consider to set the envVar 'M2_HOME' or System property 'maven.home'.\n"
+					+ "Current settings are: maven.home=" + System.getProperty("maven.home") + " M2_HOME="
+					+ System.getenv("M2_HOME"));
 		}
+		System.out.println("Current maven.home=" + System.getProperty("maven.home"));
+		System.out.println("Maven installation: " + mavenHome);
 		verifyErrorFreeLog("" /*root*/, false, "clean", "install");
-	}
-
-	private static File extractTestRoot() throws IOException {
-		// it's best to pass a subdirectory of the target folder for "maven.test.tmpdir":
-		// that will be the directory where our IT projects will be copied and where
-		// the Maven build will be executed.
-		// This will make their inspection afterward (the log.txt file) easier.
-		// For this reason, we delete that directory here, but NOT after the tests.
-		String tempDirPath = System.getProperty("maven.test.tmpdir", System.getProperty("java.io.tmpdir"));
-		File tempDir = new File(tempDirPath);
-		File testDir = new File(tempDir, ROOT);
-		FileUtils.deleteDirectory(testDir);
-		String localCentralRepository = System.getProperty("maven.repo.local",
-				System.getProperty("user.home") + "/.m2/repository");
-		localRepoDir = new File( localCentralRepository );
-		systemOut.println("IT projects will be executed from " + testDir);
-		systemOut.println("Local Maven Central Repository " + localRepoDir);
-		testDir = ResourceExtractor.extractResourcePath(XtextGeneratorIT.class, ROOT, tempDir, true);
-		return testDir;
-	}
-
-	private static String findMaven() {
-		// TODO add more mavens here
-		String[] mavens = new String[] { System.getProperty("maven.home"),
-				"/opt/local/share/java/maven3/",
-				"/usr/local/", "/usr/",
-				"/opt/homebrew/"};
-		for (String maven : mavens) {
-			if (new File(maven + "/bin/mvn").exists()) {
-				return maven;
-			}
-		}
-		return null;
 	}
 
 	@Test
 	public void simpleLang() throws Exception {
-		Verifier verifier = verifyErrorFreeLog("simple-lang");
+		MavenExecution verifier = verifyErrorFreeLog("simple-lang");
 		verifier.verifyFileContentMatches(verifier.getBasedir() + "/src-gen/RefModel.nojdt.txt", "People to greet\\: Test");
 	}
 
 	@Test
 	public void simpleLangWithPluginDependencies() throws Exception {
-		Verifier verifier = verifyErrorFreeLog("simple-lang-plugin-dependencies");
+		MavenExecution verifier = verifyErrorFreeLog("simple-lang-plugin-dependencies");
 		verifier.verifyFileContentMatches(verifier.getBasedir() +
 			"/simple-lang-model/src-gen/Model.nojdt.txt", "People to greet\\: maven");
 		verifier.verifyFileContentMatches(verifier.getBasedir() +
@@ -134,41 +66,41 @@ public class XtextGeneratorIT {
 	@Test
 	public void simpleLangIncremental() throws Exception {
 		String project = "simple-lang-incremental";
-		Verifier verifier = verifyErrorFreeLog(project);
+		MavenExecution verifier = verifyErrorFreeLog(project);
 		String modelOutput = verifier.getBasedir() + "/src-gen/Model.nojdt.txt";
 		String refModelOutput = verifier.getBasedir() + "/src-gen/RefModel.nojdt.txt";
 
 		verifier.verifyFileContentMatches(modelOutput, "@\\d+\\RPeople to greet\\: maven");
 		verifier.verifyFileContentMatches(refModelOutput, "@\\d+\\RPeople to greet\\: Test");
 
-		String modelOutputContent = FileUtils.fileRead(modelOutput);
-		String refModelOutputContent = FileUtils.fileRead(refModelOutput);
+		String modelOutputContent = Files.readString(Path.of(modelOutput), StandardCharsets.UTF_8);
+		String refModelOutputContent = Files.readString(Path.of(refModelOutput), StandardCharsets.UTF_8);
 
 		verifier = verifyErrorFreeLog(project, false, "verify");
 		verifier.verifyFileContentMatches(modelOutput, Pattern.quote(modelOutputContent));
 		verifier.verifyFileContentMatches(refModelOutput, Pattern.quote(refModelOutputContent));
 		// Modify output file
-		FileUtils.fileWrite(refModelOutput, refModelOutputContent + " // changed");
+		Files.writeString(Path.of(refModelOutput), refModelOutputContent + " // changed", StandardCharsets.UTF_8);
 
 		verifier = verifyErrorFreeLog(project, false, "verify");
 		verifier.verifyFileContentMatches(modelOutput, Pattern.quote(modelOutputContent));
-		String updatedRefModelOutputContent = FileUtils.fileRead(refModelOutput);
+		String updatedRefModelOutputContent = Files.readString(Path.of(refModelOutput), StandardCharsets.UTF_8);
 		assertFalse(refModelOutputContent.equals(updatedRefModelOutputContent));
 		assertFalse(updatedRefModelOutputContent.endsWith("// changed"));
 
 		String modelFile = verifier.getBasedir() + "/src/main/java/Model.nojdt";
-		String model = FileUtils.fileRead(modelFile);
-		FileUtils.fileWrite(modelFile, model + " // changed");
+		String model = Files.readString(Path.of(modelFile), StandardCharsets.UTF_8);
+		Files.writeString(Path.of(modelFile), model + " // changed", StandardCharsets.UTF_8);
 		verifier = verifyErrorFreeLog(project, false, "verify");
-		modelOutputContent = FileUtils.fileRead(modelOutput);
+		modelOutputContent = Files.readString(Path.of(modelOutput), StandardCharsets.UTF_8);
 		verifier.verifyFileContentMatches(refModelOutput, Pattern.quote(updatedRefModelOutputContent));
 
 		String refModelFile = verifier.getBasedir() + "/src/main/java/RefModel.nojdt";
-		FileUtils.fileDelete(refModelFile);
+		Files.delete(Path.of(refModelFile));
 		verifier = verifyErrorFreeLog(project, false, "verify");
 		verifier.verifyFileNotPresent(refModelOutput);
 
-		FileUtils.fileWrite(refModelFile, "Hello Test (from maven)!");
+		Files.writeString(Path.of(refModelFile), "Hello Test (from maven)!", StandardCharsets.UTF_8);
 		verifier = verifyErrorFreeLog(project, false, "verify");
 		verifier.verifyFileContentMatches(refModelOutput, "People to greet\\: Test");
 		verifier.verifyFileContentMatches(modelOutput, Pattern.quote(modelOutputContent));
@@ -177,7 +109,7 @@ public class XtextGeneratorIT {
 	@Test
 	public void simpleLangWriteStorageResources() throws Exception {
 		String project = "simple-lang-write-storage-resources";
-		Verifier verifier = verifyErrorFreeLog(project);
+		MavenExecution verifier = verifyErrorFreeLog(project);
 		verifier.verifyFileContentMatches(verifier.getBasedir() + "/src-gen/Model.nojdt.txt",
 				"People to greet\\: maven");
 		verifier.verifyFileContentMatches(verifier.getBasedir() + "/src-gen/RefModel.nojdt.txt",
@@ -190,7 +122,7 @@ public class XtextGeneratorIT {
 
 	@Test
 	public void mavenConfiguration() throws Exception {
-		Verifier verifier = verifyErrorFreeLog("maven-config");
+		MavenExecution verifier = verifyErrorFreeLog("maven-config");
 		verifier.verifyFileContentMatches(verifier.getBasedir() + "/model2-output/Model.nojdt.txt",
 				"People to greet\\: maven2");
 		verifier.verifyFilePresent(verifier.getBasedir() + "/model-output/IntegrationTestXbase.java");
@@ -198,14 +130,14 @@ public class XtextGeneratorIT {
 
 	@Test
 	public void purexbase() throws Exception {
-		Verifier verifier = verifyErrorFreeLog("purexbase");
+		MavenExecution verifier = verifyErrorFreeLog("purexbase");
 		verifier.verifyFilePresent(verifier.getBasedir() + "/src-gen/IntegrationTestXbase.java");
 		verifier.verifyFilePresent(verifier.getBasedir() + "/target/xtext-temp/stub-classes/IntegrationTestXbase.class");
 	}
 
 	@Test
 	public void clustering() throws Exception {
-		Verifier verifier = verifyErrorFreeLog("clustering");
+		MavenExecution verifier = verifyErrorFreeLog("clustering");
 		verifier.verifyFilePresent(verifier.getBasedir() + "/src-gen/IntegrationTestXbase.java");
 		verifier.verifyFilePresent(verifier.getBasedir() + "/src-gen/IntegrationTestXbase2.java");
 		verifier.verifyFilePresent(verifier.getBasedir() + "/target/xtext-temp/stub-classes/IntegrationTestXbase.class");
@@ -214,7 +146,7 @@ public class XtextGeneratorIT {
 
 	@Test
 	public void outputPerGoal() throws Exception {
-		Verifier verifier = verifyErrorFreeLog("output-per-goal");
+		MavenExecution verifier = verifyErrorFreeLog("output-per-goal");
 		verifier.verifyFilePresent(verifier.getBasedir() + "/src-gen/SimpleClassXbase.java");
 		verifier.verifyFilePresent(verifier.getBasedir() + "/target/xtext-temp/stub-classes/SimpleClassXbase.class");
 		verifier.verifyFilePresent(verifier.getBasedir() + "/src-test-gen/SimpleTestClassXbase.java");
@@ -223,7 +155,7 @@ public class XtextGeneratorIT {
 
 	@Test
 	public void outputPerSource() throws Exception {
-		Verifier verifier = verifyErrorFreeLog("output-per-source");
+		MavenExecution verifier = verifyErrorFreeLog("output-per-source");
 		verifier.verifyFilePresent(verifier.getBasedir() + "/src-gen/IntegrationTestXbase.java");
 		verifier.verifyFilePresent(verifier.getBasedir() + "/target/xtext-temp/stub-classes/IntegrationTestXbase.class");
 		verifier.verifyFilePresent(verifier.getBasedir() + "/other-gen/OtherIntegrationTestXbase.java");
@@ -233,7 +165,7 @@ public class XtextGeneratorIT {
 
 	@Test
 	public void javaLangBiRef() throws Exception {
-		Verifier verifier = verifyErrorFreeLog("java-lang-bi-ref");
+		MavenExecution verifier = verifyErrorFreeLog("java-lang-bi-ref");
 		verifier.verifyFilePresent(verifier.getBasedir() + "/src-gen/XbaseReferToJava.java");
 		verifier.verifyFilePresent(verifier.getBasedir() + "/target/xtext-temp/stub-classes/XbaseReferToJava.class");
 		verifier.verifyFilePresent(verifier.getBasedir() + "/target/xtext-temp/stub-classes/JavaClazz.class");
@@ -243,7 +175,7 @@ public class XtextGeneratorIT {
 	@Test
 	public void javaLang21BiRef() throws Exception {
 		Assume.assumeTrue("Active only on Java 21 and later", JavaRuntimeVersion.isJava21OrLater());
-		Verifier verifier = verifyErrorFreeLog("java-lang-21-bi-ref");
+		MavenExecution verifier = verifyErrorFreeLog("java-lang-21-bi-ref");
 		verifier.verifyFilePresent(verifier.getBasedir() + "/src-gen/XbaseReferToJava.java");
 		verifier.verifyFilePresent(verifier.getBasedir() + "/target/xtext-temp/stub-classes/XbaseReferToJava.class");
 		verifier.verifyFilePresent(verifier.getBasedir() + "/target/xtext-temp/stub-classes/JavaRecord.class");
@@ -251,7 +183,7 @@ public class XtextGeneratorIT {
 
 	@Test
 	public void aggregation() throws Exception {
-		Verifier verifier = verifyErrorFreeLog("aggregate");
+		MavenExecution verifier = verifyErrorFreeLog("aggregate");
 		verifier.verifyFilePresent(verifier.getBasedir() + "/purexbase/src-gen/IntegrationTestXbase.java");
 		verifier.verifyFilePresent(
 				verifier.getBasedir() + "/purexbase/target/xtext-temp/stub-classes/IntegrationTestXbase.class");
@@ -259,7 +191,7 @@ public class XtextGeneratorIT {
 
 	@Test
 	public void xcore() throws Exception {
-		Verifier verifier = verifyErrorFreeLog("xcore-lang", false, "clean", "verify");
+		MavenExecution verifier = verifyErrorFreeLog("xcore-lang", false, "clean", "verify");
 		verifier.verifyFilePresent(verifier.getBasedir() + "/src-gen/org/eclipse/xcoretest/MyClass2.java");
 		verifier.verifyFilePresent(
 				verifier.getBasedir() + "/target/xtext-temp/stub-classes/org/eclipse/xcoretest/MyClass2.class");
@@ -279,13 +211,13 @@ public class XtextGeneratorIT {
 
 	@Test
 	public void bug463946() throws Exception {
-		Verifier verifier = verifyErrorFreeLog("bug463946");
+		MavenExecution verifier = verifyErrorFreeLog("bug463946");
 		verifier.verifyFilePresent(verifier.getBasedir() + "/src-gen/xcore/bug463946/pack/MyModel.java");
 	}
 
 	@Test
 	public void traceFileIsGenerated() throws Exception {
-		Verifier verifier = verifyErrorFreeLog("trace");
+		MavenExecution verifier = verifyErrorFreeLog("trace");
 		verifier.verifyFilePresent(verifier.getBasedir() + "/src-gen/IntegrationTestXbase.java");
 		verifier.verifyFilePresent(verifier.getBasedir() + "/src-gen/.IntegrationTestXbase.java._trace");
 
@@ -297,7 +229,7 @@ public class XtextGeneratorIT {
 
 	@Test
 	public void locationInTraceFileIsRelative_issue_2957() throws Exception {
-		Verifier verifier = verifyErrorFreeLog("trace-issue-2957");
+		MavenExecution verifier = verifyErrorFreeLog("trace-issue-2957");
 		assertRelativeLocationInTraceFile("foo/bar/IntegrationTestXbase.xbase",
 				verifier.getBasedir() + "/src-gen/.IntegrationTestXbase.java._trace");
 		assertRelativeLocationInTraceFile("com/acme/OtherIntegrationTestXbase.xbase",
@@ -321,70 +253,20 @@ public class XtextGeneratorIT {
 		}
 	}
 
-	private Verifier verifyErrorFreeLog(String pathToTestProject) throws IOException, VerificationException {
+	private static MavenExecution verifyErrorFreeLog(String pathToTestProject) throws IOException {
 		return verifyErrorFreeLog(pathToTestProject, false, "clean", "verify");
 	}
 
-	private static Verifier verifyErrorFreeLog(String pathToTestProject, boolean updateSnapshots, String... goals)
-			throws IOException, VerificationException {
+	private static MavenExecution verifyErrorFreeLog(String pathToTestProject, boolean updateSnapshots, String... goals)
+			throws IOException {
 		if (goals == null || goals.length < 1) {
 			throw new IllegalArgumentException("You need to pass at least one goal to verify log");
 		}
-		Verifier verifier = newVerifier(pathToTestProject);
-		if (updateSnapshots) {
-			verifier.addCliOption("-U");
-		} else {
-			verifier.addCliOption("--no-snapshot-updates");
-		}
+		MavenExecution verifier = MavenExecutorUtil.newVerifier(testDir, pathToTestProject, updateSnapshots);
 		for (String goal : goals) {
 			verifier.executeGoal(goal);
 		}
 		verifier.verifyErrorFreeLog();
-		if (debug) {
-			List<String> lines = verifier.loadFile(verifier.getBasedir(), verifier.getLogFileName(), false);
-			systemOut.println(Joiner.on('\n').join(lines));
-		}
-		verifier.resetStreams();
-		return verifier;
-	}
-
-	private static Verifier newVerifier(String pathToTestProject) throws IOException, VerificationException {
-		File projectDir = pathToTestProject.isEmpty() ? testDir : new File(testDir, pathToTestProject);
-		Verifier verifier = new Verifier(projectDir.getAbsolutePath(), true);
-		verifier.setAutoclean(false);
-		if (fork) {
-			String mvnOpts = CommandLineUtils.getSystemEnvVars().getProperty("MAVEN_OPTS");
-			String modMvnOpts = (mvnOpts != null ? mvnOpts + " " : "") + "-Xmx1g";
-			verifier.setEnvironmentVariable("MAVEN_OPTS", modMvnOpts);
-			if (debug) {
-				systemOut.println("Modified Maven Opts: " + modMvnOpts);
-			}
-		} else {
-			verifier.setForkJvm(false);
-		}
-		String jenkinsURL = System.getProperty("JENKINS_URL");
-		if (jenkinsURL != null) {
-			verifier.setSystemProperty("JENKINS_URL", jenkinsURL);
-		}
-		if (debug) {
-			verifier.setMavenDebug(debug);
-		}
-		String testMavenRepo = System.getProperty("testMavenRepo");
-		Assert.assertNotNull(
-			"Required property 'testMavenRepo' is null!\n"
-			+ "If you run these tests from Eclipse, first run the Maven launch\n"
-			+ "'pre-integration-test.launch'\n"
-			+ "then use the JUnit launch\n"
-			+ "'Run ITs from Eclipse.launch'.",
-			testMavenRepo);
-		verifier.setLocalRepo(testMavenRepo);
-		verifier.setSystemProperty("local-central", localRepoDir.toString());
-
-		String testSettingsXML = System.getProperty("testSettingsXML");
-		if (testSettingsXML != null) {
-			verifier.addCliOption("-s");
-			verifier.addCliOption(testSettingsXML);
-		}
 		return verifier;
 	}
 
