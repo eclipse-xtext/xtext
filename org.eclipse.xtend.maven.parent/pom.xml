@@ -32,7 +32,7 @@
 			<dependency>
 				<groupId>org.apache.maven.archetype</groupId>
 				<artifactId>archetype-packaging</artifactId>
-				<version>3.0.1</version>
+				<version>3.4.1</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -43,7 +43,7 @@
 			<extension>
 				<groupId>org.apache.maven.archetype</groupId>
 				<artifactId>archetype-packaging</artifactId>
-				<version>3.0.1</version>
+				<version>3.4.1</version>
 			</extension>
 		</extensions>
 		<plugins>
@@ -78,23 +78,23 @@
 			<plugins>
 				<plugin>
 					<artifactId>maven-antrun-plugin</artifactId>
-					<version>3.1.0</version>
+					<version>3.2.0</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-archetype-plugin</artifactId>
-					<version>3.0.1</version>
+					<version>3.4.1</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-enforcer-plugin</artifactId>
-					<version>3.2.1</version>
+					<version>3.7.0</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-install-plugin</artifactId>
-					<version>2.5.2</version>
+					<version>3.2.0</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-javadoc-plugin</artifactId>
-					<version>3.4.1</version>
+					<version>3.12.0</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-plugin-plugin</artifactId>
@@ -102,15 +102,15 @@
 				</plugin>
 				<plugin>
 					<artifactId>maven-resources-plugin</artifactId>
-					<version>3.1.0</version>
+					<version>3.5.0</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-source-plugin</artifactId>
-					<version>3.2.1</version>
+					<version>3.4.0</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-invoker-plugin</artifactId>
-					<version>3.5.0</version>
+					<version>3.10.1</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>
