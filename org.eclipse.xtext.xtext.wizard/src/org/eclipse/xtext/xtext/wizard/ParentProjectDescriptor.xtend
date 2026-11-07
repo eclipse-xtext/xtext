@@ -360,7 +360,7 @@ class ParentProjectDescriptor extends ProjectDescriptor {
 							<plugin>
 								<groupId>org.apache.maven.plugins</groupId>
 								<artifactId>maven-clean-plugin</artifactId>
-								<version>3.2.0</version>
+								<version>3.5.0</version>
 								<configuration>
 									<filesets>
 										«FOR dir : #[Outlet.MAIN_XTEND_GEN, Outlet.TEST_XTEND_GEN].map[sourceFolder].toSet»
@@ -378,7 +378,7 @@ class ParentProjectDescriptor extends ProjectDescriptor {
 								<plugin>
 									<groupId>org.apache.maven.plugins</groupId>
 									<artifactId>maven-surefire-plugin</artifactId>
-									<version>3.0.0</version>
+									<version>3.6.1</version>
 								</plugin>
 							«ENDIF»
 							«IF config.needsTychoBuild»

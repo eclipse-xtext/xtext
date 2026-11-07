@@ -96,7 +96,7 @@ class TargetPlatformProject extends ProjectDescriptor {
 					<unit id="jakarta.inject.jakarta.inject-api" version="[2,3)"/>
 					<unit id="org.antlr.runtime" version="[3.2,3.3)"/>
 					<unit id="org.junit"/>
-					<unit id="org.hamcrest" version="[2,3)"/>
+					<unit id="org.hamcrest" version="[3,4)"/>
 					<unit id="org.apache.commons.commons-logging"/>
 					«IF config.junitVersion == JUnitVersion.JUNIT_6»
 						<unit id="org.apiguardian.api"/>

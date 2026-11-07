@@ -84,7 +84,7 @@ class IdeProjectDescriptor extends ProjectDescriptor {
 							<plugin>
 								<groupId>org.codehaus.mojo</groupId>
 								<artifactId>build-helper-maven-plugin</artifactId>
-								<version>3.3.0</version>
+								<version>3.7.0</version>
 								<executions>
 									<execution>
 										<?m2e ignore?>
@@ -124,7 +124,7 @@ class IdeProjectDescriptor extends ProjectDescriptor {
 								<plugin>
 									<groupId>org.apache.maven.plugins</groupId>
 									<artifactId>maven-dependency-plugin</artifactId>
-									<version>3.5.0</version>
+									<version>3.11.0</version>
 									<executions>
 										<execution>
 											<id>copy-dependencies</id>
@@ -194,7 +194,7 @@ class IdeProjectDescriptor extends ProjectDescriptor {
 								<plugin>
 									<groupId>org.apache.maven.plugins</groupId>
 									<artifactId>maven-shade-plugin</artifactId>
-									<version>3.4.1</version>
+									<version>3.6.2</version>
 									<configuration>
 										<transformers>
 											<transformer
@@ -311,7 +311,7 @@ class IdeProjectDescriptor extends ProjectDescriptor {
 			pluginsSection = '''
 				«IF config.languageServer === LanguageServer.FATJAR»
 					plugins {
-						id 'com.gradleup.shadow' version '9.3.1'
+						id 'com.gradleup.shadow' version '9.6.1'
 					}
 					
 				«ENDIF»
