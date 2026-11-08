@@ -16,7 +16,7 @@ pipeline {
     // of it (e.g. one used for security fixes). This runs before checkout, so the URL
     // comes from the job's SCM configuration (same pattern as IS_UPSTREAM in Initialize).
     // The repo check comes first so that every build evaluates it, not only main builds.
-    parameterizedCron((scm.userRemoteConfigs[0]?.url ==~ /(https:\/\/|git@)github\.com[\/:]eclipse(-xtext)?\/xtext(\.git)?\/?/) && env.BRANCH_NAME == 'main' ? '''
+    parameterizedCron((scm.userRemoteConfigs[0]?.url ==~ /(https:\/\/|ssh:\/\/([^@\/]+@)?|git@)github\.com(:[0-9]+)?[\/:]eclipse(-xtext)?\/xtext(\.git)?\/?/) && env.BRANCH_NAME == 'main' ? '''
       H H(0-1) * * * %TARGET_PLATFORM=r202512;JDK_VERSION=21
       H H(3-4) * * * %TARGET_PLATFORM=latest;JDK_VERSION=25
       ''' : '')
@@ -45,7 +45,7 @@ pipeline {
           // eclipse/xtext is the old name, which GitHub redirects to eclipse-xtext/xtext.
           // If detection fails (GIT_URL missing or unexpected), they are skipped.
           def gitUrl = scmVars.GIT_URL ?: ''
-          env.IS_UPSTREAM = (gitUrl ==~ /(https:\/\/|git@)github\.com[\/:]eclipse(-xtext)?\/xtext(\.git)?\/?/) ? 'true' : 'false'
+          env.IS_UPSTREAM = (gitUrl ==~ /(https:\/\/|ssh:\/\/([^@\/]+@)?|git@)github\.com(:[0-9]+)?[\/:]eclipse(-xtext)?\/xtext(\.git)?\/?/) ? 'true' : 'false'
           echo "GIT_URL='${gitUrl}', BRANCH_NAME='${env.BRANCH_NAME}' => IS_UPSTREAM=${env.IS_UPSTREAM}"
           echo "SCM URL used for the cron trigger: '${scm.userRemoteConfigs[0]?.url}'"
 
