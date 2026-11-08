@@ -25,9 +25,9 @@ pipeline {
   }
 
   tools {
-     // the Java version we use to run the build
-     // we force the effective JDK version for compilation/testing through Maven toolchains
-     jdk "temurin-jdk21-latest"
+     // Maven itself must run on JDK 25: Tycho 6.0.0-SNAPSHOT bundles class file version 69.0
+     // The effective JDK for compilation/testing is still forced through Maven toolchains (strict-jdk-*/toolchain.jdk.env)
+     jdk "temurin-jdk25-latest"
   }
 
   stages {
