@@ -11,6 +11,9 @@ updates:
     allow:
       - dependency-name: "io.github.classgraph:classgraph"
       - dependency-name: "com.google.guava:*"
+    ignore:
+      - dependency-name: "io.github.classgraph:classgraph"
+        update-types: ["version-update:semver-major"]
     groups:
       guava-updates:
         patterns:
