@@ -13,6 +13,7 @@ import static org.junit.Assert.*;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Queue;
@@ -32,9 +33,13 @@ import org.junit.Test;
 /**
  * A canceled build must not lose per-project queued URIs: the checkpoint has to
  * capture the queue contents, not just the queue references.
+ * 
+ * Otherwise the affected resources are never revalidated, which made
+ * {@code SimpleProjectsIntegrationTest.testOpenAndCloseReferencedProjects} flaky
+ * (it showed 0 instead of 1 marker).
+ * 
  *
- * See https://github.com/eclipse-xtext/xtext/issues/XXXX - flaky
- * {@code SimpleProjectsIntegrationTest.testOpenAndCloseReferencedProjects}.
+ * @author Christian Dietrich - Initial contribution and API
  */
 public class QueuedBuildDataRollbackTest {
 
@@ -83,6 +88,39 @@ public class QueuedBuildDataRollbackTest {
 		assertEquals(uri, data.getQueue("bar").peek());
 	}
 
+	@Test
+	public void testRollbackKeepsPerProjectDataQueuedAfterCheckpoint() {
+		URI uri = URI.createPlatformResourceURI("/bar/src/Bar.buildertestlanguage", true);
+		URI queuedLater = URI.createPlatformResourceURI("/bar/src/Other.buildertestlanguage", true);
+		QueuedBuildData data = newBuildData("bar", uri);
+
+		data.createCheckpoint();
+		// the build queues additional resources while it is running
+		data.queueURI(queuedLater);
+		data.rollback();
+
+		assertEquals("rollback must not lose URIs that were queued after the checkpoint", 2,
+				data.getQueue("bar").size());
+		assertEquals(uri, data.getQueue("bar").peek());
+	}
+
+	@Test
+	public void testRollbackKeepsGlobalDataQueuedAfterCheckpoint() {
+		URI uri = URI.createPlatformResourceURI("/bar/src/Bar.buildertestlanguage", true);
+		URI queuedLater = URI.createPlatformResourceURI("/bar/src/Other.buildertestlanguage", true);
+		QueuedBuildData data = new QueuedBuildData(new EmptyMapper(),
+				new QueuedBuildData.NullContribution());
+		data.queueURI(uri);
+
+		data.createCheckpoint();
+		data.queueURI(queuedLater);
+		data.rollback();
+
+		assertEquals("rollback must not lose URIs that were queued after the checkpoint", 2,
+				data.getQueue("unknownProject").size());
+		assertEquals(uri, data.getQueue("unknownProject").peek());
+	}
+
 	private static QueuedBuildData newBuildData(String projectName, URI... uris) {
 		IProject project = newProject(projectName);
 		IStorage2UriMapper mapper = new IStorage2UriMapper() {
@@ -102,15 +140,19 @@ public class QueuedBuildDataRollbackTest {
 			}
 		};
 		QueuedBuildData data = new QueuedBuildData(mapper, new QueuedBuildData.NullContribution());
-		data.queueURIs(java.util.Arrays.asList(uris));
+		data.queueURIs(Arrays.asList(uris));
 		return data;
 	}
 
 	private static IProject newProject(String name) {
 		IProjectDescription description = proxy(IProjectDescription.class, (proxy, method, args) -> {
 			if ("getBuildSpec".equals(method.getName())) {
-				ICommand command = proxy(ICommand.class,
-						(p, m, a) -> XtextProjectHelper.BUILDER_ID);
+				ICommand command = proxy(ICommand.class, (p, m, a) -> {
+					if ("getBuilderName".equals(m.getName())) {
+						return XtextProjectHelper.BUILDER_ID;
+					}
+					return defaultValue(m);
+				});
 				return new ICommand[] { command };
 			}
 			return defaultValue(method);
@@ -140,7 +182,10 @@ public class QueuedBuildDataRollbackTest {
 			return false;
 		if (type == int.class)
 			return 0;
-		return null;
+		if (!type.isPrimitive()) {
+			return null;
+		}
+		throw new UnsupportedOperationException("Unexpected call to " + method);
 	}
 
 	@SuppressWarnings("unchecked")

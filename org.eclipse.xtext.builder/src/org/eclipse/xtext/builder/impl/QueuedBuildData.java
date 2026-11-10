@@ -365,13 +365,39 @@ public class QueuedBuildData {
 		contribution.discardCheckpoint();
 	}
 
+	/**
+	 * Restores the state that was captured by {@link #createCheckpoint()}.
+	 * 
+	 * The checkpoint holds the queued resources as they were before the build started to consume
+	 * them. Everything that was queued <em>after</em> the checkpoint has not been processed yet and
+	 * must not be lost, so the checkpoint entries are restored and the entries that were queued
+	 * in the meantime are kept.
+	 */
 	public void rollback() {
 		deltas.clear();
 		deltas.addAll(deltasCopy);
-		uris.clear();
-		uris.addAll(urisCopy);
-		projectNameToChangedResource.clear();
-		projectNameToChangedResource.putAll(projectNameToChangedResourceCopy);
+		restore(uris, urisCopy);
+		for (Map.Entry<String, LinkedHashSetQueue<URI>> entry : projectNameToChangedResourceCopy.entrySet()) {
+			LinkedHashSetQueue<URI> live = projectNameToChangedResource.get(entry.getKey());
+			if (live == null) {
+				projectNameToChangedResource.put(entry.getKey(), new LinkedHashSetQueue<URI>(entry.getValue()));
+			} else {
+				LinkedHashSetQueue<URI> restored = new LinkedHashSetQueue<URI>(entry.getValue());
+				restored.addAll(live);
+				projectNameToChangedResource.put(entry.getKey(), restored);
+			}
+		}
 		contribution.rollback();
+	}
+
+	/**
+	 * Restores the given queue to the state of the given checkpoint, keeping the entries that were
+	 * queued after the checkpoint was taken.
+	 */
+	private static void restore(LinkedHashSetQueue<URI> live, LinkedHashSetQueue<URI> checkpoint) {
+		LinkedHashSetQueue<URI> restored = new LinkedHashSetQueue<URI>(checkpoint);
+		restored.addAll(live);
+		live.clear();
+		live.addAll(restored);
 	}
 }
