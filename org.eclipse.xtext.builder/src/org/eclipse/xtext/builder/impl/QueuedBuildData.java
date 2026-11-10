@@ -348,7 +348,13 @@ public class QueuedBuildData {
 	public void createCheckpoint() {
 		deltasCopy = new ArrayList<Delta>(deltas);
 		urisCopy = new LinkedHashSetQueue<URI>(uris);
-		projectNameToChangedResourceCopy = new HashMap<String, LinkedHashSetQueue<URI>>(projectNameToChangedResource);
+		// Copy the queues themselves, not just the map: the build drains the
+		// live queues via getQueue(projectName), so a rollback after a cancel
+		// would otherwise restore empty queues and lose the queued URIs.
+		projectNameToChangedResourceCopy = new HashMap<String, LinkedHashSetQueue<URI>>();
+		for (Map.Entry<String, LinkedHashSetQueue<URI>> entry : projectNameToChangedResource.entrySet()) {
+			projectNameToChangedResourceCopy.put(entry.getKey(), new LinkedHashSetQueue<URI>(entry.getValue()));
+		}
 		contribution.createCheckpoint();
 	}
 
