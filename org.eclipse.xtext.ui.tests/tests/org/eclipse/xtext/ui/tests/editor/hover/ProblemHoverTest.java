@@ -144,6 +144,7 @@ public class ProblemHoverTest extends AbstractEditorTest {
 		} catch (ExecutionException x) {
 			fail(x.getMessage());
 		}
+		waitForAnnotations(0, 1);
 		String hoverInfo = hover.getHoverInfo(editor.getInternalSourceViewer(), 0);
 		assertNotNull(hoverInfo);
 		assertHoverInfoContains(hoverInfo, CUSTOM_MARKER_TEST_MESSAGE);
@@ -156,6 +157,7 @@ public class ProblemHoverTest extends AbstractEditorTest {
 		attributes.put(IMarker.LOCATION, resource.getFullPath().toPortableString());
 		attributes.put(IMarker.SEVERITY, severenity); 
 		MarkerUtilities.createMarker(resource, attributes, CUSTOM_MARKER_ID);
+		waitForAnnotations(0, 1);
 	}
 
 
