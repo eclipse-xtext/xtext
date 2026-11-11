@@ -41,6 +41,8 @@ import com.google.common.collect.Sets;
 import com.google.inject.Inject;
 
 /**
+ * Calculate the folding regions from the EObject tree and the comments. 
+ * 
  * @author Michael Clay - Initial contribution and API
  * @author Sebastian Zarnekow - Introduced FoldedRegion, use ILocationInFileProvider
  */
@@ -213,6 +215,13 @@ public class DefaultFoldingRegionProvider implements IFoldingRegionProvider {
 	 */
 	protected boolean shouldProcessContent(EObject object) {
 		return true;
+	}
+	
+	/**
+	 * @since 2.45
+	 */
+	protected CancelIndicator getCancelIndicator() {
+		return cancelIndicator != null ? cancelIndicator : CancelIndicator.NullImpl;
 	}
 	
 }
