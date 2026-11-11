@@ -232,13 +232,6 @@ public abstract class AbstractXbaseContentAssistTest extends Assert implements R
 	
 	protected static void doInitFeatures(IJavaProject javaProject) {
 		try {
-			// The expected proposals are snapshotted from the test project's JRE.
-			// The PDE "required plugins" container and the JRT index resolve asynchronously after
-			// project creation, so computing too early yields a truncated STRING_FEATURES list
-			// while later content assist (with settled classpath) proposes the full list.
-			// See https://github.com/eclipse-xtext/xtext/issues/3644#issuecomment-6786217258
-			IResourcesSetupUtil.waitForPdeClasspathUpdate();
-			IResourcesSetupUtil.waitForBuild();
 			doInitStringFeatures(javaProject);
 			doInitMapFeatures(javaProject);
 			doInitClassFeatures(javaProject);
