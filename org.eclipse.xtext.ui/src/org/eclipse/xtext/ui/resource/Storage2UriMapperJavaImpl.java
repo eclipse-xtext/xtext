@@ -464,14 +464,17 @@ public class Storage2UriMapperJavaImpl implements IStorage2UriMapperJdtExtension
 			IJavaProject project = (IJavaProject) projectDelta.getElement();
 			if((projectDelta.getKind() & IJavaElementDelta.REMOVED) != 0) {
 				clearCache(project, Collections.<PackageFragmentRootData>emptySet());
-			} 
-			switch(projectDelta.getFlags()) {
-				case IJavaElementDelta.F_OPENED: 
-					updateCache(project);
-					break;
-				case IJavaElementDelta.F_CLOSED:
-					clearCache(project, Collections.<PackageFragmentRootData>emptySet());
-					break;
+			}
+			// Test the flag bits rather than matching the flags exactly: the delta may carry
+			// combined flags when concurrent changes batch into it, and a missed F_CLOSED
+			// would leave stale roots in the cache. The two bits are handled independently so
+			// that a delta carrying both still reconciles with the current state.
+			int flags = projectDelta.getFlags();
+			if ((flags & IJavaElementDelta.F_CLOSED) != 0) {
+				clearCache(project, Collections.<PackageFragmentRootData>emptySet());
+			}
+			if ((flags & IJavaElementDelta.F_OPENED) != 0) {
+				updateCache(project);
 			}
 		}
 	}

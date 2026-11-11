@@ -12,6 +12,7 @@ import static org.eclipse.xtext.ui.testing.util.IResourcesSetupUtil.*;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Proxy;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
@@ -24,8 +25,10 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.jdt.core.ElementChangedEvent;
 import org.eclipse.jdt.core.IClasspathAttribute;
 import org.eclipse.jdt.core.IClasspathEntry;
+import org.eclipse.jdt.core.IJavaElementDelta;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
@@ -297,6 +300,49 @@ public class Storage2UriMapperJavaImplTest extends Assert {
 		project.getProject().delete(true, IResourcesSetupUtil.monitor());
 		project2.getProject().delete(true, IResourcesSetupUtil.monitor());
 		assertNonProjects();
+	}
+
+	/**
+	 * Deltas may carry combined flags when concurrent changes batch into one notification.
+	 * The flag bits have to be tested independently: an exact match would silently drop
+	 * the close (leaving stale roots) or the open (leaving an empty cache) half.
+	 */
+	@Test
+	public void testCloseOpenFlags() throws Exception {
+		IJavaProject project = JavaProjectSetupUtil.createJavaProject("testProject");
+		int sizeBefore = getCachedPackageFragmentRootData().size();
+		IFile file = createJar(project);
+		JavaProjectSetupUtil.addJarToClasspath(project, file);
+		Assert.assertEquals(sizeBefore + 1, getCachedPackageFragmentRootData().size());
+		// a combined close delta must evict the roots
+		storage2UriMapperJava.elementChanged(new ElementChangedEvent(
+				newDelta(project, IJavaElementDelta.F_CLOSED | IJavaElementDelta.F_CHILDREN),
+				ElementChangedEvent.POST_CHANGE));
+		Assert.assertEquals("" + getCachedPackageFragmentRootData(), sizeBefore,
+				getCachedPackageFragmentRootData().size());
+		// a delta carrying both bits on the open project must reconcile with the current state
+		storage2UriMapperJava.elementChanged(new ElementChangedEvent(
+				newDelta(project, IJavaElementDelta.F_CLOSED | IJavaElementDelta.F_OPENED),
+				ElementChangedEvent.POST_CHANGE));
+		Assert.assertEquals(sizeBefore + 1, getCachedPackageFragmentRootData().size());
+	}
+
+	private static IJavaElementDelta newDelta(IJavaProject project, int flags) {
+		return (IJavaElementDelta) Proxy.newProxyInstance(Storage2UriMapperJavaImplTest.class.getClassLoader(),
+				new Class<?>[] { IJavaElementDelta.class }, (proxy, method, args) -> {
+					switch (method.getName()) {
+						case "getElement":
+							return project;
+						case "getKind":
+							return IJavaElementDelta.CHANGED;
+						case "getFlags":
+							return flags;
+						case "getAffectedChildren":
+							return new IJavaElementDelta[0];
+						default:
+							throw new UnsupportedOperationException("Unexpected call to " + method);
+					}
+				});
 	}
 
 	@Test
