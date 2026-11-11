@@ -112,6 +112,7 @@ public abstract class AbstractXbaseUITestCase extends Assert implements Resource
 		IProject result = projectFactory.createProject(new NullProgressMonitor(), null);
 		JavaProjectSetupUtil.makeJava8Compliant(JavaCore.create(result));
 		JavaProjectSetupUtil.setUnixLineEndings(result);
+		IResourcesSetupUtil.waitForPdeClasspathUpdate();
 		return result;
 	}
 }

@@ -232,6 +232,10 @@ public abstract class AbstractXbaseContentAssistTest extends Assert implements R
 	
 	protected static void doInitFeatures(IJavaProject javaProject) {
 		try {
+			// See https://github.com/eclipse-xtext/xtext/issues/3644#issuecomment-6786217258
+			// Snapshot of expected JRE members must wait for async PDE/JDT setup, else truncated.
+			IResourcesSetupUtil.waitForPdeClasspathUpdate();
+			IResourcesSetupUtil.waitForBuild();
 			doInitStringFeatures(javaProject);
 			doInitClassFeatures(javaProject);
 			doInitBigDecimalFeatures(javaProject);
