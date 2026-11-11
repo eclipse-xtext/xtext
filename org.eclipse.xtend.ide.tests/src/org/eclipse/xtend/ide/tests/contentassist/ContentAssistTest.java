@@ -25,6 +25,7 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.xtend.ide.internal.XtendActivator;
 import org.eclipse.xtend.ide.tests.WorkbenchTestHelper;
 import org.eclipse.xtext.ui.XtextProjectHelper;
+import org.eclipse.xtext.ui.testing.util.IResourcesSetupUtil;
 import org.eclipse.xtext.ui.testing.util.JavaProjectSetupUtil;
 import org.eclipse.xtext.ui.util.JREContainerProvider;
 import org.eclipse.xtext.ui.util.PluginProjectFactory;
@@ -468,6 +469,7 @@ public class ContentAssistTest extends AbstractXbaseContentAssistInBlockTest {
 				"org.eclipse.xtend.lib"));
 		IProject result = projectFactory.createProject(new NullProgressMonitor(), null);
 		JavaProjectSetupUtil.makeJava8Compliant(JavaCore.create(result));
+		IResourcesSetupUtil.waitForPdeClasspathUpdate();
 		return result;
 	}
 }
