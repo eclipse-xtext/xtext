@@ -16,6 +16,7 @@ import org.eclipse.core.internal.events.BuildManager;
 import org.eclipse.core.internal.resources.Workspace;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -97,6 +98,46 @@ public class BuildCancellationTest extends AbstractParticipatingBuilderTest {
 		reset();
 	}
 	
+	/**
+	 * URIs queued for a project (here: bar.buildertestlanguage, affected by a change in the referenced project foo)
+	 * must not get lost if the build of that project is interrupted after it already polled them from the queue.
+	 *
+	 * @see https://github.com/eclipse-xtext/xtext/issues/3644
+	 */
+	@Test
+	public void testInterruptionKeepsQueuedURIs() throws Exception {
+		IProject foo = createProject("foo");
+		addNature(foo, XtextProjectHelper.NATURE_ID);
+		IProject bar = createProject("bar");
+		addNature(bar, XtextProjectHelper.NATURE_ID);
+		IFile fooFile = createFile("foo/foo" + F_EXT, "object Foo");
+		createFile("bar/bar" + F_EXT, "object Bar references Foo");
+		setReference(bar, foo);
+		build();
+		disableAutobuild(() -> {
+			try {
+				// building foo queues the affected bar.buildertestlanguage for project bar
+				fooFile.setContents(new StringInputStream("object Baz"), true, true, monitor());
+				foo.build(IncrementalProjectBuilder.INCREMENTAL_BUILD, monitor());
+				// the auto build of bar polls the queued URI and gets interrupted afterwards
+				reset();
+				cancel(true);
+				try {
+					ResourcesPlugin.getWorkspace().build(IncrementalProjectBuilder.AUTO_BUILD, monitor());
+				} catch (OperationCanceledException e) {
+					// may be rethrown by the build manager
+				}
+				// the next build has to process the queued URI again
+				reset();
+				ResourcesPlugin.getWorkspace().build(IncrementalProjectBuilder.AUTO_BUILD, monitor());
+				assertEquals(1, getInvocationCount());
+				assertEquals(bar, getContext().getBuiltProject());
+			} catch (CoreException e) {
+				throw new RuntimeException(e);
+			}
+		});
+	}
+
 	@Override
 	public void build(IBuildContext context, IProgressMonitor monitor) throws CoreException {
 		super.build(context, monitor);
