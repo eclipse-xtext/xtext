@@ -13,6 +13,7 @@ import static org.eclipse.xtext.ui.testing.util.IResourcesSetupUtil.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Proxy;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +36,7 @@ import org.eclipse.jdt.core.IElementChangedListener;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaElementDelta;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
@@ -287,11 +289,13 @@ public class Storage2UriMapperJavaImplTest extends Assert {
 	@Test
 	public void testOnCloseOpenRemoveProject() throws Exception {
 		List<String> observedDeltas = new CopyOnWriteArrayList<>();
+		// Records delta-driven notifications only, not updateCache calls from the async cache
+		// initializer. That is fine here: every cache change under test is preceded by a delta.
 		IElementChangedListener deltaRecorder = event -> collectProjectDeltas(event, Thread.currentThread().getName(), observedDeltas);
 		JavaCore.addElementChangedListener(deltaRecorder);
 		try {
-			Map<String, PackageFragmentRootData> initial = snapshotCache();
-			Assert.assertEquals(initial + "\n" + deltasMsg(observedDeltas), 0, initial.size());
+			CacheSnapshot initial = snapshotCache();
+			Assert.assertEquals(initial.dump + deltasMsg(observedDeltas), 0, initial.rootsByKey.size());
 			IJavaProject project = JavaProjectSetupUtil.createJavaProject("testProject");
 			IJavaProject project2 = JavaProjectSetupUtil.createJavaProject("testProject2");
 			int sizeBefore = getCachedPackageFragmentRootData().size();
@@ -326,14 +330,16 @@ public class Storage2UriMapperJavaImplTest extends Assert {
 		int sizeBefore = getCachedPackageFragmentRootData().size();
 		IFile file = createJar(project);
 		JavaProjectSetupUtil.addJarToClasspath(project, file);
-		Assert.assertEquals("" + snapshotCache(), sizeBefore + 1, snapshotCache().size());
+		CacheSnapshot afterAdd = snapshotCache();
+		Assert.assertEquals(afterAdd.dump, sizeBefore + 1, afterAdd.rootsByKey.size());
 		// a combined close delta must evict the roots (JRE roots are never cached, so the cache is empty afterwards)
 		storage2UriMapperJava.elementChanged(new ElementChangedEvent(
 				newDelta(project, IJavaElementDelta.F_CLOSED | IJavaElementDelta.F_CHILDREN),
 				ElementChangedEvent.POST_CHANGE));
 		assertNonProjects();
-		Assert.assertFalse("" + snapshotCache(),
-				snapshotCache().keySet().stream().anyMatch(it -> it.contains("foo.jar")));
+		CacheSnapshot afterClose = snapshotCache();
+		Assert.assertFalse(afterClose.dump,
+				afterClose.rootsByKey.keySet().stream().anyMatch(it -> it.contains("foo.jar")));
 		// a delta carrying both bits on the open project must reconcile with the current state
 		storage2UriMapperJava.elementChanged(new ElementChangedEvent(
 				newDelta(project, IJavaElementDelta.F_CLOSED | IJavaElementDelta.F_OPENED),
@@ -432,15 +438,41 @@ public class Storage2UriMapperJavaImplTest extends Assert {
 	}
 
 	/**
-	 * Copies the live cache under its own lock (production code synchronizes on the map
-	 * itself), so failure messages can't hit a ConcurrentModificationException or print
-	 * a torn state when another thread reconciles concurrently.
+	 * Copies the live cache entry-wise under the same locks production code uses (the map
+	 * itself, then each entry's {@code associatedRoots}), so failure messages can't hit a
+	 * ConcurrentModificationException or print a torn state when another thread reconciles
+	 * concurrently. The dump renders each entry's registered roots, which tells which
+	 * project's registration survived: the plain map dump can't, because the entry path
+	 * always comes from the jar's own project.
 	 */
-	private Map<String, PackageFragmentRootData> snapshotCache() throws Exception {
-		Map<String, PackageFragmentRootData> live = getCachedPackageFragmentRootData();
-		synchronized (live) {
-			return new LinkedHashMap<>(live);
+	private static final class CacheSnapshot {
+		final Map<String, Map<String, IPackageFragmentRoot>> rootsByKey;
+		final String dump;
+
+		CacheSnapshot(Map<String, Map<String, IPackageFragmentRoot>> rootsByKey, String dump) {
+			this.rootsByKey = rootsByKey;
+			this.dump = dump;
 		}
+	}
+
+	private CacheSnapshot snapshotCache() throws Exception {
+		Map<String, PackageFragmentRootData> live = getCachedPackageFragmentRootData();
+		List<Map.Entry<String, PackageFragmentRootData>> entries;
+		synchronized (live) {
+			entries = new ArrayList<>(live.entrySet());
+		}
+		Map<String, Map<String, IPackageFragmentRoot>> rootsByKey = new LinkedHashMap<>();
+		StringBuilder dump = new StringBuilder();
+		for (Map.Entry<String, PackageFragmentRootData> entry : entries) {
+			Map<String, IPackageFragmentRoot> roots = entry.getValue().associatedRoots;
+			Map<String, IPackageFragmentRoot> rootsCopy;
+			synchronized (roots) {
+				rootsCopy = new LinkedHashMap<>(roots);
+			}
+			rootsByKey.put(entry.getKey(), rootsCopy);
+			dump.append(entry.getKey()).append(" roots=").append(rootsCopy.keySet()).append('\n');
+		}
+		return new CacheSnapshot(rootsByKey, dump.toString());
 	}
 
 	@Test
@@ -469,8 +501,8 @@ public class Storage2UriMapperJavaImplTest extends Assert {
 	}
 
 	public void assertNonProjects(String context) throws Exception {
-		Map<String, PackageFragmentRootData> snapshot = snapshotCache();
-		Assert.assertEquals(snapshot + "\n" + context, 0, snapshot.size());
+		CacheSnapshot snapshot = snapshotCache();
+		Assert.assertEquals(snapshot.dump + context, 0, snapshot.rootsByKey.size());
 	}
 
 	public void assertFirstProject(int sizeBefore) throws Exception {
@@ -478,21 +510,21 @@ public class Storage2UriMapperJavaImplTest extends Assert {
 	}
 
 	public void assertFirstProject(int sizeBefore, String context) throws Exception {
-		Map<String, PackageFragmentRootData> snapshot = snapshotCache();
-		Assert.assertEquals(snapshot + "\n" + context, sizeBefore + 1, snapshot.size());
-		Assert.assertNotNull(snapshot + "\n" + context,
-				snapshot.keySet().stream().filter(it -> it.contains("foo.jar")).findFirst().orElse(null));
-		snapshot.entrySet().forEach((Map.Entry<String, PackageFragmentRootData> it) -> {
-			boolean java9OrNewer = Iterables.any(it.getValue().associatedRoots.values(),
+		CacheSnapshot snapshot = snapshotCache();
+		Assert.assertEquals(snapshot.dump + context, sizeBefore + 1, snapshot.rootsByKey.size());
+		Assert.assertNotNull(snapshot.dump + context,
+				snapshot.rootsByKey.keySet().stream().filter(it -> it.contains("foo.jar")).findFirst().orElse(null));
+		snapshot.rootsByKey.entrySet().forEach((Map.Entry<String, Map<String, IPackageFragmentRoot>> it) -> {
+			boolean java9OrNewer = Iterables.any(it.getValue().values(),
 					r -> "JrtPackageFragmentRoot".equals(r.getClass().getSimpleName()));
 			if (java9OrNewer) {
-				Assert.assertTrue(it.getValue().associatedRoots.size() + " / " + it.getKey() + "\n" + context,
+				Assert.assertTrue(it.getValue().size() + " / " + it.getKey() + "\n" + context,
 						Lists.newArrayList(44 /* java11 */, 49, 63 /* java9 */, 51 /* java14 */, 50 /* java15 */)
-								.contains(Integer.valueOf(it.getValue().associatedRoots.size())));
+								.contains(Integer.valueOf(it.getValue().size())));
 			} else {
-				Assert.assertEquals(it.getKey() + "\n" + context, 1, it.getValue().associatedRoots.size());
+				Assert.assertEquals(it.getKey() + "\n" + context, 1, it.getValue().size());
 			}
-			String head = Iterables.getFirst(it.getValue().associatedRoots.keySet(), null);
+			String head = Iterables.getFirst(it.getValue().keySet(), null);
 			Assert.assertTrue(head + "\n" + context, head.startsWith("=testProject/"));
 		});
 	}
@@ -502,15 +534,15 @@ public class Storage2UriMapperJavaImplTest extends Assert {
 	}
 
 	public void assertBothProjects(int sizeBefore, String context) throws Exception {
-		Map<String, PackageFragmentRootData> snapshot = snapshotCache();
-		Assert.assertEquals(snapshot + "\n" + context, sizeBefore + 1, snapshot.size());
-		Assert.assertNotNull(snapshot + "\n" + context,
-				snapshot.keySet().stream().filter(it -> it.contains("foo.jar")).findFirst().orElse(null));
-		snapshot.entrySet().forEach((Map.Entry<String, PackageFragmentRootData> it) -> {
-			Assert.assertEquals(it.getValue().associatedRoots.size() + "/" + it.getKey() + "\n" + context, 2, it.getValue().associatedRoots.size());
-			String msg = Joiner.on("\n").join(it.getValue().associatedRoots.keySet()) + "\n" + context;
-			Assert.assertTrue(msg, Iterables.any(it.getValue().associatedRoots.keySet(), r -> r.startsWith("=testProject/")));
-			Assert.assertTrue(msg, Iterables.any(it.getValue().associatedRoots.keySet(), r -> r.startsWith("=testProject2/")));
+		CacheSnapshot snapshot = snapshotCache();
+		Assert.assertEquals(snapshot.dump + context, sizeBefore + 1, snapshot.rootsByKey.size());
+		Assert.assertNotNull(snapshot.dump + context,
+				snapshot.rootsByKey.keySet().stream().filter(it -> it.contains("foo.jar")).findFirst().orElse(null));
+		snapshot.rootsByKey.entrySet().forEach((Map.Entry<String, Map<String, IPackageFragmentRoot>> it) -> {
+			Assert.assertEquals(it.getValue().size() + "/" + it.getKey() + "\n" + context, 2, it.getValue().size());
+			String msg = Joiner.on("\n").join(it.getValue().keySet()) + "\n" + context;
+			Assert.assertTrue(msg, Iterables.any(it.getValue().keySet(), r -> r.startsWith("=testProject/")));
+			Assert.assertTrue(msg, Iterables.any(it.getValue().keySet(), r -> r.startsWith("=testProject2/")));
 		});
 	}
 
