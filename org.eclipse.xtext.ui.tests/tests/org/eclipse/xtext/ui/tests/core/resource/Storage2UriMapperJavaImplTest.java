@@ -332,19 +332,30 @@ public class Storage2UriMapperJavaImplTest extends Assert {
 		JavaProjectSetupUtil.addJarToClasspath(project, file);
 		CacheSnapshot afterAdd = snapshotCache();
 		Assert.assertEquals(afterAdd.dump, sizeBefore + 1, afterAdd.rootsByKey.size());
-		// a combined close delta must evict the roots (JRE roots are never cached, so the cache is empty afterwards)
-		storage2UriMapperJava.elementChanged(new ElementChangedEvent(
-				newDelta(project, IJavaElementDelta.F_CLOSED | IJavaElementDelta.F_CHILDREN),
-				ElementChangedEvent.POST_CHANGE));
-		assertNonProjects();
-		CacheSnapshot afterClose = snapshotCache();
-		Assert.assertFalse(afterClose.dump,
-				afterClose.rootsByKey.keySet().stream().anyMatch(it -> it.contains("foo.jar")));
-		// a delta carrying both bits on the open project must reconcile with the current state
-		storage2UriMapperJava.elementChanged(new ElementChangedEvent(
-				newDelta(project, IJavaElementDelta.F_CLOSED | IJavaElementDelta.F_OPENED),
-				ElementChangedEvent.POST_CHANGE));
-		assertFirstProject(sizeBefore);
+		// The dispatch reconciles against actual project state, so stage that state for real:
+		// detach the mapper (real close/open below must not touch the cache), then deliver
+		// the synthetic combined-flag deltas directly against the still-populated cache.
+		JavaCore.removeElementChangedListener(storage2UriMapperJava);
+		try {
+			project.getProject().close(IResourcesSetupUtil.monitor());
+			// a combined close delta on the actually-closed project must evict the roots
+			// (JRE roots are never cached, so the cache is empty afterwards)
+			storage2UriMapperJava.elementChanged(new ElementChangedEvent(
+					newDelta(project, IJavaElementDelta.F_CLOSED | IJavaElementDelta.F_CHILDREN),
+					ElementChangedEvent.POST_CHANGE));
+			assertNonProjects();
+			CacheSnapshot afterClose = snapshotCache();
+			Assert.assertFalse(afterClose.dump,
+					afterClose.rootsByKey.keySet().stream().anyMatch(it -> it.contains("foo.jar")));
+			project.getProject().open(IResourcesSetupUtil.monitor());
+			// a delta carrying both bits on the open project must reconcile with the current state
+			storage2UriMapperJava.elementChanged(new ElementChangedEvent(
+					newDelta(project, IJavaElementDelta.F_CLOSED | IJavaElementDelta.F_OPENED),
+					ElementChangedEvent.POST_CHANGE));
+			assertFirstProject(sizeBefore);
+		} finally {
+			JavaCore.addElementChangedListener(storage2UriMapperJava);
+		}
 	}
 
 	private static IJavaElementDelta newDelta(IJavaProject project, int flags) {
