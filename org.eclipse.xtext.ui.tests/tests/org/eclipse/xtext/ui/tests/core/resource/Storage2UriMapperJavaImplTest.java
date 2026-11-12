@@ -320,9 +320,10 @@ public class Storage2UriMapperJavaImplTest extends Assert {
 	}
 
 	/**
-	 * Deltas may carry combined flags when concurrent changes batch into one notification.
-	 * The flag bits have to be tested independently: an exact match would silently drop
-	 * the close (leaving stale roots) or the open (leaving an empty cache) half.
+	 * A project delta is only a trigger: the cache is reconciled against real project state.
+	 * Combined flags (e.g. from batched concurrent changes) must therefore not be matched
+	 * exactly — what matters is whether the project is actually open or closed when the
+	 * delta is handled.
 	 */
 	@Test
 	public void testCloseOpenFlags() throws Exception {
@@ -356,6 +357,24 @@ public class Storage2UriMapperJavaImplTest extends Assert {
 		} finally {
 			JavaCore.addElementChangedListener(storage2UriMapperJava);
 		}
+	}
+
+	/**
+	 * State wins over flags: a close-flavoured delta for an actually open project must not
+	 * evict anything. Flag-driven clearing (the old exact-match switch) fails here.
+	 */
+	@Test
+	public void testCloseFlagsOnOpenProjectKeepsRoots() throws Exception {
+		IJavaProject project = JavaProjectSetupUtil.createJavaProject("testProject");
+		int sizeBefore = getCachedPackageFragmentRootData().size();
+		IFile file = createJar(project);
+		JavaProjectSetupUtil.addJarToClasspath(project, file);
+		CacheSnapshot afterAdd = snapshotCache();
+		Assert.assertEquals(afterAdd.dump, sizeBefore + 1, afterAdd.rootsByKey.size());
+		storage2UriMapperJava.elementChanged(new ElementChangedEvent(
+				newDelta(project, IJavaElementDelta.F_CLOSED | IJavaElementDelta.F_CHILDREN),
+				ElementChangedEvent.POST_CHANGE));
+		assertFirstProject(sizeBefore);
 	}
 
 	private static IJavaElementDelta newDelta(IJavaProject project, int flags) {

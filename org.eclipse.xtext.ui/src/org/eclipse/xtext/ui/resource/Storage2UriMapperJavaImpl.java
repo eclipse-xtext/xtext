@@ -459,6 +459,8 @@ public class Storage2UriMapperJavaImpl implements IStorage2UriMapperJdtExtension
 		// degrades to a clear. This handles combined flags (e.g. F_CLOSED | F_CHILDREN from
 		// batched deltas) and avoids a transient empty cache plus double rescans when
 		// F_CLOSED and F_OPENED (or a classpath change) arrive together.
+		// Requires POST_CHANGE delivery (the registration mask): the workspace must already
+		// reflect the delta when it is handled.
 		Set<IJavaProject> toUpdate = newLinkedHashSet(javaProjectClasspathChangeAnalyzer.getJavaProjectsWithClasspathChange(event.getDelta()));
 		for (IJavaElementDelta projectDelta : getProjectDeltas(event.getDelta())) {
 			if ((projectDelta.getKind() & IJavaElementDelta.REMOVED) != 0
