@@ -13,7 +13,9 @@ import static org.eclipse.xtext.ui.testing.util.IResourcesSetupUtil.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Proxy;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
@@ -28,6 +30,8 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.jdt.core.ElementChangedEvent;
 import org.eclipse.jdt.core.IClasspathAttribute;
 import org.eclipse.jdt.core.IClasspathEntry;
+import org.eclipse.jdt.core.IElementChangedListener;
+import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaElementDelta;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
@@ -281,25 +285,32 @@ public class Storage2UriMapperJavaImplTest extends Assert {
 
 	@Test
 	public void testOnCloseOpenRemoveProject() throws Exception {
-		Assert.assertEquals(0, getCachedPackageFragmentRootData().size());
-		IJavaProject project = JavaProjectSetupUtil.createJavaProject("testProject");
-		IJavaProject project2 = JavaProjectSetupUtil.createJavaProject("testProject2");
-		int sizeBefore = getCachedPackageFragmentRootData().size();
-		IFile file = createJar(project);
-		JavaProjectSetupUtil.addJarToClasspath(project, file);
-		JavaProjectSetupUtil.addJarToClasspath(project2, file);
-		assertBothProjects(sizeBefore);
-		project2.getProject().close(IResourcesSetupUtil.monitor());
-		assertFirstProject(sizeBefore);
-		project.getProject().close(IResourcesSetupUtil.monitor());
-		assertNonProjects();
-		project.getProject().open(IResourcesSetupUtil.monitor());
-		assertFirstProject(sizeBefore);
-		project2.getProject().open(IResourcesSetupUtil.monitor());
-		assertBothProjects(sizeBefore);
-		project.getProject().delete(true, IResourcesSetupUtil.monitor());
-		project2.getProject().delete(true, IResourcesSetupUtil.monitor());
-		assertNonProjects();
+		List<String> observedDeltas = new CopyOnWriteArrayList<>();
+		IElementChangedListener deltaRecorder = event -> collectProjectDeltas(event.getDelta(), observedDeltas);
+		JavaCore.addElementChangedListener(deltaRecorder);
+		try {
+			Assert.assertEquals(deltasMsg(observedDeltas), 0, getCachedPackageFragmentRootData().size());
+			IJavaProject project = JavaProjectSetupUtil.createJavaProject("testProject");
+			IJavaProject project2 = JavaProjectSetupUtil.createJavaProject("testProject2");
+			int sizeBefore = getCachedPackageFragmentRootData().size();
+			IFile file = createJar(project);
+			JavaProjectSetupUtil.addJarToClasspath(project, file);
+			JavaProjectSetupUtil.addJarToClasspath(project2, file);
+			assertBothProjects(sizeBefore, deltasMsg(observedDeltas));
+			project2.getProject().close(IResourcesSetupUtil.monitor());
+			assertFirstProject(sizeBefore, deltasMsg(observedDeltas));
+			project.getProject().close(IResourcesSetupUtil.monitor());
+			assertNonProjects(deltasMsg(observedDeltas));
+			project.getProject().open(IResourcesSetupUtil.monitor());
+			assertFirstProject(sizeBefore, deltasMsg(observedDeltas));
+			project2.getProject().open(IResourcesSetupUtil.monitor());
+			assertBothProjects(sizeBefore, deltasMsg(observedDeltas));
+			project.getProject().delete(true, IResourcesSetupUtil.monitor());
+			project2.getProject().delete(true, IResourcesSetupUtil.monitor());
+			assertNonProjects(deltasMsg(observedDeltas));
+		} finally {
+			JavaCore.removeElementChangedListener(deltaRecorder);
+		}
 	}
 
 	/**
@@ -313,18 +324,19 @@ public class Storage2UriMapperJavaImplTest extends Assert {
 		int sizeBefore = getCachedPackageFragmentRootData().size();
 		IFile file = createJar(project);
 		JavaProjectSetupUtil.addJarToClasspath(project, file);
-		Assert.assertEquals(sizeBefore + 1, getCachedPackageFragmentRootData().size());
-		// a combined close delta must evict the roots
+		Assert.assertEquals("" + getCachedPackageFragmentRootData(), sizeBefore + 1, getCachedPackageFragmentRootData().size());
+		// a combined close delta must evict the roots (JRE roots are never cached, so the cache is empty afterwards)
 		storage2UriMapperJava.elementChanged(new ElementChangedEvent(
 				newDelta(project, IJavaElementDelta.F_CLOSED | IJavaElementDelta.F_CHILDREN),
 				ElementChangedEvent.POST_CHANGE));
-		Assert.assertEquals("" + getCachedPackageFragmentRootData(), sizeBefore,
-				getCachedPackageFragmentRootData().size());
+		assertNonProjects();
+		Assert.assertFalse("" + getCachedPackageFragmentRootData(),
+				getCachedPackageFragmentRootData().keySet().stream().anyMatch(it -> it.contains("foo.jar")));
 		// a delta carrying both bits on the open project must reconcile with the current state
 		storage2UriMapperJava.elementChanged(new ElementChangedEvent(
 				newDelta(project, IJavaElementDelta.F_CLOSED | IJavaElementDelta.F_OPENED),
 				ElementChangedEvent.POST_CHANGE));
-		Assert.assertEquals(sizeBefore + 1, getCachedPackageFragmentRootData().size());
+		assertFirstProject(sizeBefore);
 	}
 
 	private static IJavaElementDelta newDelta(IJavaProject project, int flags) {
@@ -339,10 +351,70 @@ public class Storage2UriMapperJavaImplTest extends Assert {
 							return flags;
 						case "getAffectedChildren":
 							return new IJavaElementDelta[0];
+						case "toString":
+							return "newDelta(" + project.getElementName() + ", 0x" + Integer.toHexString(flags) + ")";
+						case "hashCode":
+							return System.identityHashCode(proxy);
+						case "equals":
+							return proxy == args[0];
 						default:
 							throw new UnsupportedOperationException("Unexpected call to " + method);
 					}
 				});
+	}
+
+	private static void collectProjectDeltas(IJavaElementDelta delta, List<String> out) {
+		if (delta == null) {
+			return;
+		}
+		IJavaElement element = delta.getElement();
+		if (element != null && element.getElementType() == IJavaElement.JAVA_PROJECT) {
+			out.add(element.getElementName() + " kind=" + kindToString(delta.getKind()) + "(" + delta.getKind() + ")"
+					+ " flags=0x" + Integer.toHexString(delta.getFlags()) + flagsToString(delta.getFlags()));
+		}
+		IJavaElementDelta[] children = delta.getAffectedChildren();
+		if (children != null) {
+			for (IJavaElementDelta child : children) {
+				collectProjectDeltas(child, out);
+			}
+		}
+	}
+
+	private static String kindToString(int kind) {
+		if ((kind & IJavaElementDelta.REMOVED) != 0) {
+			return "REMOVED";
+		}
+		if ((kind & IJavaElementDelta.ADDED) != 0) {
+			return "ADDED";
+		}
+		return "CHANGED";
+	}
+
+	private static String flagsToString(int flags) {
+		StringBuilder result = new StringBuilder();
+		if ((flags & IJavaElementDelta.F_OPENED) != 0) {
+			result.append("|F_OPENED");
+		}
+		if ((flags & IJavaElementDelta.F_CLOSED) != 0) {
+			result.append("|F_CLOSED");
+		}
+		if ((flags & IJavaElementDelta.F_CHILDREN) != 0) {
+			result.append("|F_CHILDREN");
+		}
+		if ((flags & IJavaElementDelta.F_CONTENT) != 0) {
+			result.append("|F_CONTENT");
+		}
+		if ((flags & IJavaElementDelta.F_CLASSPATH_CHANGED) != 0) {
+			result.append("|F_CLASSPATH_CHANGED");
+		}
+		if ((flags & IJavaElementDelta.F_RESOLVED_CLASSPATH_CHANGED) != 0) {
+			result.append("|F_RESOLVED_CLASSPATH_CHANGED");
+		}
+		return result.toString();
+	}
+
+	private String deltasMsg(List<String> observedDeltas) throws Exception {
+		return "" + getCachedPackageFragmentRootData() + "\nObserved project deltas:\n" + Joiner.on("\n").join(observedDeltas);
 	}
 
 	@Test
@@ -367,33 +439,47 @@ public class Storage2UriMapperJavaImplTest extends Assert {
 	}
 
 	public void assertNonProjects() throws Exception {
-		Assert.assertEquals("" + getCachedPackageFragmentRootData(), 0, getCachedPackageFragmentRootData().size());
+		assertNonProjects("");
+	}
+
+	public void assertNonProjects(String context) throws Exception {
+		Assert.assertEquals("" + getCachedPackageFragmentRootData() + "\n" + context, 0, getCachedPackageFragmentRootData().size());
 	}
 
 	public void assertFirstProject(int sizeBefore) throws Exception {
-		Assert.assertEquals("" + getCachedPackageFragmentRootData(), sizeBefore + 1, getCachedPackageFragmentRootData().size());
-		Assert.assertNotNull(getCachedPackageFragmentRootData().keySet().stream().filter(it -> it.contains("foo.jar")).findFirst().get());
+		assertFirstProject(sizeBefore, "");
+	}
+
+	public void assertFirstProject(int sizeBefore, String context) throws Exception {
+		Assert.assertEquals("" + getCachedPackageFragmentRootData() + "\n" + context, sizeBefore + 1, getCachedPackageFragmentRootData().size());
+		Assert.assertNotNull("" + getCachedPackageFragmentRootData() + "\n" + context,
+				getCachedPackageFragmentRootData().keySet().stream().filter(it -> it.contains("foo.jar")).findFirst().orElse(null));
 		getCachedPackageFragmentRootData().entrySet().forEach((Map.Entry<String, PackageFragmentRootData> it) -> {
 			boolean java9OrNewer = Iterables.any(it.getValue().associatedRoots.values(),
 					r -> "JrtPackageFragmentRoot".equals(r.getClass().getSimpleName()));
 			if (java9OrNewer) {
-				Assert.assertTrue(it.getValue().associatedRoots.size() + " / " + it.getKey(),
+				Assert.assertTrue(it.getValue().associatedRoots.size() + " / " + it.getKey() + "\n" + context,
 						Lists.newArrayList(44 /* java11 */, 49, 63 /* java9 */, 51 /* java14 */, 50 /* java15 */)
 								.contains(Integer.valueOf(it.getValue().associatedRoots.size())));
 			} else {
-				Assert.assertEquals(it.getKey(), 1, it.getValue().associatedRoots.size());
+				Assert.assertEquals(it.getKey() + "\n" + context, 1, it.getValue().associatedRoots.size());
 			}
 			String head = Iterables.getFirst(it.getValue().associatedRoots.keySet(), null);
-			Assert.assertTrue(head, head.startsWith("=testProject/"));
+			Assert.assertTrue(head + "\n" + context, head.startsWith("=testProject/"));
 		});
 	}
 
 	public void assertBothProjects(int sizeBefore) throws Exception {
-		Assert.assertEquals("" + getCachedPackageFragmentRootData(), sizeBefore + 1, getCachedPackageFragmentRootData().size());
-		Assert.assertNotNull(getCachedPackageFragmentRootData().keySet().stream().filter(it -> it.contains("foo.jar")).findFirst().get());
+		assertBothProjects(sizeBefore, "");
+	}
+
+	public void assertBothProjects(int sizeBefore, String context) throws Exception {
+		Assert.assertEquals("" + getCachedPackageFragmentRootData() + "\n" + context, sizeBefore + 1, getCachedPackageFragmentRootData().size());
+		Assert.assertNotNull("" + getCachedPackageFragmentRootData() + "\n" + context,
+				getCachedPackageFragmentRootData().keySet().stream().filter(it -> it.contains("foo.jar")).findFirst().orElse(null));
 		getCachedPackageFragmentRootData().entrySet().forEach((Map.Entry<String, PackageFragmentRootData> it) -> {
-			Assert.assertEquals(it.getValue().associatedRoots.size() + "/" + it.getKey(), 2, it.getValue().associatedRoots.size());
-			String msg = Joiner.on("\n").join(it.getValue().associatedRoots.keySet());
+			Assert.assertEquals(it.getValue().associatedRoots.size() + "/" + it.getKey() + "\n" + context, 2, it.getValue().associatedRoots.size());
+			String msg = Joiner.on("\n").join(it.getValue().associatedRoots.keySet()) + "\n" + context;
 			Assert.assertTrue(msg, Iterables.any(it.getValue().associatedRoots.keySet(), r -> r.startsWith("=testProject/")));
 			Assert.assertTrue(msg, Iterables.any(it.getValue().associatedRoots.keySet(), r -> r.startsWith("=testProject2/")));
 		});

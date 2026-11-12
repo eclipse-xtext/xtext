@@ -454,28 +454,20 @@ public class Storage2UriMapperJavaImpl implements IStorage2UriMapperJdtExtension
 		if (!initializeCache(true)) {
 			return;
 		}
-		Set<IJavaProject> javaProjectsWithClasspathChange = javaProjectClasspathChangeAnalyzer.getJavaProjectsWithClasspathChange(event.getDelta());
-		if(!javaProjectsWithClasspathChange.isEmpty()) {
-			for(IJavaProject project: javaProjectsWithClasspathChange) {
-				updateCache(project);
+		// Reconcile each affected project once against its current state: updateCache collects
+		// the current roots and drops everything else, so for a closed or removed project it
+		// degrades to a clear. This handles combined flags (e.g. F_CLOSED | F_CHILDREN from
+		// batched deltas) and avoids a transient empty cache plus double rescans when
+		// F_CLOSED and F_OPENED (or a classpath change) arrive together.
+		Set<IJavaProject> toUpdate = newLinkedHashSet(javaProjectClasspathChangeAnalyzer.getJavaProjectsWithClasspathChange(event.getDelta()));
+		for (IJavaElementDelta projectDelta : getProjectDeltas(event.getDelta())) {
+			if ((projectDelta.getKind() & IJavaElementDelta.REMOVED) != 0
+					|| (projectDelta.getFlags() & (IJavaElementDelta.F_OPENED | IJavaElementDelta.F_CLOSED)) != 0) {
+				toUpdate.add((IJavaProject) projectDelta.getElement());
 			}
-		} 
-		for(IJavaElementDelta projectDelta: getProjectDeltas(event.getDelta())) {
-			IJavaProject project = (IJavaProject) projectDelta.getElement();
-			if((projectDelta.getKind() & IJavaElementDelta.REMOVED) != 0) {
-				clearCache(project, Collections.<PackageFragmentRootData>emptySet());
-			}
-			// Test the flag bits rather than matching the flags exactly: the delta may carry
-			// combined flags when concurrent changes batch into it, and a missed F_CLOSED
-			// would leave stale roots in the cache. The two bits are handled independently so
-			// that a delta carrying both still reconciles with the current state.
-			int flags = projectDelta.getFlags();
-			if ((flags & IJavaElementDelta.F_CLOSED) != 0) {
-				clearCache(project, Collections.<PackageFragmentRootData>emptySet());
-			}
-			if ((flags & IJavaElementDelta.F_OPENED) != 0) {
-				updateCache(project);
-			}
+		}
+		for (IJavaProject project : toUpdate) {
+			updateCache(project);
 		}
 	}
 
