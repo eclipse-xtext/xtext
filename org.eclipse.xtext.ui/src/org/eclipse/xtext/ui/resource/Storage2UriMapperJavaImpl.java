@@ -454,25 +454,22 @@ public class Storage2UriMapperJavaImpl implements IStorage2UriMapperJdtExtension
 		if (!initializeCache(true)) {
 			return;
 		}
-		Set<IJavaProject> javaProjectsWithClasspathChange = javaProjectClasspathChangeAnalyzer.getJavaProjectsWithClasspathChange(event.getDelta());
-		if(!javaProjectsWithClasspathChange.isEmpty()) {
-			for(IJavaProject project: javaProjectsWithClasspathChange) {
-				updateCache(project);
+		// Reconcile each affected project once against its current state: updateCache collects
+		// the current roots and drops everything else, so for a closed or removed project it
+		// degrades to a clear. This handles combined flags (e.g. F_CLOSED | F_CHILDREN from
+		// batched deltas) and avoids a transient empty cache plus double rescans when
+		// F_CLOSED and F_OPENED (or a classpath change) arrive together.
+		// Requires POST_CHANGE delivery (the registration mask): the workspace must already
+		// reflect the delta when it is handled.
+		Set<IJavaProject> toUpdate = newLinkedHashSet(javaProjectClasspathChangeAnalyzer.getJavaProjectsWithClasspathChange(event.getDelta()));
+		for (IJavaElementDelta projectDelta : getProjectDeltas(event.getDelta())) {
+			if ((projectDelta.getKind() & IJavaElementDelta.REMOVED) != 0
+					|| (projectDelta.getFlags() & (IJavaElementDelta.F_OPENED | IJavaElementDelta.F_CLOSED)) != 0) {
+				toUpdate.add((IJavaProject) projectDelta.getElement());
 			}
-		} 
-		for(IJavaElementDelta projectDelta: getProjectDeltas(event.getDelta())) {
-			IJavaProject project = (IJavaProject) projectDelta.getElement();
-			if((projectDelta.getKind() & IJavaElementDelta.REMOVED) != 0) {
-				clearCache(project, Collections.<PackageFragmentRootData>emptySet());
-			} 
-			switch(projectDelta.getFlags()) {
-				case IJavaElementDelta.F_OPENED: 
-					updateCache(project);
-					break;
-				case IJavaElementDelta.F_CLOSED:
-					clearCache(project, Collections.<PackageFragmentRootData>emptySet());
-					break;
-			}
+		}
+		for (IJavaProject project : toUpdate) {
+			updateCache(project);
 		}
 	}
 
