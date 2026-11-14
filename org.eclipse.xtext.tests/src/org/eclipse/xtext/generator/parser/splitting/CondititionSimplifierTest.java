@@ -103,6 +103,30 @@ public class CondititionSimplifierTest extends AbstractXtextTests {
 		check(expectation, model);
 	}
 
+	@Test public void testOrOfPredicatesKeepsOrder() throws Exception {
+		String model = "if (b()||a()) {";
+		check(model, model);
+	}
+
+	@Test public void testOrOperandsInAnyOrder() throws Exception {
+		String expectation = "if (!c||(e||f)&&g||a&&b||d()) {";
+		check(expectation, expectation);
+		check(expectation, "if (d()||(e||f)&&g||a&&b||!c) {");
+		check(expectation, "if (a&&b||!c||d()||(e||f)&&g) {");
+	}
+
+	@Test public void testOrOfComparisonsKeepsOrder() throws Exception {
+		String model = "if ((x==c||x==b)&&(p()||!q())||x>=a&&x<=b) {";
+		String expectation = "if ((x==c||x==b)&&(!q()||p())||x>=a&&x<=b) {";
+		check(expectation, model);
+	}
+
+	@Test public void testUnorderedGroupPredicates() throws Exception {
+		String expectation = "if ( synpred1_InternalMyDslParser() && getUnorderedGroupHelper().canSelect(grammarAccess.getModelAccess().getUnorderedGroup_3(), 0) || synpred1_InternalMyDslParser() && getUnorderedGroupHelper().canSelect(grammarAccess.getModelAccess().getUnorderedGroup_3(), 1) ) {";
+		check(expectation, expectation);
+		check(expectation, "if ( synpred1_InternalMyDslParser() && getUnorderedGroupHelper().canSelect(grammarAccess.getModelAccess().getUnorderedGroup_3(), 1) || synpred1_InternalMyDslParser() && getUnorderedGroupHelper().canSelect(grammarAccess.getModelAccess().getUnorderedGroup_3(), 0) ) {");
+	}
+
 	public void check(String expectation, String model) throws Exception {
 		EObject parsedModel = getModel(model);
 		EObject parsedExpectation = getModel(expectation);
