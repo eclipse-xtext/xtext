@@ -14,10 +14,13 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
 
+import com.google.inject.Singleton;
+
 /**
  * @author Moritz Eysholdt - Initial contribution and API
  * @author Jan Koehnlein - support for cross-resource containment
  */
+@Singleton
 public class DefaultTransientValueService extends AbstractTransientValueService {
 
 	@Override

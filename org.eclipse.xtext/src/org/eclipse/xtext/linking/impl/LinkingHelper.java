@@ -20,10 +20,12 @@ import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
 /**
  * @author Moritz Eysholdt - Initial contribution and API
  */
+@Singleton
 public class LinkingHelper {
 	
 	@Inject
