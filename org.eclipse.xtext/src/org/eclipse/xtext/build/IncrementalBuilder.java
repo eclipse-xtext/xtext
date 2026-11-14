@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -44,6 +45,7 @@ import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.resource.clustering.DisabledClusteringPolicy;
 import org.eclipse.xtext.resource.clustering.IResourceClusteringPolicy;
+import org.eclipse.xtext.resource.impl.ResourceDescriptionsData;
 import org.eclipse.xtext.resource.persistence.IResourceStorageFacade;
 import org.eclipse.xtext.resource.persistence.SerializableResourceDescription;
 import org.eclipse.xtext.resource.persistence.SourceLevelURIsAdapter;
@@ -227,80 +229,43 @@ public class IncrementalBuilder {
 			}
 		}
 
+		/**
+		 * Unload the given uris that are not already in the unloaded set.
+		 * 
+		 * @param uriStream
+		 *            the uris to unload.
+		 * @param unloaded
+		 *            the set of unloaded uris, to which the given uris to unload will be added.
+		 * @since 2.33
+		 */
+		protected void unloadResources(final Stream<URI> uriStream, final Set<URI> unloaded) {
+			uriStream.forEach(uri -> {
+				if (unloaded.add(uri)) {
+					unloadResource(uri);
+				}
+			});
+		}
+
 		public IncrementalBuilder.Result launch() {
-			Source2GeneratedMapping newSource2GeneratedMapping = request.getState().getFileMappings();
 			Set<URI> unloaded = new HashSet<>();
-			for (URI deleted : request.getDeletedFiles()) {
-				if (unloaded.add(deleted)) {
-					unloadResource(deleted);
-				}
-			}
-			for (URI dirty : request.getDirtyFiles()) {
-				if (unloaded.add(dirty)) {
-					unloadResource(dirty);
-				}
-			}
-			for (URI source : request.getDeletedFiles()) {
-				request.getAfterValidate().afterValidate(source, Collections.emptyList());
-				Map<URI, String> outputConfigs = newSource2GeneratedMapping.deleteSourceAndGetOutputConfigs(source);
-				for (URI generated : outputConfigs.keySet()) {
-					IResourceServiceProvider serviceProvider = context.getResourceServiceProvider(source);
-					XtextResourceSet resourceSet = request.getResourceSet();
-					Set<OutputConfiguration> configs = serviceProvider
-							.get(IContextualOutputConfigurationProvider2.class).getOutputConfigurations(resourceSet);
-					String configName = outputConfigs.get(generated);
-					OutputConfiguration config = FluentIterable.from(configs)
-							.firstMatch(it -> it.getName().equals(configName)).orNull();
-					if (config != null && config.isCleanUpDerivedResources()) {
-						try {
-							resourceSet.getURIConverter().delete(generated, Collections.emptyMap());
-							request.getAfterDeleteFile().apply(generated);
-						} catch (IOException e) {
-							throw new RuntimeIOException(e);
-						}
-					}
-				}
-			}
+			unloadResources(request.getDeletedFiles().stream(), unloaded);
+			unloadResources(request.getDirtyFiles().stream(), unloaded);
+
+			Source2GeneratedMapping newSource2GeneratedMapping = request.getState().getFileMappings();
+			deleteGeneratedSources(getRequest().getDeletedFiles(), newSource2GeneratedMapping);
 			Indexer.IndexResult result = indexer.computeAndIndexAffected(request, context);
 			operationCanceledManager.checkCanceled(request.getCancelIndicator());
 
 			List<IResourceDescription.Delta> resolvedDeltas = new ArrayList<>();
-			for (IResourceDescription.Delta delta : result.getResourceDeltas()) {
-				URI uri = delta.getUri();
-				if (delta.getOld() != null && unloaded.add(uri)) {
-					unloadResource(uri);
-				}
-				if (delta.getNew() == null) {
-					resolvedDeltas.add(delta);
-				}
-			}
+			result.getResourceDeltas().stream().filter(delta -> delta.getNew() == null).forEach(resolvedDeltas::add);
+			unloadResources(result.getResourceDeltas().stream().filter(it -> it.getOld() != null).map(Delta::getUri),
+					unloaded);
 			List<URI> toBeBuilt = result.getResourceDeltas().stream().filter((it) -> it.getNew() != null)
 					.map(Delta::getUri).collect(Collectors.toList());
-			
+
 			installSourceLevelURIs(toBeBuilt);
 			Iterable<IResourceDescription.Delta> deltas = context.executeClustered(toBeBuilt,
-					(resource) -> {
-						CancelIndicator cancelIndicator = request.getCancelIndicator();
-						operationCanceledManager.checkCanceled(cancelIndicator);
-						// trigger init
-						resource.getContents();
-						EcoreUtil2.resolveLazyCrossReferences(resource, CancelIndicator.NullImpl);
-						operationCanceledManager.checkCanceled(cancelIndicator);
-						IResourceServiceProvider serviceProvider = getResourceServiceProvider(resource);
-						IResourceDescription.Manager manager = serviceProvider.getResourceDescriptionManager();
-						IResourceDescription description = manager.getResourceDescription(resource);
-						IResourceDescription copiedDescription = getSerializableResourceDescription(description);
-						result.getNewIndex().addDescription(resource.getURI(), copiedDescription);
-						operationCanceledManager.checkCanceled(cancelIndicator);
-						if (!request.isIndexOnly() && validate(resource) && serviceProvider.get(IShouldGenerate.class)
-								.shouldGenerate(resource, CancelIndicator.NullImpl)) {
-							operationCanceledManager.checkCanceled(cancelIndicator);
-							generate(resource, request, newSource2GeneratedMapping);
-						}
-						IResourceDescription old = context.getOldState().getResourceDescriptions()
-								.getResourceDescription(resource.getURI());
-						return manager.createDelta(old, copiedDescription);
-					});
+					resource -> buildResource(resource, result.getNewIndex(), newSource2GeneratedMapping));
 
 			Iterables.addAll(resolvedDeltas, deltas);
 			return new IncrementalBuilder.Result(request.getState(), resolvedDeltas);
@@ -332,6 +297,61 @@ public class IncrementalBuilder {
 			return indexer;
 		}
 
+		/**
+		 * @since 2.33
+		 */
+		protected void deleteGeneratedSources(final List<URI> deletedSources,
+				final Source2GeneratedMapping newSource2GeneratedMapping) {
+			for (URI source : deletedSources) {
+				request.getAfterValidate().afterValidate(source, Collections.emptyList());
+				Map<URI, String> outputConfigs = newSource2GeneratedMapping.deleteSourceAndGetOutputConfigs(source);
+				for (URI generated : outputConfigs.keySet()) {
+					IResourceServiceProvider serviceProvider = context.getResourceServiceProvider(source);
+					XtextResourceSet resourceSet = request.getResourceSet();
+					Set<OutputConfiguration> configs = serviceProvider
+							.get(IContextualOutputConfigurationProvider2.class).getOutputConfigurations(resourceSet);
+					String configName = outputConfigs.get(generated);
+					OutputConfiguration config = FluentIterable.from(configs)
+							.firstMatch(it -> it.getName().equals(configName)).orNull();
+					if (config != null && config.isCleanUpDerivedResources()) {
+						try {
+							resourceSet.getURIConverter().delete(generated, Collections.emptyMap());
+							request.getAfterDeleteFile().apply(generated);
+						} catch (IOException e) {
+							throw new RuntimeIOException(e);
+						}
+					}
+				}
+			}
+		}
+
+		/**
+		 * @since 2.33
+		 */
+		protected IResourceDescription.Delta buildResource(final Resource resource,
+				final ResourceDescriptionsData newIndex, final Source2GeneratedMapping newSource2GeneratedMapping) {
+			CancelIndicator cancelIndicator = request.getCancelIndicator();
+			operationCanceledManager.checkCanceled(cancelIndicator);
+			// trigger init
+			resource.getContents();
+			EcoreUtil2.resolveLazyCrossReferences(resource, CancelIndicator.NullImpl);
+			operationCanceledManager.checkCanceled(cancelIndicator);
+			IResourceServiceProvider serviceProvider = getResourceServiceProvider(resource);
+			IResourceDescription.Manager manager = serviceProvider.getResourceDescriptionManager();
+			IResourceDescription description = manager.getResourceDescription(resource);
+			IResourceDescription copiedDescription = getSerializableResourceDescription(description);
+			newIndex.addDescription(resource.getURI(), copiedDescription);
+			operationCanceledManager.checkCanceled(cancelIndicator);
+			if (!request.isIndexOnly() && validate(resource)
+					&& serviceProvider.get(IShouldGenerate.class).shouldGenerate(resource, CancelIndicator.NullImpl)) {
+				operationCanceledManager.checkCanceled(cancelIndicator);
+				generate(resource, request, newSource2GeneratedMapping);
+			}
+			IResourceDescription old = context.getOldState().getResourceDescriptions()
+					.getResourceDescription(resource.getURI());
+			return manager.createDelta(old, copiedDescription);
+		}
+		  
 		/**
 		 * @since 2.28
 		 */
