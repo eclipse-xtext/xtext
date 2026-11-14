@@ -238,4 +238,20 @@ public class ProjectManager {
 			}
 		}
 	}
+
+	/**
+	 * Notifies the project manager that the project has been removed from the workspace.
+	 *
+	 * <p>No-op if this project has no resource set yet. Must be called on the workspace write thread.</p>
+	 *
+	 * @since 2.45
+	 */
+	public void notifyProjectRemoved(String projectName) {
+		if (resourceSet != null) {
+			ChunkedResourceDescriptions index = ChunkedResourceDescriptions.findInEmfObject(resourceSet);
+			if (index != null) {
+				index.removeContainer(projectName);
+			}
+		}
+	}
 }
