@@ -10,24 +10,24 @@ package org.eclipse.xtend.maven;
 
 import java.io.IOException;
 
-import org.apache.maven.it.VerificationException;
-import org.apache.maven.it.Verifier;
+import org.eclipse.xtend.maven.MavenExecutorUtil.MavenExecution;
+
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class XtendInstallDebugInfoMojoIT {
 
-	private static String ROOT = MavenVerifierUtil.IT_ROOT + "/install_debug_info";
+	private static String ROOT = MavenExecutorUtil.IT_ROOT + "/install_debug_info";
 	
 	@BeforeClass
-	static public void setUpOnce() throws IOException, VerificationException {
-		MavenVerifierUtil.checkMavenExecutable(ROOT);
+	static public void setUpOnce() throws IOException {
+		MavenExecutorUtil.checkMavenExecutable(ROOT);
 	}
 	
 	@Test
 	public void simpleSMAP() throws Exception {
-		Verifier verifier = verifyErrorFreeLog(ROOT + "/simple_smap");
+		MavenExecution verifier = verifyErrorFreeLog(ROOT + "/simple_smap");
 		String xtendGenDir = verifier.getBasedir() + "/target/classes/test";
 		String debugInfo = new ClassFileDebugInfoExtractor().getDebugInfo(xtendGenDir);
 
@@ -61,7 +61,7 @@ public class XtendInstallDebugInfoMojoIT {
 
 	@Test
 	public void simpleXtendAsPrimary() throws Exception {
-		Verifier verifier = verifyErrorFreeLog(ROOT + "/xtend_as_primary");
+		MavenExecution verifier = verifyErrorFreeLog(ROOT + "/xtend_as_primary");
 		String xtendGenDir = verifier.getBasedir() + "/target/classes/test";
 		String debugInfo = new ClassFileDebugInfoExtractor().getDebugInfo(xtendGenDir);
 
@@ -91,7 +91,7 @@ public class XtendInstallDebugInfoMojoIT {
 
 	@Test
 	public void simpleXtendAsPrimaryWithSyntheticVars() throws Exception {
-		Verifier verifier = verifyErrorFreeLog(ROOT + "/xtend_as_primary_with_synthetic_vars");
+		MavenExecution verifier = verifyErrorFreeLog(ROOT + "/xtend_as_primary_with_synthetic_vars");
 		String xtendGenDir = verifier.getBasedir() + "/target/classes/test";
 		String debugInfo = new ClassFileDebugInfoExtractor().getDebugInfo(xtendGenDir);
 
@@ -122,7 +122,7 @@ public class XtendInstallDebugInfoMojoIT {
 
 	@Test
 	public void simpleSmapMultisource() throws Exception {
-		Verifier verifier = verifyErrorFreeLog(ROOT + "/smap_multisource");
+		MavenExecution verifier = verifyErrorFreeLog(ROOT + "/smap_multisource");
 		String info1 = new ClassFileDebugInfoExtractor().getDebugInfo(verifier.getBasedir() + "/target/classes");
 
 		String xpt1 = 
@@ -205,22 +205,18 @@ public class XtendInstallDebugInfoMojoIT {
 		Assert.assertEquals(xpt2.toString(), info2);
 	}
 
-	private Verifier verifyErrorFreeLog(String pathToTestProject) throws IOException, VerificationException {
+	private MavenExecution verifyErrorFreeLog(String pathToTestProject) throws IOException {
 		return verifyErrorFreeLog(pathToTestProject, "verify");
 	}
 
-	private Verifier verifyErrorFreeLog(String pathToTestProject, String goal) throws IOException,
-			VerificationException {
-		Verifier verifier = newVerifier(pathToTestProject);
-//		verifier.setForkJvm(false);
-//		verifier.setDebug(true);
+	private MavenExecution verifyErrorFreeLog(String pathToTestProject, String goal) throws IOException {
+		MavenExecution verifier = newVerifier(pathToTestProject);
 		verifier.executeGoal(goal);
 		verifier.verifyErrorFreeLog();
-		verifier.resetStreams();
 		return verifier;
 	}
 
-	private Verifier newVerifier(String pathToTestProject) throws IOException, VerificationException {
-		return MavenVerifierUtil.newVerifier(pathToTestProject);
+	private MavenExecution newVerifier(String pathToTestProject) throws IOException {
+		return MavenExecutorUtil.newVerifier(pathToTestProject);
 	}
 }

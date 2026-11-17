@@ -12,11 +12,12 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Arrays;
 
-import org.apache.maven.it.VerificationException;
-import org.apache.maven.it.Verifier;
-import org.apache.maven.shared.utils.io.FileUtils;
+import org.eclipse.xtend.maven.MavenExecutorUtil.MavenExecution;
 import org.eclipse.xtext.util.JavaRuntimeVersion;
 import org.junit.Assert;
 import org.junit.Assume;
@@ -25,11 +26,11 @@ import org.junit.Test;
 
 public class XtendCompilerMojoIT {
 
-	private static String ROOT = MavenVerifierUtil.IT_ROOT + "/compile";
+	private static String ROOT = MavenExecutorUtil.IT_ROOT + "/compile";
 	
 	@BeforeClass
-	static public void setUpOnce() throws IOException, VerificationException {
-		MavenVerifierUtil.checkMavenExecutable(ROOT);
+	static public void setUpOnce() throws IOException {
+		MavenExecutorUtil.checkMavenExecutable(ROOT);
 	}
 
 	@Test
@@ -37,13 +38,11 @@ public class XtendCompilerMojoIT {
 		deleteFileIfExist("myusercode/UserCode.css");
 		deleteFileIfExist("com/itemis/myusercode/UserCode2.css");
 
-		Verifier annotationVerifier = MavenVerifierUtil.newVerifier(ROOT + "/filesystemaccess");
-		annotationVerifier.setDebug(true);
+		MavenExecution annotationVerifier = MavenExecutorUtil.newVerifier(ROOT + "/filesystemaccess");
 		annotationVerifier.executeGoal("install");
 		annotationVerifier.verifyErrorFreeLog();
 
-		Verifier clientVerifier = MavenVerifierUtil.newVerifier(ROOT + "/filesystemaccess-client");
-		clientVerifier.setDebug(true);
+		MavenExecution clientVerifier = MavenExecutorUtil.newVerifier(ROOT + "/filesystemaccess-client");
 		clientVerifier.executeGoal("compile");
 		clientVerifier.verifyErrorFreeLog();
 	}
@@ -79,12 +78,11 @@ public class XtendCompilerMojoIT {
 
 	@Test
 	public void encoding() throws Exception {
-		Verifier verifier = MavenVerifierUtil.newVerifier(ROOT + "/encoding");
+		MavenExecution verifier = MavenExecutorUtil.newVerifier(ROOT + "/encoding");
 
 		String xtendDir = verifier.getBasedir() + "/src/main/java";
 		assertFileContainsUTF16(verifier, xtendDir + "/test/XtendA.xtend", "Mühlheim-Kärlicher Bürger");
 
-		verifier.setDebug(true);
 		verifier.executeGoal("test");
 		verifier.verifyErrorFreeLog();
 
@@ -106,8 +104,7 @@ public class XtendCompilerMojoIT {
 
 	@Test
 	public void aggregation() throws Exception {
-		Verifier verifier = MavenVerifierUtil.newVerifier(ROOT + "/aggregation");
-		verifier.setDebug(true);
+		MavenExecution verifier = MavenExecutorUtil.newVerifier(ROOT + "/aggregation");
 		verifier.executeGoal("test");
 		verifier.verifyErrorFreeLog();
 		//https://bugs.eclipse.org/bugs/show_bug.cgi?id=409759
@@ -122,9 +119,7 @@ public class XtendCompilerMojoIT {
 	
 	@Test
 	public void suppressWarningsAnnotation() throws Exception {
-		Verifier verifier = MavenVerifierUtil.newVerifier(ROOT + "/suppress_warnings_annotation");
-		System.out.println(verifier.getLogFileName());
-		verifier.setDebug(true);
+		MavenExecution verifier = MavenExecutorUtil.newVerifier(ROOT + "/suppress_warnings_annotation");
 		verifier.executeGoal("test");
 		verifier.verifyErrorFreeLog();
 		String outputdir = verifier.getBasedir() + "/";
@@ -134,8 +129,7 @@ public class XtendCompilerMojoIT {
 
 	@Test
 	public void emptyDirWarningDefault() throws Exception {
-		Verifier verifier = MavenVerifierUtil.newVerifier(ROOT + "/emptydir-warning-default");
-		verifier.setDebug(true);
+		MavenExecution verifier = MavenExecutorUtil.newVerifier(ROOT + "/emptydir-warning-default");
 		verifier.executeGoal("test");
 		verifier.verifyErrorFreeLog();
 		verifier.verifyTextInLog("is empty. Can't process.");
@@ -143,8 +137,7 @@ public class XtendCompilerMojoIT {
 	
 	@Test
 	public void emptyDirWarningTrue() throws Exception {
-		Verifier verifier = MavenVerifierUtil.newVerifier(ROOT + "/emptydir-warning-true");
-		verifier.setDebug(true);
+		MavenExecution verifier = MavenExecutorUtil.newVerifier(ROOT + "/emptydir-warning-true");
 		verifier.executeGoal("test");
 		verifier.verifyErrorFreeLog();
 		verifier.verifyTextInLog("is empty. Can't process.");
@@ -152,12 +145,10 @@ public class XtendCompilerMojoIT {
 	
 	@Test
 	public void emptyDirWarningFalse() throws Exception {
-		Verifier verifier = MavenVerifierUtil.newVerifier(ROOT + "/emptydir-warning-false");
-		verifier.setDebug(true);
+		MavenExecution verifier = MavenExecutorUtil.newVerifier(ROOT + "/emptydir-warning-false");
 		verifier.executeGoal("test");
 		verifier.verifyErrorFreeLog();
-		String logFileName = verifier.getBasedir() + "/" + verifier.getLogFileName();
-		assertFileDoesNotContain(verifier, logFileName, "is empty. Can't process.");
+		verifier.verifyTextNotInLog("is empty. Can't process.");
 	}
 	
 	@Test
@@ -167,19 +158,15 @@ public class XtendCompilerMojoIT {
 
 	@Test
 	public void haltOnXtendValidationErrors() throws Exception {
-		Verifier verifier = MavenVerifierUtil.newVerifier(ROOT + "/xtenderrors");
-		try {
-			verifier.executeGoal("verify");
-			Assert.fail("expected org.apache.maven.plugin.MojoExecutionException");
-		} catch (Exception e) {
-			verifier.verifyTextInLog("3: Superclass must be a class");
-			verifier.verifyTextInLog("BUILD FAILURE");
-		}
+		MavenExecution verifier = MavenExecutorUtil.newVerifier(ROOT + "/xtenderrors");
+		verifier.executeGoal("verify");
+		Assert.assertFalse("expected failing build", verifier.success());
+		verifier.verifyTextInLog("3: Superclass must be a class");
+		verifier.verifyTextInLog("BUILD FAILURE");
 	}
-
 	@Test
 	public void continueOnXtendWarnings() throws Exception {
-		Verifier verifier = MavenVerifierUtil.newVerifier(ROOT + "/xtendwarnings");
+		MavenExecution verifier = MavenExecutorUtil.newVerifier(ROOT + "/xtendwarnings");
 		verifier.executeGoal("verify");
 		verifier.verifyTextInLog("3: The import 'java.util.Collections' is never used.");
 		verifier.verifyTextInLog("[INFO] BUILD SUCCESS");
@@ -187,8 +174,7 @@ public class XtendCompilerMojoIT {
 
 	@Test
 	public void readXtendPrefs() throws Exception {
-		Verifier verifier = MavenVerifierUtil.newVerifier(ROOT + "/xtend-prefs");
-		verifier.setDebug(true);
+		MavenExecution verifier = MavenExecutorUtil.newVerifier(ROOT + "/xtend-prefs");
 		verifier.executeGoal("test");
 		verifier.verifyErrorFreeLog();
 		String xtendOutputDirFromPrefs = "generated-sources/xtend-from-pref";
@@ -204,8 +190,7 @@ public class XtendCompilerMojoIT {
 
 	@Test
 	public void readXtendPrefsUnused() throws Exception {
-		Verifier verifier = MavenVerifierUtil.newVerifier(ROOT + "/xtend-prefs-unused");
-		verifier.setDebug(true);
+		MavenExecution verifier = MavenExecutorUtil.newVerifier(ROOT + "/xtend-prefs-unused");
 		verifier.executeGoal("test");
 		verifier.verifyErrorFreeLog();
 		String pomsOutputDir = "xtend-dir-from-pom";
@@ -222,18 +207,17 @@ public class XtendCompilerMojoIT {
 	@Test
 	public void readSymlinks() throws Exception {
 		// first copy the project under test
-		Verifier verifier = MavenVerifierUtil.newVerifier(ROOT + "/symlinks");
+		MavenExecution verifier = MavenExecutorUtil.newVerifier(ROOT + "/symlinks");
 		// then copy the project containing the target folders for the symlinks
 		// note we use a project not used in any other tests, so that we won't risk
 		// to remove the contents of an already tested project
-		String root = MavenVerifierUtil.copyProjectToTempDir(ROOT + "/multisources-to-link")
+		String root = MavenExecutorUtil.copyProjectToTempDir(ROOT + "/multisources-to-link")
 				.getParent();
 		File link = new File(root + "/symlinks/src/main/java");
 		File link2 = new File(root + "/symlinks/src/test/java");
 		createSymLink(root + "/multisources-to-link/src/main/java/", link.getAbsolutePath());
 		createSymLink(root + "/multisources-to-link/src/test/java/", link2.getAbsolutePath());
 		try {
-			verifier.setDebug(true);
 			verifier.executeGoal("test");
 			verifier.verifyErrorFreeLog();
 			String outputdir = verifier.getBasedir();
@@ -253,15 +237,14 @@ public class XtendCompilerMojoIT {
 		}
 	}
 
-	private void verifyErrorFreeLog(String pathToTestProject) throws IOException, VerificationException {
+	private void verifyErrorFreeLog(String pathToTestProject) throws IOException {
 		verifyErrorFreeLog(pathToTestProject, "verify");
 	}
 
-	private void verifyErrorFreeLog(String pathToTestProject, String goal) throws IOException, VerificationException {
-		Verifier verifier = MavenVerifierUtil.newVerifier(pathToTestProject);
+	private void verifyErrorFreeLog(String pathToTestProject, String goal) throws IOException {
+		MavenExecution verifier = MavenExecutorUtil.newVerifier(pathToTestProject);
 		verifier.executeGoal(goal);
 		verifier.verifyErrorFreeLog();
-		verifier.resetStreams();
 	}
 
 	
@@ -292,27 +275,19 @@ public class XtendCompilerMojoIT {
 		return !canon.getCanonicalFile().equals(canon.getAbsoluteFile());
 	}
 
-	public void assertFileContainsUTF16(Verifier verifier, String file, String contained) throws VerificationException {
+	public void assertFileContainsUTF16(MavenExecution verifier, String file, String contained) throws IOException {
 		verifier.verifyFilePresent(file);
-		try {
-			String content = FileUtils.fileRead(new File(file), "UTF-16");
-			if (!content.contains(contained)) {
-				Assert.fail("Content of " + file + " does not contain " + contained + " but: " + content);
-			}
-		} catch (IOException e) {
-			Assert.fail(e.getMessage());
+		String content = Files.readString(Path.of(file), StandardCharsets.UTF_16);
+		if (!content.contains(contained)) {
+			Assert.fail("Content of " + file + " does not contain " + contained + " but: " + content);
 		}
 	}
 	
-	public void assertFileDoesNotContain(Verifier verifier, String file, String contained) throws VerificationException {
+	public void assertFileDoesNotContain(MavenExecution verifier, String file, String contained) throws IOException {
 		verifier.verifyFilePresent(file);
-		try {
-			String content = FileUtils.fileRead(new File(file), "UTF-8");
-			if (content.contains(contained)) {
-				Assert.fail("Content of " + file + " does contain " + contained + ", but it should not. Contents: " + content);
-			}
-		} catch (IOException e) {
-			Assert.fail(e.getMessage());
+		String content = Files.readString(Path.of(file), StandardCharsets.UTF_8);
+		if (content.contains(contained)) {
+			Assert.fail("Content of " + file + " does contain " + contained + ", but it should not. Contents: " + content);
 		}
 	}
 }
