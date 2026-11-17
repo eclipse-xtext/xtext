@@ -12,7 +12,7 @@ import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.ide.editor.contentassist.ContentAssistContext;
 import org.eclipse.xtext.ide.editor.contentassist.IIdeContentProposalAcceptor;
-import org.eclipse.xtext.ide.editor.contentassist.IdeContentProposalProvider;
+import org.eclipse.xtext.ide.editor.contentassist.TemplateIdeContentProposalProvider;
 import org.eclipse.xtext.ide.tests.testlanguage.services.TestLanguageGrammarAccess;
 
 import com.google.inject.Inject;
@@ -20,7 +20,7 @@ import com.google.inject.Inject;
 /**
  * @author Christian Dietrich - Initial contribution and API
  */
-public class TestLanguageIdeContentProposalProvider extends IdeContentProposalProvider {
+public class TestLanguageIdeContentProposalProvider extends TemplateIdeContentProposalProvider {
 	@Inject
 	private TestLanguageGrammarAccess testLanguageGrammarAccess;
 
@@ -37,5 +37,10 @@ public class TestLanguageIdeContentProposalProvider extends IdeContentProposalPr
 			acceptor.accept(getProposalCreator().createSnippet(builder.toString(), "Sample Snippet", context), 0);
 		}
 		super._createProposals(ruleCall, context, acceptor);
+	}
+
+	@Override
+	protected String getTemplateFilePlugin() {
+		return "org.eclipse.xtext.ide.tests";
 	}
 }

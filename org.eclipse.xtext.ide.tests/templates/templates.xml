@@ -1,0 +1,13 @@
+<?xml version="1.0"
+  encoding="UTF-8"
+  standalone="no"?>
+
+<templates>
+  <template
+    context="org.eclipse.xtext.ide.tests.testlanguage.TestLanguage.TypeDeclaration"
+    description="Add type declaration"
+    name="type declaration template">type ${1:name} {
+  $0
+}
+	</template>
+</templates>
