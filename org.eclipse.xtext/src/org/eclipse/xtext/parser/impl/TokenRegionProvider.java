@@ -41,13 +41,13 @@ public class TokenRegionProvider {
 		CommonToken nextToken = (CommonToken) lexer.nextToken();
 		int regionStart = region.getOffset();
 		int regionEnd = region.getEndOffset();
-		while (nextToken != Token.EOF_TOKEN && currentEnd <= regionStart) {
+		while (nextToken.getType() != Token.EOF && currentEnd <= regionStart) {
 			currentStart = nextToken.getStartIndex();
 			currentEnd = nextToken.getStopIndex() + 1;
 			nextToken = (CommonToken) lexer.nextToken();
 		}
 		// nextToken is either EOF or the first token that follows the start of the given region
-		while (nextToken != Token.EOF_TOKEN && currentEnd < regionEnd) {
+		while (nextToken.getType() != Token.EOF && currentEnd < regionEnd) {
 			currentEnd = nextToken.getStopIndex() + 1;
 			nextToken = (CommonToken) lexer.nextToken();
 		}
