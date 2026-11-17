@@ -14,9 +14,12 @@ import org.eclipse.xtext.validation.IConcreteSyntaxConstraintProvider.ISyntaxCon
 import org.eclipse.xtext.validation.IAssignmentQuantityIntervalProvider;
 import org.eclipse.xtext.validation.IAssignmentQuantityAllocator.IQuantities;
 
+import com.google.inject.Singleton;
+
 /**
  * @author Moritz Eysholdt - Initial contribution and API
  */
+@Singleton
 public class AssignmentQuantityIntervalProvider implements IAssignmentQuantityIntervalProvider {
 	protected boolean containsUnavailableFeature(IQuantities ctx, ISyntaxConstraint child, String exclude,
 			Set<ISyntaxConstraint> involved) {
