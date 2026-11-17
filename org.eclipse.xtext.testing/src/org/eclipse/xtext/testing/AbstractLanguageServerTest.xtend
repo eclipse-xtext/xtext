@@ -3,11 +3,12 @@
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
- *
+ * 
  * SPDX-License-Identifier: EPL-2.0
  *******************************************************************************/
 package org.eclipse.xtext.testing
 
+import com.google.common.annotations.Beta
 import com.google.inject.Guice
 import com.google.inject.Inject
 import com.google.inject.Module
@@ -20,6 +21,7 @@ import java.util.List
 import java.util.Map
 import java.util.concurrent.CompletableFuture
 import org.eclipse.emf.common.util.URI
+import org.eclipse.lsp4j.ClientCapabilities
 import org.eclipse.lsp4j.CodeAction
 import org.eclipse.lsp4j.CodeActionContext
 import org.eclipse.lsp4j.CodeActionParams
@@ -56,6 +58,7 @@ import org.eclipse.lsp4j.Range
 import org.eclipse.lsp4j.ReferenceContext
 import org.eclipse.lsp4j.ReferenceParams
 import org.eclipse.lsp4j.ResourceOperation
+import org.eclipse.lsp4j.SemanticTokensParams
 import org.eclipse.lsp4j.SignatureHelp
 import org.eclipse.lsp4j.SignatureHelpParams
 import org.eclipse.lsp4j.SymbolInformation
@@ -64,8 +67,10 @@ import org.eclipse.lsp4j.TextDocumentIdentifier
 import org.eclipse.lsp4j.TextDocumentItem
 import org.eclipse.lsp4j.TextEdit
 import org.eclipse.lsp4j.VersionedTextDocumentIdentifier
+import org.eclipse.lsp4j.WorkspaceClientCapabilities
 import org.eclipse.lsp4j.WorkspaceEdit
 import org.eclipse.lsp4j.WorkspaceFolder
+import org.eclipse.lsp4j.WorkspaceSymbol
 import org.eclipse.lsp4j.WorkspaceSymbolParams
 import org.eclipse.lsp4j.jsonrpc.Endpoint
 import org.eclipse.lsp4j.jsonrpc.messages.Either
@@ -93,16 +98,11 @@ import org.junit.jupiter.api.BeforeEach
 
 import static extension org.eclipse.lsp4j.util.Ranges.containsRange
 import static extension org.eclipse.xtext.util.Strings.*
-import org.eclipse.lsp4j.WorkspaceSymbol
-import org.eclipse.lsp4j.SemanticTokensParams
-import com.google.common.annotations.Beta
-import org.eclipse.lsp4j.ClientCapabilities
-import org.eclipse.lsp4j.WorkspaceClientCapabilities
 
 /**
  * @author Sven Efftinge - Initial contribution and API
  *         Rubén Porras Campo - Semantic Tokens Full
- 
+ *  
  */
 @FinalFieldsConstructor
 abstract class AbstractLanguageServerTest implements Endpoint {
@@ -143,22 +143,22 @@ abstract class AbstractLanguageServerTest implements Endpoint {
 	protected def Class<? extends LanguageClient> getLanguageClientClass() {
 		return LanguageClient;
 	}
-	
+
 	/**
 	 * A request manager that will run the given read and write actions in the same thread immediately, sequentially.
 	 */
 	@Singleton
 	static class DirectRequestManager extends AbstractRequestManager {
-	
+
 		@Inject
 		new(OperationCanceledManager operationCanceledManager) {
 			super(operationCanceledManager)
 		}
-		
+
 		override synchronized <V> runRead((CancelIndicator)=>V request) {
 			val result = new CompletableFuture()
 			try {
-				result.complete(request.apply [ false ])
+				result.complete(request.apply[false])
 			} catch (Throwable t) {
 				if (isCancelException(t)) {
 					result.cancel(true)
@@ -182,11 +182,11 @@ abstract class AbstractLanguageServerTest implements Endpoint {
 			}
 			return result
 		}
-		
+
 		override shutdown() {
 			// no shutdown
 		}
-		
+
 	}
 
 	protected def Module getServerModule() {
@@ -222,12 +222,13 @@ abstract class AbstractLanguageServerTest implements Endpoint {
 	protected def InitializeResult initialize((InitializeParams)=>void initializer) {
 		initialize(initializer, true)
 	}
-	
+
 	protected def InitializeResult initialize((InitializeParams)=>void initializer, boolean callInitialized) {
 		initialize(initializer, callInitialized, false)
 	}
-	
-	protected def InitializeResult initialize((InitializeParams)=>void initializer, boolean callInitialized, boolean useRootPath) {
+
+	protected def InitializeResult initialize((InitializeParams)=>void initializer, boolean callInitialized,
+		boolean useRootPath) {
 		val params = new InitializeParams => [
 			processId = 1
 			workspaceFolders = #[
@@ -310,17 +311,18 @@ abstract class AbstractLanguageServerTest implements Endpoint {
 			«element.toExpectation»
 		«ENDFOR»
 	'''
+
 	protected def dispatch String toExpectation(String it) { it }
-	
+
 	protected def dispatch String toExpectation(Integer it) { '''«it»''' }
-	
+
 	protected def dispatch String toExpectation(Void it) { '' }
 
 	protected dispatch def String toExpectation(Either<?, ?> either) '''
 		«IF either.isLeft»
-		«either.getLeft.toExpectation»
+			«either.getLeft.toExpectation»
 		«ELSE»
-		«either.getRight.toExpectation»
+			«either.getRight.toExpectation»
 		«ENDIF»
 	'''
 
@@ -355,8 +357,9 @@ abstract class AbstractLanguageServerTest implements Endpoint {
 	 * @since 2.16
 	 */
 	protected def dispatch String toExpectation(DocumentSymbol it) {
-		Assert.assertTrue('''selectionRange must be contained in the range: «it»''', range.containsRange(selectionRange))
-	'''
+		Assert.assertTrue('''selectionRange must be contained in the range: «it»''',
+			range.containsRange(selectionRange))
+		'''
 		symbol "«name»" {
 		    kind: «kind.value»
 		    range: «range.toExpectation»
@@ -364,9 +367,9 @@ abstract class AbstractLanguageServerTest implements Endpoint {
 		    details: «detail»
 		    deprecated: «deprecated»
 		    «IF !children.nullOrEmpty»
-		    children: [
-		    	«FOR child : children SEPARATOR'\n'»«child.toExpectation»«ENDFOR»
-		    ]
+		    	children: [
+		    		«FOR child : children SEPARATOR'\n'»«child.toExpectation»«ENDFOR»
+		    	]
 		    «ENDIF»
 		}'''
 	}
@@ -392,8 +395,10 @@ abstract class AbstractLanguageServerTest implements Endpoint {
 			return '<empty>';
 		}
 		Assert.assertNotNull('Active signature index must not be null when signatures are available.', activeSignature);
-		val param = if(activeParameter === null) '<empty>' else signatures.get(activeSignature).parameters.get(
-				activeParameter).label.getLeft();
+		val param = if (activeParameter === null)
+				'<empty>'
+			else
+				signatures.get(activeSignature).parameters.get(activeParameter).label.getLeft();
 		'''«signatures.map[label].join(' | ')» | «param»''';
 	}
 
@@ -405,17 +410,17 @@ abstract class AbstractLanguageServerTest implements Endpoint {
 	protected dispatch def String toExpectation(DocumentHighlightKind kind) {
 		return kind.toString.substring(0, 1).toUpperCase;
 	}
-	
+
 	protected dispatch def String toExpectation(Map<Object, Object> it) {
 		val sb = new StringBuilder;
-		entrySet.forEach[
+		entrySet.forEach [
 			if (sb.length > 0) {
 				sb.append('\n');
 			}
 			sb.append(key.toExpectation);
 			sb.append(' ->');
 			if (value instanceof Iterable<?>) {
-				(value as Iterable<?>).forEach[
+				(value as Iterable<?>).forEach [
 					sb.append('\n * ');
 					sb.append(toExpectation);
 				]
@@ -423,14 +428,14 @@ abstract class AbstractLanguageServerTest implements Endpoint {
 				sb.append(' ');
 				sb.append(value.toExpectation);
 			}
- 		];
+		];
 		return sb.toString;
 	}
 
 	protected dispatch def String toExpectation(CodeLens it) {
-		return command.title + " " +range.toExpectation
+		return command.title + " " + range.toExpectation
 	}
-	
+
 	protected dispatch def String toExpectation(FoldingRange it) {
 		return '''[«String.valueOf(kind)» «startLine»..«endLine»]'''
 	}
@@ -445,7 +450,7 @@ abstract class AbstractLanguageServerTest implements Endpoint {
 		configuration.filePath = 'MyModel.' + fileExtension
 		configurator.apply(configuration)
 		val filePath = initializeContext(configuration).uri
-		val codeLenses = languageServer.codeLens(new CodeLensParams=>[
+		val codeLenses = languageServer.codeLens(new CodeLensParams => [
 			textDocument = new TextDocumentIdentifier(filePath)
 		])
 		val result = codeLenses.get.map[languageServer.resolveCodeLens(it).get].toList
@@ -456,7 +461,7 @@ abstract class AbstractLanguageServerTest implements Endpoint {
 			assertEquals(expectedCodeLensItems, result.toExpectation)
 		}
 	}
-	
+
 	protected dispatch def String toExpectation(MarkupContent it) '''
 		kind: «kind»
 		value: «value»
@@ -486,32 +491,30 @@ abstract class AbstractLanguageServerTest implements Endpoint {
 				«ENDFOR»
 			«ENDIF»
 	'''
-	
+
 	protected dispatch def String toExpectation(ResourceOperation it) '''
 		kind : «kind»
 	'''
-	
-	protected dispatch def String toExpectation(CodeAction it)  '''
+
+	protected dispatch def String toExpectation(CodeAction it) '''
 		title : «title»
 		kind : «kind»
 		command : «command»
 		«IF !diagnostics.nullOrEmpty»codes : «diagnostics.map[code.get].join(',')»«ENDIF»
 		edit : «edit.toExpectation»
 	'''
-	
+
 	protected def dispatch String toExpectation(TextDocumentEdit e) '''
 		«e.textDocument.toExpectation» : «e.edits.toExpectation»
 	'''
 
-	protected def dispatch String toExpectation(VersionedTextDocumentIdentifier v) 
-		'''«URI.createURI(v.uri).lastSegment» <«v.version»>'''
-	
-	
-	
+	protected def dispatch String toExpectation(
+		VersionedTextDocumentIdentifier v) '''«URI.createURI(v.uri).lastSegment» <«v.version»>'''
+
 	@Accessors static class TestCodeActionConfiguration extends TextDocumentPositionConfiguration {
 		String expectedCodeActions = ''
 
-		(List<Either<Command, CodeAction>>)=>void assertCodeActions= null
+		(List<Either<Command, CodeAction>>)=>void assertCodeActions = null
 	}
 
 	@Beta
@@ -532,7 +535,7 @@ abstract class AbstractLanguageServerTest implements Endpoint {
 		configuration.filePath = 'MyModel.' + fileExtension
 		configurator.apply(configuration)
 		val filePath = initializeContext(configuration).uri
-		val result = languageServer.codeAction(new CodeActionParams=>[
+		val result = languageServer.codeAction(new CodeActionParams => [
 			textDocument = new TextDocumentIdentifier(filePath)
 			range = new Range => [
 				start = new Position(configuration.line, configuration.column)
@@ -542,11 +545,13 @@ abstract class AbstractLanguageServerTest implements Endpoint {
 				diagnostics = this.diagnostics.get(filePath)
 			]
 		])
+		val actions = result.get
+		actions.filter[getRight !== null].forEach[e|languageServer.resolveCodeAction(e.getRight).get]
 
 		if (configuration.assertCodeActions !== null) {
 			configuration.assertCodeActions.apply(result.get)
 		} else {
-			assertEquals(configuration.expectedCodeActions, result.get.toExpectation)
+			assertEquals(configuration.expectedCodeActions, actions.toExpectation)
 		}
 	}
 
@@ -561,7 +566,7 @@ abstract class AbstractLanguageServerTest implements Endpoint {
 		])
 
 		val result = completionItems.get
-		val items = if (result.isLeft) result.getLeft else result.getRight.items
+		val items = if(result.isLeft) result.getLeft else result.getRight.items
 		// assert ordered by sortText
 		Assert.assertEquals(items, items.sortBy[sortText].toList)
 		if (configuration.assertCompletionList !== null) {
@@ -733,7 +738,8 @@ abstract class AbstractLanguageServerTest implements Endpoint {
 		testFormatting(null, configurator)
 	}
 
-	protected def testFormatting((DocumentFormattingParams)=>void paramsConfigurator, (FormattingConfiguration)=>void configurator) {
+	protected def testFormatting((DocumentFormattingParams)=>void paramsConfigurator,
+		(FormattingConfiguration)=>void configurator) {
 		val extension configuration = new FormattingConfiguration
 		configuration.filePath = 'MyModel.' + fileExtension
 		configurator.apply(configuration)
@@ -753,7 +759,8 @@ abstract class AbstractLanguageServerTest implements Endpoint {
 		testRangeFormatting(null, configurator)
 	}
 
-	protected def testRangeFormatting((DocumentRangeFormattingParams)=>void paramsConfigurator, (RangeFormattingConfiguration)=>void configurator) {
+	protected def testRangeFormatting((DocumentRangeFormattingParams)=>void paramsConfigurator,
+		(RangeFormattingConfiguration)=>void configurator) {
 		val extension configuration = new RangeFormattingConfiguration
 		configuration.filePath = 'MyModel.' + fileExtension
 		configurator.apply(configuration)
@@ -770,7 +777,7 @@ abstract class AbstractLanguageServerTest implements Endpoint {
 		val result = new Document(1, fileInfo.contents).applyChanges(<TextEdit>newArrayList(changes.get()).reverse)
 		assertEqualsStricter(configuration.expectedText, result.contents)
 	}
-	
+
 	/**
 	 * @since 2.26
 	 */
@@ -778,13 +785,13 @@ abstract class AbstractLanguageServerTest implements Endpoint {
 		val extension configuration = new FoldingConfiguration
 		configuration.filePath = 'MyModel.' + fileExtension
 		configurator.apply(configuration)
-		
+
 		val fileInfo = initializeContext(configuration)
-		
+
 		val foldings = languageServer.foldingRange(new FoldingRangeRequestParams => [
 			textDocument = new TextDocumentIdentifier(fileInfo.uri)
 		]).get()
-		
+
 		assertEqualsStricter(configuration.expectedFoldings, foldings.toExpectation);
 	}
 
@@ -797,14 +804,13 @@ abstract class AbstractLanguageServerTest implements Endpoint {
 	}
 
 	protected def Map<String, List<Diagnostic>> getDiagnostics() {
-		languageServer.requestManager.runRead[
+		languageServer.requestManager.runRead [
 			val result = <String, List<Diagnostic>>newHashMap
 			for (diagnostic : notifications.map[value].filter(PublishDiagnosticsParams)) {
 				result.put(diagnostic.uri, diagnostic.diagnostics)
 			}
-			return result 
+			return result
 		].get
 	}
 
 }
-
