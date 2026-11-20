@@ -11,6 +11,7 @@ package org.eclipse.xtext.ide.server;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.nio.channels.AsynchronousServerSocketChannel;
 import java.nio.channels.AsynchronousSocketChannel;
@@ -46,7 +47,7 @@ public class SocketServerLauncher {
 
 	public static final int DEFAULT_PORT = 5008;
 
-	public static final String DEFAULT_HOST = "0.0.0.0";
+	public static final String DEFAULT_HOST = InetAddress.getLoopbackAddress().getHostAddress();
 
 	public static void main(String[] args) {
 		new SocketServerLauncher().launch(args);
@@ -93,7 +94,12 @@ public class SocketServerLauncher {
 	}
 
 	protected InetSocketAddress getSocketAddress(String... args) {
-		return new InetSocketAddress(getHost(args), getPort(args));
+		String host = getValue(args, HOST);
+		int port = getPort(args);
+		if (host != null) {
+			return new InetSocketAddress(host, port);
+		}
+		return new InetSocketAddress(InetAddress.getLoopbackAddress(), port);
 	}
 
 	protected String getHost(String... args) {
