@@ -12,13 +12,8 @@ pipeline {
   }
 
   triggers {
-    // Nightly builds only for main of the upstream repository, not for private copies
-    // of it (e.g. one used for security fixes). This runs before checkout, so the URL
-    // comes from the job's SCM configuration (same pattern as IS_UPSTREAM in Initialize).
-    // The repo check comes first so that every build evaluates it, not only main builds.
-    parameterizedCron((scm.userRemoteConfigs[0]?.url ==~ /(https:\/\/|git@)github\.com[\/:]eclipse(-xtext)?\/xtext(\.git)?\/?/) && env.BRANCH_NAME == 'main' ? '''
-      H H(0-1) * * * %TARGET_PLATFORM=r202512;JDK_VERSION=21
-      H H(3-4) * * * %TARGET_PLATFORM=latest;JDK_VERSION=25
+    parameterizedCron(env.BRANCH_NAME == 'cd_tycho60' ? '''
+      H H(15-16) * * * %TARGET_PLATFORM=latest;JDK_VERSION=25
       ''' : '')
   }
 
@@ -30,9 +25,9 @@ pipeline {
   }
 
   tools {
-     // the Java version we use to run the build
-     // we force the effective JDK version for compilation/testing through Maven toolchains
-     jdk "temurin-jdk21-latest"
+     // Maven itself must run on JDK 25: Tycho 6.0.0-SNAPSHOT bundles class file version 69.0
+     // The effective JDK for compilation/testing is still forced through Maven toolchains (strict-jdk-*/toolchain.jdk.env)
+     jdk "temurin-jdk25-latest"
   }
 
   stages {
