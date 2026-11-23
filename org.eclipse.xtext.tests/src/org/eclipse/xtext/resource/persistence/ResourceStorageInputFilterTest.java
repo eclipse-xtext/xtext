@@ -13,16 +13,20 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InvalidClassException;
 import java.io.ObjectInputStream;
 import java.io.ObjectInputFilter;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -35,6 +39,16 @@ public class ResourceStorageInputFilterTest {
 
 	private static class CustomClass implements Serializable {
 		private static final long serialVersionUID = 1L;
+	}
+
+	private static class TestLoadable extends ResourceStorageLoadable {
+		TestLoadable() {
+			super(new ByteArrayInputStream(new byte[0]), false);
+		}
+
+		ObjectInputStream open(InputStream inputStream) throws IOException {
+			return createObjectInputStream(inputStream);
+		}
 	}
 
 	@Test
@@ -93,14 +107,60 @@ public class ResourceStorageInputFilterTest {
 		assertTrue(result instanceof CustomClass);
 	}
 
+	@Test(expected = InvalidClassException.class)
+	public void rejectsDeeplyNestedList() throws Exception {
+		Object value = new ArrayList<>();
+		for (int i = 0; i < 500; i++) {
+			List<Object> parent = new ArrayList<>();
+			parent.add(value);
+			value = parent;
+		}
+		read(value, ResourceStorageInputFilter.DEFAULT);
+	}
+
+	@Test(expected = InvalidClassException.class)
+	public void rejectsOversizedArray() throws Exception {
+		ObjectInputFilter filter = new ResourceStorageInputFilter(Collections.emptySet(), 100, 1000, 10);
+		read(new String[20], filter);
+	}
+
+	@Test(expected = InvalidClassException.class)
+	public void rejectsTooManyReferences() throws Exception {
+		ObjectInputFilter filter = new ResourceStorageInputFilter(Collections.emptySet(), 100, 1, 1000);
+		read(new String[] { "a", "b" }, filter);
+	}
+
+	@Test(expected = InvalidClassException.class)
+	public void composedFilterUsesStricterGlobalPolicy() throws Exception {
+		ObjectInputFilter global = info -> info.serialClass() == CustomClass.class
+				? ObjectInputFilter.Status.REJECTED
+				: ObjectInputFilter.Status.UNDECIDED;
+		ObjectInputFilter storage = info -> info.serialClass() == CustomClass.class
+				? ObjectInputFilter.Status.ALLOWED
+				: ObjectInputFilter.Status.UNDECIDED;
+		read(new CustomClass(), ResourceStorageInputFilter.compose(global, storage));
+	}
+
+	@Test(expected = InvalidClassException.class)
+	public void loadableUsesFilter() throws Exception {
+		TestLoadable loadable = new TestLoadable();
+		try (ObjectInputStream in = loadable.open(new ByteArrayInputStream(serialize(new CustomClass())))) {
+			in.readObject();
+		}
+	}
+
 	private Object read(Object value, ObjectInputFilter filter) throws Exception {
+		try (ObjectInputStream in = new ObjectInputStream(new ByteArrayInputStream(serialize(value)))) {
+			in.setObjectInputFilter(filter);
+			return in.readObject();
+		}
+	}
+
+	private byte[] serialize(Object value) throws IOException {
 		ByteArrayOutputStream bytes = new ByteArrayOutputStream();
 		try (ObjectOutputStream out = new ObjectOutputStream(bytes)) {
 			out.writeObject(value);
 		}
-		try (ObjectInputStream in = new ObjectInputStream(new ByteArrayInputStream(bytes.toByteArray()))) {
-			in.setObjectInputFilter(filter);
-			return in.readObject();
-		}
+		return bytes.toByteArray();
 	}
 }

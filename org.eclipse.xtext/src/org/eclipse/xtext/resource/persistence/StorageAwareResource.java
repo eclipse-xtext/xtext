@@ -87,6 +87,9 @@ public class StorageAwareResource extends LazyLinkingResource {
 				loadFromStorage(in);
 				return;
 			} catch (IOException e) {
+				if (LOG.isDebugEnabled()) {
+					LOG.debug("Failed to load " + getURI() + " from storage", e);
+				}
 				clearAndUnload();
 			} catch (StackOverflowError e) {
 				trimStackOverflowErrorStackTrace(e);

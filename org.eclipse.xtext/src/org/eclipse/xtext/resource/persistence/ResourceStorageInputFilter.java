@@ -96,4 +96,41 @@ public class ResourceStorageInputFilter implements ObjectInputFilter {
 		}
 		return componentType != null && allowedClasses.contains(componentType.getName());
 	}
+
+	/**
+	 * Composes a process-global filter with a storage-specific filter. Both filters are consulted;
+	 * a rejection from either one wins. This prevents a stream filter from weakening a stricter
+	 * process-global serialization policy.
+	 *
+	 * @since 2.45
+	 */
+	public static ObjectInputFilter compose(ObjectInputFilter globalFilter, ObjectInputFilter storageFilter) {
+		if (globalFilter == null) {
+			return storageFilter;
+		}
+		if (storageFilter == null) {
+			return globalFilter;
+		}
+		return info -> {
+			Status globalStatus = globalFilter.checkInput(info);
+			if (globalStatus == Status.REJECTED) {
+				return Status.REJECTED;
+			}
+			Status storageStatus = storageFilter.checkInput(info);
+			if (storageStatus == Status.REJECTED) {
+				return Status.REJECTED;
+			}
+			return storageStatus == Status.UNDECIDED ? globalStatus : storageStatus;
+		};
+	}
+
+	/**
+	 * Composes the process-global filter (if any) with the given storage filter.
+	 *
+	 * @since 2.45
+	 */
+	public static ObjectInputFilter composeWithGlobalFilter(ObjectInputFilter storageFilter) {
+		return compose(ObjectInputFilter.Config.getSerialFilter(), storageFilter);
+	}
+
 }

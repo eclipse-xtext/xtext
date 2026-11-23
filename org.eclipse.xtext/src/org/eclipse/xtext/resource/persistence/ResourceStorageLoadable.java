@@ -122,7 +122,7 @@ public class ResourceStorageLoadable {
 	 * @since 2.45
 	 */
 	protected ObjectInputFilter createObjectInputFilter() {
-		return ResourceStorageInputFilter.DEFAULT;
+		return ResourceStorageInputFilter.composeWithGlobalFilter(ResourceStorageInputFilter.DEFAULT);
 	}
 
 	protected void readNodeModel(StorageAwareResource resource, InputStream inputStream) throws IOException {
