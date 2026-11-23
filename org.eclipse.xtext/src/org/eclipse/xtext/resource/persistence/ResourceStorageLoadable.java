@@ -3,7 +3,7 @@
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
- * 
+ *
  * SPDX-License-Identifier: EPL-2.0
  */
 package org.eclipse.xtext.resource.persistence;
@@ -15,6 +15,7 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.ObjectInputFilter;
 import java.io.ObjectInputStream;
 import java.util.Collections;
 import java.util.zip.ZipInputStream;
@@ -92,13 +93,36 @@ public class ResourceStorageLoadable {
 	protected void readResourceDescription(StorageAwareResource resource, InputStream inputStream) throws IOException {
 		try {
 			@SuppressWarnings("resource")
-			SerializableResourceDescription description = (SerializableResourceDescription) new ObjectInputStream(
-					inputStream).readObject();
+			ObjectInputStream objectInputStream = createObjectInputStream(inputStream);
+			SerializableResourceDescription description = (SerializableResourceDescription) objectInputStream.readObject();
 			description.updateResourceURI(resource.getURI());
 			resource.setResourceDescription(description);
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	/**
+	 * Creates the input stream used to deserialize the resource description.
+	 * Subclasses may override this to customize the filter or the stream.
+	 *
+	 * @since 2.45
+	 */
+	protected ObjectInputStream createObjectInputStream(InputStream inputStream) throws IOException {
+		ObjectInputStream result = new ObjectInputStream(inputStream);
+		result.setObjectInputFilter(createObjectInputFilter());
+		return result;
+	}
+
+	/**
+	 * Returns the filter used for storage deserialization. Subclasses that add their own serializable
+	 * types may override this method and return a {@link ResourceStorageInputFilter} with additional
+	 * class names.
+	 *
+	 * @since 2.45
+	 */
+	protected ObjectInputFilter createObjectInputFilter() {
+		return ResourceStorageInputFilter.DEFAULT;
 	}
 
 	protected void readNodeModel(StorageAwareResource resource, InputStream inputStream) throws IOException {

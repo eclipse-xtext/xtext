@@ -73,7 +73,8 @@ public class BatchLinkableResourceStorageLoadable extends ResourceStorageLoadabl
 			
 			stream.getNextEntry();
 			
-			try (ObjectInputStream objIn = new ObjectInputStream(new NonClosingFilterInputStream(new BufferedInputStream(stream)))) {
+			try (ObjectInputStream objIn = createObjectInputStream(
+					new NonClosingFilterInputStream(new BufferedInputStream(stream)))) {
 				Map<String, String> logicalMap = (Map<String, String>) objIn.readObject();
 				logicalMap.forEach((key, value)->{
 					adapter.logicalContainerMap.put(resource.getEObject(key), (JvmIdentifiableElement)resource.getEObject(value));

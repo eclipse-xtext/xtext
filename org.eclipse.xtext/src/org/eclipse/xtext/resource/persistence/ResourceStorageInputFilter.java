@@ -1,0 +1,99 @@
+/*******************************************************************************
+ * Copyright (c) 2026 Eclipse Xtext and others.
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ *******************************************************************************/
+package org.eclipse.xtext.resource.persistence;
+
+import java.io.ObjectInputFilter;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Set;
+
+/**
+ * Restricts the classes that may be deserialized from Xtext resource storage.
+ * <p>
+ * Resource storage is a generated artifact and may come from a JAR, a dependency or a build cache.
+ * It is loaded with Java serialization, so without a filter a crafted storage file could instantiate
+ * arbitrary classes. This filter allows only the types used by the default storage format and limits
+ * the object graph size.
+ *
+ * @since 2.45
+ */
+public class ResourceStorageInputFilter implements ObjectInputFilter {
+
+	public static final int DEFAULT_MAX_DEPTH = 100;
+
+	public static final int DEFAULT_MAX_REFERENCES = 1_000_000;
+
+	public static final int DEFAULT_MAX_ARRAY_LENGTH = 1_000_000;
+
+	protected static final Set<String> DEFAULT_ALLOWED_CLASSES = Collections.unmodifiableSet(
+			new LinkedHashSet<>(Arrays.asList(
+					SerializableResourceDescription.class.getName(),
+					SerializableEObjectDescription.class.getName(),
+					SerializableReferenceDescription.class.getName(),
+					"java.lang.String",
+					"java.util.ArrayList",
+					"java.util.HashMap",
+					"java.util.LinkedHashMap",
+					"java.util.HashSet",
+					"java.util.LinkedHashSet")));
+
+	public static final ResourceStorageInputFilter DEFAULT = new ResourceStorageInputFilter(Collections.emptySet());
+
+	private final Set<String> allowedClasses;
+
+	private final int maxDepth;
+
+	private final int maxReferences;
+
+	private final int maxArrayLength;
+
+	public ResourceStorageInputFilter(Collection<String> additionalClasses) {
+		this(additionalClasses, DEFAULT_MAX_DEPTH, DEFAULT_MAX_REFERENCES, DEFAULT_MAX_ARRAY_LENGTH);
+	}
+
+	public ResourceStorageInputFilter(Collection<String> additionalClasses, int maxDepth, int maxReferences,
+			int maxArrayLength) {
+		Set<String> classes = new LinkedHashSet<>(DEFAULT_ALLOWED_CLASSES);
+		classes.addAll(additionalClasses);
+		this.allowedClasses = Collections.unmodifiableSet(classes);
+		this.maxDepth = maxDepth;
+		this.maxReferences = maxReferences;
+		this.maxArrayLength = maxArrayLength;
+	}
+
+	@Override
+	public Status checkInput(FilterInfo info) {
+		if (info.depth() > maxDepth || info.references() > maxReferences) {
+			return Status.REJECTED;
+		}
+		Class<?> serialClass = info.serialClass();
+		if (serialClass == null) {
+			return Status.UNDECIDED;
+		}
+		if (serialClass.isArray()) {
+			if (info.arrayLength() > maxArrayLength) {
+				return Status.REJECTED;
+			}
+			return isAllowedArray(serialClass) ? Status.ALLOWED : Status.REJECTED;
+		}
+		return allowedClasses.contains(serialClass.getName()) ? Status.ALLOWED : Status.REJECTED;
+	}
+
+	protected boolean isAllowedArray(Class<?> arrayClass) {
+		Class<?> componentType = arrayClass.getComponentType();
+		if (componentType == Object.class || componentType == String.class
+				|| Map.Entry.class.isAssignableFrom(componentType)) {
+			return true;
+		}
+		return componentType != null && allowedClasses.contains(componentType.getName());
+	}
+}
