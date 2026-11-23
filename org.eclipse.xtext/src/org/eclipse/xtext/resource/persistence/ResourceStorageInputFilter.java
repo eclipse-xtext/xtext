@@ -32,6 +32,11 @@ public class ResourceStorageInputFilter implements ObjectInputFilter {
 
 	public static final int DEFAULT_MAX_REFERENCES = 1_000_000;
 
+	/**
+	 * Maximum array length. For {@link java.util.HashMap} and {@link java.util.LinkedHashMap}, the
+	 * filter sees the internal table array, whose length is the map capacity and may be larger than
+	 * the number of entries. This limit therefore also bounds map capacity.
+	 */
 	public static final int DEFAULT_MAX_ARRAY_LENGTH = 1_000_000;
 
 	protected static final Set<String> DEFAULT_ALLOWED_CLASSES = Collections.unmodifiableSet(

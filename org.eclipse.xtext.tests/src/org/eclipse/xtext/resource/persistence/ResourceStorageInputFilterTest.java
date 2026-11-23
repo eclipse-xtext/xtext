@@ -141,6 +141,19 @@ public class ResourceStorageInputFilterTest {
 		read(new CustomClass(), ResourceStorageInputFilter.compose(global, storage));
 	}
 
+	@Test
+	public void loadableUsesCustomFilter() throws Exception {
+		TestLoadable loadable = new TestLoadable() {
+			@Override
+			protected ObjectInputFilter createObjectInputFilter() {
+				return new ResourceStorageInputFilter(Collections.singleton(CustomClass.class.getName()));
+			}
+		};
+		try (ObjectInputStream in = loadable.open(new ByteArrayInputStream(serialize(new CustomClass())))) {
+			assertTrue(in.readObject() instanceof CustomClass);
+		}
+	}
+
 	@Test(expected = InvalidClassException.class)
 	public void loadableUsesFilter() throws Exception {
 		TestLoadable loadable = new TestLoadable();

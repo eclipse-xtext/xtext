@@ -110,19 +110,21 @@ public class ResourceStorageLoadable {
 	 */
 	protected ObjectInputStream createObjectInputStream(InputStream inputStream) throws IOException {
 		ObjectInputStream result = new ObjectInputStream(inputStream);
-		result.setObjectInputFilter(createObjectInputFilter());
+		result.setObjectInputFilter(ResourceStorageInputFilter.composeWithGlobalFilter(createObjectInputFilter()));
 		return result;
 	}
 
 	/**
 	 * Returns the filter used for storage deserialization. Subclasses that add their own serializable
 	 * types may override this method and return a {@link ResourceStorageInputFilter} with additional
-	 * class names.
+	 * class names. The returned filter is composed with the process-global serialization filter by
+	 * {@link #createObjectInputStream(InputStream)}; a rejection from either filter wins. Overriders
+	 * do not need to wrap their result themselves.
 	 *
 	 * @since 2.45
 	 */
 	protected ObjectInputFilter createObjectInputFilter() {
-		return ResourceStorageInputFilter.composeWithGlobalFilter(ResourceStorageInputFilter.DEFAULT);
+		return ResourceStorageInputFilter.DEFAULT;
 	}
 
 	protected void readNodeModel(StorageAwareResource resource, InputStream inputStream) throws IOException {
