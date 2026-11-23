@@ -23,6 +23,10 @@ import java.util.Set;
  * It is loaded with Java serialization, so without a filter a crafted storage file could instantiate
  * arbitrary classes. This filter allows only the types used by the default storage format and limits
  * the object graph size.
+ * <p>
+ * This filter does not bound allocations performed directly inside
+ * {@code Externalizable.readExternal} or collection deserialization. Those count/size limits are a
+ * separate hardening step.
  *
  * @since 2.45
  */
