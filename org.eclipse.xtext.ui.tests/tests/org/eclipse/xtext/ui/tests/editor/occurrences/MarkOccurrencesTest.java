@@ -8,11 +8,11 @@
  *******************************************************************************/
 package org.eclipse.xtext.ui.tests.editor.occurrences;
 
-import static com.google.common.collect.Lists.*;
 import static org.eclipse.xtext.ui.editor.occurrences.DefaultOccurrenceComputer.*;
 
 import java.util.Iterator;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 import java.util.concurrent.TimeoutException;
 
 import org.eclipse.core.resources.IFile;
@@ -20,13 +20,10 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jface.text.Position;
 import org.eclipse.jface.text.TextSelection;
 import org.eclipse.jface.text.source.Annotation;
-import org.eclipse.jface.text.source.AnnotationModelEvent;
 import org.eclipse.jface.text.source.IAnnotationModel;
-import org.eclipse.jface.text.source.IAnnotationModelListener;
-import org.eclipse.jface.text.source.IAnnotationModelListenerExtension;
 import org.eclipse.jface.viewers.ISelectionProvider;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.xtext.testing.InjectWith;
-import org.eclipse.xtext.testing.RepeatedTest;
 import org.eclipse.xtext.testing.XtextRunner;
 import org.eclipse.xtext.ui.XtextProjectHelper;
 import org.eclipse.xtext.ui.editor.XtextEditor;
@@ -40,8 +37,6 @@ import org.eclipse.xtext.ui.testing.util.JavaProjectSetupUtil;
 import org.eclipse.xtext.ui.tests.editor.outline.ui.tests.OutlineTestLanguageUiInjectorProvider;
 import org.eclipse.xtext.util.Triple;
 import org.eclipse.xtext.util.Tuples;
-import org.junit.Assert;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -56,8 +51,6 @@ public class MarkOccurrencesTest extends AbstractEditorTest {
 
 	private static final int TIMEOUT = 10000;
 
-	@Rule public RepeatedTest.Rule rule = new RepeatedTest.Rule(false); 
-	
 	@Inject
 	private IPreferenceStoreAccess preferenceStoreAccess;
 
@@ -89,28 +82,24 @@ public class MarkOccurrencesTest extends AbstractEditorTest {
 		ISelectionProvider selectionProvider = editor.getSelectionProvider();
 		selectionProvider.setSelection(new TextSelection(0, 1));
 		IAnnotationModel annotationModel = editor.getDocumentProvider().getAnnotationModel(editor.getEditorInput());
-		ExpectationBuilder listener = new ExpectationBuilder(editor, annotationModel).added(DECLARATION_ANNOTATION_TYPE, 0, 3)
+		ExpectationBuilder expectations = new ExpectationBuilder(editor, annotationModel).added(DECLARATION_ANNOTATION_TYPE, 0, 3)
 				.added(OCCURRENCE_ANNOTATION_TYPE, model.indexOf("Foo", 3), 3)
 				.added(OCCURRENCE_ANNOTATION_TYPE, model.lastIndexOf("Foo"), 3);
-		listener.start();
-		annotationModel.addAnnotationModelListener(listener);
 		setMarkOccurrences(true);
-		listener.verify(TIMEOUT);
+		expectations.verify(TIMEOUT);
 
-		listener.start();
-		listener.removed(DECLARATION_ANNOTATION_TYPE, 0, 3)
+		expectations.removed(DECLARATION_ANNOTATION_TYPE, 0, 3)
 				.removed(OCCURRENCE_ANNOTATION_TYPE, model.indexOf("Foo", 3), 3)
 				.removed(OCCURRENCE_ANNOTATION_TYPE, model.lastIndexOf("Foo"), 3)
 				.added(DECLARATION_ANNOTATION_TYPE, model.indexOf("Bar"), 3)
 				.added(OCCURRENCE_ANNOTATION_TYPE, model.lastIndexOf("Bar"), 3);
 		selectionProvider.setSelection(new TextSelection(model.lastIndexOf("Bar"), 1));
-		listener.verify(TIMEOUT);
+		expectations.verify(TIMEOUT);
 
-		listener.start();
-		listener.removed(DECLARATION_ANNOTATION_TYPE, model.indexOf("Bar"), 3).removed(OCCURRENCE_ANNOTATION_TYPE,
+		expectations.removed(DECLARATION_ANNOTATION_TYPE, model.indexOf("Bar"), 3).removed(OCCURRENCE_ANNOTATION_TYPE,
 				model.lastIndexOf("Bar"), 3);
 		setMarkOccurrences(false);
-		listener.verify(TIMEOUT);
+		expectations.verify(TIMEOUT);
 	}
 	
 	@Test public void testMarkOccurrencesCrossFile() throws Exception {
@@ -123,43 +112,37 @@ public class MarkOccurrencesTest extends AbstractEditorTest {
 		ISelectionProvider selectionProvider = editor.getSelectionProvider();
 		selectionProvider.setSelection(new TextSelection(model1.indexOf("Foo"), 1));
 		IAnnotationModel annotationModel = editor.getDocumentProvider().getAnnotationModel(editor.getEditorInput());
-		ExpectationBuilder listener = new ExpectationBuilder(editor, annotationModel)
+		ExpectationBuilder expectations = new ExpectationBuilder(editor, annotationModel)
 				.added(OCCURRENCE_ANNOTATION_TYPE, model1.indexOf("Foo", 3), 3)
 				.added(OCCURRENCE_ANNOTATION_TYPE, model1.lastIndexOf("Foo"), 3);
-		listener.start();
-		annotationModel.addAnnotationModelListener(listener);
 		setMarkOccurrences(true);
-		listener.verify(TIMEOUT);
+		expectations.verify(TIMEOUT);
 	}
 
 	protected void setMarkOccurrences(boolean isMarkOccurrences) {
 		preferenceStoreAccess.getWritablePreferenceStore().setValue(contributor.getPreferenceKey(), isMarkOccurrences);
 	}
 
-	public class ExpectationBuilder extends Assert implements IAnnotationModelListener,
-			IAnnotationModelListenerExtension {
+	public class ExpectationBuilder {
 
-		List<Triple<String, Integer, Integer>> added = newArrayList();
-		List<Triple<String, Integer, Integer>> removed = newArrayList();
+		private final Set<Triple<String, Integer, Integer>> expected = new LinkedHashSet<>();
 
-		private AnnotationModelEvent event;
+		private final IAnnotationModel annotationModel;
 
-		private IAnnotationModel sender;
+		private final XtextEditor editor;
 
-		private XtextEditor editor;
-
-		public ExpectationBuilder(XtextEditor editor, IAnnotationModel sender) {
+		public ExpectationBuilder(XtextEditor editor, IAnnotationModel annotationModel) {
 			this.editor = editor;
-			this.sender = sender;
+			this.annotationModel = annotationModel;
 		}
 
 		public ExpectationBuilder added(String type, int offset, int length) {
-			added.add(Tuples.create(type, offset, length));
+			assertTrue("Duplicate expected occurrence annotation", expected.add(Tuples.create(type, offset, length)));
 			return this;
 		}
 
 		public ExpectationBuilder removed(String type, int offset, int length) {
-			removed.add(Tuples.create(type, offset, length));
+			assertTrue("Expected occurrence annotation was not present", expected.remove(Tuples.create(type, offset, length)));
 			return this;
 		}
 
@@ -167,55 +150,48 @@ public class MarkOccurrencesTest extends AbstractEditorTest {
 			return Tuples.create(a.getType(), position.getOffset(), position.getLength());
 		}
 
-		public void start() throws InterruptedException {
-			event = null;
-		}
-
 		public void verify(int timeout) throws TimeoutException, InterruptedException {
 			OccurrenceMarker occurrenceMarker = contributor.findOccurrenceMarker(editor);
 			assertNotNull(occurrenceMarker);
-			occurrenceMarker.joinMarkOccurrenceJob();
-			try {
-				for (Annotation a : event.getRemovedAnnotations()) {
-					Position position = event.getPositionOfRemovedAnnotation(a);
-					if (occurrenceComputer.hasAnnotationType(a.getType())) {
-						Triple<String, Integer, Integer> tuple = tuple(a, position);
-						assertTrue("Unexpected removal of " + tuple.toString(), removed.remove(tuple));
-					}
-				}
-				assertTrue(removed.toString(), removed.isEmpty());
-				IAnnotationModel annotationModel = event.getAnnotationModel();
-				for (Iterator<Annotation> i = annotationModel.getAnnotationIterator(); i.hasNext();) {
-					Annotation a = i.next();
-					if (occurrenceComputer.hasAnnotationType(a.getType())) {
-						Position position = annotationModel.getPosition(a);
-						Triple<String, Integer, Integer> tuple = tuple(a, position);
-						assertTrue("Unexpected adding of " + tuple.toString(), added.remove(tuple));
-					}
-				}
-				assertTrue(added.toString(), added.isEmpty());
-			} finally {
-				event = null;
+			Display display = Display.getCurrent();
+			assertNotNull("Occurrence verification must run on the UI thread", display);
+			long deadline = System.nanoTime() + timeout * 1_000_000L;
+			while (display.readAndDispatch() && System.nanoTime() < deadline) {
 			}
+			occurrenceMarker.joinMarkOccurrenceJob(remainingMillis(deadline));
+			Set<Triple<String, Integer, Integer>> actual = getOccurrenceAnnotations();
+			while (!expected.equals(actual) && System.nanoTime() < deadline) {
+				if (!display.readAndDispatch()) {
+					Thread.sleep(1);
+				}
+				actual = getOccurrenceAnnotations();
+			}
+			assertEquals("Occurrence annotations did not reach the expected state within " + timeout
+					+ " ms. Missing: " + difference(expected, actual) + ", unexpected: " + difference(actual, expected),
+					expected, actual);
 		}
 
-		@Override
-		public void modelChanged(AnnotationModelEvent event) {
-			if (sender == event.getAnnotationModel()) {
-				if (event.isWorldChange()) {
-					Assert.assertEquals("addAnnotationModelListener", Thread.currentThread().getStackTrace()[2].getMethodName());
-				} else {
-					if (event.getAddedAnnotations().length != event.getRemovedAnnotations().length) {
-						Assert.assertNull(this.event);
-						this.event = event;
-					}
+		protected Set<Triple<String, Integer, Integer>> getOccurrenceAnnotations() {
+			Set<Triple<String, Integer, Integer>> result = new LinkedHashSet<>();
+			for (Iterator<Annotation> i = annotationModel.getAnnotationIterator(); i.hasNext();) {
+				Annotation annotation = i.next();
+				if (occurrenceComputer.hasAnnotationType(annotation.getType())) {
+					Position position = annotationModel.getPosition(annotation);
+					result.add(tuple(annotation, position));
 				}
 			}
+			return result;
 		}
 
-		@Override
-		public void modelChanged(IAnnotationModel model) {
-			throw new UnsupportedOperationException();
+		private int remainingMillis(long deadline) {
+			return Math.max(0, (int) Math.ceil((deadline - System.nanoTime()) / 1_000_000.0));
+		}
+
+		private Set<Triple<String, Integer, Integer>> difference(Set<Triple<String, Integer, Integer>> minuend,
+				Set<Triple<String, Integer, Integer>> subtrahend) {
+			Set<Triple<String, Integer, Integer>> result = new LinkedHashSet<>(minuend);
+			result.removeAll(subtrahend);
+			return result;
 		}
 	}
 }

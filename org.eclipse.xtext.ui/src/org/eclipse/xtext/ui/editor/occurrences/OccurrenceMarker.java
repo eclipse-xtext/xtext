@@ -15,6 +15,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.TimeoutException;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -108,23 +109,27 @@ public class OccurrenceMarker {
 	@VisibleForTesting
 	public void joinMarkOccurrenceJob() {
 		try {
-			doMarkOccurrences(editor.getSelectionProvider().getSelection());
-			synchronized (this) {
-				wait(5);
-			}
 			this.markOccurrenceJob.join();
-			Display display = Display.getCurrent();
-			if (display != null) {
-				while(display.readAndDispatch()) {
-					synchronized (this) {
-						wait(1);
-					}		
-				}
-			}
 		} catch (InterruptedException e) {
-			// ignore
-			e.printStackTrace();
-		}	
+			Thread.currentThread().interrupt();
+			throw new IllegalStateException(e);
+		}
+	}
+
+	/**
+	 * Waits for the currently scheduled occurrence job without triggering another run.
+	 *
+	 * @since 2.45
+	 */
+	@VisibleForTesting
+	public void joinMarkOccurrenceJob(int timeout) throws InterruptedException, TimeoutException {
+		long deadline = System.nanoTime() + timeout * 1_000_000L;
+		while (markOccurrenceJob.getState() != Job.NONE && System.nanoTime() < deadline) {
+			Thread.sleep(1);
+		}
+		if (markOccurrenceJob.getState() != Job.NONE) {
+			throw new TimeoutException("Mark occurrence job did not finish within " + timeout + " ms");
+		}
 	}
 
 	public static class MarkOccurrenceJob extends Job {
