@@ -15,6 +15,8 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Objects;
+
+import org.apache.log4j.Logger;
 import java.util.Set;
 
 /**
@@ -35,11 +37,14 @@ import java.util.Set;
  * <p>
  * The default limits can be tuned with the system properties
  * {@value #MAX_DEPTH_PROPERTY}, {@value #MAX_REFERENCES_PROPERTY} and
- * {@value #MAX_ARRAY_LENGTH_PROPERTY}. The properties are read when the class is initialized.
+ * {@value #MAX_ARRAY_LENGTH_PROPERTY}. The default filter reads them when the class is initialized;
+ * the constructors read them on each invocation.
  *
  * @since 2.45
  */
 public class ResourceStorageInputFilter implements ObjectInputFilter {
+
+	private static final Logger LOG = Logger.getLogger(ResourceStorageInputFilter.class);
 
 	public static final String MAX_DEPTH_PROPERTY = "org.eclipse.xtext.resource.storage.maxDepth";
 
@@ -156,8 +161,13 @@ public class ResourceStorageInputFilter implements ObjectInputFilter {
 		}
 		try {
 			int parsed = Integer.parseInt(value);
-			return parsed > 0 ? parsed : defaultValue;
+			if (parsed > 0) {
+				return parsed;
+			}
+			LOG.warn("Ignoring non-positive storage filter property " + name + "=" + value);
+			return defaultValue;
 		} catch (NumberFormatException e) {
+			LOG.warn("Ignoring invalid storage filter property " + name + "=" + value);
 			return defaultValue;
 		}
 	}

@@ -89,7 +89,10 @@ public class StorageAwareResource extends LazyLinkingResource {
 				return;
 			} catch (IOException e) {
 				if (e instanceof InvalidClassException) {
-					LOG.warn("Storage for " + getURI() + " was rejected by the serialization filter", e);
+					LOG.warn("Failed to load " + getURI() + " from storage: " + e.getMessage());
+					if (LOG.isDebugEnabled()) {
+						LOG.debug("Failed to load " + getURI() + " from storage", e);
+					}
 				} else if (LOG.isDebugEnabled()) {
 					LOG.debug("Failed to load " + getURI() + " from storage", e);
 				}
