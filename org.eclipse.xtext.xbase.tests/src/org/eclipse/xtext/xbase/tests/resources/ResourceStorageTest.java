@@ -12,8 +12,14 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectOutputStream;
+import java.lang.reflect.Field;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
+import java.util.zip.ZipOutputStream;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -212,5 +218,73 @@ public class ResourceStorageTest extends AbstractJvmModelTest {
 		resource.load(null);
 		// Write broken associations
 		resourceStorageFacade.createResourceStorageWritable(bout).writeResource(resource);
+	}
+
+	@Test
+	public void testFilterRejectionInAssociationsFallsBackToSource() throws Exception {
+		String code = "{ 1 + 2 }";
+		XExpression file = this.expression(code);
+		StorageAwareResource originalResource = (StorageAwareResource) file.eResource();
+		ByteArrayOutputStream bout = new ByteArrayOutputStream();
+		resourceStorageFacade.createResourceStorageWritable(bout).writeResource(originalResource);
+		byte[] corrupted = replaceAssociations(bout.toByteArray());
+
+		StorageAwareResource resource = (StorageAwareResource) file.eResource().getResourceSet()
+				.createResource(URI.createURI("synthetic:/Test.___xbase"));
+		InMemoryURIConverter converter = new InMemoryURIConverter();
+		converter.addModel(resource.getURI().toString(), code);
+		resource.getResourceSet().setURIConverter(converter);
+		setResourceStorageFacade(resource, new FailingStorageFacade(corrupted));
+
+		resource.load(null);
+
+		Assert.assertFalse(resource.isLoadedFromStorage());
+		Assert.assertNull(resource.getResourceDescription());
+		Assert.assertFalse(resource.getContents().isEmpty());
+	}
+
+	private void setResourceStorageFacade(StorageAwareResource resource, IResourceStorageFacade facade)
+			throws Exception {
+		Field field = StorageAwareResource.class.getDeclaredField("resourceStorageFacade");
+		field.setAccessible(true);
+		field.set(resource, facade);
+	}
+
+	private byte[] replaceAssociations(byte[] storage) throws IOException {
+		ByteArrayOutputStream result = new ByteArrayOutputStream();
+		try (ZipInputStream input = new ZipInputStream(new ByteArrayInputStream(storage));
+				ZipOutputStream output = new ZipOutputStream(result)) {
+			ZipEntry entry;
+			while ((entry = input.getNextEntry()) != null) {
+				output.putNextEntry(new ZipEntry(entry.getName()));
+				if ("associations".equals(entry.getName())) {
+					ObjectOutputStream objects = new ObjectOutputStream(output);
+					objects.writeObject(new Date());
+					objects.flush();
+				} else {
+					input.transferTo(output);
+				}
+				output.closeEntry();
+			}
+		}
+		return result.toByteArray();
+	}
+
+	private static class FailingStorageFacade extends BatchLinkableResourceStorageFacade {
+		private final byte[] storage;
+
+		FailingStorageFacade(byte[] storage) {
+			this.storage = storage;
+		}
+
+		@Override
+		public boolean shouldLoadFromStorage(StorageAwareResource resource) {
+			return true;
+		}
+
+		@Override
+		public ResourceStorageLoadable getOrCreateResourceStorageLoadable(StorageAwareResource resource) {
+			return createResourceStorageLoadable(new ByteArrayInputStream(storage));
+		}
 	}
 }

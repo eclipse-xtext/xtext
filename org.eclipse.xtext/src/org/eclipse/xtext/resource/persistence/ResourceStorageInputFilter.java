@@ -31,9 +31,10 @@ import java.util.Set;
  * {@code Externalizable.readExternal} or collection deserialization. Those count/size limits are a
  * separate hardening step.
  * <p>
- * Subclasses of the three {@code Serializable*} storage types are allowed so that
+ * Subclasses of {@link SerializableEObjectDescription} are allowed so that
  * {@link SerializableEObjectDescriptionProvider} implementations can return specialized
- * descriptions. Collection types remain exact matches.
+ * descriptions. Resource description and reference description types, as well as collection types,
+ * remain exact matches.
  * <p>
  * The default limits can be tuned with the system properties
  * {@value #MAX_DEPTH_PROPERTY}, {@value #MAX_REFERENCES_PROPERTY} and
@@ -65,12 +66,12 @@ public class ResourceStorageInputFilter implements ObjectInputFilter {
 
 	protected static final Set<Class<?>> DEFAULT_ALLOWED_TYPES = Collections.unmodifiableSet(
 			new LinkedHashSet<>(Arrays.asList(
-					SerializableResourceDescription.class,
-					SerializableEObjectDescription.class,
-					SerializableReferenceDescription.class)));
+					SerializableEObjectDescription.class)));
 
 	protected static final Set<String> DEFAULT_ALLOWED_CLASSES = Collections.unmodifiableSet(
 			new LinkedHashSet<>(Arrays.asList(
+					SerializableResourceDescription.class.getName(),
+					SerializableReferenceDescription.class.getName(),
 					"java.lang.String",
 					"java.util.ArrayList",
 					"java.util.HashMap",

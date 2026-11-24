@@ -69,6 +69,7 @@ public class StorageAwareResource extends LazyLinkingResource {
 	}
 	  
 	private void clearAndUnload() {
+		resourceDescription = null;
 		if (contents != null) {
 			contents.clear();
 		}
@@ -126,11 +127,13 @@ public class StorageAwareResource extends LazyLinkingResource {
 	protected void doUnload() {
 		super.doUnload();
 		isLoadedFromStorage = false;
+		resourceDescription = null;
 	}
 
 	@Override
 	protected void clearInternalState() {
 		isLoadedFromStorage = false;
+		resourceDescription = null;
 		super.clearInternalState();
 	}
 

@@ -9,6 +9,7 @@
 package org.eclipse.xtext.resource.persistence;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -144,9 +145,9 @@ public class ResourceStorageInputFilterTest {
 	}
 
 	@Test
-	public void allowsStorageTypeSubclasses() throws Exception {
+	public void allowsEObjectDescriptionSubclasses() throws Exception {
 		URI uri = URI.createURI("file:/foo/bar.baz.foo");
-		CustomResourceDescription description = new CustomResourceDescription();
+		SerializableResourceDescription description = new SerializableResourceDescription();
 		description.setURI(uri);
 		CustomEObjectDescription objectDescription = new CustomEObjectDescription();
 		objectDescription.setEObjectURI(uri.appendFragment("baz"));
@@ -154,7 +155,7 @@ public class ResourceStorageInputFilterTest {
 		objectDescription.qualifiedName = QualifiedName.create("foo", "baz");
 		objectDescription.userData = new HashMap<>();
 		description.setDescriptions(Collections.singletonList(objectDescription));
-		CustomReferenceDescription reference = new CustomReferenceDescription();
+		SerializableReferenceDescription reference = new SerializableReferenceDescription();
 		reference.setSourceEObjectUri(uri.appendFragment("foo"));
 		reference.setTargetEObjectUri(uri.appendFragment("bar"));
 		reference.setContainerEObjectURI(uri.appendFragment("baz"));
@@ -163,10 +164,40 @@ public class ResourceStorageInputFilterTest {
 		description.setReferences(Collections.singletonList(reference));
 
 		Object result = read(description, ResourceStorageInputFilter.DEFAULT);
-		assertTrue(result instanceof CustomResourceDescription);
+		assertTrue(result instanceof SerializableResourceDescription);
 		SerializableResourceDescription deserialized = (SerializableResourceDescription) result;
 		assertTrue(deserialized.getDescriptions().get(0) instanceof CustomEObjectDescription);
-		assertTrue(deserialized.getReferences().get(0) instanceof CustomReferenceDescription);
+		assertTrue(deserialized.getReferences().get(0) instanceof SerializableReferenceDescription);
+	}
+
+	@Test(expected = InvalidClassException.class)
+	public void rejectsResourceDescriptionSubclass() throws Exception {
+		read(new CustomResourceDescription(), ResourceStorageInputFilter.DEFAULT);
+	}
+
+	@Test(expected = InvalidClassException.class)
+	public void rejectsReferenceDescriptionSubclass() throws Exception {
+		URI uri = URI.createURI("file:/foo/bar.baz.foo");
+		SerializableResourceDescription description = new SerializableResourceDescription();
+		description.setURI(uri);
+		CustomReferenceDescription reference = new CustomReferenceDescription();
+		reference.setSourceEObjectUri(uri.appendFragment("foo"));
+		reference.setTargetEObjectUri(uri.appendFragment("bar"));
+		reference.setContainerEObjectURI(uri.appendFragment("baz"));
+		reference.setEReference(EcorePackage.eINSTANCE.getEAnnotation_Contents());
+		reference.setIndexInList(1);
+		description.setReferences(Collections.singletonList(reference));
+		read(description, ResourceStorageInputFilter.DEFAULT);
+	}
+
+	@Test
+	public void clearAndUnloadClearsResourceDescription() throws Exception {
+		StorageAwareResource resource = new StorageAwareResource();
+		resource.setResourceDescription(new SerializableResourceDescription());
+		java.lang.reflect.Method clearAndUnload = StorageAwareResource.class.getDeclaredMethod("clearAndUnload");
+		clearAndUnload.setAccessible(true);
+		clearAndUnload.invoke(resource);
+		assertNull(resource.getResourceDescription());
 	}
 
 	@Test
