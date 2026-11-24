@@ -6,6 +6,8 @@ This should also be done each time we change something in this plugin and its de
 To run the integration tests from Eclipse, first run the above launch configuration.
 Then, use the JUnit launch `Run ITs from Eclipse.launch` that appropriately passes the required properties `testMavenRepo`, pointing to the right `target/.m2test` absolute path, and `testSettingsXML`, pointing to the IT settings that disable remote snapshots.
 
+Setting `-Dxtext.it.tests.debug=true` enables Maven debug output and prints the captured output; Maven builds are still always forked.
+
 The launch configuration `Run ITs from Eclipse.launch` can be used to run only the integration tests from Maven, making sure the requirements are also up-to-date (i.e., by using the command line argument `-am`).
 
 NOTE: IT projects using xcore will face the version ranges in xcore concerning xtext dependencies.

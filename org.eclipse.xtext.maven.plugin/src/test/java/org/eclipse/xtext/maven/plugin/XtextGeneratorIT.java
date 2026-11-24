@@ -265,9 +265,6 @@ public class XtextGeneratorIT {
 		MavenExecution verifier = MavenExecutorUtil.newVerifier(testDir, pathToTestProject, updateSnapshots);
 		for (String goal : goals) {
 			verifier.executeGoal(goal);
-			// fail fast like Verifier.executeGoal used to: a later goal must not
-			// overwrite a failed invocation's result and log
-			verifier.verifyErrorFreeLog();
 		}
 		return verifier;
 	}

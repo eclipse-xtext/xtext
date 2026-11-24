@@ -30,7 +30,7 @@ public class XtendCompilerMojoIT {
 	
 	@BeforeClass
 	static public void setUpOnce() throws IOException {
-		MavenExecutorUtil.checkMavenExecutable(ROOT);
+		MavenExecutorUtil.checkMavenExecutable();
 	}
 
 	@Test
@@ -40,11 +40,9 @@ public class XtendCompilerMojoIT {
 
 		MavenExecution annotationVerifier = MavenExecutorUtil.newVerifier(ROOT + "/filesystemaccess");
 		annotationVerifier.executeGoal("install");
-		annotationVerifier.verifyErrorFreeLog();
 
 		MavenExecution clientVerifier = MavenExecutorUtil.newVerifier(ROOT + "/filesystemaccess-client");
 		clientVerifier.executeGoal("compile");
-		clientVerifier.verifyErrorFreeLog();
 	}
 
 	private void deleteFileIfExist(String path) throws URISyntaxException {
@@ -84,7 +82,6 @@ public class XtendCompilerMojoIT {
 		assertFileContainsUTF16(verifier, xtendDir + "/test/XtendA.xtend", "Mühlheim-Kärlicher Bürger");
 
 		verifier.executeGoal("test");
-		verifier.verifyErrorFreeLog();
 
 		String gen = verifier.getBasedir() + "/src/main/generated-sources/xtend/test/XtendA.java";
 		assertFileContainsUTF16(verifier, gen, "Mühlheim-Kärlicher Bürger");
@@ -106,7 +103,6 @@ public class XtendCompilerMojoIT {
 	public void aggregation() throws Exception {
 		MavenExecution verifier = MavenExecutorUtil.newVerifier(ROOT + "/aggregation");
 		verifier.executeGoal("test");
-		verifier.verifyErrorFreeLog();
 		//https://bugs.eclipse.org/bugs/show_bug.cgi?id=409759
 		String outputdir = verifier.getBasedir() + "/relativeoutput-module/";
 
@@ -121,7 +117,6 @@ public class XtendCompilerMojoIT {
 	public void suppressWarningsAnnotation() throws Exception {
 		MavenExecution verifier = MavenExecutorUtil.newVerifier(ROOT + "/suppress_warnings_annotation");
 		verifier.executeGoal("test");
-		verifier.verifyErrorFreeLog();
 		String outputdir = verifier.getBasedir() + "/";
 		assertFileDoesNotContain(verifier, outputdir + "src/main/generated-sources/xtend/test/XtendA.java", "@SuppressWarnings");
 		assertFileDoesNotContain(verifier, outputdir + "src/test/generated-sources/xtend/test/XtendB.java", "@SuppressWarnings");
@@ -131,7 +126,6 @@ public class XtendCompilerMojoIT {
 	public void emptyDirWarningDefault() throws Exception {
 		MavenExecution verifier = MavenExecutorUtil.newVerifier(ROOT + "/emptydir-warning-default");
 		verifier.executeGoal("test");
-		verifier.verifyErrorFreeLog();
 		verifier.verifyTextInLog("is empty. Can't process.");
 	}
 	
@@ -139,7 +133,6 @@ public class XtendCompilerMojoIT {
 	public void emptyDirWarningTrue() throws Exception {
 		MavenExecution verifier = MavenExecutorUtil.newVerifier(ROOT + "/emptydir-warning-true");
 		verifier.executeGoal("test");
-		verifier.verifyErrorFreeLog();
 		verifier.verifyTextInLog("is empty. Can't process.");
 	}
 	
@@ -147,7 +140,6 @@ public class XtendCompilerMojoIT {
 	public void emptyDirWarningFalse() throws Exception {
 		MavenExecution verifier = MavenExecutorUtil.newVerifier(ROOT + "/emptydir-warning-false");
 		verifier.executeGoal("test");
-		verifier.verifyErrorFreeLog();
 		verifier.verifyTextNotInLog("is empty. Can't process.");
 	}
 	
@@ -159,8 +151,7 @@ public class XtendCompilerMojoIT {
 	@Test
 	public void haltOnXtendValidationErrors() throws Exception {
 		MavenExecution verifier = MavenExecutorUtil.newVerifier(ROOT + "/xtenderrors");
-		verifier.executeGoal("verify");
-		Assert.assertFalse("expected failing build", verifier.success());
+		verifier.executeGoalExpectingFailure("verify");
 		verifier.verifyTextInLog("3: Superclass must be a class");
 		verifier.verifyTextInLog("BUILD FAILURE");
 	}
@@ -176,7 +167,6 @@ public class XtendCompilerMojoIT {
 	public void readXtendPrefs() throws Exception {
 		MavenExecution verifier = MavenExecutorUtil.newVerifier(ROOT + "/xtend-prefs");
 		verifier.executeGoal("test");
-		verifier.verifyErrorFreeLog();
 		String xtendOutputDirFromPrefs = "generated-sources/xtend-from-pref";
 
 		String xtendGenDir = verifier.getBasedir() + "/src/main/" + xtendOutputDirFromPrefs;
@@ -192,7 +182,6 @@ public class XtendCompilerMojoIT {
 	public void readXtendPrefsUnused() throws Exception {
 		MavenExecution verifier = MavenExecutorUtil.newVerifier(ROOT + "/xtend-prefs-unused");
 		verifier.executeGoal("test");
-		verifier.verifyErrorFreeLog();
 		String pomsOutputDir = "xtend-dir-from-pom";
 
 		String xtendGenDir = verifier.getBasedir() + "/src/main/" + pomsOutputDir;
@@ -219,7 +208,6 @@ public class XtendCompilerMojoIT {
 		createSymLink(root + "/multisources-to-link/src/test/java/", link2.getAbsolutePath());
 		try {
 			verifier.executeGoal("test");
-			verifier.verifyErrorFreeLog();
 			String outputdir = verifier.getBasedir();
 
 			verifier.verifyFilePresent(outputdir + "/src/main/generated-sources/xtend/test/XtendA.java");
@@ -244,7 +232,6 @@ public class XtendCompilerMojoIT {
 	private void verifyErrorFreeLog(String pathToTestProject, String goal) throws IOException {
 		MavenExecution verifier = MavenExecutorUtil.newVerifier(pathToTestProject);
 		verifier.executeGoal(goal);
-		verifier.verifyErrorFreeLog();
 	}
 
 	

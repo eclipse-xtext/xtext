@@ -26,7 +26,7 @@ public class XtendCompilerMojoTraceIT {
 	
 	@BeforeClass
 	static public void setUpOnce() throws IOException {
-		MavenExecutorUtil.checkMavenExecutable(ROOT);
+		MavenExecutorUtil.checkMavenExecutable();
 	}
 	
 	private String loadTraceSourcePath(String file) throws FileNotFoundException, IOException {
@@ -69,7 +69,6 @@ public class XtendCompilerMojoTraceIT {
 	private MavenExecution verifyErrorFreeLog(String pathToTestProject, String goal) throws IOException {
 		MavenExecution verifier = newVerifier(pathToTestProject);
 		verifier.executeGoal(goal);
-		verifier.verifyErrorFreeLog();
 		return verifier;
 	}
 

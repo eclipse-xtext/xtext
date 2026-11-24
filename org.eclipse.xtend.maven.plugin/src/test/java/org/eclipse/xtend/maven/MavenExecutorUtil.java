@@ -83,12 +83,20 @@ public final class MavenExecutorUtil {
 			return stdOut + stdErr;
 		}
 
-		/**
-		 * Runs Maven once with the shared IT options plus the given goals, in the
-		 * project directory. Unlike {@code Verifier.executeGoal}, a failed build does
-		 * NOT throw; inspect {@link #success()} or call {@link #verifyErrorFreeLog()}.
-		 */
+		/** Runs Maven once and fails the test if the build is not error-free. */
 		public void executeGoal(String... goals) throws IOException {
+			executeGoalUnchecked(goals);
+			verifyErrorFreeLog();
+		}
+
+		/** Runs Maven once and fails the test unless the build fails as expected. */
+		public void executeGoalExpectingFailure(String... goals) throws IOException {
+			executeGoalUnchecked(goals);
+			Assert.assertTrue("Maven invocation did not run in " + basedir, executed);
+			Assert.assertFalse("Expected Maven build to fail in " + basedir + ":\n" + getLog(), succeeded);
+		}
+
+		private void executeGoalUnchecked(String... goals) throws IOException {
 			List<String> args = baseArguments();
 			for (String goal : goals) {
 				args.add(goal);
@@ -162,7 +170,7 @@ public final class MavenExecutorUtil {
 			verifyFilePresent(path);
 			String content = Files.readString(Path.of(path), StandardCharsets.UTF_8);
 			Assert.assertTrue("Content of " + path + " does not match regex '" + regex + "' but was:\n" + content,
-					Pattern.compile(regex, Pattern.DOTALL).matcher(content).matches());
+					Pattern.matches(regex, content));
 		}
 	}
 
@@ -335,7 +343,7 @@ public final class MavenExecutorUtil {
 		return System.getProperty("os.name").toLowerCase().contains("windows");
 	}
 
-	public static void checkMavenExecutable(String verifierRoot) throws IOException {
+	public static void checkMavenExecutable() throws IOException {
 		Path mavenHome = resolveMavenHome();
 		if (!isMavenHome(mavenHome)) {
 			Assert.fail("Maven home not found: '" + mavenHome + "'.\n"
@@ -349,7 +357,6 @@ public final class MavenExecutorUtil {
 		// and install it
 		MavenExecution execution = createExecution(pom.getParentFile());
 		execution.executeGoal("install");
-		execution.verifyErrorFreeLog();
 	}
 
 	/**
