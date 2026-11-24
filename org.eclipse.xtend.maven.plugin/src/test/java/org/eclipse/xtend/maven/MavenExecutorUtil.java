@@ -239,16 +239,26 @@ public final class MavenExecutorUtil {
 
 	static Path resolveMavenHome() {
 		String mavenHome = System.getProperty("maven.home");
-		if (mavenHome != null && isMavenHome(Path.of(mavenHome))) {
-			return Path.of(mavenHome);
+		Path configuredHome = mavenHome != null ? asMavenHome(Path.of(mavenHome)) : null;
+		if (configuredHome != null) {
+			return configuredHome;
 		}
 		String m2Home = System.getenv("M2_HOME");
-		if (m2Home != null && isMavenHome(Path.of(m2Home))) {
-			return Path.of(m2Home);
+		Path environmentHome = m2Home != null ? asMavenHome(Path.of(m2Home)) : null;
+		if (environmentHome != null) {
+			return environmentHome;
 		}
-		String found = findMaven();
+		Path found = findMaven();
 		if (found != null) {
-			return Path.of(found);
+			return found;
+		}
+		Path wrapper = findMavenWrapper();
+		if (wrapper != null) {
+			try {
+				return createWrapperMavenHome(wrapper);
+			} catch (IOException e) {
+				throw new IllegalStateException("Cannot prepare Maven wrapper launcher for " + wrapper, e);
+			}
 		}
 		// Let the executor fail with a meaningful message; keep the raw property if set.
 		return mavenHome != null ? Path.of(mavenHome) : Path.of("maven-home-not-found");
@@ -259,18 +269,70 @@ public final class MavenExecutorUtil {
 				|| Files.isRegularFile(home.resolve("bin/mvn.cmd"));
 	}
 
-	private static String findMaven() {
-		// TODO add more mavens here
-		String[] mavens = new String[] { System.getProperty("maven.home"),
-				"/opt/local/share/java/maven3/",
-				"/usr/local/", "/usr/",
-				"/opt/homebrew/"};
-		for (String maven : mavens) {
-			if (maven != null && new File(maven + "/bin/mvn").exists()) {
-				return maven;
+	private static Path asMavenHome(Path candidate) {
+		if (isMavenHome(candidate)) {
+			return candidate;
+		}
+		Path libexec = candidate.resolve("libexec");
+		return isMavenHome(libexec) ? libexec : null;
+	}
+
+	private static Path findMaven() {
+		String path = System.getenv("PATH");
+		if (path != null) {
+			for (String entry : path.split(File.pathSeparator)) {
+				Path executable = Path.of(entry).resolve(isWindows() ? "mvn.cmd" : "mvn");
+				if (Files.isRegularFile(executable)) {
+					try {
+						Path home = asMavenHome(executable.toRealPath().getParent().getParent());
+						if (home != null) {
+							return home;
+						}
+					} catch (IOException e) {
+						// Try the remaining candidates.
+					}
+				}
+			}
+		}
+		for (String maven : new String[] { "/opt/local/share/java/maven3", "/usr/local", "/usr", "/opt/homebrew" }) {
+			Path home = asMavenHome(Path.of(maven));
+			if (home != null) {
+				return home;
 			}
 		}
 		return null;
+	}
+
+	private static Path findMavenWrapper() {
+		Path source = Path.of(System.getProperty("user.dir"));
+		String script = isWindows() ? "mvnw.cmd" : "mvnw";
+		for (Path directory = source.toAbsolutePath(); directory != null; directory = directory.getParent()) {
+			Path wrapper = directory.resolve(script);
+			if (Files.isRegularFile(wrapper)) {
+				return wrapper;
+			}
+		}
+		return null;
+	}
+
+	private static Path createWrapperMavenHome(Path wrapper) throws IOException {
+		Path home = Files.createDirectories(getTempDir().toPath().resolve("maven-wrapper-home"));
+		Path bin = Files.createDirectories(home.resolve("bin"));
+		if (isWindows()) {
+			Files.writeString(bin.resolve("mvn.cmd"), "@echo off\r\ncall \"" + wrapper + "\" %*\r\n",
+					StandardCharsets.UTF_8);
+		} else {
+			Path launcher = bin.resolve("mvn");
+			Files.writeString(launcher,
+					"#!/bin/sh\nexec '" + wrapper.toAbsolutePath().toString().replace("'", "'\"'\"'") + "' \"$@\"\n",
+					StandardCharsets.UTF_8);
+			Assert.assertTrue("Cannot make Maven wrapper executable: " + launcher, launcher.toFile().setExecutable(true));
+		}
+		return home;
+	}
+
+	private static boolean isWindows() {
+		return System.getProperty("os.name").toLowerCase().contains("windows");
 	}
 
 	public static void checkMavenExecutable(String verifierRoot) throws IOException {

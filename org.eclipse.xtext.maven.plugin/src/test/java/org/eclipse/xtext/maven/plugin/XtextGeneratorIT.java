@@ -21,9 +21,9 @@ import java.util.regex.Pattern;
 
 import org.eclipse.xtext.generator.trace.AbstractTraceRegion;
 import org.eclipse.xtext.generator.trace.TraceRegionSerializer;
+import org.eclipse.xtext.maven.plugin.MavenExecutorUtil.MavenExecution;
 import org.eclipse.xtext.maven.trace.ClassFileDebugSourceExtractor;
 import org.eclipse.xtext.util.JavaRuntimeVersion;
-import org.eclipse.xtext.maven.plugin.MavenExecutorUtil.MavenExecution;
 import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.BeforeClass;
