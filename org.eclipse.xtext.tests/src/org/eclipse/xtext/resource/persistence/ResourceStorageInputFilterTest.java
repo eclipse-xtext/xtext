@@ -10,6 +10,7 @@ package org.eclipse.xtext.resource.persistence;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -112,6 +113,34 @@ public class ResourceStorageInputFilterTest {
 	@Test(expected = InvalidClassException.class)
 	public void rejectsForeignClass() throws Exception {
 		read(new CustomClass(), ResourceStorageInputFilter.DEFAULT);
+	}
+
+	@Test
+	public void qualifiedNameFilterRejectionIsIoException() throws Exception {
+		try (ObjectInputStream in = new ObjectInputStream(
+				new ByteArrayInputStream(serialize(new ArrayList<>(Arrays.asList("a", "b")))))) {
+			in.setObjectInputFilter(info -> ObjectInputFilter.Status.REJECTED);
+			try {
+				SerializationExtensions.readQualifiedName(in);
+				fail("Expected an IOException");
+			} catch (IOException expected) {
+				assertTrue(expected instanceof InvalidClassException);
+			}
+		}
+	}
+
+	@Test
+	public void castedObjectFilterRejectionIsIoException() throws Exception {
+		try (ObjectInputStream in = new ObjectInputStream(
+				new ByteArrayInputStream(serialize(new CustomClass())))) {
+			in.setObjectInputFilter(info -> ObjectInputFilter.Status.REJECTED);
+			try {
+				SerializationExtensions.readCastedObject(in);
+				fail("Expected an IOException");
+			} catch (IOException expected) {
+				assertTrue(expected instanceof InvalidClassException);
+			}
+		}
 	}
 
 	@Test

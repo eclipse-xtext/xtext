@@ -98,7 +98,7 @@ public class ResourceStorageLoadable {
 			description.updateResourceURI(resource.getURI());
 			resource.setResourceDescription(description);
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException(e);
+			throw new IOException(e);
 		}
 	}
 
