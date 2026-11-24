@@ -14,6 +14,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -92,8 +93,15 @@ public class ResourceStorageInputFilter implements ObjectInputFilter {
 				getIntProperty(MAX_ARRAY_LENGTH_PROPERTY, DEFAULT_MAX_ARRAY_LENGTH));
 	}
 
+	/**
+	 * @param additionalClasses additional exact class names, must not be {@code null}
+	 * @param maxDepth maximum serialization depth
+	 * @param maxReferences maximum number of object references
+	 * @param maxArrayLength maximum array length
+	 */
 	public ResourceStorageInputFilter(Collection<String> additionalClasses, int maxDepth, int maxReferences,
 			int maxArrayLength) {
+		Objects.requireNonNull(additionalClasses, "additionalClasses");
 		Set<String> classes = new LinkedHashSet<>(DEFAULT_ALLOWED_CLASSES);
 		classes.addAll(additionalClasses);
 		this.allowedClasses = Collections.unmodifiableSet(classes);

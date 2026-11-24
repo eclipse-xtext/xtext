@@ -225,6 +225,16 @@ public class ResourceStorageInputFilterTest {
 	}
 
 	@Test
+	public void rejectsNullAdditionalClasses() {
+		try {
+			new ResourceStorageInputFilter(null);
+			fail("Expected NullPointerException");
+		} catch (NullPointerException expected) {
+			assertEquals("additionalClasses", expected.getMessage());
+		}
+	}
+
+	@Test
 	public void limitsCanBeConfiguredWithSystemProperties() throws Exception {
 		String key = ResourceStorageInputFilter.MAX_REFERENCES_PROPERTY;
 		String previous = System.getProperty(key);
