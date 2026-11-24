@@ -103,8 +103,15 @@ public class ResourceStorageLoadable {
 	}
 
 	/**
-	 * Creates the input stream used to deserialize the resource description.
-	 * Subclasses may override this to customize the filter or the stream.
+	 * Creates the filtered input stream used to deserialize the resource description.
+	 * <p>
+	 * To customize the filter, override {@link #createObjectInputFilter()}. The filter is composed
+	 * with the process-global serialization filter here.
+	 * <p>
+	 * If this method is overridden to customize the underlying stream, wrap the input before calling
+	 * {@code super.createObjectInputStream(inputStream)}. Do not call
+	 * {@link ObjectInputStream#setObjectInputFilter(ObjectInputFilter)} on the returned stream; the
+	 * filter is already set.
 	 *
 	 * @since 2.45
 	 */
