@@ -9,6 +9,7 @@
 package org.eclipse.xtext.resource.persistence;
 
 import java.io.IOException;
+import java.io.InvalidClassException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Collections;
@@ -87,7 +88,9 @@ public class StorageAwareResource extends LazyLinkingResource {
 				loadFromStorage(in);
 				return;
 			} catch (IOException e) {
-				if (LOG.isDebugEnabled()) {
+				if (e instanceof InvalidClassException) {
+					LOG.warn("Storage for " + getURI() + " was rejected by the serialization filter", e);
+				} else if (LOG.isDebugEnabled()) {
 					LOG.debug("Failed to load " + getURI() + " from storage", e);
 				}
 				clearAndUnload();

@@ -31,21 +31,31 @@ import java.util.Set;
  * Subclasses of the three {@code Serializable*} storage types are allowed so that
  * {@link SerializableEObjectDescriptionProvider} implementations can return specialized
  * descriptions. Collection types remain exact matches.
+ * <p>
+ * The default limits can be tuned with the system properties
+ * {@value #MAX_DEPTH_PROPERTY}, {@value #MAX_REFERENCES_PROPERTY} and
+ * {@value #MAX_ARRAY_LENGTH_PROPERTY}. The properties are read when the class is initialized.
  *
  * @since 2.45
  */
 public class ResourceStorageInputFilter implements ObjectInputFilter {
 
+	public static final String MAX_DEPTH_PROPERTY = "org.eclipse.xtext.resource.storage.maxDepth";
+
+	public static final String MAX_REFERENCES_PROPERTY = "org.eclipse.xtext.resource.storage.maxReferences";
+
+	public static final String MAX_ARRAY_LENGTH_PROPERTY = "org.eclipse.xtext.resource.storage.maxArrayLength";
+
 	public static final int DEFAULT_MAX_DEPTH = 100;
 
-	public static final int DEFAULT_MAX_REFERENCES = 1_000_000;
+	public static final int DEFAULT_MAX_REFERENCES = 5_000_000;
 
 	/**
 	 * Maximum array length. For {@link java.util.HashMap} and {@link java.util.LinkedHashMap}, the
 	 * filter sees the internal table array, whose length is the map capacity and may be larger than
 	 * the number of entries. This limit therefore also bounds map capacity.
 	 */
-	public static final int DEFAULT_MAX_ARRAY_LENGTH = 1_000_000;
+	public static final int DEFAULT_MAX_ARRAY_LENGTH = 1 << 21;
 
 	protected static final Set<Class<?>> DEFAULT_ALLOWED_TYPES = Collections.unmodifiableSet(
 			new LinkedHashSet<>(Arrays.asList(
@@ -62,7 +72,10 @@ public class ResourceStorageInputFilter implements ObjectInputFilter {
 					"java.util.HashSet",
 					"java.util.LinkedHashSet")));
 
-	public static final ResourceStorageInputFilter DEFAULT = new ResourceStorageInputFilter(Collections.emptySet());
+	public static final ResourceStorageInputFilter DEFAULT = new ResourceStorageInputFilter(Collections.emptySet(),
+			getIntProperty(MAX_DEPTH_PROPERTY, DEFAULT_MAX_DEPTH),
+			getIntProperty(MAX_REFERENCES_PROPERTY, DEFAULT_MAX_REFERENCES),
+			getIntProperty(MAX_ARRAY_LENGTH_PROPERTY, DEFAULT_MAX_ARRAY_LENGTH));
 
 	private final Set<String> allowedClasses;
 
@@ -73,7 +86,10 @@ public class ResourceStorageInputFilter implements ObjectInputFilter {
 	private final int maxArrayLength;
 
 	public ResourceStorageInputFilter(Collection<String> additionalClasses) {
-		this(additionalClasses, DEFAULT_MAX_DEPTH, DEFAULT_MAX_REFERENCES, DEFAULT_MAX_ARRAY_LENGTH);
+		this(additionalClasses,
+				getIntProperty(MAX_DEPTH_PROPERTY, DEFAULT_MAX_DEPTH),
+				getIntProperty(MAX_REFERENCES_PROPERTY, DEFAULT_MAX_REFERENCES),
+				getIntProperty(MAX_ARRAY_LENGTH_PROPERTY, DEFAULT_MAX_ARRAY_LENGTH));
 	}
 
 	public ResourceStorageInputFilter(Collection<String> additionalClasses, int maxDepth, int maxReferences,
@@ -123,6 +139,19 @@ public class ResourceStorageInputFilter implements ObjectInputFilter {
 			return true;
 		}
 		return componentType != null && (isAllowedType(componentType) || allowedClasses.contains(componentType.getName()));
+	}
+
+	private static int getIntProperty(String name, int defaultValue) {
+		String value = System.getProperty(name);
+		if (value == null) {
+			return defaultValue;
+		}
+		try {
+			int parsed = Integer.parseInt(value);
+			return parsed > 0 ? parsed : defaultValue;
+		} catch (NumberFormatException e) {
+			return defaultValue;
+		}
 	}
 
 	/**

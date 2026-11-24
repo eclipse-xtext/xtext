@@ -224,6 +224,28 @@ public class ResourceStorageInputFilterTest {
 		}
 	}
 
+	@Test
+	public void limitsCanBeConfiguredWithSystemProperties() throws Exception {
+		String key = ResourceStorageInputFilter.MAX_REFERENCES_PROPERTY;
+		String previous = System.getProperty(key);
+		try {
+			System.setProperty(key, "1");
+			ObjectInputFilter filter = new ResourceStorageInputFilter(Collections.emptySet());
+			try {
+				read(new String[] { "a", "b" }, filter);
+				fail("Expected an IOException");
+			} catch (InvalidClassException expected) {
+				// expected
+			}
+		} finally {
+			if (previous == null) {
+				System.clearProperty(key);
+			} else {
+				System.setProperty(key, previous);
+			}
+		}
+	}
+
 	@Test(expected = InvalidClassException.class)
 	public void loadableUsesFilter() throws Exception {
 		TestLoadable loadable = new TestLoadable();
