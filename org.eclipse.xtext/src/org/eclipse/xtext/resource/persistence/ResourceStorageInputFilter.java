@@ -27,6 +27,10 @@ import java.util.Set;
  * This filter does not bound allocations performed directly inside
  * {@code Externalizable.readExternal} or collection deserialization. Those count/size limits are a
  * separate hardening step.
+ * <p>
+ * Subclasses of the three {@code Serializable*} storage types are allowed so that
+ * {@link SerializableEObjectDescriptionProvider} implementations can return specialized
+ * descriptions. Collection types remain exact matches.
  *
  * @since 2.45
  */
@@ -43,11 +47,14 @@ public class ResourceStorageInputFilter implements ObjectInputFilter {
 	 */
 	public static final int DEFAULT_MAX_ARRAY_LENGTH = 1_000_000;
 
+	protected static final Set<Class<?>> DEFAULT_ALLOWED_TYPES = Collections.unmodifiableSet(
+			new LinkedHashSet<>(Arrays.asList(
+					SerializableResourceDescription.class,
+					SerializableEObjectDescription.class,
+					SerializableReferenceDescription.class)));
+
 	protected static final Set<String> DEFAULT_ALLOWED_CLASSES = Collections.unmodifiableSet(
 			new LinkedHashSet<>(Arrays.asList(
-					SerializableResourceDescription.class.getName(),
-					SerializableEObjectDescription.class.getName(),
-					SerializableReferenceDescription.class.getName(),
 					"java.lang.String",
 					"java.util.ArrayList",
 					"java.util.HashMap",
@@ -94,7 +101,19 @@ public class ResourceStorageInputFilter implements ObjectInputFilter {
 			}
 			return isAllowedArray(serialClass) ? Status.ALLOWED : Status.REJECTED;
 		}
+		if (isAllowedType(serialClass)) {
+			return Status.ALLOWED;
+		}
 		return allowedClasses.contains(serialClass.getName()) ? Status.ALLOWED : Status.REJECTED;
+	}
+
+	protected boolean isAllowedType(Class<?> type) {
+		for (Class<?> allowedType : DEFAULT_ALLOWED_TYPES) {
+			if (allowedType.isAssignableFrom(type)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	protected boolean isAllowedArray(Class<?> arrayClass) {
@@ -103,7 +122,7 @@ public class ResourceStorageInputFilter implements ObjectInputFilter {
 				|| Map.Entry.class.isAssignableFrom(componentType)) {
 			return true;
 		}
-		return componentType != null && allowedClasses.contains(componentType.getName());
+		return componentType != null && (isAllowedType(componentType) || allowedClasses.contains(componentType.getName()));
 	}
 
 	/**

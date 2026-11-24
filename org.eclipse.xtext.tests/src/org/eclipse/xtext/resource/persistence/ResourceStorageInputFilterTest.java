@@ -41,6 +41,21 @@ public class ResourceStorageInputFilterTest {
 		private static final long serialVersionUID = 1L;
 	}
 
+	public static class CustomResourceDescription extends SerializableResourceDescription {
+		public CustomResourceDescription() {
+		}
+	}
+
+	public static class CustomEObjectDescription extends SerializableEObjectDescription {
+		public CustomEObjectDescription() {
+		}
+	}
+
+	public static class CustomReferenceDescription extends SerializableReferenceDescription {
+		public CustomReferenceDescription() {
+		}
+	}
+
 	private static class TestLoadable extends ResourceStorageLoadable {
 		TestLoadable() {
 			super(new ByteArrayInputStream(new byte[0]), false);
@@ -97,6 +112,32 @@ public class ResourceStorageInputFilterTest {
 	@Test(expected = InvalidClassException.class)
 	public void rejectsForeignClass() throws Exception {
 		read(new CustomClass(), ResourceStorageInputFilter.DEFAULT);
+	}
+
+	@Test
+	public void allowsStorageTypeSubclasses() throws Exception {
+		URI uri = URI.createURI("file:/foo/bar.baz.foo");
+		CustomResourceDescription description = new CustomResourceDescription();
+		description.setURI(uri);
+		CustomEObjectDescription objectDescription = new CustomEObjectDescription();
+		objectDescription.setEObjectURI(uri.appendFragment("baz"));
+		objectDescription.setEClass(EcorePackage.eINSTANCE.getEAttribute());
+		objectDescription.qualifiedName = QualifiedName.create("foo", "baz");
+		objectDescription.userData = new HashMap<>();
+		description.setDescriptions(Collections.singletonList(objectDescription));
+		CustomReferenceDescription reference = new CustomReferenceDescription();
+		reference.setSourceEObjectUri(uri.appendFragment("foo"));
+		reference.setTargetEObjectUri(uri.appendFragment("bar"));
+		reference.setContainerEObjectURI(uri.appendFragment("baz"));
+		reference.setEReference(EcorePackage.eINSTANCE.getEAnnotation_Contents());
+		reference.setIndexInList(1);
+		description.setReferences(Collections.singletonList(reference));
+
+		Object result = read(description, ResourceStorageInputFilter.DEFAULT);
+		assertTrue(result instanceof CustomResourceDescription);
+		SerializableResourceDescription deserialized = (SerializableResourceDescription) result;
+		assertTrue(deserialized.getDescriptions().get(0) instanceof CustomEObjectDescription);
+		assertTrue(deserialized.getReferences().get(0) instanceof CustomReferenceDescription);
 	}
 
 	@Test
