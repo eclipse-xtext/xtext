@@ -177,7 +177,8 @@ public class MarkOccurrencesTest extends AbstractEditorTest {
 				Annotation annotation = i.next();
 				if (occurrenceComputer.hasAnnotationType(annotation.getType())) {
 					Position position = annotationModel.getPosition(annotation);
-					result.add(tuple(annotation, position));
+					Triple<String, Integer, Integer> tuple = tuple(annotation, position);
+					assertTrue("Duplicate actual occurrence annotation: " + tuple, result.add(tuple));
 				}
 			}
 			return result;

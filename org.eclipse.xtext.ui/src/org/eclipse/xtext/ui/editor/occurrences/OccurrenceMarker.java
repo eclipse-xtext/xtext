@@ -102,14 +102,20 @@ public class OccurrenceMarker {
 	}
 	
 	/**
-	 * Public for testing purpose.
+	 * Waits for the current occurrence job and applies queued SWT updates.
+	 * Does not schedule another run.
 	 * 
 	 * @since 2.17
 	 */
 	@VisibleForTesting
 	public void joinMarkOccurrenceJob() {
 		try {
-			this.markOccurrenceJob.join();
+			markOccurrenceJob.join();
+			Display display = Display.getCurrent();
+			if (display != null) {
+				while (display.readAndDispatch()) {
+				}
+			}
 		} catch (InterruptedException e) {
 			Thread.currentThread().interrupt();
 			throw new IllegalStateException(e);
@@ -117,18 +123,27 @@ public class OccurrenceMarker {
 	}
 
 	/**
-	 * Waits for the currently scheduled occurrence job without triggering another run.
+	 * Waits for the current occurrence job without triggering another run.
+	 * This does not wait for the asynchronous annotation-model update.
+	 *
+	 * @param timeoutMillis maximum wait time; zero performs a non-blocking check
 	 *
 	 * @since 2.45
 	 */
 	@VisibleForTesting
-	public void joinMarkOccurrenceJob(int timeout) throws InterruptedException, TimeoutException {
-		long deadline = System.nanoTime() + timeout * 1_000_000L;
-		while (markOccurrenceJob.getState() != Job.NONE && System.nanoTime() < deadline) {
-			Thread.sleep(1);
+	public void joinMarkOccurrenceJob(int timeoutMillis) throws InterruptedException, TimeoutException {
+		if (timeoutMillis < 0) {
+			throw new IllegalArgumentException("timeoutMillis must not be negative");
 		}
-		if (markOccurrenceJob.getState() != Job.NONE) {
-			throw new TimeoutException("Mark occurrence job did not finish within " + timeout + " ms");
+		// Eclipse interprets a timeout of zero as an unlimited wait.
+		if (timeoutMillis == 0) {
+			if (markOccurrenceJob.getState() != Job.NONE) {
+				throw new TimeoutException("Mark occurrence job is still active");
+			}
+			return;
+		}
+		if (!markOccurrenceJob.join(timeoutMillis, null)) {
+			throw new TimeoutException("Mark occurrence job did not finish within " + timeoutMillis + " ms");
 		}
 	}
 
