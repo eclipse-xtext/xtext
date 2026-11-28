@@ -65,13 +65,12 @@ public class ResourceRelocationContext {
 					changeSerializer.addModification(original, (Resource it) -> original.setURI(change.getToURI()));
 					return original;
 				case COPY:
-					Resource copy = resourceSet.createResource(change.getFromURI());
+					Resource copy = resourceSet.createResource(change.getToURI());
 					try {
 						copy.load(resourceSet.getURIConverter().createInputStream(change.getFromURI()), null);
 					} catch (IOException e) {
 						Exceptions.sneakyThrow(e);
 					}
-					copy.setURI(change.getToURI());
 					return copy;
 				default:
 					return null;
