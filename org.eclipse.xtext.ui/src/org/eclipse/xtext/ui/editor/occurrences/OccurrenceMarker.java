@@ -15,6 +15,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.TimeoutException;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -101,30 +102,49 @@ public class OccurrenceMarker {
 	}
 	
 	/**
-	 * Public for testing purpose.
+	 * Waits for the current occurrence job and applies queued SWT updates.
+	 * Does not schedule another run.
 	 * 
 	 * @since 2.17
 	 */
 	@VisibleForTesting
 	public void joinMarkOccurrenceJob() {
 		try {
-			doMarkOccurrences(editor.getSelectionProvider().getSelection());
-			synchronized (this) {
-				wait(5);
-			}
-			this.markOccurrenceJob.join();
+			markOccurrenceJob.join();
 			Display display = Display.getCurrent();
 			if (display != null) {
-				while(display.readAndDispatch()) {
-					synchronized (this) {
-						wait(1);
-					}		
+				while (display.readAndDispatch()) {
 				}
 			}
 		} catch (InterruptedException e) {
-			// ignore
-			e.printStackTrace();
-		}	
+			Thread.currentThread().interrupt();
+			throw new IllegalStateException(e);
+		}
+	}
+
+	/**
+	 * Waits for the current occurrence job without triggering another run.
+	 * This does not wait for the asynchronous annotation-model update.
+	 *
+	 * @param timeoutMillis maximum wait time; zero performs a non-blocking check
+	 *
+	 * @since 2.45
+	 */
+	@VisibleForTesting
+	public void joinMarkOccurrenceJob(int timeoutMillis) throws InterruptedException, TimeoutException {
+		if (timeoutMillis < 0) {
+			throw new IllegalArgumentException("timeoutMillis must not be negative");
+		}
+		// Eclipse interprets a timeout of zero as an unlimited wait.
+		if (timeoutMillis == 0) {
+			if (markOccurrenceJob.getState() != Job.NONE) {
+				throw new TimeoutException("Mark occurrence job is still active");
+			}
+			return;
+		}
+		if (!markOccurrenceJob.join(timeoutMillis, null)) {
+			throw new TimeoutException("Mark occurrence job did not finish within " + timeoutMillis + " ms");
+		}
 	}
 
 	public static class MarkOccurrenceJob extends Job {
