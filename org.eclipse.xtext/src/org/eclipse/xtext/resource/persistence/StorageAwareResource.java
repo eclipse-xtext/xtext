@@ -9,6 +9,7 @@
 package org.eclipse.xtext.resource.persistence;
 
 import java.io.IOException;
+import java.io.InvalidClassException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Collections;
@@ -68,6 +69,7 @@ public class StorageAwareResource extends LazyLinkingResource {
 	}
 	  
 	private void clearAndUnload() {
+		resourceDescription = null;
 		if (contents != null) {
 			contents.clear();
 		}
@@ -87,6 +89,14 @@ public class StorageAwareResource extends LazyLinkingResource {
 				loadFromStorage(in);
 				return;
 			} catch (IOException e) {
+				if (e instanceof InvalidClassException) {
+					LOG.warn("Failed to load " + getURI() + " from storage: " + e.getMessage());
+					if (LOG.isDebugEnabled()) {
+						LOG.debug("Failed to load " + getURI() + " from storage", e);
+					}
+				} else if (LOG.isDebugEnabled()) {
+					LOG.debug("Failed to load " + getURI() + " from storage", e);
+				}
 				clearAndUnload();
 			} catch (StackOverflowError e) {
 				trimStackOverflowErrorStackTrace(e);
@@ -117,11 +127,13 @@ public class StorageAwareResource extends LazyLinkingResource {
 	protected void doUnload() {
 		super.doUnload();
 		isLoadedFromStorage = false;
+		resourceDescription = null;
 	}
 
 	@Override
 	protected void clearInternalState() {
 		isLoadedFromStorage = false;
+		resourceDescription = null;
 		super.clearInternalState();
 	}
 

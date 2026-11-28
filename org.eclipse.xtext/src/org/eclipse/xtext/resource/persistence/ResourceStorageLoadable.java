@@ -3,7 +3,7 @@
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
  * http://www.eclipse.org/legal/epl-2.0.
- * 
+ *
  * SPDX-License-Identifier: EPL-2.0
  */
 package org.eclipse.xtext.resource.persistence;
@@ -15,6 +15,7 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.ObjectInputFilter;
 import java.io.ObjectInputStream;
 import java.util.Collections;
 import java.util.zip.ZipInputStream;
@@ -92,13 +93,45 @@ public class ResourceStorageLoadable {
 	protected void readResourceDescription(StorageAwareResource resource, InputStream inputStream) throws IOException {
 		try {
 			@SuppressWarnings("resource")
-			SerializableResourceDescription description = (SerializableResourceDescription) new ObjectInputStream(
-					inputStream).readObject();
+			ObjectInputStream objectInputStream = createObjectInputStream(inputStream);
+			SerializableResourceDescription description = (SerializableResourceDescription) objectInputStream.readObject();
 			description.updateResourceURI(resource.getURI());
 			resource.setResourceDescription(description);
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException(e);
+			throw new IOException(e);
 		}
+	}
+
+	/**
+	 * Creates the filtered input stream used to deserialize the resource description.
+	 * <p>
+	 * To customize the filter, override {@link #createObjectInputFilter()}. The filter is composed
+	 * with the process-global serialization filter here.
+	 * <p>
+	 * If this method is overridden to customize the underlying stream, wrap the input before calling
+	 * {@code super.createObjectInputStream(inputStream)}. Do not call
+	 * {@link ObjectInputStream#setObjectInputFilter(ObjectInputFilter)} on the returned stream; the
+	 * filter is already set.
+	 *
+	 * @since 2.45
+	 */
+	protected ObjectInputStream createObjectInputStream(InputStream inputStream) throws IOException {
+		ObjectInputStream result = new ObjectInputStream(inputStream);
+		result.setObjectInputFilter(ResourceStorageInputFilter.composeWithGlobalFilter(createObjectInputFilter()));
+		return result;
+	}
+
+	/**
+	 * Returns the filter used for storage deserialization. Subclasses that add their own serializable
+	 * types may override this method and return a {@link ResourceStorageInputFilter} with additional
+	 * class names. The returned filter is composed with the process-global serialization filter by
+	 * {@link #createObjectInputStream(InputStream)}; a rejection from either filter wins. Overriders
+	 * do not need to wrap their result themselves.
+	 *
+	 * @since 2.45
+	 */
+	protected ObjectInputFilter createObjectInputFilter() {
+		return ResourceStorageInputFilter.DEFAULT;
 	}
 
 	protected void readNodeModel(StorageAwareResource resource, InputStream inputStream) throws IOException {

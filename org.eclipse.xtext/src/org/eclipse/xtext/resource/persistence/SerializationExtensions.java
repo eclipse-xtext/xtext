@@ -47,7 +47,7 @@ public class SerializationExtensions {
 		try {
 			return ((T) in.readObject());
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException(e);
+			throw new IOException(e);
 		}
 	}
 
@@ -69,8 +69,8 @@ public class SerializationExtensions {
 	public static QualifiedName readQualifiedName(ObjectInput in) throws IOException {
 		try {
 			return QualifiedName.create((List<String>) in.readObject());
-		} catch (IOException | ClassNotFoundException e) {
-			throw new RuntimeException(e);
+		} catch (ClassNotFoundException e) {
+			throw new IOException(e);
 		}
 	}
 
