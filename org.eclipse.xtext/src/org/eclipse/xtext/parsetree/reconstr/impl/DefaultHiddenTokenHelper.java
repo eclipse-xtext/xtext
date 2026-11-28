@@ -14,10 +14,12 @@ import org.eclipse.xtext.xtext.RuleNames;
 
 import com.google.common.collect.Iterables;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
 /**
  * @author Moritz Eysholdt - Initial contribution and API
  */
+@Singleton
 public class DefaultHiddenTokenHelper extends AbstractHiddenTokenHelper {
 
 	private AbstractRule wsRule;
