@@ -250,8 +250,20 @@ public class WorkspaceManager {
 			ProjectManager projectManager = projectName2ProjectManager.remove(deletedProject);
 			projectManager.aboutToRemoveFromWorkspace();
 			fullIndex.remove(deletedProject);
+			notifyProjectRemoved(deletedProject);
 		}
 		afterBuild(buildManager.doInitialBuild(newProjects, cancelIndicator));
+	}
+
+	/**
+	 * Notify all project managers that the project has been removed from the workspace.
+	 * 
+	 * @since 2.45
+	 */
+	protected void notifyProjectRemoved(String deletedProject) {
+		for (ProjectManager remainingProject : projectName2ProjectManager.values()) {
+			remainingProject.notifyProjectRemoved(deletedProject);
+		}
 	}
 
 	/**
